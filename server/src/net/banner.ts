@@ -16,6 +16,8 @@ export function printBanner(clientPort: number, serverPort: number): void {
 
   if (joinUrl) {
     console.log(`  Игроки:       \x1b[32m${joinUrl}\x1b[0m`);
+    console.log('  \x1b[2mкод комнаты вводится руками; QR с готовым кодом');
+    console.log('  покажет экран ведущего после создания комнаты\x1b[0m');
     console.log('\n  Наведите камеру телефона на QR:\n');
     qrcode.generate(joinUrl, { small: true });
   } else {
