@@ -1,9 +1,10 @@
-import type { LogEntry, RoomState, TimerKind } from '@svoyak/shared';
+import type { AuctionState, LogEntry, RoomState, TimerKind } from '@svoyak/shared';
 import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
 import { activeQuestion, findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
+import { minRaise, nextBidder } from './auction.js';
 import { applyDelta } from './players.js';
 
 export interface ReduceResult {
@@ -211,8 +212,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
             ? 'auction_bidding'
             : 'reading';
 
-      return {
-        state: {
+      const opened: RoomState = {
           ...state,
           phase,
           cat:
@@ -248,7 +248,23 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
           },
           buzz: resetBuzz(),
           log: log(state, action.at, `${theme.title} за ${question.price}`),
-        },
+      };
+
+      if (phase === 'auction_bidding' && openedBy) {
+        // Номинал ставит открывший, дальше по кругу могут перебить.
+        const opening: AuctionState = {
+          currentBid: question.price,
+          leaderId: openedBy,
+          turnPlayerId: null,
+          passedIds: [],
+          allInIds: [],
+        };
+        const started = closeOrContinueAuction(opened, opening, openedBy, action.at);
+        return { ...started, effects: [{ type: 'clearTimer' }, ...started.effects] };
+      }
+
+      return {
+        state: opened,
         // Таймера чтения нет: кнопку открывает ведущий, когда дочитает вопрос.
         effects: [{ type: 'clearTimer' }, { type: 'persist' }],
       };
@@ -464,7 +480,44 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     }
 
     case 'BID': {
-      return reject(state, 'Аукцион пока не реализован');
+      const auction = state.auction;
+      if (state.phase !== 'auction_bidding' || !auction || !state.active) {
+        return reject(state, 'Сейчас нет торгов');
+      }
+      if (auction.turnPlayerId !== action.playerId) return reject(state, 'Сейчас не ваш ход');
+      const player = findPlayer(state, action.playerId);
+      if (!player) return reject(state, 'Игрок не найден');
+
+      const step = state.settings.auctionStep;
+
+      if (action.amount === 'pass') {
+        const passed = { ...auction, passedIds: [...auction.passedIds, action.playerId] };
+        return closeOrContinueAuction(state, passed, action.playerId, action.at);
+      }
+
+      const amount = action.amount === 'all-in' ? player.score : action.amount;
+      if (!Number.isFinite(amount)) return reject(state, 'Некорректная ставка');
+      if (amount > player.score) return reject(state, 'Ставка больше вашего счёта');
+      if (amount < minRaise(auction, step)) {
+        return reject(state, `Поднимать нужно минимум до ${minRaise(auction, step)}`);
+      }
+
+      const raised: AuctionState = {
+        ...auction,
+        currentBid: amount,
+        leaderId: action.playerId,
+        allInIds:
+          amount === player.score ? [...auction.allInIds, action.playerId] : auction.allInIds,
+      };
+      const withLog: RoomState = {
+        ...state,
+        log: log(
+          state,
+          action.at,
+          `${player.name}: ${amount === player.score ? 'ва-банк' : 'ставка'} ${amount}`,
+        ),
+      };
+      return closeOrContinueAuction(withLog, raised, action.playerId, action.at);
     }
 
     case 'TIMER_EXPIRED': {
@@ -479,6 +532,42 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       return { state, effects: [] };
     }
   }
+}
+
+/** После каждой ставки: либо ход следующему, либо торги закончены и играет лидер. */
+function closeOrContinueAuction(
+  state: RoomState,
+  auction: AuctionState,
+  afterPlayerId: string,
+  at: number,
+): ReduceResult {
+  const turn = nextBidder(state, auction, afterPlayerId);
+  const withSkipped: AuctionState = {
+    ...auction,
+    passedIds: [...new Set([...auction.passedIds, ...turn.skipped])],
+  };
+
+  if (turn.playerId !== null) {
+    return {
+      state: { ...state, auction: { ...withSkipped, turnPlayerId: turn.playerId } },
+      effects: [{ type: 'persist' }],
+    };
+  }
+
+  const winnerId = withSkipped.leaderId;
+  const winner = winnerId ? findPlayer(state, winnerId) : undefined;
+  if (!winnerId || !winner || !state.active) return reject(state, 'Торги некому выиграть');
+
+  return {
+    state: {
+      ...state,
+      phase: 'auction_answer',
+      auction: { ...withSkipped, turnPlayerId: null },
+      active: { ...state.active, price: withSkipped.currentBid, soloPlayerId: winnerId },
+      log: log(state, at, `Аукцион выиграл ${winner.name} за ${withSkipped.currentBid}`),
+    },
+    effects: [{ type: 'persist' }],
+  };
 }
 
 /** Вердикт ведущего: счёт, право хода и что делать с кнопкой дальше. */
