@@ -231,6 +231,10 @@ export interface CatView {
 
 export interface FinalPublicView {
   themes: FinalThemeState[];
+  /** Оставшаяся тема — известна с самого начала ставок. */
+  themeTitle: string | null;
+  /** Текст вопроса появляется только когда пора отвечать: ставят вслепую. */
+  questionText: string | null;
   removalTurnPlayerId: string | null;
   participantIds: string[];
   /** Кто уже сделал ставку и написал ответ — без содержимого. */
@@ -248,13 +252,23 @@ export interface FinalRevealedEntry {
   correct: boolean | null;
 }
 
+/** Финал глазами ведущего: с ответом и с тем, кто ещё не сдал ставку. */
+export interface FinalHostView extends FinalPublicView {
+  answer: string | null;
+  altAnswers: string[];
+  hostComment?: string;
+  /** Ставки и ответы целиком — ведущий вскрывает их по одному. */
+  bets: Record<string, number>;
+  answers: Record<string, string>;
+}
+
 export interface HostView extends BaseView {
   role: 'host';
   settings: RoomSettings;
   question: HostQuestionView | null;
   auction: AuctionView | null;
   cat: CatView | null;
-  final: (FinalPublicView & { themeAnswer: string | null }) | null;
+  final: FinalHostView | null;
   log: LogEntry[];
   canUndo: boolean;
   /** Ссылка для подключения игроков, показывается вместе с QR. */

@@ -3,6 +3,8 @@ import { ask } from '../../net/socket.js';
 import { BoardGrid } from '../BoardGrid.js';
 import { PlayerLedger } from '../PlayerLedger.js';
 import { TimerBar } from '../Timer.js';
+import { FinalHost } from './FinalHost.js';
+import { Standings } from '../Standings.js';
 
 interface HostGameProps {
   view: HostView;
@@ -17,6 +19,7 @@ export function HostGame({ view }: HostGameProps) {
   const control = view.players.find((player) => player.isControl);
   const question = view.question;
   const canPick = view.phase === 'picking' || view.phase === 'round_intro';
+  const inFinal = view.final !== null && view.phase !== 'results';
 
   return (
     <div className="mx-auto flex w-full max-w-[110rem] flex-col gap-4 p-4">
@@ -50,7 +53,13 @@ export function HostGame({ view }: HostGameProps) {
         <div className="grid gap-4">
           <TimerBar timer={view.timer} paused={view.paused} />
 
-          {question ? (
+          {inFinal ? (
+            <FinalHost
+              view={view}
+              onJudge={(correct) => send('host:finalJudge', { correct })}
+              onForce={() => send('host:continue')}
+            />
+          ) : question ? (
             <section className="grid gap-3 rounded-3xl border border-line bg-surface p-5">
               <p className="text-sm text-muted">
                 {question.themeTitle} · <span className="tabular-nums">{question.price}</span>
@@ -226,6 +235,31 @@ export function HostGame({ view }: HostGameProps) {
         </div>
 
         <section className="rounded-3xl border border-line bg-surface/50 p-4 xl:sticky xl:top-4">
+          {view.phase === 'results' ? (
+            <div className="grid gap-3">
+              <h2 className="text-center text-2xl font-black text-gold">Итог</h2>
+              <Standings players={view.players} />
+            </div>
+          ) : inFinal ? (
+            <div className="grid gap-2">
+              <h2 className="text-lg font-bold">Темы финала</h2>
+              <ul className="grid gap-1">
+                {view.final?.themes.map((theme) => (
+                  <li
+                    key={theme.id}
+                    className={`rounded-xl border px-3 py-2 ${
+                      theme.removedByPlayerId
+                        ? 'border-transparent text-muted line-through'
+                        : 'border-gold text-gold'
+                    }`}
+                  >
+                    {theme.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <>
           <BoardGrid
             board={view.board}
             {...(canPick
@@ -236,6 +270,8 @@ export function HostGame({ view }: HostGameProps) {
             <p className="mt-3 text-center text-sm text-muted">
               Идёт вопрос — закончите его, чтобы открыть следующий
             </p>
+          )}
+            </>
           )}
         </section>
       </div>

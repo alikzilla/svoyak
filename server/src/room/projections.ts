@@ -45,7 +45,13 @@ function projectBase(state: RoomState, now: number): BaseView {
     phase: state.phase,
     paused: state.paused,
     packTitle: state.pack.title,
-    roundTitle: state.pack.rounds[state.roundIndex]?.title ?? 'Финал',
+    // В финале номер раунда уже не важен: показываем, где мы на самом деле.
+    roundTitle:
+      state.phase === 'results'
+        ? 'Итог'
+        : state.final !== null
+          ? 'Финал'
+          : (state.pack.rounds[state.roundIndex]?.title ?? 'Финал'),
     roundIndex: state.roundIndex,
     roundsTotal: state.pack.rounds.length,
     board: state.board,
@@ -99,11 +105,27 @@ function projectHostQuestion(state: RoomState): HostQuestionView | null {
   return view;
 }
 
+/** Оставшаяся тема финала и её вопрос из пака. */
+function finalTheme(state: RoomState) {
+  const remaining = state.final?.themes.filter((theme) => theme.removedByPlayerId === null) ?? [];
+  if (remaining.length !== 1) return null;
+  const id = remaining[0]?.id;
+  return state.pack.final.themes.find((theme) => theme.id === id) ?? null;
+}
+
 function projectFinalPublic(state: RoomState): FinalPublicView | null {
   const final = state.final;
   if (!final) return null;
+
+  const theme = finalTheme(state);
+  // Ставят вслепую: текст вопроса появляется только когда пора писать ответ.
+  const questionVisible =
+    state.phase === 'final_answers' || state.phase === 'final_reveal' || state.phase === 'results';
+
   return {
     themes: final.themes,
+    themeTitle: theme?.title ?? null,
+    questionText: questionVisible ? (theme?.question.text ?? null) : null,
     removalTurnPlayerId: final.removalTurnPlayerId,
     participantIds: final.participantIds,
     betPlacedIds: Object.keys(final.bets),
@@ -130,11 +152,7 @@ export function projectForHost(
 ): HostView {
   const now = options.now ?? Date.now();
   const finalPublic = projectFinalPublic(state);
-  const finalThemeAnswer =
-    state.final && state.final.themes.length === 1
-      ? (state.pack.final.themes.find((theme) => theme.id === state.final?.themes[0]?.id)?.question
-          .answer ?? null)
-      : null;
+  const theme = finalTheme(state);
 
   return {
     ...projectBase(state, now),
@@ -143,7 +161,20 @@ export function projectForHost(
     question: projectHostQuestion(state),
     auction: state.auction,
     cat: state.cat,
-    final: finalPublic ? { ...finalPublic, themeAnswer: finalThemeAnswer } : null,
+    final: finalPublic
+      ? {
+          ...finalPublic,
+          // Ведущему вопрос виден всегда: ему его читать.
+          questionText: theme?.question.text ?? null,
+          answer: theme?.question.answer ?? null,
+          altAnswers: theme?.question.altAnswers ?? [],
+          ...(theme?.question.hostComment !== undefined
+            ? { hostComment: theme.question.hostComment }
+            : {}),
+          bets: state.final?.bets ?? {},
+          answers: state.final?.answers ?? {},
+        }
+      : null,
     log: state.log,
     canUndo: options.canUndo ?? false,
     joinUrl,

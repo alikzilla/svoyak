@@ -139,7 +139,6 @@ export interface ClientToServerEvents {
   'host:undo': (ack: Ack<null>) => void;
   'host:nextRound': (ack: Ack<null>) => void;
   'host:finalJudge': (payload: FinalJudgePayload, ack: Ack<null>) => void;
-  'host:finalRevealNext': (ack: Ack<null>) => void;
 
   'player:buzz': (payload: BuzzPayload, ack: Ack<null>) => void;
   'player:catTransfer': (payload: CatTransferPayload, ack: Ack<null>) => void;

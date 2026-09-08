@@ -7,6 +7,7 @@ import { RoomCode } from '../ui/RoomCode.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 import { TimerBar } from '../ui/Timer.js';
 import { unlockAudio } from '../net/sounds.js';
+import { Standings } from '../ui/Standings.js';
 
 export default function Board() {
   const [params, setParams] = useSearchParams();
@@ -80,7 +81,46 @@ export default function Board() {
         )}
       </header>
 
-      {!inLobby && (
+      {view.phase === 'results' ? (
+        <section className="flex flex-1 flex-col justify-center gap-6">
+          <h2 className="text-center text-4xl font-black text-gold">Игра окончена</h2>
+          <Standings players={view.players} />
+        </section>
+      ) : view.final ? (
+        <section className="flex flex-1 flex-col justify-center gap-6 text-center">
+          <p className="text-2xl text-muted">Финал · {view.final.themeTitle ?? 'убирают темы'}</p>
+          {view.final.questionText ? (
+            <p className="text-[clamp(1.75rem,1rem+3vw,3.5rem)] leading-tight font-bold text-pretty">
+              {view.final.questionText}
+            </p>
+          ) : (
+            <ul className="mx-auto grid max-w-3xl gap-2">
+              {view.final.themes.map((theme) => (
+                <li
+                  key={theme.id}
+                  className={`rounded-2xl border px-5 py-3 text-2xl ${
+                    theme.removedByPlayerId
+                      ? 'border-transparent text-muted line-through'
+                      : 'border-gold text-gold'
+                  }`}
+                >
+                  {theme.title}
+                </li>
+              ))}
+            </ul>
+          )}
+          {view.final.revealed.length > 0 && (
+            <ul className="mx-auto grid max-w-3xl gap-1 text-xl">
+              {view.final.revealed.map((entry) => (
+                <li key={entry.playerId} className={entry.correct ? 'text-good' : 'text-bad'}>
+                  {view.players.find((player) => player.id === entry.playerId)?.name}:{' '}
+                  {entry.answer || '—'} ({entry.bet})
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : !inLobby ? (
         <section className="flex flex-1 flex-col justify-center gap-6">
           <TimerBar timer={view.timer} paused={view.paused} />
           {view.question ? (
@@ -107,7 +147,7 @@ export default function Board() {
             <BoardGrid board={view.board} />
           )}
         </section>
-      )}
+      ) : null}
 
       <section className="mt-auto grid auto-cols-fr grid-flow-col gap-4">
         {view.players.map((player) => (

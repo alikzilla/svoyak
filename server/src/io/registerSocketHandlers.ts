@@ -278,6 +278,46 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
+    socket.on('player:finalRemoveTheme', ({ themeId }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      const result = room.dispatch({ type: 'FINAL_REMOVE_THEME', playerId, themeId, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('player:finalBet', ({ bet }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      const result = room.dispatch({ type: 'FINAL_BET', playerId, bet, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('player:finalAnswer', ({ answer }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      const result = room.dispatch({ type: 'FINAL_ANSWER', playerId, answer, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('host:finalJudge', ({ correct }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const result = room.dispatch({ type: 'FINAL_JUDGE', correct, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
     socket.on('player:buzz', ({ clientTime, clockOffset, minRtt }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;

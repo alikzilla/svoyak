@@ -9,10 +9,15 @@ import { Buzzer } from '../ui/Buzzer.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 import { CatPick } from '../ui/CatPick.js';
 import { BidPanel } from '../ui/BidPanel.js';
+import { FinalPlayer } from '../ui/FinalPlayer.js';
 
 const WAIT_HINT: Partial<Record<string, string>> = {
   answering: 'Отвечают',
   cat_transfer: 'Кота передают другому игроку',
+  final_theme_removal: 'Убирают темы финала',
+  final_bets: 'Остальные делают ставки',
+  final_answers: 'Остальные пишут ответы',
+  final_reveal: 'Ведущий вскрывает ответы',
   cat_answer: 'Отвечает получивший кота',
   auction_bidding: 'Идут торги',
   auction_answer: 'Отвечает победитель торгов',
@@ -110,6 +115,16 @@ export default function Play() {
           maxBid={view.prompt.maxBid}
           canPass={view.prompt.canPass}
           onBid={(amount) => void ask('player:bid', { amount })}
+        />
+      ) : view.prompt.kind === 'final_remove_theme' ||
+        view.prompt.kind === 'final_bet' ||
+        view.prompt.kind === 'final_answer' ? (
+        <FinalPlayer
+          view={view}
+          prompt={view.prompt}
+          onRemoveTheme={(themeId) => void ask('player:finalRemoveTheme', { themeId })}
+          onBet={(bet) => void ask('player:finalBet', { bet })}
+          onAnswer={(answer) => void ask('player:finalAnswer', { answer })}
         />
       ) : view.prompt.kind === 'solo_answer' ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
