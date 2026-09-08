@@ -10,14 +10,17 @@
     "build:packs": "tsx --tsconfig ./tsconfig.json src/packs/buildDemoPacks.ts"
   },
   "dependencies": {
+    "adm-zip": "^0.6.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "fast-xml-parser": "^5.11.1",
     "multer": "^2.3.0",
     "nanoid": "^3.3.18",
     "qrcode-terminal": "^0.12.0",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {
+    "@types/adm-zip": "^0.5.8",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/multer": "^2.2.0",

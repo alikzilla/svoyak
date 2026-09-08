@@ -5,7 +5,8 @@ import { Router } from 'express';
 import multer from 'multer';
 import type { Media, MediaKind } from '@svoyak/shared';
 import { UPLOADS_DIR } from '../config.js';
-import { getPack } from '../storage/packsRepo.js';
+import { importSiq } from '../packs/siq/importSiq.js';
+import { getPack, savePack } from '../storage/packsRepo.js';
 
 const MAX_SIZE_BYTES = 50 * 1024 * 1024;
 
@@ -66,6 +67,23 @@ export function mediaRouter(): Router {
 
     const media: Media = { kind, src: `/uploads/${pack.id}/${fileName}` };
     res.status(201).json({ media });
+  });
+
+  router.post('/packs/import-siq', upload.single('file'), (req, res) => {
+    const file = req.file;
+    if (!file) {
+      res.status(400).json({ error: 'Файл не получен' });
+      return;
+    }
+
+    const result = importSiq(file.buffer);
+    if (result.report.some((entry) => entry.level === 'error')) {
+      res.status(400).json({ report: result.report });
+      return;
+    }
+
+    savePack(result.pack);
+    res.status(201).json({ pack: result.pack, report: result.report });
   });
 
   return router;
