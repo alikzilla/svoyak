@@ -14,7 +14,7 @@ export type Effect =
   | { type: 'persist' }
   | { type: 'sound'; sound: SoundId }
   | { type: 'toast'; to: 'host' | 'all' | { playerId: string }; text: string; tone: 'info' | 'warn' | 'error' }
-  | { type: 'setTimer'; kind: TimerKind; durationMs: number }
+  | { type: 'setTimer'; kind: TimerKind; durationMs: number; onExpire: GameAction }
   | { type: 'clearTimer' };
 
 /** Действия, которые ведущий может отменить кнопкой «отменить». */
