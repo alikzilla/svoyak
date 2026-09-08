@@ -55,23 +55,17 @@ export default function Join() {
       <DoodleField density="light" night />
 
       <form
-        className="relative my-auto grid w-full max-w-sm gap-4 self-center"
+        className="relative my-auto grid w-full max-w-sm min-w-0 gap-4 self-center"
         onSubmit={(event) => void submit(event)}
       >
         <div className="grid justify-items-center gap-2">
-          <AnimatePresence mode="popLayout">
-            <motion.div
-              key={preview}
-              initial={{ scale: 0.6, rotate: -12, opacity: 0 }}
-              animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              exit={{ scale: 0.6, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 14 }}
-            >
-              <Avatar seed={preview} color={colorForIndex(preview.length)} size={116} />
-            </motion.div>
-          </AnimatePresence>
+          {/* Лицо меняется прямо во время набора имени — персонаж собирается из него.
+              На низком экране (горизонтальная ориентация, клавиатура) прячем: важнее кнопка. */}
+          <div className="hidden [@media(min-height:560px)]:block">
+            <Avatar seed={preview} color={colorForIndex(preview.length)} size={116} />
+          </div>
           <h1
-            className="font-pop text-4xl font-black"
+            className="font-pop text-3xl font-black [@media(min-height:560px)]:text-4xl"
             style={{ WebkitTextStroke: '3px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
           >
             Свояк
@@ -89,7 +83,7 @@ export default function Join() {
               autoComplete="off"
               autoFocus={code.length === 0}
               placeholder="1234"
-              className="ink-border font-pop bg-card text-ink rounded-2xl px-4 py-4 text-center text-4xl font-black tabular-nums"
+              className="ink-border font-pop bg-card text-ink w-full min-w-0 rounded-2xl px-4 py-4 text-center text-4xl font-black tabular-nums"
               style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
             />
           </label>
@@ -124,7 +118,7 @@ export default function Join() {
             spellCheck={false}
             enterKeyHint="go"
             placeholder="Вася"
-            className="ink-border font-pop bg-card text-ink rounded-2xl px-4 py-4 text-center text-2xl font-black"
+            className="ink-border font-pop bg-card text-ink w-full min-w-0 rounded-2xl px-4 py-4 text-center text-2xl font-black"
             style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
           />
         </label>
