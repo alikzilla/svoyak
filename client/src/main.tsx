@@ -16,6 +16,7 @@ const router = createBrowserRouter([
   { path: '/play', element: <Play /> },
   { path: '/board', element: <Board /> },
   { path: '/editor', element: <Editor /> },
+  { path: '/editor/:packId', element: <Editor /> },
 ]);
 
 const rootEl = document.getElementById('root');
