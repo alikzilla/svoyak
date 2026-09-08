@@ -3,6 +3,7 @@ import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
 import { findQuestion, findTheme } from './questions.js';
+import { canBuzz, pickWinner } from './buzz.js';
 
 export interface ReduceResult {
   state: RoomState;
@@ -266,8 +267,161 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       };
     }
 
+    case 'OPEN_BUZZER': {
+      return openBuzzer(state, action.at);
+    }
+
+    case 'BUZZ': {
+      const player = findPlayer(state, action.playerId);
+      if (!player) return reject(state, 'Игрок не найден');
+
+      // Нажатие до открытия кнопки: блокируем нажавшего на этот вопрос.
+      if (state.phase === 'reading') {
+        return {
+          state: {
+            ...state,
+            buzz: {
+              ...state.buzz,
+              lockedUntil: {
+                ...state.buzz.lockedUntil,
+                [action.playerId]: action.atServerTime + state.settings.falseStartLockMs,
+              },
+            },
+            log: log(state, action.receivedAt, `Фальстарт: ${player.name}`),
+          },
+          effects: [
+            {
+              type: 'toast',
+              to: { playerId: action.playerId },
+              text: 'Фальстарт! Кнопка заблокирована на пару секунд',
+              tone: 'warn',
+            },
+            { type: 'persist' },
+          ],
+        };
+      }
+
+      if (state.phase !== 'buzzer_open') return { state, effects: [] };
+      if (state.buzz.answeringPlayerId !== null) return { state, effects: [] };
+      if (!canBuzz(state, action.playerId, action.atServerTime)) return { state, effects: [] };
+      if (state.buzz.candidates.some((candidate) => candidate.playerId === action.playerId)) {
+        return { state, effects: [] };
+      }
+
+      const candidates = [
+        ...state.buzz.candidates,
+        { playerId: action.playerId, atServerTime: action.atServerTime },
+      ];
+      const isFirst = state.buzz.candidates.length === 0;
+      if (!isFirst) {
+        return { state: { ...state, buzz: { ...state.buzz, candidates } }, effects: [] };
+      }
+
+      // Первое нажатие открывает окно сбора: победителя выбираем по метке, а не по пакету.
+      const graceClosesAt = action.atServerTime + state.settings.buzzGraceMs;
+      return {
+        state: { ...state, buzz: { ...state.buzz, candidates, graceClosesAt } },
+        effects: [
+          {
+            type: 'setTimer',
+            kind: 'buzz',
+            durationMs: state.settings.buzzGraceMs,
+            onExpire: { type: 'BUZZ_WINDOW_CLOSED', at: graceClosesAt },
+          },
+        ],
+      };
+    }
+
+    case 'BUZZ_WINDOW_CLOSED': {
+      if (state.phase !== 'buzzer_open') return { state, effects: [] };
+      const eligible = state.buzz.candidates.filter((candidate) =>
+        canBuzz(state, candidate.playerId, candidate.atServerTime),
+      );
+      const winner = pickWinner(eligible);
+      if (!winner) {
+        return {
+          state: { ...state, buzz: { ...state.buzz, candidates: [], graceClosesAt: null } },
+          effects: [],
+        };
+      }
+
+      const player = findPlayer(state, winner.playerId);
+      return {
+        state: {
+          ...state,
+          phase: 'answering',
+          buzz: {
+            ...state.buzz,
+            candidates: [],
+            graceClosesAt: null,
+            answeringPlayerId: winner.playerId,
+          },
+          log: log(state, action.at, `Отвечает ${player?.name ?? '—'}`),
+        },
+        effects: [
+          { type: 'sound', sound: 'buzz_hit' },
+          {
+            type: 'setTimer',
+            kind: 'answer',
+            durationMs: state.settings.answerTimeMs,
+            onExpire: { type: 'TIMER_EXPIRED', kind: 'answer', at: action.at },
+          },
+        ],
+      };
+    }
+
     case 'TIMER_EXPIRED': {
+      if (action.kind === 'reading') return openBuzzer(state, action.at);
+
+      if (action.kind === 'buzz') {
+        if (state.phase !== 'buzzer_open') return { state, effects: [] };
+        return {
+          state: revealAnswer(state, action.at, 'Время вышло, никто не ответил'),
+          effects: [{ type: 'sound', sound: 'time_up' }, { type: 'clearTimer' }, { type: 'persist' }],
+        };
+      }
+
       return { state, effects: [] };
     }
   }
+}
+
+/** Открытие кнопки: с этого момента идёт общий бюджет времени на вопрос. */
+function openBuzzer(state: RoomState, at: number): ReduceResult {
+  if (state.phase !== 'reading') return reject(state, 'Вопрос ещё не открыт');
+  return {
+    state: {
+      ...state,
+      phase: 'buzzer_open',
+      buzz: {
+        ...state.buzz,
+        openedAt: at,
+        closesAt: at + state.settings.buzzOpenMs,
+        candidates: [],
+        graceClosesAt: null,
+        answeringPlayerId: null,
+      },
+    },
+    effects: [
+      { type: 'sound', sound: 'buzz_open' },
+      {
+        type: 'setTimer',
+        kind: 'buzz',
+        durationMs: state.settings.buzzOpenMs,
+        onExpire: { type: 'TIMER_EXPIRED', kind: 'buzz', at: at + state.settings.buzzOpenMs },
+      },
+    ],
+  };
+}
+
+/** Показать правильный ответ всем: с этого момента он попадает в проекции игроков. */
+export function revealAnswer(state: RoomState, at: number, reason: string): RoomState {
+  return {
+    ...state,
+    phase: 'answer_reveal',
+    active: state.active ? { ...state.active, answerRevealed: true } : null,
+    buzz: { ...state.buzz, answeringPlayerId: null, candidates: [], graceClosesAt: null },
+    timer: null,
+    log: [...state.log, { at, text: reason }].slice(-200),
+  };
 }

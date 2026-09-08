@@ -21,7 +21,16 @@ export type GameAction =
   | { type: 'NEXT_ROUND'; at: number }
   | { type: 'SET_CONTROL'; playerId: string }
   | { type: 'PAUSE'; paused: boolean }
-  | { type: 'TIMER_EXPIRED'; kind: TimerKind; at: number };
+  | { type: 'TIMER_EXPIRED'; kind: TimerKind; at: number }
+  | { type: 'OPEN_BUZZER'; at: number }
+  | {
+      type: 'BUZZ';
+      playerId: string;
+      /** Метка нажатия, уже приведённая к серверному времени. */
+      atServerTime: number;
+      receivedAt: number;
+    }
+  | { type: 'BUZZ_WINDOW_CLOSED'; at: number };
 
 /** Побочные действия: редьюсер их только описывает, исполняет RoomRuntime. */
 export type Effect =
