@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './design/fonts.js';
 import './index.css';
 import Landing from './routes/Landing.js';
 import Host from './routes/Host.js';
@@ -8,6 +9,7 @@ import Join from './routes/Join.js';
 import Play from './routes/Play.js';
 import Board from './routes/Board.js';
 import Editor from './routes/Editor.js';
+import Style from './routes/Style.js';
 
 const router = createBrowserRouter([
   { path: '/', element: <Landing /> },
@@ -17,6 +19,7 @@ const router = createBrowserRouter([
   { path: '/board', element: <Board /> },
   { path: '/editor', element: <Editor /> },
   { path: '/editor/:packId', element: <Editor /> },
+  { path: '/style', element: <Style /> },
 ]);
 
 const rootEl = document.getElementById('root');

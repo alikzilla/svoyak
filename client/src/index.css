@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './design/tokens.css';
 
 @theme {
   --color-bg: #070713;
@@ -14,6 +15,37 @@
 
   --font-display: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
+
+/* Рисованная тема. Объявлена после тёмной, поэтому при совпадении имён выигрывает она. */
+@theme {
+  --color-paper: #fff6e9;
+  --color-paper-2: #ffedd5;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #5b524b;
+
+  /* Цвет закрепляется за игроком и ходит за ним по всем экранам. */
+  --color-p1: #7b4bf7;
+  --color-p2: #ff6b57;
+  --color-p3: #12beb0;
+  --color-p4: #ffc53d;
+  --color-p5: #93d93a;
+  --color-p6: #ff5fa2;
+
+  --color-yes: #2ebd59;
+  --color-no: #e23b3b;
+  --color-gold: #f2a93b;
+
+  --color-night: #131c3f;
+  --color-night-2: #22306b;
+
+  --font-hand: 'Caveat Variable', 'Comic Sans MS', cursive;
+  --font-pop: 'Unbounded Variable', system-ui, sans-serif;
+  --font-body: 'Nunito Variable', system-ui, sans-serif;
+  --font-round: 'Rubik Variable', system-ui, sans-serif;
+  --font-soft: 'Comfortaa Variable', system-ui, sans-serif;
+  --font-tech: 'Russo One', system-ui, sans-serif;
+}
+
 
 :root {
   color-scheme: dark;
