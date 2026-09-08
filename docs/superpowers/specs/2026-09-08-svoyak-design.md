@@ -75,7 +75,7 @@
    будущем и не может быть старше `now - maxPlausibleRtt`. Выход за
    границы — метка зажимается до момента приёма пакета.
 3. Получив первое нажатие, сервер **не объявляет победителя сразу**, а
-   открывает окно сбора `BUZZ_WINDOW_MS = 150`, собирает все нажатия и
+   открывает окно сбора `buzzGraceMs` (150 мс), собирает все нажатия и
    выбирает минимальную скорректированную метку. Без окна игрок с плохим
    каналом проигрывает пакету, а не реакции.
 4. Нажатие до открытия кнопки — фальстарт: игрок блокируется на
@@ -106,14 +106,20 @@
 
     RoomSettings {
       readingTimeMs: 3000        // от открытия вопроса до кнопки
-      answerTimeMs: 10000        // на ответ после нажатия
+      buzzOpenMs: 8000           // сколько всего кнопка открыта на вопрос
+      buzzGraceMs: 150           // окно сбора нажатий
       falseStartLockMs: 2500
-      finalBetTimeMs / finalAnswerTimeMs
+      answerTimeMs: 10000        // на устный ответ после нажатия
+      soloAnswerTimeMs: 20000    // кот и аукцион — ответ без кнопки
+      finalBetTimeMs: 60000 / finalAnswerTimeMs: 60000
       penaltyOnWrong: boolean    // штраф за неверный ответ
       allowNegative: boolean     // разрешать уход в минус
       finalRequiresPositive: boolean  // отсев нулей и минусов в финал
-      buzzWindowMs: 150
+      auctionStep: 100           // минимальный шаг повышения ставки
     }
+
+`buzzOpenMs` — общий бюджет времени на кнопку по вопросу: после неверного
+ответа кнопка открывается остальным на **остаток** этого бюджета.
 
 ### 3.3 Состояние комнаты
 
@@ -132,11 +138,19 @@
 
 ### 3.4 Фазы
 
-    lobby → round_intro → picking → question_reading
-          → [cat_transfer | auction_bidding]        (для спецвопросов)
-          → buzzer_open → answering → judging → answer_reveal → picking
+    lobby → round_intro → picking → reading
+          → buzzer_open → answering → answer_reveal → picking
           → round_end → (следующий раунд | final_theme_removal)
-    final_theme_removal → final_bets → final_answers → final_judging → results
+
+    спецвопросы вместо кнопки:
+    reading → cat_transfer → cat_answer → answer_reveal
+    reading → auction_bidding → auction_answer → answer_reveal
+
+    финал:
+    final_theme_removal → final_bets → final_answers → final_reveal → results
+
+Судейство — не отдельная фаза: ведущий выносит вердикт, находясь в
+`answering`, `cat_answer`, `auction_answer` или `final_reveal`.
 
 Пауза — флаг поверх фазы, а не отдельная фаза: замораживает таймеры.
 
