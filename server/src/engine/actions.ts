@@ -7,7 +7,21 @@ export type GameAction =
   | { type: 'PLAYER_KICK'; playerId: string }
   | { type: 'SET_SCORE'; playerId: string; score: number }
   | { type: 'SET_SETTINGS'; settings: Partial<RoomSettings> }
-  | { type: 'HOST_PRESENCE'; connected: boolean };
+  | { type: 'HOST_PRESENCE'; connected: boolean }
+  | { type: 'START_GAME'; at: number }
+  | {
+      type: 'PICK_QUESTION';
+      themeId: string;
+      questionId: string;
+      /** null — выбрал ведущий вручную. */
+      byPlayerId: string | null;
+      at: number;
+    }
+  | { type: 'CONTINUE'; at: number }
+  | { type: 'NEXT_ROUND'; at: number }
+  | { type: 'SET_CONTROL'; playerId: string }
+  | { type: 'PAUSE'; paused: boolean }
+  | { type: 'TIMER_EXPIRED'; kind: TimerKind; at: number };
 
 /** Побочные действия: редьюсер их только описывает, исполняет RoomRuntime. */
 export type Effect =
@@ -15,10 +29,17 @@ export type Effect =
   | { type: 'sound'; sound: SoundId }
   | { type: 'toast'; to: 'host' | 'all' | { playerId: string }; text: string; tone: 'info' | 'warn' | 'error' }
   | { type: 'setTimer'; kind: TimerKind; durationMs: number; onExpire: GameAction }
-  | { type: 'clearTimer' };
+  | { type: 'clearTimer' }
+  | { type: 'pauseTimer' }
+  | { type: 'resumeTimer' };
 
 /** Действия, которые ведущий может отменить кнопкой «отменить». */
-const UNDOABLE = new Set<GameAction['type']>(['SET_SCORE', 'PLAYER_KICK']);
+const UNDOABLE = new Set<GameAction['type']>([
+  'SET_SCORE',
+  'PLAYER_KICK',
+  'PICK_QUESTION',
+  'SET_CONTROL',
+]);
 
 export function isUndoable(action: GameAction): boolean {
   return UNDOABLE.has(action.type);

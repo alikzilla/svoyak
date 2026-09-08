@@ -24,6 +24,8 @@ export class RoomRuntime {
   private readonly undoStack = new UndoStack();
   private readonly listeners = new Set<() => void>();
   private timerHandle: NodeJS.Timeout | null = null;
+  /** Действие, которое нужно отправить в редьюсер по истечении таймера. */
+  private pendingExpire: GameAction | null = null;
 
   constructor(
     initial: RoomState,
@@ -113,6 +115,12 @@ export class RoomRuntime {
         case 'clearTimer':
           this.clearTimer();
           break;
+        case 'pauseTimer':
+          this.pauseTimer();
+          break;
+        case 'resumeTimer':
+          this.resumeTimer();
+          break;
         case 'sound':
         case 'toast':
           this.deps.emit?.(effect);
@@ -123,6 +131,7 @@ export class RoomRuntime {
 
   private startTimer(kind: TimerKind, durationMs: number, onExpire: GameAction): void {
     this.clearTimer();
+    this.pendingExpire = onExpire;
     const endsAt = Date.now() + durationMs;
     this.current = {
       ...this.current,
@@ -137,7 +146,35 @@ export class RoomRuntime {
   private clearTimer(): void {
     if (this.timerHandle) clearTimeout(this.timerHandle);
     this.timerHandle = null;
+    this.pendingExpire = null;
     if (this.current.timer) this.current = { ...this.current, timer: null };
+  }
+
+  /** Пауза замораживает остаток: таймер снимается, но состояние помнит, сколько осталось. */
+  private pauseTimer(): void {
+    const timer = this.current.timer;
+    if (!timer || timer.remainingMs !== null) return;
+    if (this.timerHandle) clearTimeout(this.timerHandle);
+    this.timerHandle = null;
+    this.current = {
+      ...this.current,
+      timer: { ...timer, remainingMs: Math.max(0, timer.endsAt - Date.now()) },
+    };
+  }
+
+  private resumeTimer(): void {
+    const timer = this.current.timer;
+    const onExpire = this.pendingExpire;
+    if (!timer || timer.remainingMs === null || !onExpire) return;
+    const remaining = timer.remainingMs;
+    this.current = {
+      ...this.current,
+      timer: { ...timer, endsAt: Date.now() + remaining, remainingMs: null },
+    };
+    this.timerHandle = setTimeout(() => {
+      this.timerHandle = null;
+      this.dispatch(onExpire);
+    }, remaining);
   }
 
   private notify(): void {
