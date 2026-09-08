@@ -62,6 +62,25 @@ export async function importPackFile(file: File): Promise<Pack> {
   return merged;
 }
 
+export interface ImportEntry {
+  level: 'info' | 'warning' | 'error';
+  message: string;
+}
+
+/** Импорт пака SIGame: сервер сам распакует архив и разложит медиа. */
+export async function importSiqFile(file: File): Promise<{ pack: Pack; report: ImportEntry[] }> {
+  const form = new FormData();
+  form.append('file', file);
+  const response = await fetch('/api/packs/import-siq', { method: 'POST', body: form });
+  const body = (await response.json()) as { pack?: Pack; report?: ImportEntry[]; error?: string };
+
+  if (!response.ok || !body.pack) {
+    const first = body.report?.find((entry) => entry.level === 'error')?.message;
+    throw new Error(first ?? body.error ?? 'Не удалось импортировать пак');
+  }
+  return { pack: body.pack, report: body.report ?? [] };
+}
+
 export function downloadPack(pack: Pack): void {
   const blob = new Blob([JSON.stringify(pack, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);

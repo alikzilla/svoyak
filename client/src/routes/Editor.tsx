@@ -6,8 +6,10 @@ import {
   downloadPack,
   fetchPack,
   importPackFile,
+  importSiqFile,
   listPacks,
   removePack,
+  type ImportEntry,
 } from '../editor/api.js';
 import { PackEditor } from '../editor/PackEditor.js';
 import { useAutosave } from '../editor/useAutosave.js';
@@ -29,7 +31,10 @@ function PackListScreen() {
   const [packs, setPacks] = useState<PackSummary[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [confirmId, setConfirmId] = useState<string | null>(null);
+  const [report, setReport] = useState<ImportEntry[] | null>(null);
+  const [busy, setBusy] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+  const siqInput = useRef<HTMLInputElement>(null);
 
   const reload = (): void => {
     void listPacks()
@@ -67,6 +72,36 @@ function PackListScreen() {
           >
             Импорт JSON
           </button>
+          <button
+            disabled={busy}
+            onClick={() => siqInput.current?.click()}
+            className="rounded-xl border border-line px-4 py-2 hover:border-gold disabled:opacity-50"
+          >
+            {busy ? 'Разбираем архив…' : 'Импорт .siq'}
+          </button>
+          <input
+            ref={siqInput}
+            type="file"
+            accept=".siq,application/zip"
+            hidden
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              event.target.value = '';
+              if (!file) return;
+              setBusy(true);
+              setError(null);
+              setReport(null);
+              void importSiqFile(file)
+                .then((result) => {
+                  setReport(result.report);
+                  reload();
+                })
+                .catch((cause: unknown) =>
+                  setError(cause instanceof Error ? cause.message : 'Не удалось импортировать'),
+                )
+                .finally(() => setBusy(false));
+            }}
+          />
           <input
             ref={fileInput}
             type="file"
@@ -87,6 +122,30 @@ function PackListScreen() {
       </header>
 
       {error && <p className="rounded-xl border border-bad/50 bg-bad/10 p-3 text-bad">{error}</p>}
+
+      {report && (
+        <section className="grid gap-2 rounded-2xl border border-line bg-surface p-4">
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="font-semibold">Отчёт импорта</h2>
+            <button onClick={() => setReport(null)} className="text-sm text-muted underline">
+              скрыть
+            </button>
+          </div>
+          <ul className="grid max-h-56 gap-1 overflow-y-auto text-sm">
+            {report.map((entry, index) => (
+              <li
+                key={`${entry.message}-${index}`}
+                className={entry.level === 'warning' ? 'text-gold' : 'text-muted'}
+              >
+                {entry.message}
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-muted">
+            Всё, что не перенеслось, перечислено здесь — поправьте эти вопросы руками.
+          </p>
+        </section>
+      )}
 
       {packs === null ? (
         <p className="text-muted">Загружаем…</p>
