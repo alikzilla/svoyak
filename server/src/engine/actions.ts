@@ -30,7 +30,11 @@ export type GameAction =
       atServerTime: number;
       receivedAt: number;
     }
-  | { type: 'BUZZ_WINDOW_CLOSED'; at: number };
+  | { type: 'BUZZ_WINDOW_CLOSED'; at: number }
+  | { type: 'JUDGE'; verdict: 'correct' | 'wrong'; at: number }
+  | { type: 'REVEAL_ANSWER'; at: number }
+  | { type: 'SKIP_QUESTION'; at: number }
+  | { type: 'EXTEND_TIME'; at: number };
 
 /** Побочные действия: редьюсер их только описывает, исполняет RoomRuntime. */
 export type Effect =
@@ -48,6 +52,8 @@ const UNDOABLE = new Set<GameAction['type']>([
   'PLAYER_KICK',
   'PICK_QUESTION',
   'SET_CONTROL',
+  'JUDGE',
+  'SKIP_QUESTION',
 ]);
 
 export function isUndoable(action: GameAction): boolean {

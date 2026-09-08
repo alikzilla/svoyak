@@ -1,9 +1,10 @@
-import type { LogEntry, RoomState } from '@svoyak/shared';
+import type { LogEntry, RoomState, TimerKind } from '@svoyak/shared';
 import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
 import { findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
+import { applyDelta } from './players.js';
 
 export interface ReduceResult {
   state: RoomState;
@@ -13,6 +14,29 @@ export interface ReduceResult {
 }
 
 const MAX_LOG = 200;
+/** Сколько добавляет кнопка «дать ещё время». */
+const EXTRA_TIME_MS = 5000;
+
+/** Какой таймер идёт в этой фазе. Редьюсер не знает о планировщике, только о фазе. */
+function timerKindFor(phase: RoomState['phase']): TimerKind | null {
+  switch (phase) {
+    case 'reading':
+      return 'reading';
+    case 'buzzer_open':
+      return 'buzz';
+    case 'answering':
+      return 'answer';
+    case 'cat_answer':
+    case 'auction_answer':
+      return 'solo_answer';
+    case 'final_bets':
+      return 'final_bet';
+    case 'final_answers':
+      return 'final_answer';
+    default:
+      return null;
+  }
+}
 
 function reject(state: RoomState, error: string): ReduceResult {
   return { state, effects: [], error };
@@ -370,8 +394,52 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       };
     }
 
+    case 'JUDGE': {
+      return judge(state, action.verdict, action.at);
+    }
+
+    case 'REVEAL_ANSWER': {
+      if (!state.active) return reject(state, 'Нет открытого вопроса');
+      return {
+        state: revealAnswer(state, action.at, 'Ведущий раскрыл ответ'),
+        effects: [{ type: 'clearTimer' }, { type: 'persist' }],
+      };
+    }
+
+    case 'SKIP_QUESTION': {
+      if (!state.active) return reject(state, 'Нет открытого вопроса');
+      return {
+        state: revealAnswer(state, action.at, 'Вопрос снят'),
+        effects: [{ type: 'clearTimer' }, { type: 'persist' }],
+      };
+    }
+
+    case 'EXTEND_TIME': {
+      const kind = timerKindFor(state.phase);
+      if (!kind) return reject(state, 'Сейчас нет таймера');
+      const extraMs = EXTRA_TIME_MS;
+      return {
+        state,
+        effects: [
+          {
+            type: 'setTimer',
+            kind,
+            durationMs: extraMs,
+            onExpire: { type: 'TIMER_EXPIRED', kind, at: action.at + extraMs },
+          },
+          {
+            type: 'toast',
+            to: 'all',
+            text: 'Ведущий добавил времени',
+            tone: 'info',
+          },
+        ],
+      };
+    }
+
     case 'TIMER_EXPIRED': {
       if (action.kind === 'reading') return openBuzzer(state, action.at);
+      if (action.kind === 'answer') return judge(state, 'wrong', action.at);
 
       if (action.kind === 'buzz') {
         if (state.phase !== 'buzzer_open') return { state, effects: [] };
@@ -384,6 +452,71 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       return { state, effects: [] };
     }
   }
+}
+
+/** Вердикт ведущего: счёт, право хода и что делать с кнопкой дальше. */
+function judge(state: RoomState, verdict: 'correct' | 'wrong', at: number): ReduceResult {
+  const active = state.active;
+  const playerId = state.buzz.answeringPlayerId ?? active?.soloPlayerId ?? null;
+  if (!active || !playerId) return reject(state, 'Сейчас никто не отвечает');
+  const player = findPlayer(state, playerId);
+  if (!player) return reject(state, 'Отвечающий не найден');
+
+  const delta = verdict === 'correct' ? active.price : -active.price;
+  const penalised = verdict === 'wrong' && !state.settings.penaltyOnWrong ? 0 : delta;
+  const players = updatePlayer(state.players, playerId, (candidate) => ({
+    ...candidate,
+    score: applyDelta(candidate.score, penalised, state.settings.allowNegative),
+  }));
+
+  if (verdict === 'correct') {
+    return {
+      state: closeQuestion({
+        ...state,
+        players,
+        controlPlayerId: playerId,
+        log: log(state, at, `${player.name}: верно, +${active.price}`),
+      }),
+      effects: [{ type: 'sound', sound: 'correct' }, { type: 'clearTimer' }, { type: 'persist' }],
+    };
+  }
+
+  const spentPlayerIds = [...active.spentPlayerIds, playerId];
+  const afterWrong: RoomState = {
+    ...state,
+    players,
+    active: { ...active, spentPlayerIds },
+    buzz: { ...state.buzz, answeringPlayerId: null, candidates: [], graceClosesAt: null },
+    log: log(state, at, `${player.name}: неверно, ${penalised === 0 ? 'без штрафа' : penalised}`),
+  };
+
+  // Остальные доигрывают остаток общего бюджета времени на кнопку.
+  const closesAt = state.buzz.closesAt ?? 0;
+  const remainingMs = closesAt - at;
+  const someoneLeft = state.players.some(
+    (candidate) => !spentPlayerIds.includes(candidate.id) && candidate.connected,
+  );
+
+  if (remainingMs <= 0 || !someoneLeft) {
+    return {
+      state: revealAnswer(afterWrong, at, 'Отвечать больше некому'),
+      effects: [{ type: 'sound', sound: 'wrong' }, { type: 'clearTimer' }, { type: 'persist' }],
+    };
+  }
+
+  return {
+    state: { ...afterWrong, phase: 'buzzer_open' },
+    effects: [
+      { type: 'sound', sound: 'wrong' },
+      {
+        type: 'setTimer',
+        kind: 'buzz',
+        durationMs: remainingMs,
+        onExpire: { type: 'TIMER_EXPIRED', kind: 'buzz', at: closesAt },
+      },
+      { type: 'persist' },
+    ],
+  };
 }
 
 /** Открытие кнопки: с этого момента идёт общий бюджет времени на вопрос. */
