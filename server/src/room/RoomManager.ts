@@ -14,14 +14,19 @@ const PERSIST_DEBOUNCE_MS = 200;
 export interface RoomManagerDeps {
   /** Базовый адрес клиента, например http://192.168.1.5:5173 */
   clientBaseUrl: () => string;
-  emit?: (code: string, effect: Effect) => void;
 }
 
 export class RoomManager {
   private readonly rooms = new Map<string, RoomRuntime>();
   private readonly pending = new Map<string, NodeJS.Timeout>();
+  private emitter: ((code: string, effect: Effect) => void) | null = null;
 
   constructor(private readonly deps: RoomManagerDeps) {}
+
+  /** Куда уходят звуки и всплывающие сообщения. Ставится сокет-слоем. */
+  setEmitter(emitter: (code: string, effect: Effect) => void): void {
+    this.emitter = emitter;
+  }
 
   get codes(): Set<string> {
     return new Set(this.rooms.keys());
@@ -72,7 +77,7 @@ export class RoomManager {
     const room = new RoomRuntime(state, {
       persist: (next) => this.schedulePersist(next),
       joinUrlFor: (code) => this.joinUrl(code),
-      ...(this.deps.emit ? { emit: (effect: Effect) => this.deps.emit?.(state.code, effect) } : {}),
+      emit: (effect: Effect) => this.emitter?.(state.code, effect),
     });
     this.rooms.set(state.code, room);
     return room;

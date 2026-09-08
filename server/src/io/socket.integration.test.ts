@@ -1,0 +1,218 @@
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { createServer, type Server as HttpServer } from 'node:http';
+import { Server } from 'socket.io';
+import { io as createClient, type Socket as ClientSocket } from 'socket.io-client';
+import type {
+  Ack,
+  ClientToServerEvents,
+  HostView,
+  PlayerView,
+  Result,
+  ServerToClientEvents,
+} from '@svoyak/shared';
+import { demoClassicPack } from '../packs/demo/classic.js';
+
+// Хранилище берёт пути из окружения на импорте — подменяем до загрузки модулей.
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'svoyak-io-'));
+fs.mkdirSync(path.join(tempDir, 'packs'), { recursive: true });
+fs.writeFileSync(
+  path.join(tempDir, 'packs', 'demo-classic.json'),
+  JSON.stringify(demoClassicPack),
+  'utf8',
+);
+process.env['DATA_DIR'] = tempDir;
+
+const { RoomManager } = await import('../room/RoomManager.js');
+type AppServer = import('./types.js').AppServer;
+const { registerSocketHandlers } = await import('./registerSocketHandlers.js');
+const { saveRoom } = await import('../storage/roomsRepo.js');
+
+type Client = ClientSocket<ServerToClientEvents, ClientToServerEvents>;
+
+let httpServer: HttpServer;
+let port: number;
+let rooms: InstanceType<typeof RoomManager>;
+
+beforeAll(async () => {
+  httpServer = createServer();
+  const server: AppServer = new Server(httpServer);
+  rooms = new RoomManager({ clientBaseUrl: () => 'http://test:5173' });
+  registerSocketHandlers(server, rooms);
+  await new Promise<void>((resolve) => httpServer.listen(0, resolve));
+  const address = httpServer.address();
+  port = typeof address === 'object' && address ? address.port : 0;
+});
+
+afterAll(() => {
+  httpServer.close();
+  fs.rmSync(tempDir, { recursive: true, force: true });
+});
+
+function connect(): Promise<Client> {
+  const socket: Client = createClient(`http://localhost:${port}`, { transports: ['websocket'] });
+  return new Promise((resolve) => socket.on('connect', () => resolve(socket)));
+}
+
+/** Промис, который резолвится следующей присланной проекцией. */
+function nextView<T>(socket: Client): Promise<T> {
+  return new Promise((resolve) => socket.once('state:sync', (view) => resolve(view as T)));
+}
+
+function emit<K extends keyof ClientToServerEvents, T>(
+  socket: Client,
+  event: K,
+  payload: Parameters<ClientToServerEvents[K]>[0],
+): Promise<Result<T>> {
+  return new Promise((resolve) => {
+    const ack: Ack<T> = (result) => resolve(result);
+    (socket.emit as (e: K, p: unknown, a: Ack<T>) => void)(event, payload, ack);
+  });
+}
+
+describe('сокет-слой', () => {
+  it('ведущий создаёт комнату и получает код', async () => {
+    const host = await connect();
+    const result = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.data.code).toMatch(/^\d{4}$/);
+    host.disconnect();
+  });
+
+  it('создание с несуществующим паком отклоняется', async () => {
+    const host = await connect();
+    const result = await emit(host, 'room:create', { packId: 'нет-такого' });
+    expect(result).toEqual({ ok: false, error: 'Пак не найден' });
+    host.disconnect();
+  });
+
+  it('игрок входит по коду и виден ведущему', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+
+    const hostView = nextView<HostView>(host);
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code: created.data.code, name: 'Вася' },
+    );
+    expect(joined.ok).toBe(true);
+
+    const view = await hostView;
+    expect(view.players.map((p) => p.name)).toEqual(['Вася']);
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('игрок не может выполнить действие ведущего', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code: created.data.code, name: 'Петя' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+
+    const attempt = await emit(player, 'host:adjustScore', {
+      playerId: joined.data.playerId,
+      score: 999999,
+    });
+    expect(attempt).toEqual({ ok: false, error: 'Это действие доступно только ведущему' });
+
+    const room = rooms.get(created.data.code);
+    expect(room?.state.players[0]?.score).toBe(0);
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('игрок возвращается по токену со своим счётом после обрыва связи', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    const { code } = created.data;
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code, name: 'Маша' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+
+    await emit(host, 'host:adjustScore', { playerId: joined.data.playerId, score: 400 });
+    player.disconnect();
+
+    const again = await connect();
+    // Подписка вешается до запроса: рассылка уходит сразу после подтверждения.
+    const viewPromise = nextView<PlayerView>(again);
+    const rejoin = await emit<'room:rejoin', { playerId: string | null; role: string }>(
+      again,
+      'room:rejoin',
+      { code, token: joined.data.sessionToken, role: 'player' },
+    );
+    expect(rejoin.ok).toBe(true);
+
+    const view = await viewPromise;
+    expect(view.myScore).toBe(400);
+    expect(view.meId).toBe(joined.data.playerId);
+    host.disconnect();
+    again.disconnect();
+  });
+
+  it('комната восстанавливается с диска после перезапуска сервера', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    const { code } = created.data;
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code, name: 'Гриша' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+    await emit(host, 'host:adjustScore', { playerId: joined.data.playerId, score: 800 });
+
+    const live = rooms.get(code);
+    if (!live) throw new Error('комнаты нет в памяти');
+    saveRoom(live.state);
+
+    const restarted = new RoomManager({ clientBaseUrl: () => 'http://test:5173' });
+    const count = restarted.restoreFromDisk();
+    expect(count).toBeGreaterThan(0);
+
+    const restoredRoom = restarted.get(code);
+    expect(restoredRoom?.state.players[0]).toMatchObject({ name: 'Гриша', score: 800 });
+    host.disconnect();
+    player.disconnect();
+  });
+});
