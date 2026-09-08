@@ -28,7 +28,11 @@ export type GameAction =
   | { type: 'JUDGE'; verdict: 'correct' | 'wrong'; at: number }
   | { type: 'REVEAL_ANSWER'; at: number }
   | { type: 'SKIP_QUESTION'; at: number }
-  | { type: 'EXTEND_TIME'; at: number };
+  | { type: 'EXTEND_TIME'; at: number }
+  /** Кот в мешке: открывший передаёт вопрос выбранному игроку. */
+  | { type: 'CAT_TRANSFER'; toPlayerId: string; at: number }
+  /** Аукцион: ставка, ва-банк или пас. */
+  | { type: 'BID'; playerId: string; amount: number | 'all-in' | 'pass'; at: number };
 
 /** Побочные действия: редьюсер их только описывает, исполняет RoomRuntime. */
 export type Effect =
@@ -48,6 +52,7 @@ const UNDOABLE = new Set<GameAction['type']>([
   'SET_CONTROL',
   'JUDGE',
   'SKIP_QUESTION',
+  'CAT_TRANSFER',
 ]);
 
 export function isUndoable(action: GameAction): boolean {

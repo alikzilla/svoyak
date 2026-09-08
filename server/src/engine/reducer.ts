@@ -2,7 +2,7 @@ import type { LogEntry, RoomState, TimerKind } from '@svoyak/shared';
 import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
-import { findQuestion, findTheme } from './questions.js';
+import { activeQuestion, findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
 import { applyDelta } from './players.js';
 
@@ -195,10 +195,36 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       if (!cell) return reject(state, 'Клетки нет на доске');
       if (cell.played) return reject(state, 'Этот вопрос уже разыгран');
 
+      const openedBy = state.controlPlayerId;
+      const catPrice =
+        question.type === 'cat' && question.cat
+          ? question.cat.price === 'nominal'
+            ? question.price
+            : question.cat.price
+          : question.price;
+
+      // Спецвопросы идут без кнопки: кот сразу к передаче, аукцион — к торгам.
+      const phase: RoomState['phase'] =
+        question.type === 'cat' && openedBy
+          ? 'cat_transfer'
+          : question.type === 'auction' && openedBy
+            ? 'auction_bidding'
+            : 'reading';
+
       return {
         state: {
           ...state,
-          phase: 'reading',
+          phase,
+          cat:
+            phase === 'cat_transfer' && openedBy
+              ? {
+                  fromPlayerId: openedBy,
+                  toPlayerId: null,
+                  theme: question.cat?.theme ?? '',
+                  price: catPrice,
+                }
+              : null,
+          auction: null,
           board: state.board.map((candidate) =>
             candidate.id !== action.themeId
               ? candidate
@@ -213,7 +239,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
             themeId: theme.id,
             themeTitle: theme.title,
             questionId: question.id,
-            price: question.price,
+            price: phase === 'cat_transfer' ? catPrice : question.price,
             nominalPrice: question.price,
             type: question.type,
             spentPlayerIds: [],
@@ -413,6 +439,34 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       };
     }
 
+    case 'CAT_TRANSFER': {
+      if (state.phase !== 'cat_transfer' || !state.cat || !state.active) {
+        return reject(state, 'Сейчас никто не передаёт кота');
+      }
+      const question = activeQuestion(state);
+      const canKeep = question?.cat?.canKeep ?? false;
+      if (action.toPlayerId === state.cat.fromPlayerId && !canKeep) {
+        return reject(state, 'Кота нужно отдать другому игроку');
+      }
+      const receiver = findPlayer(state, action.toPlayerId);
+      if (!receiver) return reject(state, 'Игрок не найден');
+
+      return {
+        state: {
+          ...state,
+          phase: 'cat_answer',
+          cat: { ...state.cat, toPlayerId: receiver.id },
+          active: { ...state.active, soloPlayerId: receiver.id },
+          log: log(state, action.at, `Кот в мешке достаётся ${receiver.name}: «${state.cat.theme}»`),
+        },
+        effects: [{ type: 'persist' }],
+      };
+    }
+
+    case 'BID': {
+      return reject(state, 'Аукцион пока не реализован');
+    }
+
     case 'TIMER_EXPIRED': {
       if (action.kind === 'buzz') {
         if (state.phase !== 'buzzer_open') return { state, effects: [] };
@@ -473,9 +527,14 @@ function judge(state: RoomState, verdict: 'correct' | 'wrong', at: number): Redu
     log: log(state, at, `${player.name}: неверно, ${penalised === 0 ? 'без штрафа' : penalised}`),
   };
 
-  if (!someoneLeft) {
+  // У спецвопросов кнопки нет: играл один, значит вопрос закончен.
+  if (active.soloPlayerId !== null || !someoneLeft) {
     return {
-      state: revealAnswer(afterWrong, at, 'Отвечать больше некому'),
+      state: revealAnswer(
+        afterWrong,
+        at,
+        active.soloPlayerId !== null ? 'Вопрос играл один игрок' : 'Отвечать больше некому',
+      ),
       effects: [{ type: 'sound', sound: 'wrong' }, { type: 'clearTimer' }, { type: 'persist' }],
     };
   }
