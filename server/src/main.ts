@@ -7,6 +7,7 @@ import { CLIENT_PORT, HISTORY_DIR, PACKS_DIR, PORT, ROOMS_DIR, UPLOADS_DIR } fro
 import { printBanner } from './net/banner.js';
 import { getLanAddress } from './net/lan.js';
 import { packsRouter } from './http/packsApi.js';
+import { mediaRouter } from './http/mediaApi.js';
 import { RoomManager } from './room/RoomManager.js';
 import { registerSocketHandlers } from './io/registerSocketHandlers.js';
 import type { AppServer } from './io/types.js';
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/api', packsRouter());
+app.use('/api', mediaRouter());
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
 });

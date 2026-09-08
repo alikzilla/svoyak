@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Ack, RoomSettings } from '@svoyak/shared';
+import { validatePack } from '@svoyak/shared';
 import type { Effect, GameAction } from '../engine/actions.js';
 import type { RoomManager } from '../room/RoomManager.js';
 import type { RoomRuntime } from '../room/RoomRuntime.js';
@@ -85,6 +86,16 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       const pack = getPack(packId);
       if (!pack) {
         ack({ ok: false, error: 'Пак не найден' });
+        return;
+      }
+
+      // Недоделанный пак можно править, но играть им нельзя.
+      const errors = validatePack(pack).filter((issue) => issue.level === 'error');
+      if (errors.length > 0) {
+        ack({
+          ok: false,
+          error: `Пак не готов к игре: ${errors[0]?.message ?? ''}${errors.length > 1 ? ` (и ещё ${errors.length - 1})` : ''}`,
+        });
         return;
       }
       const { room, hostToken } = rooms.create(pack, settings);

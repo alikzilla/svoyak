@@ -119,6 +119,39 @@ describe('сокет-слой', () => {
     player.disconnect();
   });
 
+  it('комнату нельзя создать на недоделанном паке', async () => {
+    const brokenPath = path.join(tempDir, 'packs', 'broken.json');
+    fs.writeFileSync(
+      brokenPath,
+      JSON.stringify({
+        ...demoClassicPack,
+        id: 'broken',
+        rounds: [
+          {
+            id: 'r1',
+            title: 'Раунд',
+            themes: [
+              {
+                id: 't1',
+                title: 'Тема',
+                questions: [
+                  { id: 'q1', price: 100, type: 'normal', text: 'Вопрос?', answer: '', altAnswers: [] },
+                ],
+              },
+            ],
+          },
+        ],
+      }),
+      'utf8',
+    );
+
+    const host = await connect();
+    const result = await emit(host, 'room:create', { packId: 'broken' });
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.error).toContain('не готов');
+    host.disconnect();
+  });
+
   it('игрок не может выполнить действие ведущего', async () => {
     const host = await connect();
     const created = await emit<'room:create', { code: string; hostToken: string }>(
