@@ -19,14 +19,16 @@
   color-scheme: dark;
 }
 
-html,
-body,
-#root {
+html {
   block-size: 100%;
 }
 
 body {
   margin: 0;
+  min-block-size: 100dvh;
+  /* Вырезы и «домашняя полоса» телефона: содержимое не должно под них уезжать. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
   background:
     radial-gradient(ellipse 80% 60% at 50% -10%, #2a2a7a 0%, transparent 60%),
     var(--color-bg);
@@ -37,12 +39,12 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-/* Экраны игрока не должны прокручиваться и зумиться двойным тапом. */
-.app-shell {
-  min-block-size: 100dvh;
-  padding-block-start: env(safe-area-inset-top);
-  padding-block-end: env(safe-area-inset-bottom);
-  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+/* Оболочка экрана: занимает вьюпорт за вычетом безопасных зон.
+   Живёт в слое base, иначе перебивала бы утилиты отступов Tailwind. */
+@layer base {
+  .app-shell {
+    min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
 }
 
 button {
