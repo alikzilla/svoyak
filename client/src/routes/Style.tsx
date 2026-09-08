@@ -39,15 +39,18 @@ type FontKey = keyof typeof FONT_PAIRS;
 
 const PLAYER_NAMES = ['Аня', 'Боря', 'Вера', 'Гоша', 'Даша', 'Егор'];
 
-/** Плотность бумаги: сравнивать оттенки надо живьём, рядом с цветными элементами. */
-const PAPER_TONES = {
-  cream: { title: 'сливочная', value: '#fff6e9', card: '#ffffff' },
-  kraft: { title: 'крафт', value: '#f0e2c8', card: '#fdf6e7' },
-  sand: { title: 'песочная', value: '#e4d2b0', card: '#f7ecd6' },
-  clay: { title: 'глина', value: '#d8c3a0', card: '#f2e6cd' },
+/** Цвет сцены. Карточки поверх остаются светлыми, меняется только фон —
+ *  так обводки и текст читаются и на светлом, и на тёмном. */
+const SCENE_TONES = {
+  lavender: { title: 'лаванда', value: '#ddd6ff', card: '#fffaf2', ink: '#1a1a1a', dark: false },
+  lilac: { title: 'сирень', value: '#c3b2fb', card: '#fffaf2', ink: '#1a1a1a', dark: false },
+  periwinkle: { title: 'барвинок', value: '#a99bff', card: '#fffaf2', ink: '#1a1a1a', dark: false },
+  orchid: { title: 'орхидея', value: '#e6bce8', card: '#fffaf2', ink: '#1a1a1a', dark: false },
+  indigo: { title: 'индиго', value: '#4a3aa8', card: '#fff6e9', ink: '#f6f1ff', dark: true },
+  plum: { title: 'слива', value: '#2c1c5e', card: '#fff6e9', ink: '#f6f1ff', dark: true },
 } as const;
 
-type PaperKey = keyof typeof PAPER_TONES;
+type SceneKey = keyof typeof SCENE_TONES;
 
 function Section({ title, note, children }: { title: string; note?: string; children: React.ReactNode }) {
   return (
@@ -55,7 +58,7 @@ function Section({ title, note, children }: { title: string; note?: string; chil
       <header>
         <h2 className="font-display text-4xl font-bold">{title}</h2>
         <RoughUnderline className="w-40" seed={title.length} />
-        {note && <p className="font-body text-ink-soft mt-1 max-w-prose">{note}</p>}
+        {note && <p className="font-body mt-1 max-w-prose opacity-75">{note}</p>}
       </header>
       {children}
     </section>
@@ -66,7 +69,8 @@ export default function Style() {
   const [fontKey, setFontKey] = useState<FontKey>('mix');
   const [calm, setCalm] = useState(false);
   const [density, setDensity] = useState<'full' | 'light' | 'off'>('full');
-  const [paper, setPaper] = useState<PaperKey>('kraft');
+  const [scene, setScene] = useState<SceneKey>('periwinkle');
+  const tone = SCENE_TONES[scene];
   const [seedSalt, setSeedSalt] = useState(0);
   const [score, setScore] = useState(1200);
   const [points, setPoints] = useState<{ amount: number; key: number } | null>(null);
@@ -117,8 +121,9 @@ export default function Style() {
       className={`paper-scene min-h-dvh ${calm ? 'calm' : ''}`}
       style={
         {
-          '--paper-tone': PAPER_TONES[paper].value,
-          '--card-tone': PAPER_TONES[paper].card,
+          '--paper-tone': tone.value,
+          '--card-tone': tone.card,
+          '--scene-ink': tone.ink,
           '--font-display': pair.display,
           '--font-digits': pair.digits,
           '--font-body-active': pair.body,
@@ -134,7 +139,7 @@ export default function Style() {
         .font-hand { font-family: var(--font-display); }
       `}</style>
 
-      <DoodleField density={calm ? 'off' : density} />
+      <DoodleField density={calm ? 'off' : density} night={tone.dark} />
 
       <div className="relative mx-auto grid max-w-5xl gap-14 px-5 py-10">
         {/* Герой: самая характерная вещь игры — кнопка, которую хочется нажать. */}
@@ -146,10 +151,15 @@ export default function Style() {
                 animate={{ rotate: -2, scale: 1, opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 14 }}
                 className="font-display text-7xl leading-none font-bold"
+                style={{
+                  color: '#fffaf2',
+                  WebkitTextStroke: '4px #1a1a1a',
+                  paintOrder: 'stroke fill',
+                }}
               >
                 Свояк
               </motion.h1>
-              <p className="font-body text-ink-soft mt-2 text-lg">
+              <p className="font-body mt-2 text-lg opacity-75">
                 Стиль игры: что нарисовано и как оно себя ведёт. Всё здесь живое — трогайте.
               </p>
             </div>
@@ -173,7 +183,7 @@ export default function Style() {
             </div>
           </div>
 
-          <RoughFrame seed={2} fill="var(--card-tone)" contentClassName="grid place-items-center py-10">
+          <RoughFrame seed={2} fill="var(--card-tone)" contentClassName="text-ink grid place-items-center py-10">
             <div className="grid justify-items-center gap-4">
               <DoodleButton size="xl" tone="p1" idle onClick={() => celebrate(colorForIndex(0))}>
                 ЖМИ
@@ -186,22 +196,29 @@ export default function Style() {
         </header>
 
         <Section
-          title="Бумага"
-          note="Фон задаёт настроение всей игры: чем темнее лист, тем сочнее на нём цветные кнопки. Выберите плотность — остальные экраны поедут на ней."
+          title="Цвет сцены"
+          note="Фон задаёт настроение всей игры. Карточки и панели поверх остаются светлыми, поэтому чёрные обводки работают на любом фоне. Выберите — остальные экраны поедут на нём."
         >
           <div className="flex flex-wrap gap-3">
-            {(Object.keys(PAPER_TONES) as PaperKey[]).map((key) => (
-              <button key={key} onClick={() => setPaper(key)} className="relative">
+            {(Object.keys(SCENE_TONES) as SceneKey[]).map((key) => (
+              <button key={key} onClick={() => setScene(key)} className="relative">
                 <RoughFrame
                   seed={key.length * 4}
-                  fill={PAPER_TONES[key].value}
+                  fill={SCENE_TONES[key].value}
                   className="w-40"
                   contentClassName="grid justify-items-center gap-1 px-3 py-5"
                 >
-                  <span className="font-display text-2xl font-bold">{PAPER_TONES[key].title}</span>
-                  <code className="font-body text-ink-soft text-xs">{PAPER_TONES[key].value}</code>
+                  <span
+                    className="font-display text-2xl font-bold"
+                    style={{ color: SCENE_TONES[key].ink }}
+                  >
+                    {SCENE_TONES[key].title}
+                  </span>
+                  <code className="font-body text-xs" style={{ color: SCENE_TONES[key].ink, opacity: 0.7 }}>
+                    {SCENE_TONES[key].value}
+                  </code>
                 </RoughFrame>
-                {paper === key && (
+                {scene === key && (
                   <motion.span
                     initial={{ scale: 0, rotate: -30 }}
                     animate={{ scale: 1, rotate: -10 }}
@@ -227,7 +244,7 @@ export default function Style() {
                   seed={key.length * 5}
                   fill={fontKey === key ? '#ffe6ad' : 'var(--card-tone)'}
                   className="h-full"
-                  contentClassName="p-4"
+                  contentClassName="text-ink p-4"
                 >
                   <p style={{ fontFamily: FONT_PAIRS[key].display }} className="text-3xl font-bold">
                     Кот в мешке
@@ -275,7 +292,7 @@ export default function Style() {
               ['неверно', 'var(--color-no)'],
               ['ставка и аукцион', 'var(--color-gold)'],
             ].map(([label, color]) => (
-              <RoughFrame key={label} seed={label!.length} fill={color} contentClassName="p-4">
+              <RoughFrame key={label} seed={label!.length} fill={color} contentClassName="text-ink p-4">
                 <span className="font-display text-2xl font-bold text-white drop-shadow-[2px_2px_0_#1a1a1a]">
                   {label}
                 </span>
@@ -331,7 +348,7 @@ export default function Style() {
                   seed={index * 9 + 2}
                   fill="var(--card-tone)"
                   className="w-32 cursor-pointer"
-                  contentClassName="grid justify-items-center gap-1 px-3 py-4"
+                  contentClassName="text-ink grid justify-items-center gap-1 px-3 py-4"
                 >
                   <Avatar
                     seed={`${name}-${seedSalt}`}
@@ -376,7 +393,7 @@ export default function Style() {
           title="Вердикт"
           note="Счёт наматывается прокруткой, очки улетают вверх или падают вниз, поверх шлёпается штамп. Верный ответ добавляет конфетти цветом игрока."
         >
-          <RoughFrame seed={31} fill="var(--card-tone)" contentClassName="grid place-items-center gap-4 py-10">
+          <RoughFrame seed={31} fill="var(--card-tone)" contentClassName="text-ink grid place-items-center gap-4 py-10">
             <div className="relative grid place-items-center">
               <ScoreNumber value={score} size="xl" color={colorForIndex(0)} />
               <AnimatePresence>
@@ -425,7 +442,7 @@ export default function Style() {
           </div>
         </Section>
 
-        <footer className="font-body text-ink-soft pb-16 text-sm">
+        <footer className="font-body pb-16 text-sm opacity-70">
           Дальше по плану: экран игрока на телефоне, табло ведущего, анимации игрового цикла,
           спецсцены и звук. Скажите, что поменять здесь, — и раскатаю.
         </footer>

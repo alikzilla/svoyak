@@ -18,13 +18,13 @@
 
 /* Рисованная тема. Объявлена после тёмной, поэтому при совпадении имён выигрывает она. */
 @theme {
-  --color-paper: #f0e2c8;
-  --color-paper-2: #e6d4b4;
+  --color-paper: #a99bff;
+  --color-paper-2: #fffaf2;
   --color-ink: #1a1a1a;
   --color-ink-soft: #5b524b;
 
   /* Цвет закрепляется за игроком и ходит за ним по всем экранам. */
-  --color-p1: #7b4bf7;
+  --color-p1: #5b2ee6;
   --color-p2: #ff6b57;
   --color-p3: #12beb0;
   --color-p4: #ffc53d;
