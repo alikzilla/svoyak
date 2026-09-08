@@ -14,15 +14,20 @@ export function BoardGrid({ board, onPick, compact = false }: BoardGridProps) {
     <div
       className="grid gap-1.5"
       style={{
-        gridTemplateColumns: `minmax(${compact ? '5rem' : '9rem'}, 1.4fr) repeat(${columns}, minmax(0, 1fr))`,
+        gridTemplateColumns: `minmax(${compact ? '4.75rem' : '9rem'}, ${
+          compact ? '1.1fr' : '1.4fr'
+        }) repeat(${columns}, minmax(0, 1fr))`,
       }}
     >
       {board.map((theme) => (
         <div key={theme.id} className="contents">
           <div
-            className={`flex items-center rounded-xl bg-surface px-3 py-2 font-semibold text-pretty ${
-              compact ? 'text-xs' : 'text-sm'
+            className={`flex items-center overflow-hidden rounded-xl bg-surface font-semibold hyphens-auto ${
+              compact ? 'px-2 py-1.5 text-[0.7rem] leading-tight' : 'px-3 py-2 text-sm'
             }`}
+            // Переносим по слогам, а рвём слово только если иначе никак.
+            style={{ overflowWrap: 'break-word' }}
+            lang="ru"
           >
             {theme.title}
           </div>

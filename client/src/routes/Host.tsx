@@ -8,6 +8,7 @@ import { QrCode } from '../ui/QrCode.js';
 import { RoomCode } from '../ui/RoomCode.js';
 import { PlayerLedger } from '../ui/PlayerLedger.js';
 import { HostGame } from '../ui/host/HostGame.js';
+import { SoundToggle } from '../ui/SoundToggle.js';
 
 export default function Host() {
   const { view, connected, closed } = useHostRoom();
@@ -97,9 +98,12 @@ export default function Host() {
     <div className="app-shell mx-auto flex max-w-5xl flex-col gap-6 p-6">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="text-2xl font-bold">{view.packTitle}</h1>
-        <p className="text-sm text-muted">
-          {connected ? 'сервер на связи' : 'связь потеряна, переподключаемся…'}
-        </p>
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-muted">
+            {connected ? 'сервер на связи' : 'связь потеряна, переподключаемся…'}
+          </p>
+          <SoundToggle />
+        </div>
       </header>
 
       <section className="grid gap-6 rounded-3xl border border-line bg-surface p-6 sm:grid-cols-[1fr_auto]">

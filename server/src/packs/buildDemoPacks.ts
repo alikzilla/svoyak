@@ -3,8 +3,9 @@ import type { Pack } from '@svoyak/shared';
 import { PACKS_DIR } from '../config.js';
 import { writeJsonAtomic } from '../storage/atomicWrite.js';
 import { demoClassicPack } from './demo/classic.js';
+import { demoKitchenPack } from './demo/kitchen.js';
 
-const packs: Pack[] = [demoClassicPack];
+const packs: Pack[] = [demoClassicPack, demoKitchenPack];
 
 for (const pack of packs) {
   const file = path.join(PACKS_DIR, `${pack.id}.json`);

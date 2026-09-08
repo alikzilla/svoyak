@@ -5,6 +5,7 @@ import { PlayerLedger } from '../PlayerLedger.js';
 import { TimerBar } from '../Timer.js';
 import { FinalHost } from './FinalHost.js';
 import { Standings } from '../Standings.js';
+import { SoundToggle } from '../SoundToggle.js';
 
 interface HostGameProps {
   view: HostView;
@@ -32,6 +33,7 @@ export function HostGame({ view }: HostGameProps) {
           </p>
         </div>
         <div className="flex gap-2">
+          <SoundToggle />
           <button
             onClick={() => send('host:pause', { paused: !view.paused })}
             className="rounded-xl border border-line px-4 py-2 text-sm hover:border-gold"

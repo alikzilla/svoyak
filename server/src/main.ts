@@ -3,7 +3,15 @@ import fs from 'node:fs';
 import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
-import { CLIENT_PORT, HISTORY_DIR, PACKS_DIR, PORT, ROOMS_DIR, UPLOADS_DIR } from './config.js';
+import {
+  CLIENT_PORT,
+  HISTORY_DIR,
+  PACKS_DIR,
+  PORT,
+  PUBLIC_URL,
+  ROOMS_DIR,
+  UPLOADS_DIR,
+} from './config.js';
 import { printBanner } from './net/banner.js';
 import { getLanAddress } from './net/lan.js';
 import { packsRouter } from './http/packsApi.js';
@@ -29,8 +37,10 @@ app.get('/api/health', (_req, res) => {
 const httpServer = createServer(app);
 const io: AppServer = new Server(httpServer, { cors: { origin: true } });
 
-/** Ссылки для игроков ведут на клиент, а он в дев-режиме живёт на другом порту. */
+/** Ссылки для игроков ведут на клиент. Через туннель — на внешний адрес,
+ *  иначе на адрес в локальной сети. */
 const clientBaseUrl = (): string => {
+  if (PUBLIC_URL !== '') return PUBLIC_URL;
   const lan = getLanAddress();
   return `http://${lan ?? 'localhost'}:${CLIENT_PORT}`;
 };
@@ -41,7 +51,7 @@ const restored = rooms.restoreFromDisk();
 registerSocketHandlers(io, rooms);
 
 httpServer.listen(PORT, '0.0.0.0', () => {
-  printBanner(CLIENT_PORT, PORT);
+  printBanner(CLIENT_PORT, PORT, PUBLIC_URL === '' ? null : PUBLIC_URL);
   if (restored > 0) console.log(`  Восстановлено комнат после перезапуска: ${restored}\n`);
 });
 

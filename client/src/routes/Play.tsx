@@ -7,6 +7,7 @@ import { ask } from '../net/socket.js';
 import { unlockAudio } from '../net/sounds.js';
 import { Buzzer } from '../ui/Buzzer.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
+import { SoundToggle } from '../ui/SoundToggle.js';
 import { CatPick } from '../ui/CatPick.js';
 import { BidPanel } from '../ui/BidPanel.js';
 import { FinalPlayer } from '../ui/FinalPlayer.js';
@@ -72,9 +73,10 @@ export default function Play() {
 
   return (
     <div className="app-shell flex flex-col gap-3 p-3" onPointerDown={unlockAudio}>
-      <header className="flex items-center justify-between gap-3 text-sm">
-        <span className="truncate text-muted">{me?.name ?? 'Игрок'}</span>
-        <span className="text-xl font-black tabular-nums text-gold">{view.myScore}</span>
+      <header className="flex items-center justify-between gap-2 text-sm">
+        <span className="min-w-0 flex-1 truncate text-muted">{me?.name ?? 'Игрок'}</span>
+        <SoundToggle className="shrink-0 px-2 py-1" />
+        <span className="shrink-0 text-xl font-black tabular-nums text-gold">{view.myScore}</span>
       </header>
 
       {view.question && (

@@ -13,6 +13,15 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+    // Через туннель Host-заголовок чужой, и Vite по умолчанию такие запросы отклоняет.
+    allowedHosts: [
+      'localhost',
+      '.trycloudflare.com',
+      '.ngrok-free.app',
+      '.ngrok.io',
+      '.loca.lt',
+      ...(process.env['ALLOWED_HOSTS'] ?? '').split(',').filter((host) => host !== ''),
+    ],
     proxy: {
       '/api': 'http://localhost:3001',
       '/uploads': 'http://localhost:3001',
