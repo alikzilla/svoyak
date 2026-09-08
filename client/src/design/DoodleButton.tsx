@@ -25,7 +25,7 @@ const TONES: Record<ButtonTone, string> = {
   yes: 'bg-yes text-white',
   no: 'bg-no text-white',
   gold: 'bg-gold text-ink',
-  paper: 'bg-paper-2 text-ink',
+  paper: 'bg-card text-ink',
 };
 
 const SIZES = {

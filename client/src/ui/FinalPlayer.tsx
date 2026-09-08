@@ -29,7 +29,7 @@ export function FinalPlayer({ view, prompt, onRemoveTheme, onBet, onAnswer }: Fi
                 onClick={() => onRemoveTheme(theme.id)}
                 whileTap={{ scale: 0.96, x: 4, y: 5, boxShadow: '0px 0px 0 #1a1a1a' }}
                 style={{ boxShadow: '6px 6px 0 #1a1a1a' }}
-                className="ink-border bg-paper-2 text-ink font-pop w-full rounded-3xl px-4 py-4 text-2xl font-black"
+                className="ink-border bg-card text-ink font-pop w-full rounded-3xl px-4 py-4 text-2xl font-black"
               >
                 {theme.title}
               </motion.button>
@@ -65,7 +65,7 @@ export function FinalPlayer({ view, prompt, onRemoveTheme, onBet, onAnswer }: Fi
         </div>
 
         <input
-          className="ink-border font-pop bg-paper-2 text-ink w-full rounded-2xl px-3 py-4 text-center text-4xl font-black tabular-nums"
+          className="ink-border font-pop bg-card text-ink w-full rounded-2xl px-3 py-4 text-center text-4xl font-black tabular-nums"
           style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
           value={bet}
           inputMode="numeric"
@@ -105,7 +105,7 @@ export function FinalPlayer({ view, prompt, onRemoveTheme, onBet, onAnswer }: Fi
         {view.final?.questionText}
       </p>
       <input
-        className="ink-border font-body bg-paper-2 text-ink w-full rounded-2xl px-4 py-4 text-xl font-bold"
+        className="ink-border font-body bg-card text-ink w-full rounded-2xl px-4 py-4 text-xl font-bold"
         style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
         value={answer}
         placeholder="ваш ответ"

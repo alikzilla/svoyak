@@ -23,7 +23,7 @@ export function Stamp({ text, tone, shown }: StampProps) {
       animate={{ scale: 1, opacity: 1, rotate: -8 }}
       exit={{ scale: 0.7, opacity: 0 }}
       transition={{ type: 'spring', stiffness: 520, damping: 15 }}
-      className={`font-hand pointer-events-none rounded-2xl border-[7px] bg-paper/90 px-8 py-3 text-6xl font-bold ${TONE_CLASS[tone]}`}
+      className={`font-hand pointer-events-none rounded-2xl border-[7px] bg-card/90 px-8 py-3 text-6xl font-bold ${TONE_CLASS[tone]}`}
       style={{ boxShadow: '8px 8px 0 rgb(26 26 26 / 25%)' }}
     >
       {text}

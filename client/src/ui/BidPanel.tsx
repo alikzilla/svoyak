@@ -47,7 +47,7 @@ export function BidPanel({ currentBid, minBid, maxBid, canPass, onBid }: BidPane
               key={amount}
               initial={{ scale: 1.06 }}
               animate={{ scale: 1 }}
-              className="ink-border font-pop bg-paper-2 text-ink min-w-0 flex-1 rounded-2xl px-2 py-3 text-center text-3xl font-black tabular-nums"
+              className="ink-border font-pop bg-card text-ink min-w-0 flex-1 rounded-2xl px-2 py-3 text-center text-3xl font-black tabular-nums"
               style={{ boxShadow: '4px 4px 0 #1a1a1a' }}
               value={amount}
               inputMode="numeric"

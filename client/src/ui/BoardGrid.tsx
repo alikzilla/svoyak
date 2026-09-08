@@ -1,4 +1,5 @@
 import type { BoardTheme } from '@svoyak/shared';
+import { PriceCell } from '../design/PriceCell.js';
 
 interface BoardGridProps {
   board: BoardTheme[];
@@ -12,47 +13,34 @@ export function BoardGrid({ board, onPick, compact = false }: BoardGridProps) {
 
   return (
     <div
-      className="grid gap-1.5"
+      className="grid gap-2"
       style={{
-        gridTemplateColumns: `minmax(${compact ? '4.75rem' : '9rem'}, ${
-          compact ? '1.1fr' : '1.4fr'
+        gridTemplateColumns: `minmax(${compact ? '4.75rem' : '8rem'}, ${
+          compact ? '1.1fr' : '1.3fr'
         }) repeat(${columns}, minmax(0, 1fr))`,
       }}
     >
-      {board.map((theme) => (
+      {board.map((theme, themeIndex) => (
         <div key={theme.id} className="contents">
           <div
-            className={`flex items-center overflow-hidden rounded-xl bg-surface font-semibold hyphens-auto ${
-              compact ? 'px-2 py-1.5 text-[0.7rem] leading-tight' : 'px-3 py-2 text-sm'
-            }`}
-            // Переносим по слогам, а рвём слово только если иначе никак.
-            style={{ overflowWrap: 'break-word' }}
             lang="ru"
+            style={{ overflowWrap: 'break-word', boxShadow: '4px 4px 0 #1a1a1a' }}
+            className={`ink-border bg-p1 flex items-center rounded-2xl font-bold text-white hyphens-auto ${
+              compact ? 'px-2 py-1.5 text-[0.7rem] leading-tight' : 'font-pop px-3 py-2 text-sm'
+            }`}
           >
             {theme.title}
           </div>
-          {theme.cells.map((cell) => {
-            const label = cell.played ? '' : cell.price;
-            const clickable = Boolean(onPick) && !cell.played;
-            return (
-              <button
-                key={cell.questionId}
-                disabled={!clickable}
-                onClick={() => onPick?.(theme.id, cell.questionId)}
-                className={`rounded-xl border tabular-nums transition ${
-                  compact ? 'py-3 text-base' : 'py-4 text-2xl'
-                } font-black ${
-                  cell.played
-                    ? 'border-transparent bg-surface/40 text-transparent'
-                    : clickable
-                      ? 'border-line bg-surface-2 text-gold hover:border-gold hover:bg-surface'
-                      : 'border-line bg-surface-2 text-gold'
-                }`}
-              >
-                {label}
-              </button>
-            );
-          })}
+
+          {theme.cells.map((cell, cellIndex) => (
+            <PriceCell
+              key={cell.questionId}
+              price={cell.price}
+              played={cell.played}
+              tilt={(themeIndex + cellIndex) % 2 === 0 ? -1.1 : 1.1}
+              {...(onPick ? { onOpen: () => onPick(theme.id, cell.questionId) } : {})}
+            />
+          ))}
         </div>
       ))}
     </div>

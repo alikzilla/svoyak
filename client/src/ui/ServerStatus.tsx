@@ -27,11 +27,11 @@ export function ServerStatus() {
   }, []);
 
   const label = { checking: 'проверяем связь…', online: 'сервер на связи', offline: 'нет связи с сервером' }[status];
-  const dot = { checking: 'bg-muted', online: 'bg-good', offline: 'bg-bad' }[status];
+  const dot = { checking: 'bg-p4', online: 'bg-yes', offline: 'bg-no' }[status];
 
   return (
-    <p className="flex items-center gap-2 text-sm text-muted">
-      <span className={`inline-block size-2 rounded-full ${dot}`} />
+    <p className="font-body flex items-center gap-2 text-sm font-bold opacity-80">
+      <span className={`ink-border inline-block size-3 rounded-full border-2 ${dot}`} />
       {label}
     </p>
   );

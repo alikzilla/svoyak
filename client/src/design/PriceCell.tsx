@@ -24,12 +24,14 @@ export function PriceCell({ price, played = false, tilt = 0, onOpen }: PriceCell
     >
       <RoughFrame
         seed={price}
-        fill={played ? '#efe3d2' : '#ffffff'}
-        className="h-24 w-full"
+        fill={played ? '#d8cdb8' : 'var(--color-card)'}
+        className="h-20 w-full sm:h-24"
         contentClassName="grid place-items-center"
       >
         <span
-          className={`font-pop text-4xl font-black tabular-nums ${played ? 'text-ink/25' : 'text-p1'}`}
+          className={`font-pop text-3xl font-black tabular-nums sm:text-4xl ${
+            played ? 'text-ink/20' : 'text-p1'
+          }`}
         >
           {price}
         </span>

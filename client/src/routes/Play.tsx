@@ -170,7 +170,7 @@ export default function Play() {
 
       {view.question && (
         <RoughFrame
-          fill="var(--color-paper-2)"
+          fill="var(--color-card)"
           seed={11}
           className="relative shrink-0"
           contentClassName="text-ink px-4 py-3 text-center"
@@ -234,7 +234,7 @@ export default function Play() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 30, opacity: 0 }}
             className={`ink-border font-body relative shrink-0 rounded-2xl px-3 py-2 text-center font-bold ${
-              toast.tone === 'info' ? 'bg-paper-2 text-ink' : 'bg-no text-white'
+              toast.tone === 'info' ? 'bg-card text-ink' : 'bg-no text-white'
             }`}
           >
             {toast.text}
@@ -289,7 +289,7 @@ function OtherPlayer({ player, players }: { player: PlayerPublic; players: Playe
   return (
     <li
       className={`ink-border flex shrink-0 items-center gap-2 rounded-2xl px-2 py-1 ${
-        player.connected ? 'bg-paper-2' : 'bg-paper-2/50'
+        player.connected ? 'bg-card' : 'bg-card/50'
       }`}
       style={{ boxShadow: '3px 3px 0 #1a1a1a' }}
     >

@@ -21,7 +21,7 @@ export function SoundToggle({ className = '' }: SoundToggleProps) {
       }}
       title={muted ? 'Включить звук' : 'Выключить звук'}
       aria-pressed={muted}
-      className={`ink-border bg-paper-2 grid place-items-center rounded-xl p-1.5 ${className}`}
+      className={`ink-border bg-card grid place-items-center rounded-xl p-1.5 ${className}`}
       style={{ boxShadow: '3px 3px 0 #1a1a1a' }}
     >
       <Doodle name={muted ? 'mute' : 'speaker'} size={22} strokeWidth={5} />

@@ -121,7 +121,7 @@ export default function Style() {
       className={`paper-scene min-h-dvh ${calm ? 'calm' : ''}`}
       style={
         {
-          '--paper-tone': tone.value,
+          '--scene-tone': tone.value,
           '--card-tone': tone.card,
           '--scene-ink': tone.ink,
           '--font-display': pair.display,

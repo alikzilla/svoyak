@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import type { CreateRoomResult, PackSummary, PacksListResponse } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
 import { clearSession, saveSession } from '../net/session.js';
 import { useHostRoom } from '../net/useRoom.js';
 import { QrCode } from '../ui/QrCode.js';
-import { RoomCode } from '../ui/RoomCode.js';
 import { PlayerLedger } from '../ui/PlayerLedger.js';
 import { HostGame } from '../ui/host/HostGame.js';
 import { SoundToggle } from '../ui/SoundToggle.js';
+import { DoodleButton } from '../design/DoodleButton.js';
+import { DoodleField } from '../design/Doodles.js';
+import { RoughFrame } from '../design/rough.js';
 
 export default function Host() {
   const { view, connected, closed } = useHostRoom();
@@ -42,44 +45,61 @@ export default function Host() {
 
   if (!view) {
     return (
-      <div className="app-shell mx-auto flex max-w-3xl flex-col gap-8 p-6">
-        <header>
-          <h1 className="text-4xl font-black tracking-tight text-gold">Ведущий</h1>
-          <p className="mt-1 text-muted">Выберите пак — комната создастся сразу.</p>
+      <div className="app-shell relative mx-auto flex w-full max-w-3xl flex-col gap-6 overflow-y-auto p-6">
+        <DoodleField density="light" night />
+
+        <header className="relative">
+          <h1
+            className="font-pop text-5xl font-black"
+            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
+          >
+            Ведущий
+          </h1>
+          <p className="font-body mt-1 text-lg font-bold opacity-80">
+            Выберите пак — комната создастся сразу
+          </p>
         </header>
 
-        {closed && <p className="rounded-xl border border-bad/50 bg-bad/10 p-3 text-bad">{closed}</p>}
-        {error && <p className="rounded-xl border border-bad/50 bg-bad/10 p-3 text-bad">{error}</p>}
+        {closed && <Alert>{closed}</Alert>}
+        {error && <Alert>{error}</Alert>}
 
         {packs.length === 0 ? (
-          <p className="text-muted">
+          <p className="font-body relative font-bold opacity-80">
             Паков пока нет. Соберите свой в{' '}
-            <Link to="/editor" className="text-gold underline underline-offset-4">
+            <Link to="/editor" className="text-p4 underline underline-offset-4">
               редакторе
             </Link>{' '}
-            или выполните <code className="text-ink">npm run build:packs</code>.
+            или выполните <code>npm run build:packs</code>.
           </p>
         ) : (
-          <ul className="grid gap-3">
-            {packs.map((pack) => (
-              <li key={pack.id}>
-                <button
+          <ul className="relative grid gap-3">
+            {packs.map((pack, index) => (
+              <motion.li
+                key={pack.id}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 20, delay: index * 0.06 }}
+              >
+                <motion.button
                   disabled={creating || !connected}
                   onClick={() => void createRoom(pack.id)}
-                  className="w-full rounded-2xl border border-line bg-surface px-5 py-4 text-left transition hover:border-gold hover:bg-surface-2 disabled:opacity-50"
+                  whileHover={{ scale: 1.02, y: -4, rotate: index % 2 ? 0.8 : -0.8 }}
+                  whileTap={{ scale: 0.98, x: 4, y: 5, boxShadow: '0px 0px 0 #1a1a1a' }}
+                  style={{ boxShadow: '6px 6px 0 #1a1a1a' }}
+                  className="ink-border bg-card text-ink w-full rounded-3xl px-5 py-4 text-left disabled:opacity-50"
                 >
-                  <span className="block text-lg font-semibold">{pack.title}</span>
-                  <span className="block text-sm text-muted">
+                  <span className="font-pop block text-2xl font-black">{pack.title}</span>
+                  <span className="font-body block text-sm font-bold opacity-70">
                     {pack.roundsCount} раунда · {pack.questionsCount} вопросов · финал из{' '}
                     {pack.finalThemesCount} тем
                   </span>
-                </button>
-              </li>
+                </motion.button>
+              </motion.li>
             ))}
           </ul>
         )}
 
-        <Link to="/" className="text-sm text-muted underline underline-offset-4">
+        <Link to="/" className="font-body relative text-sm font-bold underline underline-offset-4 opacity-70">
           на главную
         </Link>
       </div>
@@ -88,37 +108,59 @@ export default function Host() {
 
   if (view.phase !== 'lobby') {
     return (
-      <div className="app-shell">
+      <div className="app-shell relative overflow-y-auto">
+        <DoodleField density="light" night />
         <HostGame view={view} />
       </div>
     );
   }
 
+  const canStart = view.players.length > 0;
+
   return (
-    <div className="app-shell mx-auto flex max-w-5xl flex-col gap-6 p-6">
-      <header className="flex flex-wrap items-baseline justify-between gap-2">
-        <h1 className="text-2xl font-bold">{view.packTitle}</h1>
+    <div className="app-shell relative mx-auto flex w-full max-w-5xl flex-col gap-5 overflow-y-auto p-6">
+      <DoodleField density="light" night />
+
+      <header className="relative flex flex-wrap items-center justify-between gap-3">
+        <h1 className="font-pop text-2xl font-black">{view.packTitle}</h1>
         <div className="flex items-center gap-3">
-          <p className="text-sm text-muted">
-            {connected ? 'сервер на связи' : 'связь потеряна, переподключаемся…'}
-          </p>
+          <span className="font-body text-sm font-bold opacity-75">
+            {connected ? 'сервер на связи' : 'связь потеряна…'}
+          </span>
           <SoundToggle />
         </div>
       </header>
 
-      <section className="grid gap-6 rounded-3xl border border-line bg-surface p-6 sm:grid-cols-[1fr_auto]">
-        <div className="flex flex-col justify-center gap-3">
-          <p className="text-muted">Код комнаты</p>
-          <RoomCode code={view.code} />
-          <p className="break-all text-sm text-muted">{view.joinUrl}</p>
-        </div>
-        <QrCode value={view.joinUrl} size={200} className="justify-self-center rounded-2xl" />
+      <section className="relative grid gap-5 sm:grid-cols-[1fr_auto]">
+        <RoughFrame
+          fill="var(--color-card)"
+          seed={5}
+          contentClassName="text-ink grid content-center gap-2 px-6 py-6"
+        >
+          <p className="font-body text-sm font-bold opacity-70">код комнаты</p>
+          <p
+            className="font-pop text-[clamp(3.5rem,10vw,6rem)] leading-none font-black tabular-nums"
+            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: 'var(--color-p1)' }}
+          >
+            {view.code}
+          </p>
+          <p className="font-body text-xs font-bold break-all opacity-60">{view.joinUrl}</p>
+        </RoughFrame>
+
+        <motion.div
+          animate={{ rotate: [-2, 2, -2] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+          className="ink-border bg-card justify-self-center rounded-3xl p-3"
+          style={{ boxShadow: '6px 6px 0 #1a1a1a' }}
+        >
+          <QrCode value={view.joinUrl} size={190} />
+        </motion.div>
       </section>
 
-      <section className="rounded-3xl border border-line bg-surface p-6">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-xl font-semibold">Игроки</h2>
-          <span className="text-sm text-muted tabular-nums">{view.players.length}</span>
+      <section className="relative">
+        <div className="mb-2 flex items-baseline justify-between">
+          <h2 className="font-pop text-xl font-black">Кто в игре</h2>
+          <span className="font-pop text-lg font-black tabular-nums">{view.players.length}</span>
         </div>
         <PlayerLedger
           players={view.players}
@@ -129,31 +171,43 @@ export default function Host() {
         />
       </section>
 
-      <footer className="flex flex-wrap items-center gap-3">
-        <button
-          disabled={view.players.length === 0}
+      <footer className="relative flex flex-wrap items-center gap-3">
+        <DoodleButton
+          tone="p5"
+          size="lg"
+          idle={canStart}
+          disabled={!canStart}
           onClick={() => void ask('host:startGame')}
-          className="rounded-xl bg-gold px-5 py-3 font-bold text-bg disabled:opacity-40"
         >
           Начать игру
-        </button>
-        <button
+        </DoodleButton>
+        <DoodleButton
+          tone="paper"
+          size="sm"
+          tilt={0.8}
           disabled={!view.canUndo}
           onClick={() => void ask('host:undo')}
-          className="rounded-xl border border-line px-5 py-3 text-muted hover:border-gold hover:text-ink disabled:opacity-40"
         >
-          Отменить последнее
-        </button>
+          Отменить
+        </DoodleButton>
         <button
           onClick={() => {
             clearSession();
             location.reload();
           }}
-          className="ml-auto text-sm text-muted underline underline-offset-4"
+          className="font-body ml-auto text-sm font-bold underline underline-offset-4 opacity-70"
         >
-          Закрыть комнату
+          закрыть комнату
         </button>
       </footer>
     </div>
+  );
+}
+
+function Alert({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="ink-border bg-no font-body relative rounded-2xl px-4 py-3 font-bold text-white">
+      {children}
+    </p>
   );
 }

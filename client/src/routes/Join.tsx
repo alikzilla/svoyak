@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import type { JoinRoomResult } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
 import { saveSession } from '../net/session.js';
+import { Avatar, colorForIndex } from '../design/Avatar.js';
+import { DoodleButton } from '../design/DoodleButton.js';
+import { DoodleField } from '../design/Doodles.js';
+import { RoughFrame } from '../design/rough.js';
 
 export default function Join() {
   const [params] = useSearchParams();
@@ -42,19 +47,40 @@ export default function Join() {
   };
 
   const ready = code.trim().length >= 4 && name.trim().length > 0;
+  // Персонаж собирается из имени — показываем его сразу, ещё до входа.
+  const preview = name.trim() === '' ? 'кто-то' : name.trim();
 
   return (
-    <div className="app-shell flex flex-col overflow-y-auto p-5">
-      {/* my-auto центрирует, когда есть место, и не срезает верх, когда открыта клавиатура */}
+    <div className="app-shell relative flex flex-col overflow-y-auto p-5 select-none">
+      <DoodleField density="light" night />
+
       <form
-        className="my-auto grid w-full max-w-sm gap-4 self-center"
+        className="relative my-auto grid w-full max-w-sm gap-4 self-center"
         onSubmit={(event) => void submit(event)}
       >
-        <h1 className="text-center text-3xl font-black tracking-tight text-gold">Вход в игру</h1>
+        <div className="grid justify-items-center gap-2">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={preview}
+              initial={{ scale: 0.6, rotate: -12, opacity: 0 }}
+              animate={{ scale: 1, rotate: 0, opacity: 1 }}
+              exit={{ scale: 0.6, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 14 }}
+            >
+              <Avatar seed={preview} color={colorForIndex(preview.length)} size={116} />
+            </motion.div>
+          </AnimatePresence>
+          <h1
+            className="font-pop text-4xl font-black"
+            style={{ WebkitTextStroke: '3px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
+          >
+            Свояк
+          </h1>
+        </div>
 
         {editingCode ? (
-          <label className="grid gap-1.5 text-sm text-muted">
-            Код комнаты
+          <label className="font-body grid gap-1.5 text-sm font-bold">
+            код комнаты
             <input
               value={code}
               onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
@@ -63,27 +89,30 @@ export default function Join() {
               autoComplete="off"
               autoFocus={code.length === 0}
               placeholder="1234"
-              className="rounded-2xl border border-line bg-surface px-4 py-4 text-center text-3xl tabular-nums tracking-[0.3em] text-ink [text-indent:0.3em] placeholder:text-line focus:border-gold"
+              className="ink-border font-pop bg-card text-ink rounded-2xl px-4 py-4 text-center text-4xl font-black tabular-nums"
+              style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
             />
           </label>
         ) : (
-          <p className="flex items-center justify-between gap-3 rounded-2xl border border-line bg-surface px-4 py-3">
-            <span className="text-muted">Комната</span>
-            <span className="text-2xl font-bold tabular-nums tracking-[0.15em] text-gold">
-              {code}
-            </span>
+          <RoughFrame
+            fill="var(--color-card)"
+            seed={4}
+            contentClassName="text-ink flex items-center justify-between gap-3 px-4 py-2"
+          >
+            <span className="font-body text-sm font-bold opacity-70">комната</span>
+            <span className="font-pop text-2xl font-black tabular-nums">{code}</span>
             <button
               type="button"
               onClick={() => setEditingCode(true)}
-              className="text-sm text-muted underline underline-offset-4"
+              className="font-body text-sm font-bold underline underline-offset-4 opacity-70"
             >
-              изменить
+              другая
             </button>
-          </p>
+          </RoughFrame>
         )}
 
-        <label className="grid gap-1.5 text-sm text-muted">
-          Ваше имя
+        <label className="font-body grid gap-1.5 text-sm font-bold">
+          как вас звать
           <input
             ref={nameField}
             value={name}
@@ -95,23 +124,36 @@ export default function Join() {
             spellCheck={false}
             enterKeyHint="go"
             placeholder="Вася"
-            className="rounded-2xl border border-line bg-surface px-4 py-4 text-xl text-ink placeholder:text-line focus:border-gold"
+            className="ink-border font-pop bg-card text-ink rounded-2xl px-4 py-4 text-center text-2xl font-black"
+            style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
           />
         </label>
 
-        {error && (
-          <p role="alert" className="rounded-2xl border border-bad/50 bg-bad/10 p-3 text-bad">
-            {error}
-          </p>
-        )}
+        <AnimatePresence>
+          {error && (
+            <motion.p
+              initial={{ x: -8, opacity: 0 }}
+              animate={{ x: [8, -6, 4, 0], opacity: 1 }}
+              exit={{ opacity: 0 }}
+              role="alert"
+              className="ink-border bg-no font-body rounded-2xl px-3 py-2 text-center font-bold text-white"
+            >
+              {error}
+            </motion.p>
+          )}
+        </AnimatePresence>
 
-        <button
-          type="submit"
+        <DoodleButton
+          tone="p5"
+          size="lg"
+          tilt={-1}
+          idle={ready && !busy}
           disabled={!ready || busy}
-          className="rounded-2xl bg-gold px-4 py-5 text-xl font-bold text-bg transition disabled:opacity-40"
+          className="w-full"
+          onClick={() => nameField.current?.form?.requestSubmit()}
         >
-          {busy ? 'Заходим…' : 'Войти в игру'}
-        </button>
+          {busy ? 'заходим…' : 'Играть'}
+        </DoodleButton>
       </form>
     </div>
   );
