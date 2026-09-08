@@ -10,6 +10,8 @@ const SHAPES: Record<string, string> = {
   bolt: 'M32 4 L14 34 L28 34 L24 56 L46 26 L32 26 Z',
   ring: 'M30 6 a24 24 0 1 0 1 0',
   check: 'M10 32 L24 46 L50 12',
+  speaker: 'M8 24 L20 24 L34 12 L34 48 L20 36 L8 36 Z M42 20 q8 10 0 20 M50 14 q12 16 0 32',
+  mute: 'M8 24 L20 24 L34 12 L34 48 L20 36 L8 36 Z M44 22 L58 38 M58 22 L44 38',
   arrow: 'M6 40 q18 -30 44 -22 M38 12 l12 6 l-8 10',
 };
 

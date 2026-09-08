@@ -63,10 +63,8 @@ body {
   /* Вырезы и «домашняя полоса» телефона: содержимое не должно под них уезжать. */
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
     env(safe-area-inset-left);
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, #2a2a7a 0%, transparent 60%),
-    var(--color-bg);
-  color: var(--color-ink);
+  background-color: var(--color-paper);
+  color: var(--color-scene-ink);
   font-family: var(--font-display);
   /* Приложение занимает экран целиком: скроллят только внутренние области. */
   overscroll-behavior: none;

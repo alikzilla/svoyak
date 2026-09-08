@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Doodle } from '../design/Doodles.js';
 import { isMuted, setMuted, unlockAudio } from '../net/sounds.js';
 
 interface SoundToggleProps {
@@ -20,9 +21,10 @@ export function SoundToggle({ className = '' }: SoundToggleProps) {
       }}
       title={muted ? 'Включить звук' : 'Выключить звук'}
       aria-pressed={muted}
-      className={`rounded-xl border border-line px-3 py-2 text-sm text-muted hover:border-gold hover:text-ink ${className}`}
+      className={`ink-border bg-paper-2 grid place-items-center rounded-xl p-1.5 ${className}`}
+      style={{ boxShadow: '3px 3px 0 #1a1a1a' }}
     >
-      {muted ? '🔇 звук выключен' : '🔊 звук'}
+      <Doodle name={muted ? 'mute' : 'speaker'} size={22} strokeWidth={5} />
     </button>
   );
 }

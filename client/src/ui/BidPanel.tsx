@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { DoodleButton } from '../design/DoodleButton.js';
 
 interface BidPanelProps {
   currentBid: number;
@@ -12,69 +14,86 @@ interface BidPanelProps {
 export function BidPanel({ currentBid, minBid, maxBid, canPass, onBid }: BidPanelProps) {
   const [amount, setAmount] = useState(minBid);
   const affordable = maxBid >= minBid;
+  const step = 100;
 
   return (
-    <div className="flex flex-1 flex-col justify-center gap-4">
-      <div className="text-center">
-        <p className="text-sm text-muted">Аукцион · ваш ход</p>
-        <p className="text-3xl font-black tabular-nums text-gold">{currentBid}</p>
-        <p className="text-muted">
-          перебить можно от <span className="tabular-nums">{minBid}</span>, у вас{' '}
+    <div className="flex flex-1 flex-col justify-center gap-4 overflow-y-auto">
+      <div className="grid justify-items-center gap-1 text-center">
+        <p className="font-body text-sm font-bold opacity-75">аукцион · ваш ход</p>
+        <p
+          className="font-pop text-gold text-6xl font-black tabular-nums"
+          style={{ WebkitTextStroke: '3px #1a1a1a', paintOrder: 'stroke fill' }}
+        >
+          {currentBid}
+        </p>
+        <p className="font-body font-bold">
+          перебить от <span className="tabular-nums">{minBid}</span>, у вас{' '}
           <span className="tabular-nums">{maxBid}</span>
         </p>
       </div>
 
-      {affordable && (
+      {affordable ? (
         <>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setAmount((value) => Math.max(minBid, value - 100))}
-              className="rounded-2xl border border-line px-5 py-4 text-2xl"
+            <DoodleButton
+              size="md"
+              tone="paper"
+              tilt={0}
+              onClick={() => setAmount((value) => Math.max(minBid, value - step))}
             >
               −
-            </button>
-            <input
-              className="min-w-0 flex-1 rounded-2xl border border-line bg-surface px-3 py-4 text-center text-2xl font-bold tabular-nums focus:border-gold"
+            </DoodleButton>
+            <motion.input
+              key={amount}
+              initial={{ scale: 1.06 }}
+              animate={{ scale: 1 }}
+              className="ink-border font-pop bg-paper-2 text-ink min-w-0 flex-1 rounded-2xl px-2 py-3 text-center text-3xl font-black tabular-nums"
+              style={{ boxShadow: '4px 4px 0 #1a1a1a' }}
               value={amount}
               inputMode="numeric"
               onChange={(event) => setAmount(Number(event.target.value.replace(/\D/g, '')) || 0)}
             />
-            <button
-              onClick={() => setAmount((value) => Math.min(maxBid, value + 100))}
-              className="rounded-2xl border border-line px-5 py-4 text-2xl"
+            <DoodleButton
+              size="md"
+              tone="paper"
+              tilt={0}
+              onClick={() => setAmount((value) => Math.min(maxBid, value + step))}
             >
               +
-            </button>
+            </DoodleButton>
           </div>
 
-          <button
+          <DoodleButton
+            size="lg"
+            tone="gold"
+            tilt={-0.8}
             disabled={amount < minBid || amount > maxBid}
             onClick={() => onBid(amount)}
-            className="rounded-2xl bg-gold px-4 py-4 text-xl font-bold text-bg disabled:opacity-40"
+            className="w-full"
           >
             Ставлю {amount}
-          </button>
+          </DoodleButton>
 
-          <button
-            onClick={() => onBid('all-in')}
-            className="rounded-2xl border border-gold px-4 py-3 font-bold text-gold"
-          >
+          <DoodleButton size="md" tone="p2" tilt={0.8} onClick={() => onBid('all-in')} className="w-full">
             Ва-банк · {maxBid}
-          </button>
+          </DoodleButton>
         </>
+      ) : (
+        <p className="font-body text-center font-bold text-pretty">
+          Перебить нечем — остаётся пас.
+        </p>
       )}
 
-      {!affordable && (
-        <p className="text-center text-muted text-pretty">Перебить нечем — можно только спасовать.</p>
-      )}
-
-      <button
+      <DoodleButton
+        size="md"
+        tone="paper"
+        tilt={0}
         disabled={!canPass}
         onClick={() => onBid('pass')}
-        className="rounded-2xl border border-line px-4 py-3 text-muted disabled:opacity-40"
+        className="w-full"
       >
         Пас
-      </button>
+      </DoodleButton>
     </div>
   );
 }
