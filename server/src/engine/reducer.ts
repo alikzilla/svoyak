@@ -1,10 +1,11 @@
-import type { AuctionState, LogEntry, RoomState, TimerKind } from '@svoyak/shared';
+import type { AuctionState, FinalState, LogEntry, RoomState, TimerKind } from '@svoyak/shared';
 import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
 import { activeQuestion, findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
 import { minRaise, nextBidder } from './auction.js';
+import { MIN_BET, byScoreAscending, maxBet, nextRemovalTurn, remainingThemes } from './final.js';
 import { applyDelta } from './players.js';
 
 export interface ReduceResult {
@@ -271,6 +272,28 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     }
 
     case 'CONTINUE': {
+      const final = state.final;
+      if (state.phase === 'final_bets' && final) {
+        // Кто не успел поставить — ставит минимум: игра не должна вставать из-за отвалившегося.
+        const bets = { ...final.bets };
+        for (const playerId of final.participantIds) {
+          if (!(playerId in bets)) bets[playerId] = MIN_BET;
+        }
+        return {
+          state: { ...state, phase: 'final_answers', final: { ...final, bets } },
+          effects: [{ type: 'persist' }],
+        };
+      }
+      if (state.phase === 'final_answers' && final) {
+        const answers = { ...final.answers };
+        for (const playerId of final.participantIds) {
+          if (!(playerId in answers)) answers[playerId] = '';
+        }
+        return {
+          state: startFinalReveal(state, { ...final, answers }),
+          effects: [{ type: 'persist' }],
+        };
+      }
       if (!hasOpenQuestion(state)) return reject(state, 'Нечего закрывать');
       return {
         state: closeQuestion(state),
@@ -520,6 +543,117 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       return closeOrContinueAuction(withLog, raised, action.playerId, action.at);
     }
 
+    case 'FINAL_REMOVE_THEME': {
+      const final = state.final;
+      if (state.phase !== 'final_theme_removal' || !final) {
+        return reject(state, 'Сейчас темы не убирают');
+      }
+      if (final.removalTurnPlayerId !== action.playerId) return reject(state, 'Сейчас не ваш ход');
+
+      const theme = final.themes.find((candidate) => candidate.id === action.themeId);
+      if (!theme) return reject(state, 'Темы нет в финале');
+      if (theme.removedByPlayerId !== null) return reject(state, 'Эту тему уже убрали');
+
+      const player = findPlayer(state, action.playerId);
+      const themes = final.themes.map((candidate) =>
+        candidate.id === action.themeId
+          ? { ...candidate, removedByPlayerId: action.playerId }
+          : candidate,
+      );
+      const left = themes.filter((candidate) => candidate.removedByPlayerId === null);
+
+      const nextFinal: FinalState = {
+        ...final,
+        themes,
+        removalTurnPlayerId:
+          left.length > 1 ? nextRemovalTurn(state, final, action.playerId) : null,
+      };
+
+      return {
+        state: {
+          ...state,
+          phase: left.length > 1 ? 'final_theme_removal' : 'final_bets',
+          final: nextFinal,
+          log: log(state, action.at, `${player?.name ?? '—'} убирает тему «${theme.title}»`),
+        },
+        effects: [{ type: 'persist' }],
+      };
+    }
+
+    case 'FINAL_BET': {
+      const final = state.final;
+      if (state.phase !== 'final_bets' || !final) return reject(state, 'Сейчас не время ставок');
+      if (!final.participantIds.includes(action.playerId)) {
+        return reject(state, 'Вы не играете в финале');
+      }
+      const bet = Math.round(action.bet);
+      if (!Number.isFinite(bet) || bet < MIN_BET) return reject(state, 'Ставка не меньше единицы');
+      if (bet > maxBet(state, action.playerId)) return reject(state, 'Ставка больше вашего счёта');
+
+      const bets = { ...final.bets, [action.playerId]: bet };
+      const everyone = final.participantIds.every((playerId) => playerId in bets);
+      return {
+        state: {
+          ...state,
+          phase: everyone ? 'final_answers' : 'final_bets',
+          final: { ...final, bets },
+        },
+        effects: [{ type: 'persist' }],
+      };
+    }
+
+    case 'FINAL_ANSWER': {
+      const final = state.final;
+      if (state.phase !== 'final_answers' || !final) return reject(state, 'Сейчас не время ответов');
+      if (!final.participantIds.includes(action.playerId)) {
+        return reject(state, 'Вы не играете в финале');
+      }
+
+      const answers = { ...final.answers, [action.playerId]: action.answer.trim().slice(0, 200) };
+      const everyone = final.participantIds.every((playerId) => playerId in answers);
+      return {
+        state: everyone
+          ? startFinalReveal(state, { ...final, answers })
+          : { ...state, final: { ...final, answers } },
+        effects: [{ type: 'persist' }],
+      };
+    }
+
+    case 'FINAL_JUDGE': {
+      const final = state.final;
+      if (state.phase !== 'final_reveal' || !final) return reject(state, 'Сейчас нечего вскрывать');
+      const playerId = final.revealOrder[final.revealIndex];
+      if (!playerId) return reject(state, 'Все ответы уже вскрыты');
+
+      const player = findPlayer(state, playerId);
+      const bet = final.bets[playerId] ?? MIN_BET;
+      const delta = action.correct ? bet : -bet;
+      const revealIndex = final.revealIndex + 1;
+      const done = revealIndex >= final.revealOrder.length;
+
+      return {
+        state: {
+          ...state,
+          phase: done ? 'results' : 'final_reveal',
+          players: updatePlayer(state.players, playerId, (candidate) => ({
+            ...candidate,
+            score: applyDelta(candidate.score, delta, state.settings.allowNegative),
+          })),
+          final: { ...final, revealIndex, judged: { ...final.judged, [playerId]: action.correct } },
+          log: log(
+            state,
+            action.at,
+            `Финал, ${player?.name ?? '—'}: ${action.correct ? 'верно' : 'неверно'} (${bet})`,
+          ),
+        },
+        effects: [
+          { type: 'sound', sound: action.correct ? 'correct' : 'wrong' },
+          ...(done ? ([{ type: 'sound', sound: 'game_over' }] as const) : []),
+          { type: 'persist' },
+        ],
+      };
+    }
+
     case 'TIMER_EXPIRED': {
       if (action.kind === 'buzz') {
         if (state.phase !== 'buzzer_open') return { state, effects: [] };
@@ -567,6 +701,19 @@ function closeOrContinueAuction(
       log: log(state, at, `Аукцион выиграл ${winner.name} за ${withSkipped.currentBid}`),
     },
     effects: [{ type: 'persist' }],
+  };
+}
+
+/** Вскрытие идёт от меньшего счёта к большему — интрига держится до конца. */
+function startFinalReveal(state: RoomState, final: FinalState): RoomState {
+  return {
+    ...state,
+    phase: 'final_reveal',
+    final: {
+      ...final,
+      revealOrder: byScoreAscending(state, final.participantIds),
+      revealIndex: 0,
+    },
   };
 }
 

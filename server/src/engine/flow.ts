@@ -1,6 +1,7 @@
-import type { RoomState } from '@svoyak/shared';
+import type { FinalState, RoomState } from '@svoyak/shared';
 import { buildBoard, hasUnplayedCells } from './board.js';
 import { EMPTY_BUZZ } from './createRoom.js';
+import { byScoreAscending, finalParticipants } from './final.js';
 
 /** Сброс кнопки между вопросами: блокировки за фальстарт живут только внутри вопроса. */
 export function resetBuzz(): RoomState['buzz'] {
@@ -20,11 +21,40 @@ export function closeQuestion(state: RoomState): RoomState {
   };
 }
 
-/** Доска и фаза следующего раунда; после последнего — результаты. */
+/** Состав финала и первый ход: тему убирает тот, у кого меньше очков. */
+export function enterFinal(state: RoomState): RoomState {
+  const participantIds = finalParticipants(state);
+  const order = byScoreAscending(state, participantIds);
+
+  if (participantIds.length === 0 || state.pack.final.themes.length === 0) {
+    return { ...state, phase: 'results', active: null, timer: null, final: null };
+  }
+
+  const final: FinalState = {
+    participantIds: order,
+    themes: state.pack.final.themes.map((theme) => ({
+      id: theme.id,
+      title: theme.title,
+      removedByPlayerId: null,
+    })),
+    removalTurnPlayerId: order[0] ?? null,
+    bets: {},
+    answers: {},
+    revealOrder: [],
+    revealIndex: 0,
+    judged: {},
+  };
+
+  // Тем может оказаться ровно одна — тогда убирать нечего, сразу ставки.
+  const phase = final.themes.length > 1 ? 'final_theme_removal' : 'final_bets';
+  return { ...state, phase, active: null, buzz: resetBuzz(), timer: null, final };
+}
+
+/** Доска и фаза следующего раунда; после последнего — финал. */
 export function advanceRound(state: RoomState): RoomState {
   const nextIndex = state.roundIndex + 1;
   const nextRound = state.pack.rounds[nextIndex];
-  if (!nextRound) return { ...state, phase: 'results', active: null, timer: null };
+  if (!nextRound) return enterFinal({ ...state, active: null, timer: null });
 
   return {
     ...state,
