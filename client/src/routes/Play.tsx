@@ -99,7 +99,7 @@ export default function Play() {
 
   if (closed) {
     return (
-      <div className="paper-scene app-shell grid place-items-center gap-5 p-6 text-center">
+      <div className="screen-lock grid place-items-center gap-5 p-6 text-center">
         <p className="font-pop text-2xl font-black">{closed}</p>
         <DoodleButton tone="p1" onClick={() => void navigate('/join')}>
           Войти заново
@@ -110,7 +110,7 @@ export default function Play() {
 
   if (!view) {
     return (
-      <div className="paper-scene app-shell grid place-items-center p-6">
+      <div className="screen-lock grid place-items-center p-6">
         <motion.p
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
@@ -148,7 +148,7 @@ export default function Play() {
 
   return (
     <motion.div
-      className="app-shell relative flex flex-col gap-3 overflow-hidden p-3 select-none"
+      className="screen-lock relative flex flex-col gap-2 p-3 select-none"
       onPointerDown={unlockAudio}
       animate={{ backgroundColor: sceneColor(view, myColor) }}
       transition={{ duration: 0.45 }}
@@ -172,7 +172,7 @@ export default function Play() {
         <RoughFrame
           fill="var(--color-card)"
           seed={11}
-          className="relative shrink-0"
+          className="relative max-h-[26dvh] shrink-0 overflow-y-auto"
           contentClassName="text-ink px-4 py-3 text-center"
         >
           <p className="font-body text-ink/60 text-xs font-bold">
@@ -187,7 +187,7 @@ export default function Play() {
         </RoughFrame>
       )}
 
-      <main className="relative flex min-h-0 flex-1 flex-col">
+      <main className="relative flex min-h-[38dvh] flex-1 flex-col">
         {view.prompt.kind === 'buzz' ? (
           <BigBuzzer
             state={buzzerState}
@@ -242,7 +242,7 @@ export default function Play() {
         )}
       </AnimatePresence>
 
-      <ul className="relative flex shrink-0 gap-2 overflow-x-auto pb-1">
+      <ul className="relative hidden shrink-0 gap-2 overflow-x-auto pb-1 [@media(min-height:600px)]:flex">
         {others.map((player) => (
           <OtherPlayer key={player.id} player={player} players={view.players} />
         ))}

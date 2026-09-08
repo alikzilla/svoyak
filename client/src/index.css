@@ -71,11 +71,19 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-/* Оболочка экрана: занимает вьюпорт за вычетом безопасных зон.
-   Живёт в слое base, иначе перебивала бы утилиты отступов Tailwind. */
+/* Оболочки экранов. Живут в слое base, иначе перебивали бы утилиты отступов Tailwind. */
 @layer base {
+  /* Экран, который может быть длиннее вьюпорта: ведущий, редактор, лендинг. */
   .app-shell {
     min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  /* Экран телефона: ровно вьюпорт и ни пикселем больше — прокрутки быть не должно.
+     Высота фиксированная, поэтому длинный вопрос не выталкивает кнопку за экран. */
+  .screen-lock {
+    block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow: hidden;
+    touch-action: manipulation;
   }
 }
 

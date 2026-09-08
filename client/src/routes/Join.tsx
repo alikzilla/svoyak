@@ -51,7 +51,7 @@ export default function Join() {
   const preview = name.trim() === '' ? 'кто-то' : name.trim();
 
   return (
-    <div className="app-shell relative flex flex-col overflow-y-auto p-5 select-none">
+    <div className="screen-lock relative flex flex-col overflow-y-auto overscroll-contain p-5 select-none">
       <DoodleField density="light" night />
 
       <form
