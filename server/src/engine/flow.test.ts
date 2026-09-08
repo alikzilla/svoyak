@@ -58,7 +58,7 @@ describe('старт игры', () => {
 });
 
 describe('выбор вопроса', () => {
-  it('открывает вопрос, помечает клетку сыгранной и заводит таймер чтения', () => {
+  it('открывает вопрос и помечает клетку сыгранной', () => {
     const state = withOpenQuestion();
     expect(state.phase).toBe('reading');
     expect(state.active).toMatchObject({ questionId: 'r1-kino-q3', price: 300, type: 'normal' });
@@ -68,19 +68,15 @@ describe('выбор вопроса', () => {
     expect(cell?.played).toBe(true);
   });
 
-  it('заводит таймер чтения через эффект', () => {
+  it('не заводит таймеров: кнопку откроет ведущий, когда дочитает вопрос', () => {
     const result = reduce(started(), {
       type: 'PICK_QUESTION',
       themeId: 'r1-kino',
       questionId: 'r1-kino-q3',
       at: 4000,
     });
-    expect(result.effects).toContainEqual({
-      type: 'setTimer',
-      kind: 'reading',
-      durationMs: DEFAULT_SETTINGS.readingTimeMs,
-      onExpire: { type: 'TIMER_EXPIRED', kind: 'reading', at: 4000 },
-    });
+    expect(result.state.phase).toBe('reading');
+    expect(result.effects.some((effect) => effect.type === 'setTimer')).toBe(false);
   });
 
   it('уже сыгранную клетку выбрать нельзя', () => {

@@ -20,15 +20,8 @@ const EXTRA_TIME_MS = 5000;
 /** Какой таймер идёт в этой фазе. Редьюсер не знает о планировщике, только о фазе. */
 function timerKindFor(phase: RoomState['phase']): TimerKind | null {
   switch (phase) {
-    case 'reading':
-      return 'reading';
     case 'buzzer_open':
       return 'buzz';
-    case 'answering':
-      return 'answer';
-    case 'cat_answer':
-    case 'auction_answer':
-      return 'solo_answer';
     case 'final_bets':
       return 'final_bet';
     case 'final_answers':
@@ -230,15 +223,8 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
           buzz: resetBuzz(),
           log: log(state, action.at, `${theme.title} за ${question.price}`),
         },
-        effects: [
-          {
-            type: 'setTimer',
-            kind: 'reading',
-            durationMs: state.settings.readingTimeMs,
-            onExpire: { type: 'TIMER_EXPIRED', kind: 'reading', at: action.at },
-          },
-          { type: 'persist' },
-        ],
+        // Таймера чтения нет: кнопку открывает ведущий, когда дочитает вопрос.
+        effects: [{ type: 'clearTimer' }, { type: 'persist' }],
       };
     }
 
@@ -375,18 +361,12 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
             candidates: [],
             graceClosesAt: null,
             answeringPlayerId: winner.playerId,
+            answeringSince: action.at,
           },
           log: log(state, action.at, `Отвечает ${player?.name ?? '—'}`),
         },
-        effects: [
-          { type: 'sound', sound: 'buzz_hit' },
-          {
-            type: 'setTimer',
-            kind: 'answer',
-            durationMs: state.settings.answerTimeMs,
-            onExpire: { type: 'TIMER_EXPIRED', kind: 'answer', at: action.at },
-          },
-        ],
+        // Таймер снимается: ведущий сам решит, когда времени было достаточно.
+        effects: [{ type: 'sound', sound: 'buzz_hit' }, { type: 'clearTimer' }],
       };
     }
 
@@ -434,9 +414,6 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     }
 
     case 'TIMER_EXPIRED': {
-      if (action.kind === 'reading') return openBuzzer(state, action.at);
-      if (action.kind === 'answer') return judge(state, 'wrong', action.at);
-
       if (action.kind === 'buzz') {
         if (state.phase !== 'buzzer_open') return { state, effects: [] };
         return {
@@ -478,30 +455,44 @@ function judge(state: RoomState, verdict: 'correct' | 'wrong', at: number): Redu
   }
 
   const spentPlayerIds = [...active.spentPlayerIds, playerId];
-  const afterWrong: RoomState = {
-    ...state,
-    players,
-    active: { ...active, spentPlayerIds },
-    buzz: { ...state.buzz, answeringPlayerId: null, candidates: [], graceClosesAt: null },
-    log: log(state, at, `${player.name}: неверно, ${penalised === 0 ? 'без штрафа' : penalised}`),
-  };
-
-  // Остальные доигрывают остаток общего бюджета времени на кнопку.
-  const closesAt = state.buzz.closesAt ?? 0;
-  const remainingMs = closesAt - at;
   const someoneLeft = state.players.some(
     (candidate) => !spentPlayerIds.includes(candidate.id) && candidate.connected,
   );
 
-  if (remainingMs <= 0 || !someoneLeft) {
+  const afterWrong: RoomState = {
+    ...state,
+    players,
+    active: { ...active, spentPlayerIds },
+    buzz: {
+      ...state.buzz,
+      answeringPlayerId: null,
+      answeringSince: null,
+      candidates: [],
+      graceClosesAt: null,
+    },
+    log: log(state, at, `${player.name}: неверно, ${penalised === 0 ? 'без штрафа' : penalised}`),
+  };
+
+  if (!someoneLeft) {
     return {
       state: revealAnswer(afterWrong, at, 'Отвечать больше некому'),
       effects: [{ type: 'sound', sound: 'wrong' }, { type: 'clearTimer' }, { type: 'persist' }],
     };
   }
 
+  // Время устного ответа не принадлежит кнопке: бюджет заморожен с момента нажатия.
+  // И даже если бюджет исчерпан, остальным даётся минимальное окно — вопрос не
+  // должен пропасть, пока его не попробовали все.
+  const budgetLeft = Math.max(0, (state.buzz.closesAt ?? at) - (state.buzz.answeringSince ?? at));
+  const remainingMs = Math.max(budgetLeft, state.settings.buzzReopenMinMs);
+  const closesAt = at + remainingMs;
+
   return {
-    state: { ...afterWrong, phase: 'buzzer_open' },
+    state: {
+      ...afterWrong,
+      phase: 'buzzer_open',
+      buzz: { ...afterWrong.buzz, closesAt },
+    },
     effects: [
       { type: 'sound', sound: 'wrong' },
       {

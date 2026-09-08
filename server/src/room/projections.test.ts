@@ -88,7 +88,7 @@ describe('проекция ведущего', () => {
   it('содержит ссылку для подключения и настройки комнаты', () => {
     const view = projectForHost(stateWithQuestion(), JOIN_URL);
     expect(view.joinUrl).toBe(JOIN_URL);
-    expect(view.settings.answerTimeMs).toBe(DEFAULT_SETTINGS.answerTimeMs);
+    expect(view.settings.buzzOpenMs).toBe(DEFAULT_SETTINGS.buzzOpenMs);
   });
 
   it('не отдаёт токены игроков', () => {

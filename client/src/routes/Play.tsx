@@ -9,6 +9,7 @@ import { Buzzer } from '../ui/Buzzer.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 
 const WAIT_HINT: Partial<Record<string, string>> = {
+  answering: 'Отвечают',
   lobby: 'Ждём, когда ведущий начнёт игру',
   round_intro: 'Ведущий объявляет темы',
   picking: 'Выбирают вопрос',

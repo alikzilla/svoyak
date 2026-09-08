@@ -15,10 +15,11 @@ const send = (event: Parameters<typeof ask>[0], payload?: unknown): void => {
 export function HostGame({ view }: HostGameProps) {
   const answering = view.players.find((player) => player.isAnswering);
   const control = view.players.find((player) => player.isControl);
-  const questionOpen = view.question !== null;
+  const question = view.question;
+  const canPick = view.phase === 'picking' || view.phase === 'round_intro';
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 p-5">
+    <div className="mx-auto flex w-full max-w-[110rem] flex-col gap-4 p-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold">{view.roundTitle}</h1>
@@ -44,125 +45,144 @@ export function HostGame({ view }: HostGameProps) {
         </div>
       </header>
 
-      <TimerBar timer={view.timer} paused={view.paused} />
+      {/* Слева управление, справа табло: ведущий всегда видит поле целиком. */}
+      <div className="grid items-start gap-4 xl:grid-cols-[minmax(24rem,5fr)_minmax(0,6fr)]">
+        <div className="grid gap-4">
+          <TimerBar timer={view.timer} paused={view.paused} />
 
-      {questionOpen && view.question ? (
-        <section className="grid gap-4 rounded-3xl border border-line bg-surface p-6">
-          <p className="text-sm text-muted">
-            {view.question.themeTitle} · <span className="tabular-nums">{view.question.price}</span>
-          </p>
-          <p className="text-2xl leading-snug text-pretty">{view.question.text}</p>
-
-          <div className="rounded-2xl border border-gold/40 bg-gold/10 p-4">
-            <p className="text-sm text-gold">Ответ — виден только вам</p>
-            <p className="mt-1 text-xl font-bold">{view.question.answer}</p>
-            {view.question.altAnswers.length > 0 && (
-              <p className="mt-1 text-sm text-muted">
-                Также принимается: {view.question.altAnswers.join(', ')}
+          {question ? (
+            <section className="grid gap-3 rounded-3xl border border-line bg-surface p-5">
+              <p className="text-sm text-muted">
+                {question.themeTitle} · <span className="tabular-nums">{question.price}</span>
               </p>
-            )}
-            {view.question.hostComment && (
-              <p className="mt-2 text-sm text-muted text-pretty">{view.question.hostComment}</p>
-            )}
-          </div>
+              <p className="text-xl leading-snug text-pretty">{question.text}</p>
 
-          {answering && (
-            <p className="text-lg">
-              Отвечает <span className="font-bold text-gold">{answering.name}</span>
-            </p>
+              <div className="rounded-2xl border border-gold/40 bg-gold/10 p-4">
+                <p className="text-sm text-gold">Ответ — виден только вам</p>
+                <p className="mt-1 text-lg font-bold">{question.answer}</p>
+                {question.altAnswers.length > 0 && (
+                  <p className="mt-1 text-sm text-muted">
+                    Также принимается: {question.altAnswers.join(', ')}
+                  </p>
+                )}
+                {question.hostComment && (
+                  <p className="mt-2 text-sm text-muted text-pretty">{question.hostComment}</p>
+                )}
+              </div>
+
+              {answering && (
+                <p className="text-lg">
+                  Отвечает <span className="font-bold text-gold">{answering.name}</span>
+                  <span className="ml-2 text-sm text-muted">времени столько, сколько нужно</span>
+                </p>
+              )}
+
+              <div className="flex flex-wrap gap-2">
+                {view.phase === 'reading' && (
+                  <button
+                    onClick={() => send('host:openBuzzer')}
+                    className="rounded-xl bg-gold px-5 py-3 font-bold text-bg"
+                  >
+                    Открыть кнопку
+                  </button>
+                )}
+                {view.phase === 'answering' && (
+                  <>
+                    <button
+                      onClick={() => send('host:judge', { verdict: 'correct' })}
+                      className="rounded-xl bg-good px-6 py-3 font-bold text-bg"
+                    >
+                      Верно
+                    </button>
+                    <button
+                      onClick={() => send('host:judge', { verdict: 'wrong' })}
+                      className="rounded-xl bg-bad px-6 py-3 font-bold text-bg"
+                    >
+                      Неверно
+                    </button>
+                  </>
+                )}
+                {view.phase === 'buzzer_open' && (
+                  <button
+                    onClick={() => send('host:extendTime')}
+                    className="rounded-xl border border-line px-4 py-3 hover:border-gold"
+                  >
+                    Ещё время
+                  </button>
+                )}
+                {view.phase === 'answer_reveal' ? (
+                  <button
+                    onClick={() => send('host:continue')}
+                    className="rounded-xl bg-gold px-6 py-3 font-bold text-bg"
+                  >
+                    Дальше
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => send('host:revealAnswer')}
+                      className="rounded-xl border border-line px-4 py-3 hover:border-gold"
+                    >
+                      Показать ответ
+                    </button>
+                    <button
+                      onClick={() => send('host:skipQuestion')}
+                      className="rounded-xl border border-line px-4 py-3 text-muted hover:border-bad hover:text-bad"
+                    >
+                      Снять вопрос
+                    </button>
+                  </>
+                )}
+              </div>
+            </section>
+          ) : view.phase === 'round_end' || view.phase === 'results' ? (
+            <section className="grid gap-4 rounded-3xl border border-line bg-surface p-6 text-center">
+              <h2 className="text-2xl font-bold">
+                {view.phase === 'results' ? 'Игра окончена' : 'Раунд сыгран'}
+              </h2>
+              {view.phase === 'round_end' && (
+                <button
+                  onClick={() => send('host:nextRound')}
+                  className="mx-auto rounded-xl bg-gold px-6 py-3 font-bold text-bg"
+                >
+                  Следующий раунд
+                </button>
+              )}
+            </section>
+          ) : (
+            <section className="rounded-3xl border border-line bg-surface p-5">
+              <p className="text-pretty">
+                {control ? <span className="font-bold text-gold">{control.name}</span> : 'Игрок'}{' '}
+                называет тему и цену — откройте её на табло справа.
+              </p>
+            </section>
           )}
 
-          <div className="flex flex-wrap gap-2">
-            {view.phase === 'reading' && (
-              <button
-                onClick={() => send('host:openBuzzer')}
-                className="rounded-xl bg-gold px-5 py-3 font-bold text-bg"
-              >
-                Открыть кнопку
-              </button>
-            )}
-            {view.phase === 'answering' && (
-              <>
-                <button
-                  onClick={() => send('host:judge', { verdict: 'correct' })}
-                  className="rounded-xl bg-good px-6 py-3 font-bold text-bg"
-                >
-                  Верно
-                </button>
-                <button
-                  onClick={() => send('host:judge', { verdict: 'wrong' })}
-                  className="rounded-xl bg-bad px-6 py-3 font-bold text-bg"
-                >
-                  Неверно
-                </button>
-                <button
-                  onClick={() => send('host:extendTime')}
-                  className="rounded-xl border border-line px-4 py-3 hover:border-gold"
-                >
-                  Ещё время
-                </button>
-              </>
-            )}
-            {view.phase === 'answer_reveal' ? (
-              <button
-                onClick={() => send('host:continue')}
-                className="rounded-xl bg-gold px-6 py-3 font-bold text-bg"
-              >
-                Дальше
-              </button>
-            ) : (
-              <>
-                <button
-                  onClick={() => send('host:revealAnswer')}
-                  className="rounded-xl border border-line px-4 py-3 hover:border-gold"
-                >
-                  Показать ответ
-                </button>
-                <button
-                  onClick={() => send('host:skipQuestion')}
-                  className="rounded-xl border border-line px-4 py-3 text-muted hover:border-bad hover:text-bad"
-                >
-                  Снять вопрос
-                </button>
-              </>
-            )}
-          </div>
-        </section>
-      ) : view.phase === 'round_end' || view.phase === 'results' ? (
-        <section className="grid gap-4 rounded-3xl border border-line bg-surface p-8 text-center">
-          <h2 className="text-2xl font-bold">
-            {view.phase === 'results' ? 'Игра окончена' : 'Раунд сыгран'}
-          </h2>
-          {view.phase === 'round_end' && (
-            <button
-              onClick={() => send('host:nextRound')}
-              className="mx-auto rounded-xl bg-gold px-6 py-3 font-bold text-bg"
-            >
-              Следующий раунд
-            </button>
-          )}
-        </section>
-      ) : (
-        <section className="grid gap-3">
-          <p className="text-sm text-muted">
-            Выбирает {control?.name ?? 'игрок'} — можно нажать за него.
-          </p>
+          <section className="rounded-3xl border border-line bg-surface p-5">
+            <PlayerLedger
+              players={view.players}
+              highlightId={view.controlPlayerId}
+              onScoreChange={(playerId, score) => send('host:adjustScore', { playerId, score })}
+              onKick={(playerId) => send('host:kick', { playerId })}
+              onSetControl={(playerId) => send('host:setControl', { playerId })}
+            />
+          </section>
+        </div>
+
+        <section className="rounded-3xl border border-line bg-surface/50 p-4 xl:sticky xl:top-4">
           <BoardGrid
             board={view.board}
-            onPick={(themeId, questionId) => send('host:pickQuestion', { themeId, questionId })}
+            {...(canPick
+              ? { onPick: (themeId: string, questionId: string) => send('host:pickQuestion', { themeId, questionId }) }
+              : {})}
           />
+          {!canPick && (
+            <p className="mt-3 text-center text-sm text-muted">
+              Идёт вопрос — закончите его, чтобы открыть следующий
+            </p>
+          )}
         </section>
-      )}
-
-      <section className="rounded-3xl border border-line bg-surface p-5">
-        <PlayerLedger
-          players={view.players}
-          highlightId={view.controlPlayerId}
-          onScoreChange={(playerId, score) => send('host:adjustScore', { playerId, score })}
-          onKick={(playerId) => send('host:kick', { playerId })}
-          onSetControl={(playerId) => send('host:setControl', { playerId })}
-        />
-      </section>
+      </div>
     </div>
   );
 }

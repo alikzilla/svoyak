@@ -33,7 +33,7 @@ function answering(settings: Partial<RoomSettings> = {}): RoomState {
     questionId: 'r1-kino-q3',
     at: T0,
   }).state;
-  state = reduce(state, { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 }).state;
+  state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
   state = reduce(state, {
     type: 'BUZZ',
     playerId: 'p2',
@@ -118,6 +118,76 @@ describe('неверный ответ', () => {
     expect(state.buzz.candidates).toHaveLength(0);
   });
 
+  it('время устного ответа не съедает бюджет кнопки', () => {
+    const state = answering();
+    const closesAt = state.buzz.closesAt ?? 0;
+    // Нажал почти в конце окна и говорил дольше, чем остаток бюджета.
+    const lateVerdict = closesAt + 6000;
+
+    const result = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: lateVerdict });
+
+    expect(result.state.phase).toBe('buzzer_open');
+    expect(result.state.buzz.closesAt).toBeGreaterThan(lateVerdict);
+  });
+
+  it('остальным достаётся не меньше минимального окна на нажатие', () => {
+    const state = answering();
+    const closesAt = state.buzz.closesAt ?? 0;
+    const lateVerdict = closesAt + 6000;
+
+    const result = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: lateVerdict });
+    const reopenedFor = (result.state.buzz.closesAt ?? 0) - lateVerdict;
+
+    expect(reopenedFor).toBeGreaterThanOrEqual(DEFAULT_SETTINGS.buzzReopenMinMs);
+  });
+
+  it('вопрос держится, пока хоть кто-то ещё может ответить', () => {
+    let state = answering();
+    // Петя ответил неверно — остаются Вася и Маша.
+    state = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: T0 + 20_000 }).state;
+    expect(state.phase).toBe('buzzer_open');
+
+    // Жмёт и ошибается Вася.
+    state = reduce(state, {
+      type: 'BUZZ',
+      playerId: 'p1',
+      atServerTime: T0 + 20_100,
+      receivedAt: T0 + 20_100,
+    }).state;
+    state = reduce(state, { type: 'BUZZ_WINDOW_CLOSED', at: T0 + 20_250 }).state;
+    state = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: T0 + 25_000 }).state;
+    expect(state.phase).toBe('buzzer_open');
+
+    // Последней ошибается Маша — теперь отвечать некому.
+    state = reduce(state, {
+      type: 'BUZZ',
+      playerId: 'p3',
+      atServerTime: T0 + 25_100,
+      receivedAt: T0 + 25_100,
+    }).state;
+    state = reduce(state, { type: 'BUZZ_WINDOW_CLOSED', at: T0 + 25_250 }).state;
+    state = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: T0 + 30_000 }).state;
+
+    expect(state.phase).toBe('answer_reveal');
+    expect(state.active?.answerRevealed).toBe(true);
+  });
+
+  it('каждый ошибившийся теряет ровно стоимость вопроса', () => {
+    let state = answering();
+    state = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: T0 + 20_000 }).state;
+    state = reduce(state, {
+      type: 'BUZZ',
+      playerId: 'p1',
+      atServerTime: T0 + 20_100,
+      receivedAt: T0 + 20_100,
+    }).state;
+    state = reduce(state, { type: 'BUZZ_WINDOW_CLOSED', at: T0 + 20_250 }).state;
+    state = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: T0 + 25_000 }).state;
+
+    expect(score(state, 'p2')).toBe(-300);
+    expect(score(state, 'p1')).toBe(-300);
+  });
+
   it('когда отвечать больше некому, раскрывается ответ', () => {
     let state = answering();
     state = { ...state, active: state.active ? { ...state.active, spentPlayerIds: ['p1', 'p3'] } : null };
@@ -126,24 +196,7 @@ describe('неверный ответ', () => {
     expect(result.state.active?.answerRevealed).toBe(true);
   });
 
-  it('когда время кнопки уже вышло, раскрывается ответ', () => {
-    const state = answering();
-    const late = (state.buzz.closesAt ?? 0) + 1;
-    const result = reduce(state, { type: 'JUDGE', verdict: 'wrong', at: late });
-    expect(result.state.phase).toBe('answer_reveal');
-  });
-});
 
-describe('таймер ответа', () => {
-  it('истёкшее время засчитывается как неверный ответ', () => {
-    const state = reduce(answering(), {
-      type: 'TIMER_EXPIRED',
-      kind: 'answer',
-      at: T0 + 13_250,
-    }).state;
-    expect(score(state, 'p2')).toBe(-300);
-    expect(state.active?.spentPlayerIds).toContain('p2');
-  });
 });
 
 describe('ручные действия ведущего', () => {
@@ -159,19 +212,21 @@ describe('ручные действия ведущего', () => {
     expect(state.active?.answerRevealed).toBe(true);
   });
 
-  it('«дать ещё время» продлевает текущий таймер', () => {
-    const result = reduce(answering(), { type: 'EXTEND_TIME', at: T0 + 5000 });
+  it('«дать ещё время» продлевает окно на нажатие', () => {
+    const state = reduce(answering(), { type: 'JUDGE', verdict: 'wrong', at: T0 + 5000 }).state;
+    expect(state.phase).toBe('buzzer_open');
+
+    const result = reduce(state, { type: 'EXTEND_TIME', at: T0 + 6000 });
     expect(result.effects).toContainEqual({
       type: 'setTimer',
-      kind: 'answer',
+      kind: 'buzz',
       durationMs: 5000,
-      onExpire: { type: 'TIMER_EXPIRED', kind: 'answer', at: T0 + 10_000 },
+      onExpire: { type: 'TIMER_EXPIRED', kind: 'buzz', at: T0 + 11_000 },
     });
-    expect(result.effects).toContainEqual({
-      type: 'toast',
-      to: 'all',
-      text: 'Ведущий добавил времени',
-      tone: 'info',
-    });
+  });
+
+  it('во время устного ответа таймера нет — ведущий не ограничен', () => {
+    const result = reduce(answering(), { type: 'EXTEND_TIME', at: T0 + 5000 });
+    expect(result.error).toBeDefined();
   });
 });

@@ -21,13 +21,9 @@ export type Phase =
   | 'final_reveal'
   | 'results';
 
-export type TimerKind =
-  | 'reading'
-  | 'buzz'
-  | 'answer'
-  | 'solo_answer'
-  | 'final_bet'
-  | 'final_answer';
+/** Таймеры ограничивают только игроков. Темп игры задаёт ведущий:
+ *  он открывает вопрос, открывает кнопку и решает, когда ответа достаточно. */
+export type TimerKind = 'buzz' | 'final_bet' | 'final_answer';
 
 export interface TimerState {
   kind: TimerKind;
@@ -90,6 +86,8 @@ export interface BuzzState {
   /** Окно сбора нажатий закрывается в этот момент. */
   graceClosesAt: number | null;
   candidates: BuzzCandidate[];
+  /** Момент, с которого игрок отвечает вслух: бюджет кнопки на это время заморожен. */
+  answeringSince: number | null;
   /** playerId → время окончания блокировки за фальстарт. */
   lockedUntil: Record<string, number>;
   answeringPlayerId: string | null;

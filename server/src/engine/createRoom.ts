@@ -14,6 +14,7 @@ export const EMPTY_BUZZ: BuzzState = {
   closesAt: null,
   graceClosesAt: null,
   candidates: [],
+  answeringSince: null,
   lockedUntil: {},
   answeringPlayerId: null,
 };

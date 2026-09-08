@@ -34,7 +34,7 @@ function readingState(): RoomState {
 }
 
 const openState = (): RoomState =>
-  reduce(readingState(), { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 }).state;
+  reduce(readingState(), { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
 
 /** Нажатие с уже приведённой к серверному времени меткой. */
 const buzz = (state: RoomState, playerId: string, atServerTime: number, receivedAt: number) =>
@@ -63,8 +63,8 @@ describe('adjustBuzzTime', () => {
 });
 
 describe('открытие кнопки', () => {
-  it('таймер чтения открывает кнопку и заводит общий бюджет времени', () => {
-    const result = reduce(readingState(), { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 });
+  it('ведущий открывает кнопку и с этого момента идёт общий бюджет времени', () => {
+    const result = reduce(readingState(), { type: 'OPEN_BUZZER', at: T0 + 3000 });
     expect(result.state.phase).toBe('buzzer_open');
     expect(result.state.buzz.openedAt).toBe(T0 + 3000);
     expect(result.state.buzz.closesAt).toBe(T0 + 3000 + DEFAULT_SETTINGS.buzzOpenMs);
@@ -87,7 +87,7 @@ describe('фальстарт', () => {
   it('заблокированный не попадает в кандидаты, пока идёт блокировка', () => {
     // Фальстарт под самое открытие: блокировка заведомо переживает открытие кнопки.
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
-    state = reduce(state, { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 }).state;
+    state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
     expect(state.buzz.lockedUntil['p2']).toBe(T0 + 2000 + DEFAULT_SETTINGS.falseStartLockMs);
 
     state = buzz(state, 'p2', T0 + 3100, T0 + 3100).state;
@@ -96,7 +96,7 @@ describe('фальстарт', () => {
 
   it('пока один заблокирован, остальные жмут и выигрывают', () => {
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
-    state = reduce(state, { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 }).state;
+    state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
     state = buzz(state, 'p2', T0 + 3100, T0 + 3100).state;
     state = buzz(state, 'p3', T0 + 3200, T0 + 3200).state;
     state = reduce(state, { type: 'BUZZ_WINDOW_CLOSED', at: T0 + 3350 }).state;
@@ -105,7 +105,7 @@ describe('фальстарт', () => {
 
   it('после истечения блокировки нажатие снова считается', () => {
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
-    state = reduce(state, { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 }).state;
+    state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
     const afterLock = T0 + 2000 + DEFAULT_SETTINGS.falseStartLockMs + 1;
     state = buzz(state, 'p2', afterLock, afterLock).state;
     expect(state.buzz.candidates.map((candidate) => candidate.playerId)).toEqual(['p2']);
@@ -143,17 +143,14 @@ describe('окно сбора нажатий', () => {
     expect(state.buzz.candidates).toHaveLength(1);
   });
 
-  it('назначение отвечающего заводит таймер ответа и звук', () => {
+  it('назначение отвечающего играет звук и снимает таймер: ждём вердикт ведущего', () => {
     let state = openState();
     state = buzz(state, 'p2', T0 + 3100, T0 + 3100).state;
     const result = reduce(state, { type: 'BUZZ_WINDOW_CLOSED', at: T0 + 3250 });
+
     expect(result.effects).toContainEqual({ type: 'sound', sound: 'buzz_hit' });
-    expect(result.effects).toContainEqual({
-      type: 'setTimer',
-      kind: 'answer',
-      durationMs: DEFAULT_SETTINGS.answerTimeMs,
-      onExpire: { type: 'TIMER_EXPIRED', kind: 'answer', at: T0 + 3250 },
-    });
+    expect(result.effects).toContainEqual({ type: 'clearTimer' });
+    expect(result.effects.some((effect) => effect.type === 'setTimer')).toBe(false);
   });
 
   it('уже отвечавший на этот вопрос нажать не может', () => {

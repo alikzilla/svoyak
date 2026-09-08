@@ -1,16 +1,13 @@
 export interface RoomSettings {
-  /** Время на чтение вопроса до открытия кнопки. */
-  readingTimeMs: number;
   /** Сколько всего времени кнопка открыта на вопрос. */
   buzzOpenMs: number;
   /** Окно сбора нажатий: победителя выбираем по метке времени, а не по приходу пакета. */
   buzzGraceMs: number;
+  /** Сколько времени на нажатие достаётся остальным после чужого неверного ответа,
+   *  даже если общий бюджет уже вышел. Вопрос не должен пропадать, пока не попробовали все. */
+  buzzReopenMinMs: number;
   /** Блокировка игрока за фальстарт в пределах вопроса. */
   falseStartLockMs: number;
-  /** Время на устный ответ после нажатия. */
-  answerTimeMs: number;
-  /** Время на ответ у получателя кота и победителя аукциона. */
-  soloAnswerTimeMs: number;
   finalBetTimeMs: number;
   finalAnswerTimeMs: number;
   /** Снимать ли стоимость за неверный ответ. */
@@ -24,12 +21,10 @@ export interface RoomSettings {
 }
 
 export const DEFAULT_SETTINGS: RoomSettings = {
-  readingTimeMs: 3000,
   buzzOpenMs: 8000,
   buzzGraceMs: 150,
+  buzzReopenMinMs: 3000,
   falseStartLockMs: 2500,
-  answerTimeMs: 10000,
-  soloAnswerTimeMs: 20000,
   finalBetTimeMs: 60000,
   finalAnswerTimeMs: 60000,
   penaltyOnWrong: true,
