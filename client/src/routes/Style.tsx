@@ -39,6 +39,16 @@ type FontKey = keyof typeof FONT_PAIRS;
 
 const PLAYER_NAMES = ['Аня', 'Боря', 'Вера', 'Гоша', 'Даша', 'Егор'];
 
+/** Плотность бумаги: сравнивать оттенки надо живьём, рядом с цветными элементами. */
+const PAPER_TONES = {
+  cream: { title: 'сливочная', value: '#fff6e9', card: '#ffffff' },
+  kraft: { title: 'крафт', value: '#f0e2c8', card: '#fdf6e7' },
+  sand: { title: 'песочная', value: '#e4d2b0', card: '#f7ecd6' },
+  clay: { title: 'глина', value: '#d8c3a0', card: '#f2e6cd' },
+} as const;
+
+type PaperKey = keyof typeof PAPER_TONES;
+
 function Section({ title, note, children }: { title: string; note?: string; children: React.ReactNode }) {
   return (
     <section className="grid gap-4">
@@ -56,6 +66,7 @@ export default function Style() {
   const [fontKey, setFontKey] = useState<FontKey>('mix');
   const [calm, setCalm] = useState(false);
   const [density, setDensity] = useState<'full' | 'light' | 'off'>('full');
+  const [paper, setPaper] = useState<PaperKey>('kraft');
   const [seedSalt, setSeedSalt] = useState(0);
   const [score, setScore] = useState(1200);
   const [points, setPoints] = useState<{ amount: number; key: number } | null>(null);
@@ -106,6 +117,8 @@ export default function Style() {
       className={`paper-scene min-h-dvh ${calm ? 'calm' : ''}`}
       style={
         {
+          '--paper-tone': PAPER_TONES[paper].value,
+          '--card-tone': PAPER_TONES[paper].card,
           '--font-display': pair.display,
           '--font-digits': pair.digits,
           '--font-body-active': pair.body,
@@ -155,12 +168,12 @@ export default function Style() {
                   )
                 }
               >
-                фон: {density === 'full' ? 'полный' : density === 'light' ? 'лёгкий' : 'выключен'}
+                дудлы: {density === 'full' ? 'полный' : density === 'light' ? 'лёгкий' : 'выключены'}
               </DoodleButton>
             </div>
           </div>
 
-          <RoughFrame seed={2} fill="#ffffff" contentClassName="grid place-items-center py-10">
+          <RoughFrame seed={2} fill="var(--card-tone)" contentClassName="grid place-items-center py-10">
             <div className="grid justify-items-center gap-4">
               <DoodleButton size="xl" tone="p1" idle onClick={() => celebrate(colorForIndex(0))}>
                 ЖМИ
@@ -173,6 +186,37 @@ export default function Style() {
         </header>
 
         <Section
+          title="Бумага"
+          note="Фон задаёт настроение всей игры: чем темнее лист, тем сочнее на нём цветные кнопки. Выберите плотность — остальные экраны поедут на ней."
+        >
+          <div className="flex flex-wrap gap-3">
+            {(Object.keys(PAPER_TONES) as PaperKey[]).map((key) => (
+              <button key={key} onClick={() => setPaper(key)} className="relative">
+                <RoughFrame
+                  seed={key.length * 4}
+                  fill={PAPER_TONES[key].value}
+                  className="w-40"
+                  contentClassName="grid justify-items-center gap-1 px-3 py-5"
+                >
+                  <span className="font-display text-2xl font-bold">{PAPER_TONES[key].title}</span>
+                  <code className="font-body text-ink-soft text-xs">{PAPER_TONES[key].value}</code>
+                </RoughFrame>
+                {paper === key && (
+                  <motion.span
+                    initial={{ scale: 0, rotate: -30 }}
+                    animate={{ scale: 1, rotate: -10 }}
+                    transition={{ type: 'spring', stiffness: 420, damping: 12 }}
+                    className="border-ink bg-p5 absolute -top-4 -right-3 grid size-11 place-items-center rounded-full border-4"
+                  >
+                    <Doodle name="check" size={22} strokeWidth={6} />
+                  </motion.span>
+                )}
+              </button>
+            ))}
+          </div>
+        </Section>
+
+        <Section
           title="Шрифты"
           note="Все три пары с кириллицей и подключены локально, без Google CDN — игра должна работать в сети без интернета. Выберите пару, дальше раскатаю её на все экраны."
         >
@@ -181,7 +225,7 @@ export default function Style() {
               <button key={key} onClick={() => setFontKey(key)} className="relative text-left">
                 <RoughFrame
                   seed={key.length * 5}
-                  fill={fontKey === key ? '#fff0d4' : '#ffffff'}
+                  fill={fontKey === key ? '#ffe6ad' : 'var(--card-tone)'}
                   className="h-full"
                   contentClassName="p-4"
                 >
@@ -285,7 +329,7 @@ export default function Style() {
               >
                 <RoughFrame
                   seed={index * 9 + 2}
-                  fill="#ffffff"
+                  fill="var(--card-tone)"
                   className="w-32 cursor-pointer"
                   contentClassName="grid justify-items-center gap-1 px-3 py-4"
                 >
@@ -332,7 +376,7 @@ export default function Style() {
           title="Вердикт"
           note="Счёт наматывается прокруткой, очки улетают вверх или падают вниз, поверх шлёпается штамп. Верный ответ добавляет конфетти цветом игрока."
         >
-          <RoughFrame seed={31} fill="#ffffff" contentClassName="grid place-items-center gap-4 py-10">
+          <RoughFrame seed={31} fill="var(--card-tone)" contentClassName="grid place-items-center gap-4 py-10">
             <div className="relative grid place-items-center">
               <ScoreNumber value={score} size="xl" color={colorForIndex(0)} />
               <AnimatePresence>

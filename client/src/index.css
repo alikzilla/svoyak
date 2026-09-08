@@ -18,8 +18,8 @@
 
 /* Рисованная тема. Объявлена после тёмной, поэтому при совпадении имён выигрывает она. */
 @theme {
-  --color-paper: #fff6e9;
-  --color-paper-2: #ffedd5;
+  --color-paper: #f0e2c8;
+  --color-paper-2: #e6d4b4;
   --color-ink: #1a1a1a;
   --color-ink-soft: #5b524b;
 

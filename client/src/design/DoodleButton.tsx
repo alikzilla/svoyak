@@ -46,26 +46,40 @@ export function DoodleButton({
   className = '',
   onClick,
 }: DoodleButtonProps) {
+  const press = {
+    rest: { scale: 1, x: 0, y: 0, boxShadow: '6px 6px 0 #1a1a1a' },
+    hover: { scale: 1.05, y: -4, boxShadow: '9px 10px 0 #1a1a1a' },
+    // Нажатие вдавливает кнопку в собственную тень.
+    tap: { scale: 0.97, x: 5, y: 6, boxShadow: '0px 0px 0 #1a1a1a' },
+  };
+
   return (
-    <motion.button
-      type="button"
-      disabled={disabled}
-      onClick={onClick}
+    // Покачивание живёт на обёртке: иначе оно анимирует те же y и rotate,
+    // что и наведение, и состояния дерутся между собой.
+    <motion.div
+      className="inline-block"
       initial={false}
-      animate={idle && !disabled ? { rotate: [tilt, tilt + 1.6, tilt], y: [0, -3, 0] } : { rotate: tilt }}
+      animate={idle && !disabled ? { rotate: [tilt, tilt + 1.8, tilt] } : { rotate: tilt }}
       transition={
         idle && !disabled
-          ? { duration: 2.4, repeat: Infinity, ease: 'easeInOut' }
-          : { type: 'spring', stiffness: 500, damping: 18 }
+          ? { duration: 2.6, repeat: Infinity, ease: 'easeInOut' }
+          : { type: 'spring', stiffness: 400, damping: 20 }
       }
-      whileHover={disabled ? undefined : { scale: 1.05, y: -4, rotate: tilt + 0.8 }}
-      whileTap={
-        disabled ? undefined : { scale: 0.97, x: 4, y: 4, boxShadow: '0px 0px 0 #1a1a1a' }
-      }
-      style={{ boxShadow: '6px 6px 0 #1a1a1a' }}
-      className={`ink-border font-hand font-bold whitespace-nowrap disabled:opacity-45 disabled:saturate-50 ${TONES[tone]} ${SIZES[size]} ${className}`}
     >
-      {children}
-    </motion.button>
+      <motion.button
+        type="button"
+        disabled={disabled}
+        onClick={onClick}
+        variants={press}
+        initial="rest"
+        animate="rest"
+        whileHover={disabled ? undefined : 'hover'}
+        whileTap={disabled ? undefined : 'tap'}
+        transition={{ type: 'spring', stiffness: 600, damping: 20, mass: 0.6 }}
+        className={`ink-border font-hand block font-bold whitespace-nowrap disabled:opacity-45 disabled:saturate-50 ${TONES[tone]} ${SIZES[size]} ${className}`}
+      >
+        {children}
+      </motion.button>
+    </motion.div>
   );
 }
