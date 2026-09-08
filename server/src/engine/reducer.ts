@@ -186,10 +186,6 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       if (state.phase !== 'picking' && state.phase !== 'round_intro') {
         return reject(state, 'Сейчас не время выбирать вопрос');
       }
-      if (action.byPlayerId !== null && action.byPlayerId !== state.controlPlayerId) {
-        return reject(state, 'Право хода не у вас');
-      }
-
       const theme = findTheme(state.pack, state.roundIndex, action.themeId);
       const question = findQuestion(
         state.pack,

@@ -31,7 +31,6 @@ function answering(settings: Partial<RoomSettings> = {}): RoomState {
     type: 'PICK_QUESTION',
     themeId: 'r1-kino',
     questionId: 'r1-kino-q3',
-    byPlayerId: 'p1',
     at: T0,
   }).state;
   state = reduce(state, { type: 'TIMER_EXPIRED', kind: 'reading', at: T0 + 3000 }).state;

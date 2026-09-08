@@ -29,7 +29,6 @@ function readingState(): RoomState {
     type: 'PICK_QUESTION',
     themeId: 'r1-kino',
     questionId: 'r1-kino-q3',
-    byPlayerId: 'p1',
     at: T0,
   }).state;
 }

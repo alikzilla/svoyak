@@ -264,7 +264,8 @@ export interface HostView extends BaseView {
 /** Что телефон игрока должен предложить сделать прямо сейчас. */
 export type PlayerPrompt =
   | { kind: 'buzz'; open: boolean; lockedUntil: number | null }
-  | { kind: 'pick_question' }
+  /** Очередь этого игрока называть вопрос — вслух ведущему, не кликом. */
+  | { kind: 'your_turn' }
   | { kind: 'cat_pick'; candidates: Array<{ id: string; name: string }>; canKeep: boolean }
   | { kind: 'auction_bid'; currentBid: number; minBid: number; maxBid: number; canPass: boolean }
   | { kind: 'solo_answer' }

@@ -142,7 +142,6 @@ export interface ClientToServerEvents {
   'host:finalRevealNext': (ack: Ack<null>) => void;
 
   'player:buzz': (payload: BuzzPayload, ack: Ack<null>) => void;
-  'player:pickQuestion': (payload: PickQuestionPayload, ack: Ack<null>) => void;
   'player:catTransfer': (payload: CatTransferPayload, ack: Ack<null>) => void;
   'player:bid': (payload: BidPayload, ack: Ack<null>) => void;
   'player:finalRemoveTheme': (payload: FinalRemoveThemePayload, ack: Ack<null>) => void;

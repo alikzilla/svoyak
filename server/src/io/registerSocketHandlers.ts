@@ -216,13 +216,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
     socket.on('host:pickQuestion', ({ themeId, questionId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
-      const result = room.dispatch({
-        type: 'PICK_QUESTION',
-        themeId,
-        questionId,
-        byPlayerId: null,
-        at: Date.now(),
-      });
+      const result = room.dispatch({ type: 'PICK_QUESTION', themeId, questionId, at: Date.now() });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
@@ -244,23 +238,6 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'PAUSE', paused });
-      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
-    });
-
-    socket.on('player:pickQuestion', ({ themeId, questionId }, ack) => {
-      const room = requireRoom(socket);
-      const playerId = socket.data.playerId;
-      if (!room || socket.data.role !== 'player' || !playerId) {
-        ack({ ok: false, error: 'Вы не в игре' });
-        return;
-      }
-      const result = room.dispatch({
-        type: 'PICK_QUESTION',
-        themeId,
-        questionId,
-        byPlayerId: playerId,
-        at: Date.now(),
-      });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 

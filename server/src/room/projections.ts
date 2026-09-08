@@ -152,7 +152,7 @@ function projectPrompt(state: RoomState, playerId: string, now: number): PlayerP
 
   switch (state.phase) {
     case 'picking':
-      return isControl ? { kind: 'pick_question' } : { kind: 'wait' };
+      return isControl ? { kind: 'your_turn' } : { kind: 'wait' };
 
     case 'reading':
     case 'buzzer_open': {

@@ -84,14 +84,13 @@ export default function Play() {
           answeringName={answering?.name ?? null}
           onBuzz={buzz}
         />
-      ) : view.prompt.kind === 'pick_question' ? (
-        <div className="flex-1 overflow-y-auto">
-          <p className="mb-2 text-center text-muted">Ваш ход — выберите вопрос</p>
-          <BoardGrid
-            board={view.board}
-            compact
-            onPick={(themeId, questionId) => void ask('player:pickQuestion', { themeId, questionId })}
-          />
+      ) : view.prompt.kind === 'your_turn' ? (
+        <div className="flex flex-1 flex-col gap-3 overflow-y-auto">
+          <p className="text-center text-lg text-gold text-pretty">
+            Ваш ход — назовите ведущему тему и цену
+          </p>
+          {/* Табло только для чтения: выбирает ведущий, игрок его озвучивает. */}
+          <BoardGrid board={view.board} compact />
         </div>
       ) : (
         <div className="flex flex-1 items-center justify-center text-center text-lg text-muted text-pretty">

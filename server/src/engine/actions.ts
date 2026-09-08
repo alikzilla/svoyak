@@ -9,14 +9,8 @@ export type GameAction =
   | { type: 'SET_SETTINGS'; settings: Partial<RoomSettings> }
   | { type: 'HOST_PRESENCE'; connected: boolean }
   | { type: 'START_GAME'; at: number }
-  | {
-      type: 'PICK_QUESTION';
-      themeId: string;
-      questionId: string;
-      /** null — выбрал ведущий вручную. */
-      byPlayerId: string | null;
-      at: number;
-    }
+  /** Вопрос всегда открывает ведущий: игрок называет свой выбор вслух. */
+  | { type: 'PICK_QUESTION'; themeId: string; questionId: string; at: number }
   | { type: 'CONTINUE'; at: number }
   | { type: 'NEXT_ROUND'; at: number }
   | { type: 'SET_CONTROL'; playerId: string }

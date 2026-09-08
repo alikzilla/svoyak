@@ -32,7 +32,6 @@ function withOpenQuestion(state: RoomState = started()): RoomState {
     type: 'PICK_QUESTION',
     themeId: 'r1-kino',
     questionId: 'r1-kino-q3',
-    byPlayerId: state.controlPlayerId,
     at: 4000,
   }).state;
 }
@@ -74,7 +73,6 @@ describe('выбор вопроса', () => {
       type: 'PICK_QUESTION',
       themeId: 'r1-kino',
       questionId: 'r1-kino-q3',
-      byPlayerId: 'p1',
       at: 4000,
     });
     expect(result.effects).toContainEqual({
@@ -92,33 +90,22 @@ describe('выбор вопроса', () => {
       type: 'PICK_QUESTION',
       themeId: 'r1-kino',
       questionId: 'r1-kino-q3',
-      byPlayerId: back.controlPlayerId,
       at: 6000,
     });
     expect(again.error).toBeDefined();
   });
 
-  it('игрок без права хода вопрос не выбирает', () => {
+  it('вопрос открывает ведущий — право хода лишь подсказывает, кого слушать', () => {
     const result = reduce(started(), {
       type: 'PICK_QUESTION',
       themeId: 'r1-kino',
       questionId: 'r1-kino-q3',
-      byPlayerId: 'p2',
-      at: 4000,
-    });
-    expect(result.error).toBeDefined();
-  });
-
-  it('ведущий выбирает вопрос за игрока: byPlayerId = null', () => {
-    const result = reduce(started(), {
-      type: 'PICK_QUESTION',
-      themeId: 'r1-kino',
-      questionId: 'r1-kino-q3',
-      byPlayerId: null,
       at: 4000,
     });
     expect(result.error).toBeUndefined();
     expect(result.state.phase).toBe('reading');
+    // Право хода при этом не меняется: оно определяет очередь, а не право клика.
+    expect(result.state.controlPlayerId).toBe('p1');
   });
 });
 
@@ -131,7 +118,6 @@ describe('конец раунда', () => {
           type: 'PICK_QUESTION',
           themeId: theme.id,
           questionId: cell.questionId,
-          byPlayerId: null,
           at: 4000,
         }).state;
         state = reduce(state, { type: 'CONTINUE', at: 5000 }).state;
