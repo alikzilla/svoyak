@@ -66,10 +66,10 @@ function Section({ title, note, children }: { title: string; note?: string; chil
 }
 
 export default function Style() {
-  const [fontKey, setFontKey] = useState<FontKey>('mix');
+  const [fontKey, setFontKey] = useState<FontKey>('poster');
   const [calm, setCalm] = useState(false);
   const [density, setDensity] = useState<'full' | 'light' | 'off'>('full');
-  const [scene, setScene] = useState<SceneKey>('periwinkle');
+  const [scene, setScene] = useState<SceneKey>('indigo');
   const tone = SCENE_TONES[scene];
   const [seedSalt, setSeedSalt] = useState(0);
   const [score, setScore] = useState(1200);

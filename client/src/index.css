@@ -18,13 +18,15 @@
 
 /* Рисованная тема. Объявлена после тёмной, поэтому при совпадении имён выигрывает она. */
 @theme {
-  --color-paper: #a99bff;
-  --color-paper-2: #fffaf2;
+  /* Сцена по умолчанию — индиго; карточки поверх остаются светлыми. */
+  --color-paper: #4a3aa8;
+  --color-paper-2: #fff6e9;
+  --color-scene-ink: #f6f1ff;
   --color-ink: #1a1a1a;
   --color-ink-soft: #5b524b;
 
   /* Цвет закрепляется за игроком и ходит за ним по всем экранам. */
-  --color-p1: #5b2ee6;
+  --color-p1: #8b5cff;
   --color-p2: #ff6b57;
   --color-p3: #12beb0;
   --color-p4: #ffc53d;

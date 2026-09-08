@@ -133,7 +133,7 @@ export function Avatar({ seed, color, size = 72, mood = 'idle' }: AvatarProps) {
 }
 
 /** Шесть цветов игроков: закрепляются по порядку входа в комнату. */
-export const PLAYER_COLORS = ['#5b2ee6', '#ff6b57', '#12beb0', '#ffc53d', '#93d93a', '#ff5fa2'];
+export const PLAYER_COLORS = ['#8b5cff', '#ff6b57', '#12beb0', '#ffc53d', '#93d93a', '#ff5fa2'];
 
 export const colorForIndex = (index: number): string =>
   PLAYER_COLORS[index % PLAYER_COLORS.length] ?? PLAYER_COLORS[0]!;
