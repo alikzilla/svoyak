@@ -64,11 +64,14 @@ function nextView<T>(socket: Client): Promise<T> {
 function emit<K extends keyof ClientToServerEvents, T>(
   socket: Client,
   event: K,
-  payload: Parameters<ClientToServerEvents[K]>[0],
+  payload?: Parameters<ClientToServerEvents[K]>[0],
 ): Promise<Result<T>> {
   return new Promise((resolve) => {
     const ack: Ack<T> = (result) => resolve(result);
-    (socket.emit as (e: K, p: unknown, a: Ack<T>) => void)(event, payload, ack);
+    // События без параметров принимают только колбэк — лишний undefined съел бы его место.
+    const send = socket.emit.bind(socket) as unknown as (e: K, ...args: unknown[]) => void;
+    if (payload === undefined) send(event, ack);
+    else send(event, payload, ack);
   });
 }
 
@@ -181,6 +184,68 @@ describe('сокет-слой', () => {
     expect(view.meId).toBe(joined.data.playerId);
     host.disconnect();
     again.disconnect();
+  });
+
+  it('игрок не может судить и не может начать игру', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code: created.data.code, name: 'Судья' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+
+    const judged = await emit(player, 'host:judge', { verdict: 'correct' });
+    expect(judged).toEqual({ ok: false, error: 'Это действие доступно только ведущему' });
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('нажатие игрока доходит до сервера и определяет отвечающего', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    const { code } = created.data;
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code, name: 'Быстрый' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+
+    await emit(host, 'host:startGame');
+    await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q1' });
+    await emit(host, 'host:openBuzzer');
+
+    const buzzed = await emit(player, 'player:buzz', {
+      clientTime: Date.now(),
+      clockOffset: 0,
+      minRtt: 10,
+    });
+    expect(buzzed).toEqual({ ok: true, data: null });
+
+    // Ждём закрытия окна сбора нажатий.
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    const room = rooms.get(code);
+    expect(room?.state.phase).toBe('answering');
+    expect(room?.state.buzz.answeringPlayerId).toBe(joined.data.playerId);
+
+    host.disconnect();
+    player.disconnect();
   });
 
   it('комната восстанавливается с диска после перезапуска сервера', async () => {

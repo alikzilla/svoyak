@@ -1,8 +1,9 @@
 import { randomUUID } from 'node:crypto';
 import type { Ack, RoomSettings } from '@svoyak/shared';
-import type { Effect } from '../engine/actions.js';
+import type { Effect, GameAction } from '../engine/actions.js';
 import type { RoomManager } from '../room/RoomManager.js';
 import type { RoomRuntime } from '../room/RoomRuntime.js';
+import { adjustBuzzTime } from '../engine/buzz.js';
 import { getPack } from '../storage/packsRepo.js';
 import type { AppServer, AppSocket } from './types.js';
 
@@ -188,6 +189,93 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       if (code) void socket.leave(`room:${code}`);
       socket.data = { role: null, code: null, playerId: null };
       ack({ ok: true, data: null });
+    });
+
+    /** Действие ведущего без параметров: одна строчка вместо десяти одинаковых обработчиков. */
+    const hostAction = (
+      event: 'host:startGame' | 'host:openBuzzer' | 'host:revealAnswer' | 'host:skipQuestion'
+        | 'host:extendTime' | 'host:continue' | 'host:nextRound',
+      makeAction: () => GameAction,
+    ): void => {
+      socket.on(event, (ack) => {
+        const room = requireHost(socket, ack);
+        if (!room) return;
+        const result = room.dispatch(makeAction());
+        ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+      });
+    };
+
+    hostAction('host:startGame', () => ({ type: 'START_GAME', at: Date.now() }));
+    hostAction('host:openBuzzer', () => ({ type: 'OPEN_BUZZER', at: Date.now() }));
+    hostAction('host:revealAnswer', () => ({ type: 'REVEAL_ANSWER', at: Date.now() }));
+    hostAction('host:skipQuestion', () => ({ type: 'SKIP_QUESTION', at: Date.now() }));
+    hostAction('host:extendTime', () => ({ type: 'EXTEND_TIME', at: Date.now() }));
+    hostAction('host:continue', () => ({ type: 'CONTINUE', at: Date.now() }));
+    hostAction('host:nextRound', () => ({ type: 'NEXT_ROUND', at: Date.now() }));
+
+    socket.on('host:pickQuestion', ({ themeId, questionId }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const result = room.dispatch({
+        type: 'PICK_QUESTION',
+        themeId,
+        questionId,
+        byPlayerId: null,
+        at: Date.now(),
+      });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('host:judge', ({ verdict }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const result = room.dispatch({ type: 'JUDGE', verdict, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('host:setControl', ({ playerId }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const result = room.dispatch({ type: 'SET_CONTROL', playerId });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('host:pause', ({ paused }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const result = room.dispatch({ type: 'PAUSE', paused });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('player:pickQuestion', ({ themeId, questionId }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      const result = room.dispatch({
+        type: 'PICK_QUESTION',
+        themeId,
+        questionId,
+        byPlayerId: playerId,
+        at: Date.now(),
+      });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('player:buzz', ({ clientTime, clockOffset, minRtt }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      const receivedAt = Date.now();
+      // Метке клиента не доверяем: сервер приводит её к своему времени и зажимает.
+      const atServerTime = adjustBuzzTime({ clientTime, clockOffset, minRtt, receivedAt });
+      const result = room.dispatch({ type: 'BUZZ', playerId, atServerTime, receivedAt });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
     socket.on('host:adjustScore', ({ playerId, score }, ack) => {

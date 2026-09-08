@@ -128,6 +128,8 @@ export interface ClientToServerEvents {
   'host:openBuzzer': (ack: Ack<null>) => void;
   'host:judge': (payload: JudgePayload, ack: Ack<null>) => void;
   'host:revealAnswer': (ack: Ack<null>) => void;
+  /** Закрыть разыгранный вопрос и вернуться к выбору. */
+  'host:continue': (ack: Ack<null>) => void;
   'host:skipQuestion': (ack: Ack<null>) => void;
   'host:extendTime': (ack: Ack<null>) => void;
   'host:setControl': (payload: { playerId: string }, ack: Ack<null>) => void;
