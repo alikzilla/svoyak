@@ -6,10 +6,18 @@ interface PlayerLedgerProps {
   /** Правка счёта доступна только ведущему. */
   onScoreChange?: (playerId: string, score: number) => void;
   onKick?: (playerId: string) => void;
+  /** Передать право хода вручную. */
+  onSetControl?: (playerId: string) => void;
   highlightId?: string | null;
 }
 
-export function PlayerLedger({ players, onScoreChange, onKick, highlightId }: PlayerLedgerProps) {
+export function PlayerLedger({
+  players,
+  onScoreChange,
+  onKick,
+  onSetControl,
+  highlightId,
+}: PlayerLedgerProps) {
   const [pendingKick, setPendingKick] = useState<string | null>(null);
   const [draft, setDraft] = useState<Record<string, string>>({});
 
@@ -36,7 +44,24 @@ export function PlayerLedger({ players, onScoreChange, onKick, highlightId }: Pl
               className={`size-2 shrink-0 rounded-full ${player.connected ? 'bg-good' : 'bg-line'}`}
               title={player.connected ? 'на связи' : 'нет связи'}
             />
-            <span className="min-w-0 flex-1 truncate text-lg">{player.name}</span>
+            <span className="min-w-0 flex-1 truncate text-lg">
+              {player.name}
+              {player.isControl && <span className="ml-2 text-sm text-gold">ход</span>}
+              {player.isAnswering && <span className="ml-2 text-sm text-good">отвечает</span>}
+              {player.lockedUntil !== null && (
+                <span className="ml-2 text-sm text-bad">фальстарт</span>
+              )}
+            </span>
+
+            {onSetControl && !player.isControl && (
+              <button
+                onClick={() => onSetControl(player.id)}
+                className="rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-gold hover:text-gold"
+                title="Передать право хода"
+              >
+                ход
+              </button>
+            )}
 
             {onScoreChange ? (
               <input

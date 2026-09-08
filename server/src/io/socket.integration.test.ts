@@ -248,6 +248,67 @@ describe('сокет-слой', () => {
     player.disconnect();
   });
 
+  it('верный ответ начисляет стоимость и передаёт право хода', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    const { code } = created.data;
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code, name: 'Знаток' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+
+    await emit(host, 'host:startGame');
+    await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q3' });
+    await emit(host, 'host:openBuzzer');
+    await emit(player, 'player:buzz', { clientTime: Date.now(), clockOffset: 0, minRtt: 10 });
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    const judged = await emit(host, 'host:judge', { verdict: 'correct' });
+    expect(judged).toEqual({ ok: true, data: null });
+
+    const room = rooms.get(code);
+    expect(room?.state.players[0]?.score).toBe(300);
+    expect(room?.state.controlPlayerId).toBe(joined.data.playerId);
+    expect(room?.state.phase).toBe('picking');
+
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('игрок не получает правильный ответ по сети до раскрытия', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+
+    const player = await connect();
+    const views: string[] = [];
+    player.on('state:sync', (view) => views.push(JSON.stringify(view)));
+    await emit(player, 'room:join', { code: created.data.code, name: 'Слушатель' });
+
+    await emit(host, 'host:startGame');
+    await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q3' });
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    expect(views.length).toBeGreaterThan(0);
+    expect(views.join(' ')).not.toContain('Коппола');
+
+    host.disconnect();
+    player.disconnect();
+  });
+
   it('комната восстанавливается с диска после перезапуска сервера', async () => {
     const host = await connect();
     const created = await emit<'room:create', { code: string; hostToken: string }>(

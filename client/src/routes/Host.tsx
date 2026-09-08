@@ -7,6 +7,7 @@ import { useHostRoom } from '../net/useRoom.js';
 import { QrCode } from '../ui/QrCode.js';
 import { RoomCode } from '../ui/RoomCode.js';
 import { PlayerLedger } from '../ui/PlayerLedger.js';
+import { HostGame } from '../ui/host/HostGame.js';
 
 export default function Host() {
   const { view, connected, closed } = useHostRoom();
@@ -84,6 +85,14 @@ export default function Host() {
     );
   }
 
+  if (view.phase !== 'lobby') {
+    return (
+      <div className="app-shell">
+        <HostGame view={view} />
+      </div>
+    );
+  }
+
   return (
     <div className="app-shell mx-auto flex max-w-5xl flex-col gap-6 p-6">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
@@ -112,14 +121,15 @@ export default function Host() {
           highlightId={view.controlPlayerId}
           onScoreChange={(playerId, score) => void ask('host:adjustScore', { playerId, score })}
           onKick={(playerId) => void ask('host:kick', { playerId })}
+          onSetControl={(playerId) => void ask('host:setControl', { playerId })}
         />
       </section>
 
       <footer className="flex flex-wrap items-center gap-3">
         <button
-          disabled
+          disabled={view.players.length === 0}
+          onClick={() => void ask('host:startGame')}
           className="rounded-xl bg-gold px-5 py-3 font-bold text-bg disabled:opacity-40"
-          title="Появится на следующем этапе"
         >
           Начать игру
         </button>

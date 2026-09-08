@@ -4,6 +4,9 @@ import { ask } from '../net/socket.js';
 import { useBoardRoom } from '../net/useRoom.js';
 import { QrCode } from '../ui/QrCode.js';
 import { RoomCode } from '../ui/RoomCode.js';
+import { BoardGrid } from '../ui/BoardGrid.js';
+import { TimerBar } from '../ui/Timer.js';
+import { unlockAudio } from '../net/sounds.js';
 
 export default function Board() {
   const [params, setParams] = useSearchParams();
@@ -54,21 +57,53 @@ export default function Board() {
     );
   }
 
+  const answering = view.players.find((player) => player.isAnswering);
+  const inLobby = view.phase === 'lobby';
+
   return (
-    <div className="app-shell flex flex-col gap-8 p-8">
+    <div className="app-shell flex flex-col gap-6 p-8" onPointerDown={unlockAudio}>
       <header className="flex items-start justify-between gap-8">
         <div>
           <p className="text-muted">{view.packTitle}</p>
-          <h1 className="mt-2 text-3xl font-bold">Ждём игроков</h1>
+          <h1 className="mt-2 text-3xl font-bold">
+            {inLobby ? 'Ждём игроков' : view.roundTitle}
+          </h1>
         </div>
-        <div className="flex items-center gap-6">
-          <div className="text-right">
-            <p className="text-muted">Код комнаты</p>
-            <RoomCode code={view.code} size="xl" />
+        {inLobby && (
+          <div className="flex items-center gap-6">
+            <div className="text-right">
+              <p className="text-muted">Код комнаты</p>
+              <RoomCode code={view.code} size="xl" />
+            </div>
+            <QrCode value={view.joinUrl} size={180} className="rounded-2xl" />
           </div>
-          <QrCode value={view.joinUrl} size={180} className="rounded-2xl" />
-        </div>
+        )}
       </header>
+
+      {!inLobby && (
+        <section className="flex flex-1 flex-col justify-center gap-6">
+          <TimerBar timer={view.timer} paused={view.paused} />
+          {view.question ? (
+            <div className="grid gap-6 text-center">
+              <p className="text-2xl text-muted">
+                {view.question.themeTitle} ·{' '}
+                <span className="tabular-nums text-gold">{view.question.price}</span>
+              </p>
+              <p className="text-[clamp(1.75rem,1rem+3vw,3.5rem)] leading-tight font-bold text-pretty">
+                {view.question.text}
+              </p>
+              {view.question.revealedAnswer && (
+                <p className="text-[clamp(1.5rem,1rem+2vw,3rem)] font-black text-gold">
+                  {view.question.revealedAnswer}
+                </p>
+              )}
+              {answering && <p className="text-2xl text-good">Отвечает {answering.name}</p>}
+            </div>
+          ) : (
+            <BoardGrid board={view.board} />
+          )}
+        </section>
+      )}
 
       <section className="mt-auto grid auto-cols-fr grid-flow-col gap-4">
         {view.players.map((player) => (
