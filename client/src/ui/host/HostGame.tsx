@@ -70,6 +70,60 @@ export function HostGame({ view }: HostGameProps) {
                 )}
               </div>
 
+              {view.cat && (
+                <p className="rounded-xl border border-gold/40 bg-gold/10 px-3 py-2 text-sm">
+                  Кот в мешке · тема «{view.cat.theme || 'не задана'}» за{' '}
+                  <span className="tabular-nums">{view.cat.price}</span>
+                  {view.cat.toPlayerId ? (
+                    <>
+                      {' '}
+                      → отвечает{' '}
+                      <span className="font-bold text-gold">
+                        {view.players.find((player) => player.id === view.cat?.toPlayerId)?.name}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      · передаёт{' '}
+                      {view.players.find((player) => player.id === view.cat?.fromPlayerId)?.name}
+                    </>
+                  )}
+                </p>
+              )}
+
+              {view.auction && (
+                <div className="rounded-xl border border-gold/40 bg-gold/10 px-3 py-2 text-sm">
+                  <p>
+                    Аукцион · ставка{' '}
+                    <span className="font-bold tabular-nums text-gold">{view.auction.currentBid}</span>
+                    {view.auction.leaderId && (
+                      <>
+                        {' '}
+                        — {view.players.find((player) => player.id === view.auction?.leaderId)?.name}
+                      </>
+                    )}
+                  </p>
+                  {view.auction.turnPlayerId ? (
+                    <p className="text-muted">
+                      ходит{' '}
+                      {view.players.find((player) => player.id === view.auction?.turnPlayerId)?.name}
+                    </p>
+                  ) : (
+                    <p className="text-muted">торги закончены</p>
+                  )}
+                  {view.auction.passedIds.length > 0 && (
+                    <p className="text-muted">
+                      спасовали:{' '}
+                      {view.auction.passedIds
+                        .map((id) => view.players.find((player) => player.id === id)?.name)
+                        .filter(Boolean)
+                        .join(', ')}
+                    </p>
+                  )}
+                </div>
+              )}
+
               {answering && (
                 <p className="text-lg">
                   Отвечает <span className="font-bold text-gold">{answering.name}</span>
@@ -86,7 +140,9 @@ export function HostGame({ view }: HostGameProps) {
                     Открыть кнопку
                   </button>
                 )}
-                {view.phase === 'answering' && (
+                {(view.phase === 'answering' ||
+                  view.phase === 'cat_answer' ||
+                  view.phase === 'auction_answer') && (
                   <>
                     <button
                       onClick={() => send('host:judge', { verdict: 'correct' })}

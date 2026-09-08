@@ -78,6 +78,32 @@ describe('проекция игрока', () => {
   });
 });
 
+describe('спецвопросы: текст до времени скрыт', () => {
+  it('во время передачи кота игроки не видят текста вопроса', () => {
+    const state: RoomState = { ...stateWithQuestion(), phase: 'cat_transfer' };
+    const view = projectForPlayer(state, 'p1');
+    expect(view.question?.hidden).toBe(true);
+    expect(view.question?.text).toBe('');
+    expect(JSON.stringify(view)).not.toContain('Крёстного отца');
+  });
+
+  it('во время торгов игроки не видят текста вопроса', () => {
+    const state: RoomState = { ...stateWithQuestion(), phase: 'auction_bidding' };
+    const serialized = JSON.stringify(projectForBoard(state, JOIN_URL));
+    expect(serialized).not.toContain('Крёстного отца');
+  });
+
+  it('ведущему текст виден всегда: ему его читать', () => {
+    const state: RoomState = { ...stateWithQuestion(), phase: 'cat_transfer' };
+    expect(projectForHost(state, JOIN_URL).question?.text).toContain('Крёстного отца');
+  });
+
+  it('после передачи текст появляется', () => {
+    const state: RoomState = { ...stateWithQuestion(), phase: 'cat_answer' };
+    expect(projectForPlayer(state, 'p2').question?.text).toContain('Крёстного отца');
+  });
+});
+
 describe('проекция ведущего', () => {
   it('содержит правильный ответ и альтернативы', () => {
     const view = projectForHost(stateWithQuestion(), JOIN_URL);

@@ -90,7 +90,11 @@ export default function Board() {
                 <span className="tabular-nums text-gold">{view.question.price}</span>
               </p>
               <p className="text-[clamp(1.75rem,1rem+3vw,3.5rem)] leading-tight font-bold text-pretty">
-                {view.question.text}
+                {view.question.hidden ? (
+                  <span className="text-muted">Вопрос ещё не читали</span>
+                ) : (
+                  view.question.text
+                )}
               </p>
               {view.question.revealedAnswer && (
                 <p className="text-[clamp(1.5rem,1rem+2vw,3rem)] font-black text-gold">

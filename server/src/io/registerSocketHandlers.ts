@@ -252,6 +252,32 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
+    socket.on('player:catTransfer', ({ toPlayerId }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      if (room.state.cat?.fromPlayerId !== playerId) {
+        ack({ ok: false, error: 'Кота передаёт тот, кто его открыл' });
+        return;
+      }
+      const result = room.dispatch({ type: 'CAT_TRANSFER', toPlayerId, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('player:bid', ({ amount }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      const result = room.dispatch({ type: 'BID', playerId, amount, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
     socket.on('player:buzz', ({ clientTime, clockOffset, minRtt }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;

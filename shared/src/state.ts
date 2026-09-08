@@ -190,6 +190,8 @@ export interface HostQuestionView extends QuestionViewCommon {
 export interface PublicQuestionView extends QuestionViewCommon {
   revealedAnswer?: string;
   revealedAnswerMedia?: Media;
+  /** Текст ещё не показывают: кота передают вслепую, на аукционе торгуются по теме. */
+  hidden?: boolean;
 }
 
 export interface TimerView {

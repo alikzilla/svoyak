@@ -7,9 +7,15 @@ import { ask } from '../net/socket.js';
 import { unlockAudio } from '../net/sounds.js';
 import { Buzzer } from '../ui/Buzzer.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
+import { CatPick } from '../ui/CatPick.js';
+import { BidPanel } from '../ui/BidPanel.js';
 
 const WAIT_HINT: Partial<Record<string, string>> = {
   answering: 'Отвечают',
+  cat_transfer: 'Кота передают другому игроку',
+  cat_answer: 'Отвечает получивший кота',
+  auction_bidding: 'Идут торги',
+  auction_answer: 'Отвечает победитель торгов',
   lobby: 'Ждём, когда ведущий начнёт игру',
   round_intro: 'Ведущий объявляет темы',
   picking: 'Выбирают вопрос',
@@ -71,7 +77,11 @@ export default function Play() {
           <span className="block text-xs text-muted">
             {view.question.themeTitle} · <span className="tabular-nums">{view.question.price}</span>
           </span>
-          {view.question.text}
+          {view.question.hidden ? (
+            <span className="text-muted">Вопрос ещё не читали</span>
+          ) : (
+            view.question.text
+          )}
           {view.question.revealedAnswer && (
             <span className="mt-2 block font-bold text-gold">{view.question.revealedAnswer}</span>
           )}
@@ -85,6 +95,27 @@ export default function Play() {
           answeringName={answering?.name ?? null}
           onBuzz={buzz}
         />
+      ) : view.prompt.kind === 'cat_pick' ? (
+        <CatPick
+          theme={view.cat?.theme ?? ''}
+          price={view.cat?.price ?? 0}
+          candidates={view.prompt.candidates}
+          canKeep={view.prompt.canKeep}
+          onPick={(playerId) => void ask('player:catTransfer', { toPlayerId: playerId })}
+        />
+      ) : view.prompt.kind === 'auction_bid' ? (
+        <BidPanel
+          currentBid={view.prompt.currentBid}
+          minBid={view.prompt.minBid}
+          maxBid={view.prompt.maxBid}
+          canPass={view.prompt.canPass}
+          onBid={(amount) => void ask('player:bid', { amount })}
+        />
+      ) : view.prompt.kind === 'solo_answer' ? (
+        <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
+          <p className="text-2xl font-bold text-gold">Отвечаете вы</p>
+          <p className="text-muted text-pretty">Скажите ответ вслух — ведущий рассудит</p>
+        </div>
       ) : view.prompt.kind === 'your_turn' ? (
         <div className="flex flex-1 flex-col gap-3 overflow-y-auto">
           <p className="text-center text-lg text-gold text-pretty">

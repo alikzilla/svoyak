@@ -22,7 +22,8 @@ function projectPlayers(state: RoomState, now: number): PlayerPublic[] {
       score: player.score,
       connected: player.connected,
       isControl: state.controlPlayerId === player.id,
-      isAnswering: state.buzz.answeringPlayerId === player.id,
+      isAnswering:
+        state.buzz.answeringPlayerId === player.id || state.active?.soloPlayerId === player.id,
       lockedUntil: lockedUntil !== null && lockedUntil > now ? lockedUntil : null,
     };
   });
@@ -60,13 +61,18 @@ function projectPublicQuestion(state: RoomState): PublicQuestionView | null {
   const question = activeQuestion(state);
   if (!active || !question) return null;
 
+  // Кота передают вслепую, а на аукционе торгуются по теме и цене:
+  // до конца этих фаз текст вопроса игрокам не показываем.
+  const hidden = state.phase === 'cat_transfer' || state.phase === 'auction_bidding';
+
   const view: PublicQuestionView = {
     themeTitle: active.themeTitle,
     price: active.price,
     type: active.type,
-    text: question.text,
+    text: hidden ? '' : question.text,
   };
-  if (question.media) view.media = question.media;
+  if (hidden) view.hidden = true;
+  if (!hidden && question.media) view.media = question.media;
   if (active.answerRevealed) {
     view.revealedAnswer = question.answer;
     if (question.answerMedia) view.revealedAnswerMedia = question.answerMedia;
