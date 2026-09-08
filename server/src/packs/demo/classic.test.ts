@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { validatePack } from '@svoyak/shared';
 import { demoClassicPack } from './classic.js';
 
 describe('демо-пак «Классика»', () => {
@@ -38,6 +39,11 @@ describe('демо-пак «Классика»', () => {
       r.themes.flatMap((t) => t.questions.map((q) => q.id)),
     );
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it('проходит валидацию без ошибок', () => {
+    const issues = validatePack(demoClassicPack).filter((issue) => issue.level === 'error');
+    expect(issues).toEqual([]);
   });
 
   it('содержит кота в мешке и аукцион, и у кота задана спецификация', () => {
