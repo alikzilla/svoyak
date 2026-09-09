@@ -383,24 +383,18 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       const player = findPlayer(state, action.playerId);
       if (!player) return reject(state, 'Игрок не найден');
 
-      // Нажатие до открытия кнопки. Блокировку ставим сразу — игрок должен видеть,
-      // что промахнулся, — но настоящее наказание отмеряется от открытия кнопки:
-      // см. openBuzzer. Повторные тычки в паузу дорожают.
+      // Нажатие до открытия кнопки. Наказание не ставим здесь: оно отмеряется от
+      // момента открытия (см. openBuzzer), иначе пауза на чтение съедала бы его.
+      // Одно нажатие — одно наказание: повторные тычки в паузу просто игнорируем,
+      // иначе игрок получал бы фальстарт дважды за одно нажатие.
       if (state.phase === 'reading') {
-        // Пока наказание идёт, лишние тычки не считаем: иначе долбёжка по кнопке
-        // накрутила бы блокировку до конца вопроса.
-        if (!canBuzz(state, action.playerId, action.atServerTime)) return { state, effects: [] };
-        const times = (state.buzz.falseStarts[action.playerId] ?? 0) + 1;
+        if (state.buzz.falseStarts[action.playerId]) return { state, effects: [] };
         return {
           state: {
             ...state,
             buzz: {
               ...state.buzz,
-              falseStarts: { ...state.buzz.falseStarts, [action.playerId]: times },
-              lockedUntil: {
-                ...state.buzz.lockedUntil,
-                [action.playerId]: action.atServerTime + state.settings.falseStartLockMs * times,
-              },
+              falseStarts: { ...state.buzz.falseStarts, [action.playerId]: 1 },
             },
             log: log(state, action.receivedAt, `Фальстарт: ${player.name}`),
           },
@@ -408,7 +402,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
             {
               type: 'toast',
               to: { playerId: action.playerId },
-              text: 'Фальстарт! Кнопка заблокирована на пару секунд',
+              text: 'Фальстарт! Кнопка откроется вам позже остальных',
               tone: 'warn',
             },
             { type: 'persist' },
@@ -861,8 +855,8 @@ function openBuzzer(state: RoomState, at: number): ReduceResult {
   // Наказание за фальстарт начинает течь только сейчас: иначе пауза на чтение
   // съедала бы его целиком и жать раньше времени было бы выгодно.
   const lockedUntil = { ...state.buzz.lockedUntil };
-  for (const [playerId, times] of Object.entries(state.buzz.falseStarts)) {
-    lockedUntil[playerId] = at + state.settings.falseStartLockMs * times;
+  for (const playerId of Object.keys(state.buzz.falseStarts)) {
+    lockedUntil[playerId] = at + state.settings.falseStartLockMs;
   }
 
   return {

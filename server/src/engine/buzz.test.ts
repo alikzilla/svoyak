@@ -73,9 +73,11 @@ describe('открытие кнопки', () => {
 });
 
 describe('фальстарт', () => {
-  it('нажатие до открытия блокирует нажавшего', () => {
+  it('нажатие до открытия записывает фальстарт нажавшему', () => {
+    // Само наказание начнётся при открытии кнопки: до тех пор блокировки нет.
     const state = buzz(readingState(), 'p2', T0 + 500, T0 + 500).state;
-    expect(state.buzz.lockedUntil['p2']).toBe(T0 + 500 + DEFAULT_SETTINGS.falseStartLockMs);
+    expect(state.buzz.falseStarts['p2']).toBe(1);
+    expect(state.buzz.lockedUntil['p2']).toBeUndefined();
     expect(state.phase).toBe('reading');
   });
 

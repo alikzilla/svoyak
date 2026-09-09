@@ -534,3 +534,38 @@ describe('пауза на чтение', () => {
     player.disconnect();
   }, 10_000);
 });
+
+describe('фальстарт глазами игрока', () => {
+  it('одно раннее нажатие даёт ровно одну блокировку, а не две подряд', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic', settings: { autoOpenBuzzer: true, readingMs: 700 } },
+    );
+    if (!created.ok) throw new Error('комната не создалась');
+    const player = await connect();
+    await emit(player, 'room:join', { code: created.data.code, name: 'Алма' });
+    await emit(host, 'host:startGame');
+
+    // Собираем всё, что видит экран игрока за время вопроса.
+    const locks: Array<number | null> = [];
+    player.on('state:sync', (view) => {
+      const prompt = (view as PlayerView).prompt;
+      if (prompt.kind === 'buzz') locks.push(prompt.lockedUntil);
+    });
+
+    await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q1' });
+    // Жмём под самое открытие — случай, в котором наказание задваивалось.
+    await new Promise((resolve) => setTimeout(resolve, 450));
+    await emit(player, 'player:buzz', { clientTime: Date.now(), clockOffset: 0, minRtt: 10 });
+    // Ждём открытия кнопки и ещё немного проекций после него.
+    await new Promise((resolve) => setTimeout(resolve, 700));
+
+    const distinct = [...new Set(locks.filter((lock): lock is number => lock !== null))];
+    expect(distinct).toHaveLength(1);
+
+    host.disconnect();
+    player.disconnect();
+  }, 10_000);
+});

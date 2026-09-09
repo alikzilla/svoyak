@@ -68,20 +68,13 @@ describe('наказание за фальстарт', () => {
     expect(canBuzz(opened, 'p1', opensAt + LOCK)).toBe(true);
   });
 
-  it('второй фальстарт в том же вопросе стоит вдвое дороже', () => {
+
+
+  it('сколько ни долби по кнопке в паузу — наказание одно', () => {
     let state = jump(reading(), 'p1', T0 + 200);
-    state = jump(state, 'p1', T0 + 3000);
-    const opensAt = T0 + DEFAULT_SETTINGS.readingMs;
-
-    const opened = open(state, opensAt);
-
-    expect(opened.buzz.lockedUntil['p1']).toBe(opensAt + LOCK * 2);
-  });
-
-  it('долбёжка по кнопке во время блокировки не удлиняет наказание', () => {
-    let state = jump(reading(), 'p1', T0 + 200);
-    // Ещё три тычка, пока первая блокировка не истекла.
-    for (const at of [T0 + 400, T0 + 800, T0 + 1200]) state = jump(state, 'p1', at);
+    for (const at of [T0 + 400, T0 + 800, T0 + 1200, T0 + 3000, T0 + 4500]) {
+      state = jump(state, 'p1', at);
+    }
     const opensAt = T0 + DEFAULT_SETTINGS.readingMs;
 
     const opened = open(state, opensAt);
@@ -109,16 +102,35 @@ describe('наказание за фальстарт', () => {
     expect(opened.buzz.lockedUntil['p1']).toBe(T0 + 30_000 + LOCK);
   });
 
-  it('нажавший сразу видит блокировку, не дожидаясь открытия', () => {
-    const result = reduce(reading(), {
+  it('одно нажатие даёт ровно одно наказание, а не два подряд', () => {
+    // Жмёт под самое открытие: раньше здесь ставились две блокировки подряд,
+    // и игрок видел второй фальстарт, хотя нажимал один раз.
+    const opensAt = T0 + DEFAULT_SETTINGS.readingMs;
+    const pressed = reduce(reading(), {
+      type: 'BUZZ',
+      playerId: 'p1',
+      atServerTime: opensAt - 200,
+      receivedAt: opensAt - 200,
+    });
+
+    // До открытия блокировки нет: наказание ещё не началось.
+    expect(pressed.state.buzz.lockedUntil['p1']).toBeUndefined();
+    expect(pressed.effects.some((effect) => effect.type === 'toast')).toBe(true);
+
+    const opened = open(pressed.state, opensAt);
+    expect(opened.buzz.lockedUntil['p1']).toBe(opensAt + LOCK);
+  });
+
+  it('нажавший узнаёт о промахе сразу, не дожидаясь открытия', () => {
+    const pressed = reduce(reading(), {
       type: 'BUZZ',
       playerId: 'p1',
       atServerTime: T0 + 200,
       receivedAt: T0 + 200,
     });
 
-    expect(result.state.buzz.lockedUntil['p1']).toBe(T0 + 200 + LOCK);
-    expect(result.effects.some((effect) => effect.type === 'toast')).toBe(true);
+    expect(pressed.state.buzz.falseStarts['p1']).toBe(1);
+    expect(pressed.effects.some((effect) => effect.type === 'toast')).toBe(true);
   });
 
   it('на следующем вопросе счётчик фальстартов обнуляется', () => {
