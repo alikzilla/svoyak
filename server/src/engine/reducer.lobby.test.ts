@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
+import { DEFAULT_SETTINGS, type Pack, type RoomState } from '@svoyak/shared';
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
@@ -92,6 +92,32 @@ describe('редьюсер: лобби', () => {
     let state = join(fresh(), 'Вася', 'p1', 't1');
     state = reduce(state, { type: 'SET_SCORE', playerId: 'p1', score: -700 }).state;
     expect(state.players[0]!.score).toBe(-700);
+  });
+
+  it('замена пака в лобби пересобирает доску', () => {
+    const state = join(fresh(), 'Вася', 'p1', 't1');
+    const swapped: Pack = {
+      ...demoClassicPack,
+      id: 'other',
+      rounds: [{ ...demoClassicPack.rounds[1]!, id: 'only', title: 'Единственный раунд' }],
+    };
+
+    const result = reduce(state, { type: 'SET_PACK', pack: swapped });
+
+    expect(result.state.pack.id).toBe('other');
+    expect(result.state.board.map((theme) => theme.title)).toEqual(
+      swapped.rounds[0]!.themes.map((theme) => theme.title),
+    );
+  });
+
+  it('после старта пак заменить нельзя', () => {
+    let state = join(fresh(), 'Вася', 'p1', 't1');
+    state = reduce(state, { type: 'START_GAME', at: 5000 }).state;
+
+    const result = reduce(state, { type: 'SET_PACK', pack: demoClassicPack });
+
+    expect(result.error).toBe('Состав можно менять только до начала игры');
+    expect(result.state.pack.id).toBe(demoClassicPack.id);
   });
 
   it('редьюсер не мутирует исходное состояние', () => {

@@ -1,4 +1,4 @@
-import type { RoomSettings, SoundId, TimerKind } from '@svoyak/shared';
+import type { Pack, RoomSettings, SoundId, TimerKind } from '@svoyak/shared';
 
 /** Действия, которые понимает редьюсер. Всё, что меняет игру, проходит через них. */
 export type GameAction =
@@ -7,6 +7,7 @@ export type GameAction =
   | { type: 'PLAYER_KICK'; playerId: string }
   | { type: 'SET_SCORE'; playerId: string; score: number }
   | { type: 'SET_SETTINGS'; settings: Partial<RoomSettings> }
+  | { type: 'SET_PACK'; pack: Pack }
   | { type: 'HOST_PRESENCE'; connected: boolean }
   | { type: 'START_GAME'; at: number }
   /** Вопрос всегда открывает ведущий: игрок называет свой выбор вслух. */

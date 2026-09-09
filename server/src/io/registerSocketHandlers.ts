@@ -1,14 +1,40 @@
 import { randomUUID } from 'node:crypto';
-import type { Ack, RoomSettings } from '@svoyak/shared';
+import type { Ack, GameRecipe, Pack, RoomSettings } from '@svoyak/shared';
 import { validatePack } from '@svoyak/shared';
 import type { Effect, GameAction } from '../engine/actions.js';
 import type { RoomManager } from '../room/RoomManager.js';
 import type { RoomRuntime } from '../room/RoomRuntime.js';
 import { adjustBuzzTime } from '../engine/buzz.js';
+import { buildPackFromRecipe } from '../packs/compose.js';
 import { getPack } from '../storage/packsRepo.js';
 import type { AppServer, AppSocket } from './types.js';
 
 const MAX_NAME_LENGTH = 20;
+
+/** Пак для комнаты: либо целиком по идентификатору, либо собранный по рецепту.
+ *  Возвращает текст ошибки строкой — её показываем ведущему как есть. */
+function resolvePack({ packId, recipe }: { packId?: string; recipe?: GameRecipe }): Pack | string {
+  let pack: Pack | null = null;
+  if (recipe) {
+    try {
+      pack = buildPackFromRecipe(recipe, getPack);
+    } catch (cause) {
+      return cause instanceof Error ? cause.message : 'Не удалось собрать игру';
+    }
+  } else if (packId !== undefined) {
+    pack = getPack(packId);
+    if (!pack) return 'Пак не найден';
+  } else {
+    return 'Не выбран ни пак, ни состав игры';
+  }
+
+  // Недоделанный пак можно править, но играть им нельзя.
+  const errors = validatePack(pack).filter((issue) => issue.level === 'error');
+  if (errors.length > 0) {
+    return `Пак не готов к игре: ${errors[0]?.message ?? ''}${errors.length > 1 ? ` (и ещё ${errors.length - 1})` : ''}`;
+  }
+  return pack;
+}
 
 export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void {
   /** Каждому сокету — своя проекция: игрок не должен получить данные ведущего. */
@@ -82,20 +108,10 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack({ t0, tServer: Date.now() });
     });
 
-    socket.on('room:create', ({ packId, settings }, ack) => {
-      const pack = getPack(packId);
-      if (!pack) {
-        ack({ ok: false, error: 'Пак не найден' });
-        return;
-      }
-
-      // Недоделанный пак можно править, но играть им нельзя.
-      const errors = validatePack(pack).filter((issue) => issue.level === 'error');
-      if (errors.length > 0) {
-        ack({
-          ok: false,
-          error: `Пак не готов к игре: ${errors[0]?.message ?? ''}${errors.length > 1 ? ` (и ещё ${errors.length - 1})` : ''}`,
-        });
+    socket.on('room:create', ({ packId, recipe, settings }, ack) => {
+      const pack = resolvePack({ packId, recipe });
+      if (typeof pack === 'string') {
+        ack({ ok: false, error: pack });
         return;
       }
       const { room, hostToken } = rooms.create(pack, settings);
@@ -358,6 +374,18 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'SET_SETTINGS', settings });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('host:setRecipe', ({ recipe }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const pack = resolvePack({ recipe });
+      if (typeof pack === 'string') {
+        ack({ ok: false, error: pack });
+        return;
+      }
+      const result = room.dispatch({ type: 'SET_PACK', pack });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 

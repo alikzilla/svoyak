@@ -2,6 +2,7 @@ import type { AuctionState, FinalState, LogEntry, RoomState, TimerKind } from '@
 import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
+import { buildBoard } from './board.js';
 import { activeQuestion, findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
 import { minRaise, nextBidder } from './auction.js';
@@ -154,6 +155,21 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     case 'SET_SETTINGS': {
       return {
         state: { ...state, settings: { ...state.settings, ...action.settings } },
+        effects: [{ type: 'persist' }],
+      };
+    }
+
+    case 'SET_PACK': {
+      // Состав меняется только до старта: доска уже сыгранных клеток не переживёт подмену.
+      if (state.phase !== 'lobby') return reject(state, 'Состав можно менять только до начала игры');
+      const first = action.pack.rounds[0];
+      return {
+        state: {
+          ...state,
+          pack: action.pack,
+          roundIndex: 0,
+          board: first ? buildBoard(first) : [],
+        },
         effects: [{ type: 'persist' }],
       };
     }

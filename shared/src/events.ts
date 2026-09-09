@@ -1,4 +1,5 @@
 import type { Pack, PackSummary } from './pack.js';
+import type { GameRecipe } from './recipe.js';
 import type { RoomSettings } from './settings.js';
 import type { AnyView, Role } from './state.js';
 
@@ -13,9 +14,15 @@ export interface ClockPong {
   tServer: number;
 }
 
+/** Комнату можно создать целым паком (быстрый путь) либо рецептом из мастера. */
 export interface CreateRoomPayload {
-  packId: string;
+  packId?: string;
+  recipe?: GameRecipe;
   settings?: Partial<RoomSettings>;
+}
+
+export interface SetRecipePayload {
+  recipe: GameRecipe;
 }
 
 export interface CreateRoomResult {
@@ -128,6 +135,8 @@ export interface ClientToServerEvents {
   'room:leave': (ack: Ack<null>) => void;
 
   'host:updateSettings': (payload: Partial<RoomSettings>, ack: Ack<null>) => void;
+  /** Пересобрать состав игры. Работает только в лобби. */
+  'host:setRecipe': (payload: SetRecipePayload, ack: Ack<null>) => void;
   'host:startGame': (ack: Ack<null>) => void;
   'host:pickQuestion': (payload: PickQuestionPayload, ack: Ack<null>) => void;
   'host:openBuzzer': (ack: Ack<null>) => void;

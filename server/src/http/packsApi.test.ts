@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import express from 'express';
 import { createServer, type Server } from 'node:http';
-import type { Pack, PackResponse, PacksListResponse } from '@svoyak/shared';
+import type { ComposeResponse, Pack, PackResponse, PacksListResponse } from '@svoyak/shared';
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'svoyak-api-'));
 process.env['DATA_DIR'] = tempDir;
@@ -125,5 +125,117 @@ describe('REST редактора', () => {
 
     const read = await fetch(`${base}/api/packs/${pack.id}`);
     expect(read.status).toBe(404);
+  });
+});
+
+/** Наполняет пак темами: сборке игры нужно из чего выбирать. */
+async function packWithThemes(title: string, themeTitles: string[]): Promise<Pack> {
+  const created = await createPack(title);
+  const filled: Pack = {
+    ...created,
+    rounds: [
+      {
+        id: `${created.id}-r1`,
+        title: 'Первый раунд',
+        themes: themeTitles.map((themeTitle, index) => ({
+          id: `${created.id}-t${index + 1}`,
+          title: themeTitle,
+          questions: [100, 200, 300, 400, 500].map((price, questionIndex) => ({
+            id: `${created.id}-t${index + 1}-q${questionIndex + 1}`,
+            price,
+            type: 'normal' as const,
+            text: `вопрос ${questionIndex + 1}`,
+            answer: `ответ ${questionIndex + 1}`,
+            altAnswers: [],
+          })),
+        })),
+      },
+    ],
+    final: {
+      themes: [
+        {
+          id: `${created.id}-f1`,
+          title: `Финал ${title}`,
+          question: { id: `${created.id}-f1-q`, text: 'финал', answer: 'ответ', altAnswers: [] },
+        },
+      ],
+    },
+  };
+  await fetch(`${base}/api/packs/${created.id}`, {
+    method: 'PUT',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ pack: filled }),
+  });
+  return filled;
+}
+
+const compose = async (body: unknown): Promise<Response> =>
+  fetch(`${base}/api/compose`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+
+describe('сборка игры', () => {
+  it('собирает состав из выбранных паков и возвращает названия тем', async () => {
+    const first = await packWithThemes('Кино', ['Режиссёры', 'Оскар', 'Актёры']);
+    const second = await packWithThemes('Музыка', ['Рок', 'Поп', 'Хип-хоп']);
+
+    const response = await compose({
+      packIds: [first.id, second.id],
+      rounds: 2,
+      themesPerRound: 3,
+      finalThemes: 2,
+      seed: 5,
+    });
+    const body = (await response.json()) as ComposeResponse;
+
+    expect(response.status).toBe(200);
+    expect(body.recipe.rounds).toHaveLength(2);
+    expect(body.rounds[0]).toHaveLength(3);
+    expect(body.final).toHaveLength(2);
+    expect(body.rounds.flat().every((theme) => theme.title.length > 0)).toBe(true);
+    expect(body.seed).toBe(5);
+  });
+
+  it('на тот же seed отдаёт тот же состав', async () => {
+    const pack = await packWithThemes('Космос', ['Планеты', 'Звёзды', 'Луна', 'Марс']);
+    const request = { packIds: [pack.id], rounds: 2, themesPerRound: 2, finalThemes: 1, seed: 99 };
+
+    const first = (await (await compose(request)).json()) as ComposeResponse;
+    const second = (await (await compose(request)).json()) as ComposeResponse;
+
+    expect(second.recipe).toEqual(first.recipe);
+  });
+
+  it('объясняет нехватку тем понятным текстом', async () => {
+    const pack = await packWithThemes('Мало', ['Одна']);
+
+    const response = await compose({
+      packIds: [pack.id],
+      rounds: 3,
+      themesPerRound: 4,
+      finalThemes: 1,
+    });
+    const body = (await response.json()) as { error: string };
+
+    expect(response.status).toBe(400);
+    expect(body.error).toMatch(/не хватает тем/i);
+  });
+
+  it('отвергает запрос без паков', async () => {
+    const response = await compose({ packIds: [], rounds: 2, themesPerRound: 3, finalThemes: 2 });
+    expect(response.status).toBe(400);
+  });
+
+  it('отвергает бессмысленные числа', async () => {
+    const pack = await packWithThemes('Числа', ['А', 'Б', 'В', 'Г']);
+    const response = await compose({
+      packIds: [pack.id],
+      rounds: 0,
+      themesPerRound: 3,
+      finalThemes: 2,
+    });
+    expect(response.status).toBe(400);
   });
 });

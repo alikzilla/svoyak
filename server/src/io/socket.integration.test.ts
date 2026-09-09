@@ -61,6 +61,19 @@ function nextView<T>(socket: Client): Promise<T> {
   return new Promise((resolve) => socket.once('state:sync', (view) => resolve(view as T)));
 }
 
+/** Ждёт проекцию, удовлетворяющую условию. Проекций на одно действие может
+ *  прилететь несколько, и «следующая» — не обязательно нужная. */
+function viewWhere<T>(socket: Client, matches: (view: T) => boolean): Promise<T> {
+  return new Promise((resolve) => {
+    const listener = (view: unknown): void => {
+      if (!matches(view as T)) return;
+      socket.off('state:sync', listener);
+      resolve(view as T);
+    };
+    socket.on('state:sync', listener);
+  });
+}
+
 function emit<K extends keyof ClientToServerEvents, T>(
   socket: Client,
   event: K,
@@ -104,7 +117,7 @@ describe('сокет-слой', () => {
     );
     if (!created.ok) throw new Error('комната не создана');
 
-    const hostView = nextView<HostView>(host);
+    const hostView = viewWhere<HostView>(host, (view) => view.players.length > 0);
     const player = await connect();
     const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
       player,
@@ -371,6 +384,95 @@ describe('сокет-слой', () => {
 
     const restoredRoom = restarted.get(code);
     expect(restoredRoom?.state.players[0]).toMatchObject({ name: 'Гриша', score: 800 });
+    host.disconnect();
+    player.disconnect();
+  });
+});
+
+describe('состав игры', () => {
+  const recipeOf = (themeIds: string[][], finalIds: string[]) => ({
+    rounds: themeIds.map((round) => round.map((themeId) => ({ packId: 'demo-classic', themeId }))),
+    final: finalIds.map((themeId) => ({ packId: 'demo-classic', themeId })),
+  });
+
+  it('создаёт комнату по рецепту, а не по целому паку', async () => {
+    const host = await connect();
+    const hostView = nextView<HostView>(host);
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { recipe: recipeOf([['r1-kino', 'r2-history']], ['f-geo']) },
+    );
+    expect(created.ok).toBe(true);
+
+    const view = await hostView;
+    expect(view.board.map((theme) => theme.title)).toEqual(['Кино', 'История']);
+    // Цены выровнены по сетке первого раунда, хотя «История» пришла из второго.
+    expect(view.board[1]?.cells.map((cell) => cell.price)).toEqual([100, 200, 300, 400, 500]);
+    host.disconnect();
+  });
+
+  it('рецепт с несуществующей темой отклоняется', async () => {
+    const host = await connect();
+    const result = await emit(host, 'room:create', {
+      recipe: recipeOf([['нет-такой']], ['f-geo']),
+    });
+    expect(result.ok).toBe(false);
+    host.disconnect();
+  });
+
+  it('ведущий меняет состав в лобби', async () => {
+    const host = await connect();
+    await emit(host, 'room:create', { recipe: recipeOf([['r1-kino']], ['f-geo']) });
+
+    const hostView = viewWhere<HostView>(host, (view) => view.board.length === 2);
+    const changed = await emit(host, 'host:setRecipe', {
+      recipe: recipeOf([['r1-space', 'r1-food']], ['f-sport']),
+    });
+
+    expect(changed.ok).toBe(true);
+    const view = await hostView;
+    expect(view.board.map((theme) => theme.title)).toEqual(['Космос', 'Еда']);
+    host.disconnect();
+  });
+
+  it('после старта состав менять нельзя', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { recipe: recipeOf([['r1-kino']], ['f-geo']) },
+    );
+    if (!created.ok) throw new Error('комната не создалась');
+    const player = await connect();
+    await emit(player, 'room:join', { code: created.data.code, name: 'Вася' });
+    await emit(host, 'host:startGame');
+
+    const changed = await emit(host, 'host:setRecipe', {
+      recipe: recipeOf([['r1-space']], ['f-sport']),
+    });
+
+    expect(changed).toEqual({ ok: false, error: 'Состав можно менять только до начала игры' });
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('игрок состав менять не может', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { recipe: recipeOf([['r1-kino']], ['f-geo']) },
+    );
+    if (!created.ok) throw new Error('комната не создалась');
+    const player = await connect();
+    await emit(player, 'room:join', { code: created.data.code, name: 'Вася' });
+
+    const changed = await emit(player, 'host:setRecipe', {
+      recipe: recipeOf([['r1-space']], ['f-sport']),
+    });
+
+    expect(changed.ok).toBe(false);
     host.disconnect();
     player.disconnect();
   });
