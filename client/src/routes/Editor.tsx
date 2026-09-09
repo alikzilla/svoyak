@@ -243,7 +243,7 @@ function PackScreen({ packId }: { packId: string }) {
   }
 
   return (
-    <div className="app-shell relative mx-auto flex w-full max-w-5xl flex-col gap-5 p-6">
+    <div className="app-shell editor-shell relative mx-auto flex w-full max-w-5xl flex-col gap-5 p-6">
       <DoodleField density="light" night />
       <header className="relative flex flex-wrap items-center gap-3">
         <Link to="/editor" className="text-sm text-ink/60 underline underline-offset-4">
