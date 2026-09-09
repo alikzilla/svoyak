@@ -305,6 +305,9 @@ export interface PlayerView extends BaseView {
 export interface BoardView extends BaseView {
   role: 'board';
   question: PublicQuestionView | null;
+  /** Спецвопросы показываются и на общем экране: секретного в них ничего нет. */
+  cat: CatView | null;
+  auction: AuctionView | null;
   final: FinalPublicView | null;
   joinUrl: string;
 }

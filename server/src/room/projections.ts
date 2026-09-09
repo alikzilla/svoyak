@@ -281,6 +281,8 @@ export function projectForBoard(state: RoomState, joinUrl: string, now = Date.no
     ...projectBase(state, now),
     role: 'board',
     question: projectPublicQuestion(state),
+    cat: state.cat,
+    auction: state.auction,
     final: projectFinalPublic(state),
     joinUrl,
   };

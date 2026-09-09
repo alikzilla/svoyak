@@ -90,3 +90,38 @@ describe('снимок состояния', () => {
     expect(snapshot.pack).toBe(room.state.pack);
   });
 });
+
+describe('отмена не трогает состав комнаты', () => {
+  it('игрок, вошедший после снимка, не исчезает', () => {
+    const room = runtime();
+    room.dispatch({ type: 'SET_SCORE', playerId: 'p1', score: 500 });
+    room.dispatch({ type: 'PLAYER_JOIN', playerId: 'p2', name: 'Петя', sessionToken: 't2', at: 3000 });
+
+    room.undo();
+
+    expect(room.state.players.map((player) => player.name)).toEqual(['Вася', 'Петя']);
+    expect(room.state.players[0]?.score).toBe(0);
+  });
+
+  it('связь игроков не откатывается вместе с действием', () => {
+    const room = runtime();
+    room.dispatch({ type: 'PLAYER_DISCONNECT', playerId: 'p1' });
+    room.dispatch({ type: 'SET_SCORE', playerId: 'p1', score: 700 });
+    // Игрок вернулся уже после правки счёта.
+    room.dispatch({ type: 'PLAYER_JOIN', playerId: 'p1', name: 'Вася', sessionToken: 't1', at: 4000 });
+
+    room.undo();
+
+    expect(room.state.players[0]?.score).toBe(0);
+    expect(room.state.players[0]?.connected).toBe(true);
+  });
+
+  it('кикнутый игрок возвращается отменой', () => {
+    const room = runtime();
+    room.dispatch({ type: 'PLAYER_KICK', playerId: 'p1' });
+    expect(room.state.players).toHaveLength(0);
+
+    room.undo();
+    expect(room.state.players.map((player) => player.name)).toEqual(['Вася']);
+  });
+});

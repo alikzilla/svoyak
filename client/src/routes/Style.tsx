@@ -9,6 +9,11 @@ import { PriceCell } from '../design/PriceCell.js';
 import { RoughCircle, RoughFrame, RoughUnderline } from '../design/rough.js';
 import { FloatingPoints, ScoreNumber } from '../design/ScoreNumber.js';
 import { Stamp } from '../design/Stamp.js';
+import { CatScene } from '../ui/scenes/CatScene.js';
+import { AuctionScene } from '../ui/scenes/AuctionScene.js';
+import { VictoryScene } from '../ui/scenes/VictoryScene.js';
+import { RoundIntro } from '../ui/scenes/RoundIntro.js';
+import { playSound, unlockAudio } from '../net/sounds.js';
 
 /** Три пары шрифтов на выбор: сравнивать их надо на одном экране и на кириллице. */
 const FONT_PAIRS = {
@@ -38,6 +43,17 @@ const FONT_PAIRS = {
 type FontKey = keyof typeof FONT_PAIRS;
 
 const PLAYER_NAMES = ['Аня', 'Боря', 'Вера', 'Гоша', 'Даша', 'Егор'];
+
+/** Игроки-заглушки: сцены принимают ту же форму данных, что и в игре. */
+const MOCK_PLAYERS = PLAYER_NAMES.slice(0, 4).map((name, index) => ({
+  id: `p${index + 1}`,
+  name,
+  score: [1500, 900, 2400, 300][index] ?? 0,
+  connected: true,
+  isControl: index === 0,
+  isAnswering: false,
+  lockedUntil: null,
+}));
 
 /** Цвет сцены. Карточки поверх остаются светлыми, меняется только фон —
  *  так обводки и текст читаются и на светлом, и на тёмном. */
@@ -77,6 +93,11 @@ export default function Style() {
   const [verdict, setVerdict] = useState<'yes' | 'no' | null>(null);
   const [played, setPlayed] = useState<number[]>([300]);
   const [timerLeft, setTimerLeft] = useState(8);
+  const [catTo, setCatTo] = useState<number | null>(null);
+  const [bid, setBid] = useState(600);
+  const [bidLeader, setBidLeader] = useState(0);
+  const [showVictory, setShowVictory] = useState(false);
+  const [roundKey, setRoundKey] = useState(0);
   const [running, setRunning] = useState(false);
   const [answering, setAnswering] = useState<number | null>(null);
   const pair = FONT_PAIRS[fontKey];
@@ -140,6 +161,7 @@ export default function Style() {
       `}</style>
 
       <DoodleField density={calm ? 'off' : density} night={tone.dark} />
+      {roundKey > 0 && <RoundIntro title="Второй раунд" roundKey={roundKey} />}
 
       <div className="relative mx-auto grid max-w-5xl gap-14 px-5 py-10">
         {/* Герой: самая характерная вещь игры — кнопка, которую хочется нажать. */}
@@ -415,6 +437,122 @@ export default function Style() {
               <DoodleButton size="sm" tone="no" onClick={() => judge('no')}>−500</DoodleButton>
             </div>
           </RoughFrame>
+        </Section>
+
+        <Section
+          title="Спецсцены"
+          note="То, что происходит на общем экране в особые моменты. Здесь их можно запустить по кнопке — в игре они включаются сами."
+        >
+          <div className="grid gap-4">
+            <RoughFrame seed={41} fill="var(--card-tone)" contentClassName="text-ink grid gap-4 p-6">
+              <CatScene
+                theme="Птицы"
+                price={800}
+                receiverName={catTo === null ? null : (PLAYER_NAMES[catTo] ?? null)}
+                receiverIndex={catTo ?? 0}
+                fromName="Аня"
+              />
+              <div className="flex flex-wrap justify-center gap-2">
+                <DoodleButton size="sm" tone="p2" onClick={() => { setCatTo(1); playSound('cat'); }}>
+                  отдать Боре
+                </DoodleButton>
+                <DoodleButton size="sm" tone="paper" onClick={() => setCatTo(null)}>
+                  заново
+                </DoodleButton>
+              </div>
+            </RoughFrame>
+
+            <RoughFrame seed={43} fill="var(--card-tone)" contentClassName="text-ink grid gap-4 p-6">
+              <AuctionScene
+                auction={{
+                  currentBid: bid,
+                  leaderId: MOCK_PLAYERS[bidLeader]?.id ?? null,
+                  turnPlayerId: MOCK_PLAYERS[(bidLeader + 1) % 3]?.id ?? null,
+                  passedIds: [],
+                }}
+                players={MOCK_PLAYERS}
+                nominal={600}
+              />
+              <div className="flex flex-wrap justify-center gap-2">
+                <DoodleButton
+                  size="sm"
+                  tone="gold"
+                  onClick={() => {
+                    setBid((value) => value + 200);
+                    setBidLeader((value) => (value + 1) % 3);
+                    playSound('bid');
+                  }}
+                >
+                  поднять ставку
+                </DoodleButton>
+                <DoodleButton
+                  size="sm"
+                  tone="p2"
+                  onClick={() => {
+                    setBidLeader(2);
+                    setBid(MOCK_PLAYERS[2]?.score ?? 2400);
+                    playSound('all_in');
+                  }}
+                >
+                  ва-банк
+                </DoodleButton>
+                <DoodleButton size="sm" tone="paper" onClick={() => { setBid(600); setBidLeader(0); }}>
+                  заново
+                </DoodleButton>
+              </div>
+            </RoughFrame>
+
+            <RoughFrame seed={45} fill="var(--card-tone)" contentClassName="text-ink grid gap-4 p-6">
+              {showVictory ? (
+                <VictoryScene players={MOCK_PLAYERS} />
+              ) : (
+                <p className="font-body text-center font-bold opacity-70">
+                  Пьедестал, корона и серпантин — конец игры
+                </p>
+              )}
+              <div className="flex justify-center gap-2">
+                <DoodleButton
+                  size="sm"
+                  tone="p5"
+                  onClick={() => {
+                    setShowVictory(false);
+                    playSound('victory');
+                    setTimeout(() => setShowVictory(true), 40);
+                  }}
+                >
+                  показать победу
+                </DoodleButton>
+                <DoodleButton
+                  size="sm"
+                  tone="paper"
+                  onClick={() => { setRoundKey((value) => value + 1); playSound('round_start'); }}
+                >
+                  вылет названия раунда
+                </DoodleButton>
+              </div>
+            </RoughFrame>
+          </div>
+        </Section>
+
+        <Section
+          title="Звук"
+          note="Сэмплы синтезированы скриптом в WAV и лежат рядом с игрой — ни внешних сервисов, ни вопросов с лицензиями. Первое нажатие будит звук: браузеры иначе не дают."
+        >
+          <div className="flex flex-wrap gap-2">
+            {(['buzz_open', 'buzz_hit', 'correct', 'wrong', 'time_up', 'round_start', 'cat', 'bid', 'all_in', 'drumroll', 'victory'] as const).map(
+              (sound) => (
+                <DoodleButton
+                  key={sound}
+                  size="sm"
+                  tone="paper"
+                  tilt={0}
+                  onClick={() => { unlockAudio(); playSound(sound); }}
+                >
+                  {sound}
+                </DoodleButton>
+              ),
+            )}
+          </div>
         </Section>
 
         <Section

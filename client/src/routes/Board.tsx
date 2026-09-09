@@ -9,6 +9,10 @@ import { QrCode } from '../ui/QrCode.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 import { Standings } from '../ui/Standings.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
+import { CatScene } from '../ui/scenes/CatScene.js';
+import { AuctionScene } from '../ui/scenes/AuctionScene.js';
+import { VictoryScene } from '../ui/scenes/VictoryScene.js';
+import { RoundIntro } from '../ui/scenes/RoundIntro.js';
 import { DoodleButton } from '../design/DoodleButton.js';
 import { DoodleField } from '../design/Doodles.js';
 import { RoughFrame } from '../design/rough.js';
@@ -80,33 +84,59 @@ export default function Board() {
   const answering = view.players.find((player) => player.isAnswering);
 
   return (
-    <div className="app-shell relative flex flex-col gap-6 overflow-hidden p-8" onPointerDown={unlockAudio}>
+    <motion.div
+      className="app-shell relative flex flex-col gap-6 overflow-hidden p-8"
+      onPointerDown={unlockAudio}
+      // Финал и результаты уходят в глубокую ночь: сцена сама подсказывает, что игра к развязке.
+      animate={{
+        backgroundColor:
+          view.final !== null || view.phase === 'results' ? '#1a1140' : 'var(--color-scene)',
+      }}
+      transition={{ duration: 0.8 }}
+    >
       <DoodleField density="light" night />
+      {view.phase !== 'lobby' && <RoundIntro title={view.roundTitle} roundKey={view.roundIndex} />}
 
       {view.phase === 'lobby' ? (
         <Lobby view={view} />
       ) : view.phase === 'results' ? (
-        <section className="relative grid flex-1 content-center gap-6">
-          <h2
-            className="font-pop text-center text-6xl font-black"
-            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#ffc53d' }}
-          >
-            Игра окончена
-          </h2>
-          <div className="mx-auto w-full max-w-2xl">
-            <Standings players={view.players} />
-          </div>
+        <section className="relative grid flex-1 content-center">
+          <VictoryScene players={view.players} />
         </section>
       ) : view.final ? (
         <FinalScene view={view} />
       ) : (
         <section className="relative flex flex-1 flex-col justify-center gap-6">
           <AnimatePresence mode="wait">
-            {view.question ? (
+            {view.cat && (view.phase === 'cat_transfer' || view.phase === 'cat_answer') ? (
+              <motion.div key="cat" initial={{ scale: 0.92 }} animate={{ scale: 1 }}>
+                <CatScene
+                  theme={view.cat.theme}
+                  price={view.cat.price}
+                  receiverName={
+                    view.players.find((player) => player.id === view.cat?.toPlayerId)?.name ?? null
+                  }
+                  receiverIndex={view.players.findIndex(
+                    (player) => player.id === view.cat?.toPlayerId,
+                  )}
+                  fromName={
+                    view.players.find((player) => player.id === view.cat?.fromPlayerId)?.name ?? '—'
+                  }
+                />
+              </motion.div>
+            ) : view.auction && view.phase === 'auction_bidding' ? (
+              <motion.div key="auction" initial={{ scale: 0.92 }} animate={{ scale: 1 }}>
+                <AuctionScene
+                  auction={view.auction}
+                  players={view.players}
+                  nominal={view.question?.price ?? 0}
+                />
+              </motion.div>
+            ) : view.question ? (
               <motion.div
                 key={view.question.text}
-                initial={{ scale: 0.85, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
+                initial={{ scale: 0.85, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 20 }}
               >
@@ -154,8 +184,8 @@ export default function Board() {
         </section>
       )}
 
-      <PlayerStrip players={view.players} />
-    </div>
+      {view.phase !== 'results' && <PlayerStrip players={view.players} />}
+    </motion.div>
   );
 }
 

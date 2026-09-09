@@ -3,7 +3,7 @@ import type { Effect, GameAction } from '../engine/actions.js';
 import { isUndoable } from '../engine/actions.js';
 import { reduce } from '../engine/reducer.js';
 import { projectForBoard, projectForHost, projectForPlayer } from './projections.js';
-import { cloneState, UndoStack } from './undo.js';
+import { cloneState, mergePlayers, UndoStack } from './undo.js';
 
 export interface RoomRuntimeDeps {
   /** Сохранение на диск: RoomManager передаёт сюда дебаунсер. */
@@ -65,7 +65,12 @@ export class RoomRuntime {
     const previous = this.undoStack.pop();
     if (!previous) return false;
     this.clearTimer();
-    this.current = previous;
+    // Состав комнаты и присутствие берём из настоящего: отмена правит игру, а не список игроков.
+    this.current = {
+      ...previous,
+      players: mergePlayers(previous.players, this.current.players),
+      hostConnected: this.current.hostConnected,
+    };
     this.deps.persist(this.current);
     this.notify();
     return true;

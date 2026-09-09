@@ -111,7 +111,12 @@ export type SoundId =
   | 'wrong'
   | 'time_up'
   | 'round_start'
-  | 'game_over';
+  | 'game_over'
+  | 'cat'
+  | 'bid'
+  | 'all_in'
+  | 'drumroll'
+  | 'victory';
 
 export interface ClientToServerEvents {
   'clock:ping': (payload: { t0: number }, ack: (pong: ClockPong) => void) => void;

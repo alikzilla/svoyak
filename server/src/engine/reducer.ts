@@ -498,7 +498,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
           active: { ...state.active, soloPlayerId: receiver.id },
           log: log(state, action.at, `Кот в мешке достаётся ${receiver.name}: «${state.cat.theme}»`),
         },
-        effects: [{ type: 'persist' }],
+        effects: [{ type: 'sound', sound: 'cat' }, { type: 'persist' }],
       };
     }
 
@@ -540,7 +540,14 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
           `${player.name}: ${amount === player.score ? 'ва-банк' : 'ставка'} ${amount}`,
         ),
       };
-      return closeOrContinueAuction(withLog, raised, action.playerId, action.at);
+      const result = closeOrContinueAuction(withLog, raised, action.playerId, action.at);
+      return {
+        ...result,
+        effects: [
+          { type: 'sound', sound: amount === player.score ? 'all_in' : 'bid' },
+          ...result.effects,
+        ],
+      };
     }
 
     case 'FINAL_REMOVE_THEME': {
@@ -615,7 +622,9 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         state: everyone
           ? startFinalReveal(state, { ...final, answers })
           : { ...state, final: { ...final, answers } },
-        effects: [{ type: 'persist' }],
+        effects: everyone
+          ? [{ type: 'sound', sound: 'drumroll' }, { type: 'persist' }]
+          : [{ type: 'persist' }],
       };
     }
 
@@ -648,7 +657,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         },
         effects: [
           { type: 'sound', sound: action.correct ? 'correct' : 'wrong' },
-          ...(done ? ([{ type: 'sound', sound: 'game_over' }] as const) : []),
+          ...(done ? ([{ type: 'sound', sound: 'victory' }] as const) : []),
           { type: 'persist' },
         ],
       };
