@@ -123,6 +123,44 @@ describe('проекция ведущего', () => {
   });
 });
 
+describe('фальстарт в проекции игрока', () => {
+  /** Комната в паузе на чтение, где p1 уже ткнул раньше времени. */
+  function afterFalseStart(): RoomState {
+    const base = stateWithQuestion();
+    return reduce(base, {
+      type: 'BUZZ',
+      playerId: 'p1',
+      atServerTime: 5000,
+      receivedAt: 5000,
+    }).state;
+  }
+
+  it('нажавшему раньше времени говорит, что он уже наказан', () => {
+    const view = projectForPlayer(afterFalseStart(), 'p1', 6000);
+    expect(view.prompt).toMatchObject({ kind: 'buzz', falseStarted: true });
+  });
+
+  it('остальным ничего не приписывает', () => {
+    const view = projectForPlayer(afterFalseStart(), 'p2', 6000);
+    expect(view.prompt).toMatchObject({ kind: 'buzz', falseStarted: false });
+  });
+
+  it('после открытия кнопки наказание отсчитывается от открытия', () => {
+    const opened = reduce(afterFalseStart(), { type: 'OPEN_BUZZER', at: 9000 }).state;
+
+    const punished = projectForPlayer(opened, 'p1', 9100);
+    const clean = projectForPlayer(opened, 'p2', 9100);
+
+    // Кнопка открыта для всех, но нажавшего раньше времени держит блокировка.
+    expect(punished.prompt).toMatchObject({
+      kind: 'buzz',
+      open: true,
+      lockedUntil: 9000 + DEFAULT_SETTINGS.falseStartLockMs,
+    });
+    expect(clean.prompt).toMatchObject({ kind: 'buzz', open: true, lockedUntil: null });
+  });
+});
+
 describe('проекция общего экрана', () => {
   it('не содержит правильного ответа до раскрытия', () => {
     const serialized = JSON.stringify(projectForBoard(stateWithQuestion(), JOIN_URL));

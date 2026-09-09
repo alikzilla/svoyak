@@ -193,6 +193,9 @@ export default function Play() {
             state={buzzerState}
             lockedUntil={view.prompt.lockedUntil}
             opensAt={view.timer?.kind === 'reading' ? view.timer.endsAt : null}
+            falseStarted={view.prompt.kind === 'buzz' && view.prompt.falseStarted}
+            armed={view.prompt.kind === 'buzz'}
+            openForAll={view.prompt.kind === 'buzz' && view.prompt.open}
             answeringName={answering?.name ?? null}
             color={myColor}
             onBuzz={buzz}

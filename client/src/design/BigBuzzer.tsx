@@ -9,6 +9,14 @@ interface BigBuzzerProps {
   lockedUntil: number | null;
   /** Когда кнопка откроется сама. Null — ведущий открывает её руками. */
   opensAt: number | null;
+  /** Игрок уже жал в паузу: на открытии его ждёт блокировка. */
+  falseStarted: boolean;
+  /** Вопрос уже на экране, кнопка вот-вот откроется. Нажатие в этот момент —
+   *  фальстарт, и о нём должен узнать сервер, а не только этот телефон. */
+  armed: boolean;
+  /** Открыта ли кнопка по мнению сервера. Нужно, чтобы понять, куда вернуться,
+   *  когда истечёт блокировка: новой проекции на это событие не приходит. */
+  openForAll: boolean;
   answeringName: string | null;
   color: string;
   onBuzz: () => void;
@@ -24,9 +32,12 @@ const LABEL: Record<BuzzerState, string> = {
 
 /** Кнопка на пол-экрана: до неё не надо дотягиваться, состояние видно с вытянутой руки. */
 export function BigBuzzer({
-  state,
+  state: reported,
   lockedUntil,
   opensAt,
+  falseStarted,
+  armed,
+  openForAll,
   answeringName,
   color,
   onBuzz,
@@ -40,9 +51,17 @@ export function BigBuzzer({
   }, [lockedUntil, opensAt]);
 
   const lockLeft = lockedUntil !== null ? Math.max(0, lockedUntil - now) : 0;
+
+  // Блокировка истекает молча: сервер не шлёт проекцию на срабатывание таймера,
+  // поэтому отпускаем кнопку сами, как только время вышло.
+  const state: BuzzerState =
+    reported === 'locked' && lockLeft <= 0 ? (openForAll ? 'open' : 'closed') : reported;
+
   // Отсчёт до открытия: игрок держит палец наготове, а не гадает.
   const openLeft = state === 'closed' && opensAt !== null ? Math.max(0, opensAt - now) : 0;
-  const disabled = state !== 'open';
+  // Пока вопрос на экране, кнопка нажимается даже закрытой: раннее нажатие — это
+  // фальстарт, и судить его должен сервер, а не глушить этот телефон.
+  const disabled = !(state === 'open' || (state === 'closed' && armed));
 
   const fill =
     state === 'open'
@@ -96,6 +115,11 @@ export function BigBuzzer({
         {openLeft > 0 && (
           <span className="font-body text-xl font-bold tabular-nums">
             откроется через {(openLeft / 1000).toFixed(1)}
+          </span>
+        )}
+        {state === 'closed' && falseStarted && (
+          <span className="font-body text-xl font-bold">
+            рано нажали — вам откроется позже
           </span>
         )}
       </span>

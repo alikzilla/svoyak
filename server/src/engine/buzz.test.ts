@@ -85,10 +85,10 @@ describe('фальстарт', () => {
   });
 
   it('заблокированный не попадает в кандидаты, пока идёт блокировка', () => {
-    // Фальстарт под самое открытие: блокировка заведомо переживает открытие кнопки.
+    // Наказание отмеряется от открытия кнопки, а не от самого нажатия.
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
     state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
-    expect(state.buzz.lockedUntil['p2']).toBe(T0 + 2000 + DEFAULT_SETTINGS.falseStartLockMs);
+    expect(state.buzz.lockedUntil['p2']).toBe(T0 + 3000 + DEFAULT_SETTINGS.falseStartLockMs);
 
     state = buzz(state, 'p2', T0 + 3100, T0 + 3100).state;
     expect(state.buzz.candidates).toHaveLength(0);
@@ -105,8 +105,9 @@ describe('фальстарт', () => {
 
   it('после истечения блокировки нажатие снова считается', () => {
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
-    state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
-    const afterLock = T0 + 2000 + DEFAULT_SETTINGS.falseStartLockMs + 1;
+    const openedAt = T0 + 3000;
+    state = reduce(state, { type: 'OPEN_BUZZER', at: openedAt }).state;
+    const afterLock = openedAt + DEFAULT_SETTINGS.falseStartLockMs + 1;
     state = buzz(state, 'p2', afterLock, afterLock).state;
     expect(state.buzz.candidates.map((candidate) => candidate.playerId)).toEqual(['p2']);
   });

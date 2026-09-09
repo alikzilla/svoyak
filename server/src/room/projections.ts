@@ -199,6 +199,7 @@ function projectPrompt(state: RoomState, playerId: string, now: number): PlayerP
         kind: 'buzz',
         open: state.phase === 'buzzer_open' && state.buzz.answeringPlayerId === null,
         lockedUntil: lockedUntil !== null && lockedUntil > now ? lockedUntil : null,
+        falseStarted: (state.buzz.falseStarts[playerId] ?? 0) > 0,
       };
     }
 
