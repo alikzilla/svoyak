@@ -12,6 +12,7 @@ import {
   type ImportEntry,
 } from '../editor/api.js';
 import { PackEditor } from '../editor/PackEditor.js';
+import { DoodleField } from '../design/Doodles.js';
 import { useAutosave } from '../editor/useAutosave.js';
 
 const SAVE_LABEL = {
@@ -47,11 +48,17 @@ function PackListScreen() {
   useEffect(reload, []);
 
   return (
-    <div className="app-shell mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
+    <div className="app-shell relative mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
+      <DoodleField density="light" night />
+      <header className="relative flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-black tracking-tight text-gold">Редактор паков</h1>
-          <p className="text-muted">Свои вопросы — можно собрать без запущенной игры.</p>
+          <h1
+            className="font-pop text-4xl font-black"
+            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
+          >
+            Редактор паков
+          </h1>
+          <p className="font-body font-bold opacity-80">Свои вопросы — без запущенной игры</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -62,20 +69,21 @@ function PackListScreen() {
                   setError(cause instanceof Error ? cause.message : 'Не удалось создать пак'),
                 )
             }
-            className="rounded-xl bg-gold px-4 py-2 font-bold text-bg"
+            className="ink-border font-pop bg-p5 text-ink rounded-2xl px-4 py-2 font-black"
+            style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
           >
             Создать пак
           </button>
           <button
             onClick={() => fileInput.current?.click()}
-            className="rounded-xl border border-line px-4 py-2 hover:border-gold"
+            className="ink-border font-pop bg-card text-ink rounded-2xl px-4 py-2 font-black" style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
           >
             Импорт JSON
           </button>
           <button
             disabled={busy}
             onClick={() => siqInput.current?.click()}
-            className="rounded-xl border border-line px-4 py-2 hover:border-gold disabled:opacity-50"
+            className="ink-border font-pop bg-card text-ink rounded-2xl px-4 py-2 font-black disabled:opacity-50" style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
           >
             {busy ? 'Разбираем архив…' : 'Импорт .siq'}
           </button>
@@ -121,13 +129,13 @@ function PackListScreen() {
         </div>
       </header>
 
-      {error && <p className="rounded-xl border border-bad/50 bg-bad/10 p-3 text-bad">{error}</p>}
+      {error && <p className="rounded-xl border border-no/50 bg-no/10 p-3 text-no">{error}</p>}
 
       {report && (
-        <section className="grid gap-2 rounded-2xl border border-line bg-surface p-4">
+        <section className="grid gap-2 rounded-2xl ink-border bg-card p-4">
           <div className="flex items-center justify-between gap-2">
             <h2 className="font-semibold">Отчёт импорта</h2>
-            <button onClick={() => setReport(null)} className="text-sm text-muted underline">
+            <button onClick={() => setReport(null)} className="text-sm text-ink/60 underline">
               скрыть
             </button>
           </div>
@@ -135,32 +143,33 @@ function PackListScreen() {
             {report.map((entry, index) => (
               <li
                 key={`${entry.message}-${index}`}
-                className={entry.level === 'warning' ? 'text-gold' : 'text-muted'}
+                className={entry.level === 'warning' ? 'text-p1' : 'text-ink/60'}
               >
                 {entry.message}
               </li>
             ))}
           </ul>
-          <p className="text-xs text-muted">
+          <p className="text-xs text-ink/60">
             Всё, что не перенеслось, перечислено здесь — поправьте эти вопросы руками.
           </p>
         </section>
       )}
 
       {packs === null ? (
-        <p className="text-muted">Загружаем…</p>
+        <p className="text-ink/60">Загружаем…</p>
       ) : packs.length === 0 ? (
-        <p className="text-muted">Паков пока нет. Создайте первый или импортируйте JSON.</p>
+        <p className="text-ink/60">Паков пока нет. Создайте первый или импортируйте JSON.</p>
       ) : (
         <ul className="grid gap-3">
           {packs.map((pack) => (
             <li
               key={pack.id}
-              className="flex flex-wrap items-center gap-3 rounded-2xl border border-line bg-surface px-5 py-4"
+              className="ink-border bg-card text-ink flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
+              style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
             >
               <Link to={`/editor/${pack.id}`} className="min-w-0 flex-1">
-                <span className="block text-lg font-semibold">{pack.title}</span>
-                <span className="block text-sm text-muted">
+                <span className="font-pop block text-xl font-black">{pack.title}</span>
+                <span className="block text-sm text-ink/60">
                   {pack.roundsCount} раунда · {pack.questionsCount} вопросов · финал из{' '}
                   {pack.finalThemesCount} тем
                 </span>
@@ -174,13 +183,13 @@ function PackListScreen() {
                         reload();
                       })
                     }
-                    className="rounded-lg bg-bad px-3 py-1.5 text-sm text-bg"
+                    className="rounded-lg bg-no px-3 py-1.5 text-sm text-bg"
                   >
                     Удалить насовсем
                   </button>
                   <button
                     onClick={() => setConfirmId(null)}
-                    className="rounded-lg border border-line px-3 py-1.5 text-sm text-muted"
+                    className="ink-border rounded-lg px-3 py-1.5 text-sm text-ink/60"
                   >
                     Отмена
                   </button>
@@ -188,7 +197,7 @@ function PackListScreen() {
               ) : (
                 <button
                   onClick={() => setConfirmId(pack.id)}
-                  className="rounded-lg border border-line px-3 py-1.5 text-sm text-muted hover:border-bad hover:text-bad"
+                  className="ink-border rounded-lg px-3 py-1.5 text-sm text-ink/60 hover:border-no hover:text-no"
                 >
                   Удалить
                 </button>
@@ -198,7 +207,7 @@ function PackListScreen() {
         </ul>
       )}
 
-      <Link to="/" className="text-sm text-muted underline underline-offset-4">
+      <Link to="/" className="text-sm text-ink/60 underline underline-offset-4">
         на главную
       </Link>
     </div>
@@ -221,8 +230,8 @@ function PackScreen({ packId }: { packId: string }) {
   if (loadError) {
     return (
       <div className="app-shell flex flex-col items-center justify-center gap-4 p-6">
-        <p className="text-bad">{loadError}</p>
-        <Link to="/editor" className="text-gold underline underline-offset-4">
+        <p className="text-no">{loadError}</p>
+        <Link to="/editor" className="text-p1 underline underline-offset-4">
           к списку паков
         </Link>
       </div>
@@ -230,35 +239,37 @@ function PackScreen({ packId }: { packId: string }) {
   }
 
   if (!pack) {
-    return <div className="app-shell flex items-center justify-center p-6 text-muted">Загружаем…</div>;
+    return <div className="app-shell flex items-center justify-center p-6 text-ink/60">Загружаем…</div>;
   }
 
   return (
-    <div className="app-shell mx-auto flex w-full max-w-5xl flex-col gap-5 p-6">
-      <header className="flex flex-wrap items-center gap-3">
-        <Link to="/editor" className="text-sm text-muted underline underline-offset-4">
+    <div className="app-shell relative mx-auto flex w-full max-w-5xl flex-col gap-5 p-6">
+      <DoodleField density="light" night />
+      <header className="relative flex flex-wrap items-center gap-3">
+        <Link to="/editor" className="text-sm text-ink/60 underline underline-offset-4">
           ← паки
         </Link>
         <input
-          className="min-w-0 flex-1 rounded-xl border border-transparent bg-transparent px-2 py-1.5 text-2xl font-black text-gold hover:border-line focus:border-gold"
+          className="font-pop min-w-0 flex-1 rounded-xl border-4 border-transparent bg-transparent px-2 py-1.5 text-2xl font-black hover:border-ink/30 focus:border-p1"
+          style={{ WebkitTextStroke: '3px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
           value={pack.title}
           placeholder="Название пака"
           onChange={(event) => setPack({ ...pack, title: event.target.value })}
         />
         <span
-          className={`text-sm tabular-nums ${state === 'error' ? 'text-bad' : 'text-muted'}`}
+          className={`text-sm tabular-nums ${state === 'error' ? 'text-no' : 'text-ink/60'}`}
           title={error ?? undefined}
         >
           {SAVE_LABEL[state]}
         </span>
         {state === 'error' && (
-          <button onClick={saveNow} className="rounded-lg border border-bad px-3 py-1.5 text-sm text-bad">
+          <button onClick={saveNow} className="rounded-lg border border-no px-3 py-1.5 text-sm text-no">
             Повторить
           </button>
         )}
         <button
           onClick={() => downloadPack(pack)}
-          className="rounded-xl border border-line px-4 py-2 text-sm hover:border-gold"
+          className="ink-border rounded-xl px-4 py-2 text-sm hover:border-p1"
         >
           Скачать JSON
         </button>

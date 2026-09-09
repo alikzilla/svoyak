@@ -85,20 +85,20 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
   return (
     <div className="grid gap-6">
       {(errors.length > 0 || warnings.length > 0) && (
-        <section className="grid gap-2 rounded-2xl border border-line bg-surface p-4">
-          <h2 className="text-sm text-muted">
-            Проверка пака: <span className="text-bad tabular-nums">{errors.length}</span> ошибок,{' '}
-            <span className="text-gold tabular-nums">{warnings.length}</span> предупреждений
+        <section className="grid gap-2 rounded-2xl ink-border bg-card text-ink p-4">
+          <h2 className="text-sm text-ink/60">
+            Проверка пака: <span className="text-no tabular-nums">{errors.length}</span> ошибок,{' '}
+            <span className="text-p1 tabular-nums">{warnings.length}</span> предупреждений
           </h2>
           <ul className="grid max-h-40 gap-1 overflow-y-auto text-sm">
             {[...errors, ...warnings].slice(0, 30).map((issue, index) => (
-              <li key={`${issue.message}-${index}`} className={issue.level === 'error' ? 'text-bad' : 'text-muted'}>
+              <li key={`${issue.message}-${index}`} className={issue.level === 'error' ? 'text-no' : 'text-ink/60'}>
                 {issue.message}
               </li>
             ))}
           </ul>
           {errors.length > 0 && (
-            <p className="text-xs text-muted">Пока есть ошибки, комнату на этом паке создать нельзя.</p>
+            <p className="text-xs text-ink/60">Пока есть ошибки, комнату на этом паке создать нельзя.</p>
           )}
         </section>
       )}
@@ -107,7 +107,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
         <section key={round.id} className="grid gap-3">
           <header className="flex flex-wrap items-center gap-2">
             <input
-              className="min-w-0 flex-1 rounded-xl border border-transparent bg-transparent px-2 py-1.5 text-xl font-bold hover:border-line focus:border-gold"
+              className="min-w-0 flex-1 rounded-xl border-4 border-transparent bg-transparent px-2 py-1.5 text-xl font-bold hover:border-ink/30 focus:border-p1"
               value={round.title}
               onChange={(event) =>
                 patchRound(round.id, (current) => ({ ...current, title: event.target.value }))
@@ -116,7 +116,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
             <button
               type="button"
               onClick={() => setPasteInto(pasteInto === round.id ? null : round.id)}
-              className="rounded-xl border border-line px-3 py-1.5 text-sm hover:border-gold"
+              className="ink-border rounded-xl px-3 py-1.5 text-sm hover:border-p1"
             >
               Вставить тему текстом
             </button>
@@ -128,7 +128,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
                   themes: [...current.themes, blankTheme(pack.rounds.indexOf(round) + 1)],
                 }))
               }
-              className="rounded-xl border border-line px-3 py-1.5 text-sm hover:border-gold"
+              className="ink-border rounded-xl px-3 py-1.5 text-sm hover:border-p1"
             >
               + тема
             </button>
@@ -138,7 +138,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
                 onClick={() =>
                   onChange({ ...pack, rounds: pack.rounds.filter((item) => item.id !== round.id) })
                 }
-                className="rounded-xl border border-line px-3 py-1.5 text-sm text-muted hover:border-bad hover:text-bad"
+                className="ink-border rounded-xl px-3 py-1.5 text-sm text-ink/60 hover:border-no hover:text-no"
               >
                 Удалить раунд
               </button>
@@ -201,21 +201,21 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
       <button
         type="button"
         onClick={addRound}
-        className="justify-self-start rounded-xl border border-dashed border-line px-4 py-2 text-muted hover:border-gold hover:text-ink"
+        className="justify-self-start rounded-xl border border-dashed border-ink px-4 py-2 text-ink/60 hover:border-p1 hover:text-ink"
       >
         + раунд
       </button>
 
       <section className="grid gap-3">
         <h2 className="text-xl font-bold">Финал</h2>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-ink/60">
           Игроки по очереди убирают темы, пока не останется одна. Цен здесь нет.
         </p>
         {pack.final.themes.map((theme) => (
-          <div key={theme.id} className="grid gap-2 rounded-2xl border border-line bg-surface p-4">
+          <div key={theme.id} className="grid gap-2 rounded-2xl ink-border bg-card text-ink p-4">
             <div className="flex items-center gap-2">
               <input
-                className="min-w-0 flex-1 rounded-xl border border-transparent bg-transparent px-2 py-1.5 font-semibold hover:border-line focus:border-gold"
+                className="min-w-0 flex-1 rounded-xl border-4 border-transparent bg-transparent px-2 py-1.5 font-semibold hover:border-ink/30 focus:border-p1"
                 value={theme.title}
                 placeholder="Название темы"
                 onChange={(event) =>
@@ -237,13 +237,13 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
                     final: { themes: pack.final.themes.filter((item) => item.id !== theme.id) },
                   })
                 }
-                className="rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-bad hover:text-bad"
+                className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-no hover:text-no"
               >
                 ✕
               </button>
             </div>
             <textarea
-              className="min-h-16 w-full resize-y rounded-xl border border-line bg-bg px-3 py-2 focus:border-gold"
+              className="min-h-16 w-full resize-y ink-border rounded-xl bg-white/70 px-3 py-2 focus:border-p1"
               value={theme.question.text}
               placeholder="Вопрос"
               onChange={(event) =>
@@ -260,7 +260,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
               }
             />
             <input
-              className="w-full rounded-xl border border-line bg-bg px-3 py-2 focus:border-gold"
+              className="w-full ink-border rounded-xl bg-white/70 px-3 py-2 focus:border-p1"
               value={theme.question.answer}
               placeholder="Ответ"
               onChange={(event) =>
@@ -295,7 +295,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
               },
             })
           }
-          className="justify-self-start rounded-xl border border-dashed border-line px-4 py-2 text-muted hover:border-gold hover:text-ink"
+          className="justify-self-start rounded-xl border border-dashed border-ink px-4 py-2 text-ink/60 hover:border-p1 hover:text-ink"
         >
           + финальная тема
         </button>

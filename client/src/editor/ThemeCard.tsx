@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Question, Theme } from '@svoyak/shared';
+import { Doodle } from '../design/Doodles.js';
 import { QuestionForm } from './QuestionForm.js';
 import { SortableList, SortableRow } from './Sortable.js';
 
@@ -12,11 +13,12 @@ interface ThemeCardProps {
   dragHandle: Record<string, unknown>;
 }
 
-const TYPE_MARK: Record<Question['type'], string> = {
-  normal: '',
-  cat: '🐱',
-  auction: '🔨',
-};
+/** Метка типа вопроса: рисованный значок вместо стокового эмодзи. */
+function TypeMark({ type }: { type: Question['type'] }) {
+  if (type === 'cat') return <Doodle name="cat" size={20} strokeWidth={5} fill="#ff6b57" className="shrink-0" />;
+  if (type === 'auction') return <Doodle name="hammer" size={20} strokeWidth={5} fill="#f2a93b" className="shrink-0" />;
+  return null;
+}
 
 function blankQuestion(price: number): Question {
   return {
@@ -60,18 +62,18 @@ export function ThemeCard({
   };
 
   return (
-    <section className="grid gap-3 rounded-2xl border border-line bg-surface p-4">
+    <section className="grid gap-3 rounded-2xl ink-border bg-card text-ink p-4">
       <header className="flex items-center gap-2">
         <button
           {...dragHandle}
           type="button"
-          className="cursor-grab rounded-lg px-2 py-1 text-muted hover:text-ink"
+          className="cursor-grab rounded-lg px-2 py-1 text-ink/60 hover:text-ink"
           title="Перетащить тему"
         >
           ⠿
         </button>
         <input
-          className="min-w-0 flex-1 rounded-xl border border-transparent bg-transparent px-2 py-1.5 text-lg font-semibold hover:border-line focus:border-gold"
+          className="min-w-0 flex-1 rounded-xl border-4 border-transparent bg-transparent px-2 py-1.5 text-lg font-semibold hover:border-ink/30 focus:border-p1"
           value={theme.title}
           placeholder="Название темы"
           onChange={(event) => onChange({ ...theme, title: event.target.value })}
@@ -79,7 +81,7 @@ export function ThemeCard({
         <button
           type="button"
           onClick={onDuplicate}
-          className="rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-gold hover:text-ink"
+          className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-p1 hover:text-ink"
         >
           Дублировать
         </button>
@@ -88,14 +90,14 @@ export function ThemeCard({
             <button
               type="button"
               onClick={onDelete}
-              className="rounded-lg bg-bad px-2 py-1 text-sm text-bg"
+              className="rounded-lg bg-no px-2 py-1 text-sm text-bg"
             >
               Удалить тему
             </button>
             <button
               type="button"
               onClick={() => setConfirmDelete(false)}
-              className="rounded-lg border border-line px-2 py-1 text-sm text-muted"
+              className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60"
             >
               Отмена
             </button>
@@ -104,7 +106,7 @@ export function ThemeCard({
           <button
             type="button"
             onClick={() => setConfirmDelete(true)}
-            className="rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-bad hover:text-bad"
+            className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-no hover:text-no"
           >
             Удалить
           </button>
@@ -135,7 +137,7 @@ export function ThemeCard({
                         <button
                           {...handleProps}
                           type="button"
-                          className="cursor-grab rounded-lg px-1.5 py-1 text-muted hover:text-ink"
+                          className="cursor-grab rounded-lg px-1.5 py-1 text-ink/60 hover:text-ink"
                           title="Перетащить вопрос"
                         >
                           ⠿
@@ -144,16 +146,17 @@ export function ThemeCard({
                           type="button"
                           onClick={() => setOpenId(open ? null : question.id)}
                           className={`flex min-w-0 flex-1 items-center gap-2 rounded-xl border px-3 py-2 text-left ${
-                            incomplete ? 'border-bad/50' : 'border-line'
-                          } bg-surface-2 hover:border-gold`}
+                            incomplete ? 'border-no/50' : 'border-ink'
+                          } bg-card hover:border-p1`}
                         >
-                          <span className="w-14 shrink-0 text-right font-bold tabular-nums text-gold">
+                          <span className="w-14 shrink-0 text-right font-bold tabular-nums text-p1">
                             {question.price}
                           </span>
+                          <TypeMark type={question.type} />
                           <span className="min-w-0 flex-1 truncate">
-                            {TYPE_MARK[question.type]} {question.text || 'пустой вопрос'}
+                            {question.text || 'пустой вопрос'}
                           </span>
-                          {incomplete && <span className="shrink-0 text-xs text-bad">не заполнен</span>}
+                          {incomplete && <span className="shrink-0 text-xs text-no">не заполнен</span>}
                         </button>
                         <button
                           type="button"
@@ -167,7 +170,7 @@ export function ThemeCard({
                               ],
                             })
                           }
-                          className="rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-gold hover:text-ink"
+                          className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-p1 hover:text-ink"
                         >
                           ⧉
                         </button>
@@ -182,7 +185,7 @@ export function ThemeCard({
                               ),
                             })
                           }
-                          className="rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-bad hover:text-bad"
+                          className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-no hover:text-no"
                         >
                           ✕
                         </button>
@@ -202,7 +205,7 @@ export function ThemeCard({
       <button
         type="button"
         onClick={addQuestion}
-        className="justify-self-start rounded-xl border border-dashed border-line px-3 py-2 text-sm text-muted hover:border-gold hover:text-ink"
+        className="justify-self-start rounded-xl border border-dashed border-ink px-3 py-2 text-sm text-ink/60 hover:border-p1 hover:text-ink"
       >
         + вопрос
       </button>

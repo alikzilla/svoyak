@@ -28,9 +28,9 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
 
   return (
     <div className="grid gap-1.5">
-      <span className="text-xs text-muted">{label}</span>
+      <span className="text-xs text-ink/60">{label}</span>
       {media ? (
-        <div className="flex items-center gap-3 rounded-xl border border-line bg-bg p-2">
+        <div className="flex items-center gap-3 ink-border rounded-xl bg-white/70 p-2">
           {media.kind === 'image' && (
             <img src={media.src} alt="" className="max-h-24 rounded-lg" />
           )}
@@ -39,7 +39,7 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
           <button
             type="button"
             onClick={() => onChange(undefined)}
-            className="ml-auto rounded-lg border border-line px-2 py-1 text-sm text-muted hover:border-bad hover:text-bad"
+            className="ml-auto ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-no hover:text-no"
           >
             Убрать
           </button>
@@ -50,7 +50,7 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
             type="button"
             disabled={busy}
             onClick={() => input.current?.click()}
-            className="rounded-xl border border-dashed border-line px-3 py-2 text-sm text-muted hover:border-gold hover:text-ink disabled:opacity-50"
+            className="rounded-xl border border-dashed border-ink px-3 py-2 text-sm text-ink/60 hover:border-p1 hover:text-ink disabled:opacity-50"
           >
             {busy ? 'Загружаем…' : 'Добавить файл'}
           </button>
@@ -67,7 +67,7 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
           />
         </>
       )}
-      {error && <p className="text-xs text-bad">{error}</p>}
+      {error && <p className="text-xs text-no">{error}</p>}
     </div>
   );
 }

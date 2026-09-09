@@ -29,8 +29,8 @@ export default function Landing() {
           ))}
         </div>
         <motion.h1
-          initial={{ scale: 0.8, rotate: -6, opacity: 0 }}
-          animate={{ scale: 1, rotate: -2, opacity: 1 }}
+          initial={{ scale: 0.85, rotate: -6 }}
+          animate={{ scale: 1, rotate: -2 }}
           transition={{ type: 'spring', stiffness: 260, damping: 13 }}
           className="font-pop text-[clamp(3rem,12vw,5.5rem)] leading-none font-black"
           style={{ WebkitTextStroke: '5px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
@@ -41,13 +41,9 @@ export default function Landing() {
       </header>
 
       <nav className="relative grid w-full max-w-md gap-3">
+        {/* Карточки не выезжают по очереди: один осмысленный момент на экране — логотип. */}
         {ROLES.map((role, index) => (
-          <motion.div
-            key={role.to}
-            initial={{ y: 24, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 18, delay: 0.08 * index }}
-          >
+          <div key={role.to}>
             <Link to={role.to} className="block">
               <motion.div
                 whileHover={{ scale: 1.03, y: -4, rotate: index % 2 ? 1 : -1 }}
@@ -59,7 +55,7 @@ export default function Landing() {
                 <span className="font-body block text-sm font-bold opacity-80">{role.hint}</span>
               </motion.div>
             </Link>
-          </motion.div>
+          </div>
         ))}
       </nav>
 
