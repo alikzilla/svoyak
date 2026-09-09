@@ -37,4 +37,7 @@ export interface ComposeResponse {
   /** Названия тем в том же порядке, что и в рецепте: мастеру нужно их показать. */
   rounds: ThemeOption[][];
   final: ThemeOption[];
+  /** Неиспользованные темы: из них мастер берёт замену, не пересобирая всё. */
+  pool: ThemeOption[];
+  finalPool: ThemeOption[];
 }

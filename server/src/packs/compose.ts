@@ -159,13 +159,39 @@ export function listFinalOptions(packIds: string[], lookup: PackLookup): ThemeOp
 
 const strip = (option: ThemeOption): ThemeRef => ({ packId: option.packId, themeId: option.themeId });
 
+/** Раздаёт темы по кругу: сначала по одной из каждого пака, потом по второй и так
+ *  далее. Простая перетасовка всех тем скучивала бы в раунде один пак, а вечер
+ *  на трёх темах «Автомобилей» подряд — не то, чего ждут от микса. */
+function dealAcrossPacks(options: ThemeOption[], random: () => number): ThemeOption[] {
+  const byPack = new Map<string, ThemeOption[]>();
+  for (const option of options) {
+    const bucket = byPack.get(option.packId);
+    if (bucket) bucket.push(option);
+    else byPack.set(option.packId, [option]);
+  }
+
+  const queues = shuffled(
+    [...byPack.values()].map((bucket) => shuffled(bucket, random)),
+    random,
+  );
+
+  const dealt: ThemeOption[] = [];
+  for (let depth = 0; dealt.length < options.length; depth += 1) {
+    for (const queue of queues) {
+      const option = queue[depth];
+      if (option) dealt.push(option);
+    }
+  }
+  return dealt;
+}
+
 /** Случайный, но воспроизводимый состав игры из выбранных паков. */
 export function draftRecipe(request: ComposeRequest, lookup: PackLookup): ComposeResponse {
   const seed = request.seed ?? Math.floor(Math.random() * 2 ** 31);
   const random = mulberry32(seed);
 
   const needed = request.rounds * request.themesPerRound;
-  const pool = shuffled(listThemeOptions(request.packIds, lookup), random);
+  const pool = dealAcrossPacks(listThemeOptions(request.packIds, lookup), random);
   if (pool.length < needed) {
     throw new Error(
       `В выбранных паках не хватает тем: нужно ${needed}, есть ${pool.length}. Возьмите больше паков или уменьшите раунды.`,
@@ -193,5 +219,7 @@ export function draftRecipe(request: ComposeRequest, lookup: PackLookup): Compos
     seed,
     rounds,
     final,
+    pool: pool.slice(needed),
+    finalPool: finalPool.slice(request.finalThemes),
   };
 }

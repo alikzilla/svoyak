@@ -477,3 +477,60 @@ describe('состав игры', () => {
     player.disconnect();
   });
 });
+
+describe('пауза на чтение', () => {
+  /** Доводит комнату до момента перед выбором вопроса. */
+  async function readyToPick(settings: Partial<import('@svoyak/shared').RoomSettings>) {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic', settings },
+    );
+    if (!created.ok) throw new Error('комната не создалась');
+    const player = await connect();
+    await emit(player, 'room:join', { code: created.data.code, name: 'Алма' });
+    await emit(host, 'host:startGame');
+    return { host, player };
+  }
+
+  const pickFirst = (host: Client) =>
+    emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q1' });
+
+  it('кнопка закрыта во время паузы и открывается сама после неё', async () => {
+    const { host, player } = await readyToPick({ autoOpenBuzzer: true, readingMs: 400 });
+
+    // Подписываемся до выбора: первая проекция с вопросом придёт сразу за ним.
+    const duringPause = viewWhere<PlayerView>(player, (view) => view.question !== null);
+    const afterPause = viewWhere<PlayerView>(
+      player,
+      (view) => view.prompt.kind === 'buzz' && view.prompt.open,
+    );
+    await pickFirst(host);
+
+    expect((await duringPause).prompt).toMatchObject({ kind: 'buzz', open: false });
+    expect((await afterPause).phase).toBe('buzzer_open');
+
+    host.disconnect();
+    player.disconnect();
+  }, 10_000);
+
+  it('с выключенным автостартом кнопка сама не открывается', async () => {
+    const { host, player } = await readyToPick({ autoOpenBuzzer: false });
+
+    const duringPause = viewWhere<PlayerView>(player, (view) => view.question !== null);
+    const opened = Promise.race([
+      viewWhere<PlayerView>(player, (view) => view.prompt.kind === 'buzz' && view.prompt.open).then(
+        () => 'открылась',
+      ),
+      new Promise((resolve) => setTimeout(() => resolve('осталась закрытой'), 1200)),
+    ]);
+    await pickFirst(host);
+
+    expect((await duringPause).prompt).toMatchObject({ kind: 'buzz', open: false });
+    expect(await opened).toBe('осталась закрытой');
+
+    host.disconnect();
+    player.disconnect();
+  }, 10_000);
+});

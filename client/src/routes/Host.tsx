@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { CreateRoomResult, PackSummary, PacksListResponse } from '@svoyak/shared';
+import type { CreateRoomResult, GameRecipe, PackSummary, RoomSettings } from '@svoyak/shared';
+import { DEFAULT_SETTINGS } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
+import { fetchPacks } from '../net/gameApi.js';
+import { GameSetup } from '../ui/host/GameSetup.js';
+import { SettingsPanel } from '../ui/host/SettingsPanel.js';
 import { clearSession, saveSession } from '../net/session.js';
 import { useHostRoom } from '../net/useRoom.js';
 import { QrCode } from '../ui/QrCode.js';
@@ -18,18 +22,20 @@ export default function Host() {
   const [packs, setPacks] = useState<PackSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+  const [recipe, setRecipe] = useState<GameRecipe | null>(null);
+  const [settings, setSettings] = useState<RoomSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => {
-    void fetch('/api/packs')
-      .then((response) => response.json() as Promise<PacksListResponse>)
-      .then((body) => setPacks(body.packs))
+    void fetchPacks()
+      .then(setPacks)
       .catch(() => setError('Не удалось загрузить список паков'));
   }, []);
 
-  const createRoom = async (packId: string): Promise<void> => {
+  const createRoom = async (): Promise<void> => {
+    if (!recipe) return;
     setCreating(true);
     setError(null);
-    const result = await ask<CreateRoomResult>('room:create', { packId });
+    const result = await ask<CreateRoomResult>('room:create', { recipe, settings });
     setCreating(false);
     if (!result.ok) {
       setError(result.error);
@@ -45,7 +51,7 @@ export default function Host() {
 
   if (!view) {
     return (
-      <div className="app-shell relative mx-auto flex w-full max-w-3xl flex-col gap-6 overflow-y-auto p-6">
+      <div className="app-shell relative mx-auto flex w-full max-w-5xl flex-col gap-6 overflow-y-auto p-6">
         <DoodleField density="light" night />
 
         <header className="relative">
@@ -53,10 +59,10 @@ export default function Host() {
             className="font-pop text-5xl font-black"
             style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
           >
-            Ведущий
+            Новая игра
           </h1>
           <p className="font-body mt-1 text-lg font-bold opacity-80">
-            Выберите пак — комната создастся сразу
+            Соберите состав из паков и настройте темп
           </p>
         </header>
 
@@ -72,36 +78,38 @@ export default function Host() {
             или выполните <code>npm run build:packs</code>.
           </p>
         ) : (
-          <ul className="relative grid gap-3">
-            {packs.map((pack, index) => (
-              <motion.li
-                key={pack.id}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ type: 'spring', stiffness: 320, damping: 20, delay: index * 0.06 }}
-              >
-                <motion.button
-                  disabled={creating || !connected}
-                  onClick={() => void createRoom(pack.id)}
-                  whileHover={{ scale: 1.02, y: -4, rotate: index % 2 ? 0.8 : -0.8 }}
-                  whileTap={{ scale: 0.98, x: 4, y: 5, boxShadow: '0px 0px 0 #1a1a1a' }}
-                  style={{ boxShadow: '6px 6px 0 #1a1a1a' }}
-                  className="ink-border bg-card text-ink w-full rounded-3xl px-5 py-4 text-left disabled:opacity-50"
-                >
-                  <span className="font-pop block text-2xl font-black">{pack.title}</span>
-                  <span className="font-body block text-sm font-bold opacity-70">
-                    {pack.roundsCount} раунда · {pack.questionsCount} вопросов · финал из{' '}
-                    {pack.finalThemesCount} тем
-                  </span>
-                </motion.button>
-              </motion.li>
-            ))}
-          </ul>
-        )}
+          <>
+            <section className="relative">
+              <GameSetup packs={packs} onRecipeChange={setRecipe} />
+            </section>
 
-        <Link to="/" className="font-body relative text-sm font-bold underline underline-offset-4 opacity-70">
-          на главную
-        </Link>
+            <section className="relative grid gap-3">
+              <h3 className="font-pop text-lg font-black">Темп игры</h3>
+              <SettingsPanel
+                settings={settings}
+                onChange={(patch) => setSettings((current) => ({ ...current, ...patch }))}
+              />
+            </section>
+
+            <footer className="relative flex flex-wrap items-center gap-3">
+              <DoodleButton
+                tone="p5"
+                size="lg"
+                idle={recipe !== null && connected}
+                disabled={creating || !connected || recipe === null}
+                onClick={() => void createRoom()}
+              >
+                {creating ? 'Создаём…' : 'Создать комнату'}
+              </DoodleButton>
+              <Link
+                to="/"
+                className="font-body text-sm font-bold underline underline-offset-4 opacity-70"
+              >
+                на главную
+              </Link>
+            </footer>
+          </>
+        )}
       </div>
     );
   }
@@ -171,6 +179,13 @@ export default function Host() {
         />
       </section>
 
+      <LobbyTuning
+        packs={packs}
+        settings={view.settings}
+        onApplyRecipe={(next) => void ask('host:setRecipe', { recipe: next })}
+        onSettings={(patch) => void ask('host:updateSettings', patch)}
+      />
+
       <footer className="relative flex flex-wrap items-center gap-3">
         <DoodleButton
           tone="p5"
@@ -201,6 +216,69 @@ export default function Host() {
         </button>
       </footer>
     </div>
+  );
+}
+
+/** Состав и темп можно править, пока игроки сходятся: после старта поздно. */
+function LobbyTuning({
+  packs,
+  settings,
+  onApplyRecipe,
+  onSettings,
+}: {
+  packs: PackSummary[];
+  settings: RoomSettings;
+  onApplyRecipe: (recipe: GameRecipe) => void;
+  onSettings: (patch: Partial<RoomSettings>) => void;
+}) {
+  const [open, setOpen] = useState<'none' | 'recipe' | 'settings'>('none');
+  const [draft, setDraft] = useState<GameRecipe | null>(null);
+  const handleRecipe = useCallback((next: GameRecipe | null) => setDraft(next), []);
+
+  return (
+    <section className="relative grid gap-3">
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setOpen(open === 'recipe' ? 'none' : 'recipe')}
+          className="ink-border bg-card text-ink font-pop rounded-2xl px-4 py-2 font-black"
+          style={{ boxShadow: '4px 4px 0 #1a1a1a' }}
+        >
+          Состав игры
+        </button>
+        <button
+          type="button"
+          onClick={() => setOpen(open === 'settings' ? 'none' : 'settings')}
+          className="ink-border bg-card text-ink font-pop rounded-2xl px-4 py-2 font-black"
+          style={{ boxShadow: '4px 4px 0 #1a1a1a' }}
+        >
+          Темп игры
+        </button>
+      </div>
+
+      {open === 'recipe' && (
+        <div className="ink-border bg-scene/40 grid gap-3 rounded-3xl p-4">
+          <GameSetup packs={packs} onRecipeChange={handleRecipe} />
+          <DoodleButton
+            tone="p4"
+            size="sm"
+            disabled={draft === null}
+            onClick={() => {
+              if (draft) onApplyRecipe(draft);
+              setOpen('none');
+            }}
+          >
+            Применить состав
+          </DoodleButton>
+        </div>
+      )}
+
+      {open === 'settings' && (
+        <div className="ink-border bg-scene/40 rounded-3xl p-4">
+          <SettingsPanel settings={settings} onChange={onSettings} />
+        </div>
+      )}
+    </section>
   );
 }
 

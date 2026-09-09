@@ -192,6 +192,7 @@ export default function Play() {
           <BigBuzzer
             state={buzzerState}
             lockedUntil={view.prompt.lockedUntil}
+            opensAt={view.timer?.kind === 'reading' ? view.timer.endsAt : null}
             answeringName={answering?.name ?? null}
             color={myColor}
             onBuzz={buzz}

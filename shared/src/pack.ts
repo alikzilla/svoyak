@@ -87,4 +87,6 @@ export interface PackSummary extends PackMeta {
   roundsCount: number;
   questionsCount: number;
   finalThemesCount: number;
+  /** Пройдёт ли пак проверку перед игрой. Недоделанный можно править, но не играть. */
+  playable: boolean;
 }

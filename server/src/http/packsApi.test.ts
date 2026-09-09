@@ -176,6 +176,19 @@ const compose = async (body: unknown): Promise<Response> =>
     body: JSON.stringify(body),
   });
 
+describe('готовность пака к игре', () => {
+  it('пустой пак помечен как непригодный, заполненный — как готовый', async () => {
+    const blank = await createPack('Пустой');
+    const ready = await packWithThemes('Готовый', ['Тема']);
+
+    const list = (await (await fetch(`${base}/api/packs`)).json()) as PacksListResponse;
+    const find = (id: string) => list.packs.find((pack) => pack.id === id);
+
+    expect(find(blank.id)?.playable).toBe(false);
+    expect(find(ready.id)?.playable).toBe(true);
+  });
+});
+
 describe('сборка игры', () => {
   it('собирает состав из выбранных паков и возвращает названия тем', async () => {
     const first = await packWithThemes('Кино', ['Режиссёры', 'Оскар', 'Актёры']);

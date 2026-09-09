@@ -7,6 +7,8 @@ interface BigBuzzerProps {
   state: BuzzerState;
   /** До какого момента игрок заблокирован фальстартом. */
   lockedUntil: number | null;
+  /** Когда кнопка откроется сама. Null — ведущий открывает её руками. */
+  opensAt: number | null;
   answeringName: string | null;
   color: string;
   onBuzz: () => void;
@@ -21,16 +23,25 @@ const LABEL: Record<BuzzerState, string> = {
 };
 
 /** Кнопка на пол-экрана: до неё не надо дотягиваться, состояние видно с вытянутой руки. */
-export function BigBuzzer({ state, lockedUntil, answeringName, color, onBuzz }: BigBuzzerProps) {
+export function BigBuzzer({
+  state,
+  lockedUntil,
+  opensAt,
+  answeringName,
+  color,
+  onBuzz,
+}: BigBuzzerProps) {
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
-    if (lockedUntil === null) return;
+    if (lockedUntil === null && opensAt === null) return;
     const id = setInterval(() => setNow(Date.now()), 100);
     return () => clearInterval(id);
-  }, [lockedUntil]);
+  }, [lockedUntil, opensAt]);
 
   const lockLeft = lockedUntil !== null ? Math.max(0, lockedUntil - now) : 0;
+  // Отсчёт до открытия: игрок держит палец наготове, а не гадает.
+  const openLeft = state === 'closed' && opensAt !== null ? Math.max(0, opensAt - now) : 0;
   const disabled = state !== 'open';
 
   const fill =
@@ -82,6 +93,11 @@ export function BigBuzzer({ state, lockedUntil, answeringName, color, onBuzz }: 
           <span className="font-body text-xl font-bold">отвечает {answeringName}</span>
         )}
         {state === 'locked' && <span className="font-body text-xl font-bold">рано нажали</span>}
+        {openLeft > 0 && (
+          <span className="font-body text-xl font-bold tabular-nums">
+            откроется через {(openLeft / 1000).toFixed(1)}
+          </span>
+        )}
       </span>
     </motion.button>
   );

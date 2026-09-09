@@ -172,13 +172,29 @@ describe('draftRecipe', () => {
     expect(other).not.toEqual(first);
   });
 
-  it('перемешивает паки, а не берёт один подряд', () => {
+  it('раздаёт темы по кругу, чтобы раунд не состоял из одного пака', () => {
+    // Шесть тем на три пака: каждый должен дать ровно по две, на любом seed.
+    for (const seed of [1, 2, 3, 17, 100]) {
+      const { recipe } = draftRecipe(
+        { packIds: ['a', 'b', 'c'], rounds: 1, themesPerRound: 6, finalThemes: 3, seed },
+        manyLookup,
+      );
+      const perPack = new Map<string, number>();
+      for (const ref of recipe.rounds[0]!) {
+        perPack.set(ref.packId, (perPack.get(ref.packId) ?? 0) + 1);
+      }
+      expect([...perPack.values()].sort()).toEqual([2, 2, 2]);
+    }
+  });
+
+  it('и в каждом раунде тоже мешает паки, а не отдаёт раунд одному', () => {
     const { recipe } = draftRecipe(
-      { packIds: ['a', 'b', 'c'], rounds: 1, themesPerRound: 6, finalThemes: 3, seed: 3 },
+      { packIds: ['a', 'b', 'c'], rounds: 3, themesPerRound: 3, finalThemes: 3, seed: 8 },
       manyLookup,
     );
-    const usedPacks = new Set(recipe.rounds[0]!.map((ref) => ref.packId));
-    expect(usedPacks.size).toBeGreaterThan(1);
+    for (const round of recipe.rounds) {
+      expect(new Set(round.map((ref) => ref.packId)).size).toBe(3);
+    }
   });
 
   it('возвращает названия тем для превью', () => {
@@ -190,6 +206,19 @@ describe('draftRecipe', () => {
     expect(rounds[0]![0]!.packTitle).toBe('Пак a');
     expect(rounds[0]![0]!.questionsCount).toBe(5);
     expect(final[0]!.title).toBe('Финал a');
+  });
+
+  it('отдаёт запас неиспользованных тем, чтобы можно было заменить одну', () => {
+    const { recipe, pool, finalPool } = draftRecipe(
+      { packIds: ['a', 'b', 'c'], rounds: 1, themesPerRound: 4, finalThemes: 1, seed: 21 },
+      manyLookup,
+    );
+
+    // Всего тем 18, четыре ушли в раунд: остальные доступны для замены.
+    expect(pool).toHaveLength(14);
+    const used = new Set(recipe.rounds.flat().map((ref) => `${ref.packId}/${ref.themeId}`));
+    expect(pool.every((option) => !used.has(`${option.packId}/${option.themeId}`))).toBe(true);
+    expect(finalPool).toHaveLength(2);
   });
 
   it('объясняет, что тем не хватает, вместо пустого раунда', () => {

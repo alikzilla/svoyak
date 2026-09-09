@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Pack, PackSummary } from '@svoyak/shared';
+import { hasErrors, validatePack } from '@svoyak/shared';
 import { PACKS_DIR } from '../config.js';
 import { readJson, writeJsonAtomic } from './atomicWrite.js';
 
@@ -36,6 +37,7 @@ export function summarize(pack: Pack): PackSummary {
     roundsCount: pack.rounds.length,
     questionsCount,
     finalThemesCount: pack.final.themes.length,
+    playable: !hasErrors(validatePack(pack)),
   };
 }
 
