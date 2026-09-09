@@ -54,20 +54,6 @@ describe('хранилище комнат', () => {
     expect(fs.existsSync(path.join(tempDir, 'rooms', '4321.json'))).toBe(false);
   });
 
-  it('комната, сохранённая до появления счётчика фальстартов, читается', () => {
-    const room = roomWithPlayer(Date.now());
-    // Имитируем файл старой версии: поля falseStarts в нём ещё нет.
-    const legacy = JSON.parse(JSON.stringify(room)) as Record<string, unknown>;
-    delete (legacy['buzz'] as Record<string, unknown>)['falseStarts'];
-    fs.mkdirSync(path.join(tempDir, 'rooms'), { recursive: true });
-    fs.writeFileSync(path.join(tempDir, 'rooms', '4321.json'), JSON.stringify(legacy), 'utf8');
-
-    const restored = loadRooms(60_000);
-
-    expect(restored).toHaveLength(1);
-    expect(restored[0]!.buzz.falseStarts).toEqual({});
-  });
-
   it('битый файл не роняет загрузку и удаляется', () => {
     fs.mkdirSync(path.join(tempDir, 'rooms'), { recursive: true });
     fs.writeFileSync(path.join(tempDir, 'rooms', 'broken.json'), '{ это не json', 'utf8');

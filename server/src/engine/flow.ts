@@ -5,7 +5,7 @@ import { byScoreAscending, finalParticipants } from './final.js';
 
 /** Сброс кнопки между вопросами: блокировки за фальстарт живут только внутри вопроса. */
 export function resetBuzz(): RoomState['buzz'] {
-  return { ...EMPTY_BUZZ, lockedUntil: {}, falseStarts: {}, candidates: [], answeringSince: null };
+  return { ...EMPTY_BUZZ, lockedUntil: {}, candidates: [], answeringSince: null };
 }
 
 /** Закрыть текущий вопрос и вернуться к выбору либо завершить раунд. */

@@ -38,8 +38,6 @@ export function loadRooms(maxAgeMs: number, now = Date.now()): RoomState[] {
       hostConnected: false,
       players: state.players.map((player) => ({ ...player, connected: false })),
       timer: null,
-      // Комнаты, сохранённые прошлой версией, приходят без счётчика фальстартов.
-      buzz: { ...state.buzz, falseStarts: state.buzz?.falseStarts ?? {} },
     });
   }
   return rooms;

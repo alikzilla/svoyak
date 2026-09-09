@@ -9,8 +9,6 @@ interface BigBuzzerProps {
   lockedUntil: number | null;
   /** Когда кнопка откроется сама. Null — ведущий открывает её руками. */
   opensAt: number | null;
-  /** Игрок уже жал в паузу: на открытии его ждёт блокировка. */
-  falseStarted: boolean;
   /** Вопрос уже на экране, кнопка вот-вот откроется. Нажатие в этот момент —
    *  фальстарт, и о нём должен узнать сервер, а не только этот телефон. */
   armed: boolean;
@@ -35,7 +33,6 @@ export function BigBuzzer({
   state: reported,
   lockedUntil,
   opensAt,
-  falseStarted,
   armed,
   openForAll,
   answeringName,
@@ -115,11 +112,6 @@ export function BigBuzzer({
         {openLeft > 0 && (
           <span className="font-body text-xl font-bold tabular-nums">
             откроется через {(openLeft / 1000).toFixed(1)}
-          </span>
-        )}
-        {state === 'closed' && falseStarted && (
-          <span className="font-body text-xl font-bold">
-            рано нажали — вам откроется позже
           </span>
         )}
       </span>

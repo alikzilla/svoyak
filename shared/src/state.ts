@@ -90,10 +90,6 @@ export interface BuzzState {
   answeringSince: number | null;
   /** playerId → время окончания блокировки за фальстарт. */
   lockedUntil: Record<string, number>;
-  /** playerId → сколько раз он жал раньше времени на этом вопросе.
-   *  Наказание отсчитывается от открытия кнопки, иначе пауза на чтение
-   *  успевала бы его съесть, и жать раньше времени было бы бесплатно. */
-  falseStarts: Record<string, number>;
   answeringPlayerId: string | null;
 }
 
@@ -281,13 +277,7 @@ export interface HostView extends BaseView {
 
 /** Что телефон игрока должен предложить сделать прямо сейчас. */
 export type PlayerPrompt =
-  | {
-      kind: 'buzz';
-      open: boolean;
-      lockedUntil: number | null;
-      /** Игрок уже жал раньше времени: наказание ждёт его на открытии кнопки. */
-      falseStarted: boolean;
-    }
+  | { kind: 'buzz'; open: boolean; lockedUntil: number | null }
   /** Очередь этого игрока называть вопрос — вслух ведущему, не кликом. */
   | { kind: 'your_turn' }
   | { kind: 'cat_pick'; candidates: Array<{ id: string; name: string }>; canKeep: boolean }

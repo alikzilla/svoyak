@@ -124,40 +124,55 @@ describe('проекция ведущего', () => {
 });
 
 describe('фальстарт в проекции игрока', () => {
+  const PRESS_AT = 5000;
+
   /** Комната в паузе на чтение, где p1 уже ткнул раньше времени. */
   function afterFalseStart(): RoomState {
-    const base = stateWithQuestion();
-    return reduce(base, {
+    return reduce(stateWithQuestion(), {
       type: 'BUZZ',
       playerId: 'p1',
-      atServerTime: 5000,
-      receivedAt: 5000,
+      atServerTime: PRESS_AT,
+      receivedAt: PRESS_AT,
     }).state;
   }
 
-  it('нажавшему раньше времени говорит, что он уже наказан', () => {
-    const view = projectForPlayer(afterFalseStart(), 'p1', 6000);
-    expect(view.prompt).toMatchObject({ kind: 'buzz', falseStarted: true });
+  it('нажавшему показывает блокировку сразу, ещё до открытия кнопки', () => {
+    const view = projectForPlayer(afterFalseStart(), 'p1', PRESS_AT + 100);
+    expect(view.prompt).toMatchObject({
+      kind: 'buzz',
+      open: false,
+      lockedUntil: PRESS_AT + DEFAULT_SETTINGS.falseStartLockMs,
+    });
   });
 
   it('остальным ничего не приписывает', () => {
-    const view = projectForPlayer(afterFalseStart(), 'p2', 6000);
-    expect(view.prompt).toMatchObject({ kind: 'buzz', falseStarted: false });
+    const view = projectForPlayer(afterFalseStart(), 'p2', PRESS_AT + 100);
+    expect(view.prompt).toMatchObject({ kind: 'buzz', lockedUntil: null });
   });
 
-  it('после открытия кнопки наказание отсчитывается от открытия', () => {
-    const opened = reduce(afterFalseStart(), { type: 'OPEN_BUZZER', at: 9000 }).state;
+  it('открытие кнопки блокировку не обновляет', () => {
+    const opensAt = PRESS_AT + 1000;
+    const opened = reduce(afterFalseStart(), { type: 'OPEN_BUZZER', at: opensAt }).state;
 
-    const punished = projectForPlayer(opened, 'p1', 9100);
-    const clean = projectForPlayer(opened, 'p2', 9100);
+    const punished = projectForPlayer(opened, 'p1', opensAt + 100);
+    const clean = projectForPlayer(opened, 'p2', opensAt + 100);
 
-    // Кнопка открыта для всех, но нажавшего раньше времени держит блокировка.
+    // Кнопка открыта для всех, но нажавшего рано держит его же блокировка.
     expect(punished.prompt).toMatchObject({
       kind: 'buzz',
       open: true,
-      lockedUntil: 9000 + DEFAULT_SETTINGS.falseStartLockMs,
+      lockedUntil: PRESS_AT + DEFAULT_SETTINGS.falseStartLockMs,
     });
     expect(clean.prompt).toMatchObject({ kind: 'buzz', open: true, lockedUntil: null });
+  });
+
+  it('когда блокировка истекла, игрок в проекции чист', () => {
+    const view = projectForPlayer(
+      afterFalseStart(),
+      'p1',
+      PRESS_AT + DEFAULT_SETTINGS.falseStartLockMs + 1,
+    );
+    expect(view.prompt).toMatchObject({ kind: 'buzz', lockedUntil: null });
   });
 });
 

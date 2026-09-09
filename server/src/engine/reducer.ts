@@ -383,18 +383,20 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       const player = findPlayer(state, action.playerId);
       if (!player) return reject(state, 'Игрок не найден');
 
-      // Нажатие до открытия кнопки. Наказание не ставим здесь: оно отмеряется от
-      // момента открытия (см. openBuzzer), иначе пауза на чтение съедала бы его.
-      // Одно нажатие — одно наказание: повторные тычки в паузу просто игнорируем,
-      // иначе игрок получал бы фальстарт дважды за одно нажатие.
+      // Нажатие до открытия кнопки: блокируем нажавшего прямо сейчас. Пока
+      // блокировка идёт, лишние тычки не считаем — иначе долбёжка продлевала бы
+      // наказание и сыпала уведомлениями.
       if (state.phase === 'reading') {
-        if (state.buzz.falseStarts[action.playerId]) return { state, effects: [] };
+        if (!canBuzz(state, action.playerId, action.atServerTime)) return { state, effects: [] };
         return {
           state: {
             ...state,
             buzz: {
               ...state.buzz,
-              falseStarts: { ...state.buzz.falseStarts, [action.playerId]: 1 },
+              lockedUntil: {
+                ...state.buzz.lockedUntil,
+                [action.playerId]: action.atServerTime + state.settings.falseStartLockMs,
+              },
             },
             log: log(state, action.receivedAt, `Фальстарт: ${player.name}`),
           },
@@ -402,7 +404,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
             {
               type: 'toast',
               to: { playerId: action.playerId },
-              text: 'Фальстарт! Кнопка откроется вам позже остальных',
+              text: 'Фальстарт! Кнопка заблокирована на пару секунд',
               tone: 'warn',
             },
             { type: 'persist' },
@@ -852,13 +854,6 @@ function judge(state: RoomState, verdict: 'correct' | 'wrong', at: number): Redu
 function openBuzzer(state: RoomState, at: number): ReduceResult {
   if (state.phase !== 'reading') return reject(state, 'Вопрос ещё не открыт');
 
-  // Наказание за фальстарт начинает течь только сейчас: иначе пауза на чтение
-  // съедала бы его целиком и жать раньше времени было бы выгодно.
-  const lockedUntil = { ...state.buzz.lockedUntil };
-  for (const playerId of Object.keys(state.buzz.falseStarts)) {
-    lockedUntil[playerId] = at + state.settings.falseStartLockMs;
-  }
-
   return {
     state: {
       ...state,
@@ -869,7 +864,6 @@ function openBuzzer(state: RoomState, at: number): ReduceResult {
         closesAt: at + state.settings.buzzOpenMs,
         candidates: [],
         graceClosesAt: null,
-        lockedUntil,
         answeringPlayerId: null,
       },
     },

@@ -73,11 +73,9 @@ describe('открытие кнопки', () => {
 });
 
 describe('фальстарт', () => {
-  it('нажатие до открытия записывает фальстарт нажавшему', () => {
-    // Само наказание начнётся при открытии кнопки: до тех пор блокировки нет.
+  it('нажатие до открытия блокирует нажавшего', () => {
     const state = buzz(readingState(), 'p2', T0 + 500, T0 + 500).state;
-    expect(state.buzz.falseStarts['p2']).toBe(1);
-    expect(state.buzz.lockedUntil['p2']).toBeUndefined();
+    expect(state.buzz.lockedUntil['p2']).toBe(T0 + 500 + DEFAULT_SETTINGS.falseStartLockMs);
     expect(state.phase).toBe('reading');
   });
 
@@ -87,10 +85,10 @@ describe('фальстарт', () => {
   });
 
   it('заблокированный не попадает в кандидаты, пока идёт блокировка', () => {
-    // Наказание отмеряется от открытия кнопки, а не от самого нажатия.
+    // Фальстарт под самое открытие: блокировка заведомо переживает открытие кнопки.
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
     state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
-    expect(state.buzz.lockedUntil['p2']).toBe(T0 + 3000 + DEFAULT_SETTINGS.falseStartLockMs);
+    expect(state.buzz.lockedUntil['p2']).toBe(T0 + 2000 + DEFAULT_SETTINGS.falseStartLockMs);
 
     state = buzz(state, 'p2', T0 + 3100, T0 + 3100).state;
     expect(state.buzz.candidates).toHaveLength(0);
@@ -107,9 +105,8 @@ describe('фальстарт', () => {
 
   it('после истечения блокировки нажатие снова считается', () => {
     let state = buzz(readingState(), 'p2', T0 + 2000, T0 + 2000).state;
-    const openedAt = T0 + 3000;
-    state = reduce(state, { type: 'OPEN_BUZZER', at: openedAt }).state;
-    const afterLock = openedAt + DEFAULT_SETTINGS.falseStartLockMs + 1;
+    state = reduce(state, { type: 'OPEN_BUZZER', at: T0 + 3000 }).state;
+    const afterLock = T0 + 2000 + DEFAULT_SETTINGS.falseStartLockMs + 1;
     state = buzz(state, 'p2', afterLock, afterLock).state;
     expect(state.buzz.candidates.map((candidate) => candidate.playerId)).toEqual(['p2']);
   });
