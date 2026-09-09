@@ -1,0 +1,481 @@
+{
+  "id": "pack-mifologiya",
+  "title": "Мифология",
+  "author": "Свояк",
+  "description": "Боги Олимпа, Асгард, Египет и славянские легенды.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-mifologiya-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-mifologiya-r1-t1",
+          "title": "Греческие боги",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Верховный бог греческого пантеона.",
+              "answer": "Зевс",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Бог моря, вооружённый трезубцем.",
+              "answer": "Посейдон",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Богиня мудрости, вышедшая из головы Зевса в полном доспехе.",
+              "answer": "Афина",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Бог войны у греков.",
+              "answer": "Арес",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Бог-вестник в крылатых сандалиях, покровитель торговцев и воров.",
+              "answer": "Гермес",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-mifologiya-r1-t2",
+          "title": "Подвиги Геракла",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Сколько подвигов совершил Геракл?",
+              "answer": "Двенадцать",
+              "altAnswers": [
+                "12"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какого льва Геракл задушил голыми руками первым подвигом?",
+              "answer": "Немейского",
+              "altAnswers": [
+                "Немейский лев"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как звали многоголовую змею, у которой на месте срубленной головы вырастали новые?",
+              "answer": "Лернейская гидра",
+              "altAnswers": [
+                "Гидра"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Чьи конюшни Геракл вычистил за один день, пустив через них реку?",
+              "answer": "Авгия",
+              "altAnswers": [
+                "Авгиевы конюшни",
+                "царя Авгия"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какого трёхголового пса Геракл вывел из царства мёртвых?",
+              "answer": "Цербера",
+              "altAnswers": [
+                "Цербер",
+                "Кербер"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-mifologiya-r1-t3",
+          "title": "Скандинавы",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Кто верховный бог скандинавов и отец Тора?",
+              "answer": "Один",
+              "altAnswers": [
+                "Одина"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется молот Тора?",
+              "answer": "Мьёльнир",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут бога хитрости и обмана, побратима Одина?",
+              "answer": "Локи",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется чертог, куда попадают павшие в бою воины?",
+              "answer": "Вальхалла",
+              "altAnswers": [
+                "Вальгалла"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется конец света в скандинавской мифологии?",
+              "answer": "Рагнарёк",
+              "altAnswers": [
+                "Рагнарек"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-mifologiya-r1-t4",
+          "title": "Египет",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Бог солнца у древних египтян.",
+              "answer": "Ра",
+              "altAnswers": [
+                "Амон-Ра"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Бог с головой шакала, сопровождающий умерших.",
+              "answer": "Анубис",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кто правит загробным миром, будучи убитым собственным братом Сетом?",
+              "answer": "Осирис",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут жену Осириса, собравшую его тело по частям?",
+              "answer": "Исида",
+              "altAnswers": [
+                "Изида"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какой бог с головой сокола отомстил Сету за отца?",
+              "answer": "Гор",
+              "altAnswers": [
+                "Хор"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-mifologiya-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-mifologiya-r2-t1",
+          "title": "Мифические существа",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Существо с телом льва и человеческой головой, каменная статуя которого лежит у пирамид.",
+              "answer": "Сфинкс",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Полуконь-получеловек из греческих мифов.",
+              "answer": "Кентавр",
+              "altAnswers": [
+                "Центавр"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Птица, которая сгорает и возрождается из собственного пепла.",
+              "answer": "Феникс",
+              "altAnswers": [],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-mifologiya-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Чудовище с головой быка, жившее в критском лабиринте.",
+              "answer": "Минотавр",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называются существа, чьё пение заманивало моряков на скалы?",
+              "answer": "Сирены",
+              "altAnswers": [
+                "Сирена"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-mifologiya-r2-t2",
+          "title": "Славянская мифология",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут старуху, живущую в избушке на курьих ножках?",
+              "answer": "Баба-яга",
+              "altAnswers": [
+                "Баба Яга"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут злодея, чья смерть спрятана в игле, игла в яйце, а яйцо в утке?",
+              "answer": "Кощей Бессмертный",
+              "altAnswers": [
+                "Кощей"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как зовут трёхголового огнедышащего змея русских сказок?",
+              "answer": "Змей Горыныч",
+              "altAnswers": [
+                "Горыныч"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто был богом грома и покровителем дружины у восточных славян?",
+              "answer": "Перун",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как зовут лесного духа, который водит путников кругами?",
+              "answer": "Леший",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-mifologiya-r2-t3",
+          "title": "Троя и герои",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Из-за какой женщины началась Троянская война?",
+              "answer": "Из-за Елены Прекрасной",
+              "altAnswers": [
+                "Елена",
+                "Елена Прекрасная",
+                "Елена Троянская"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какое единственное уязвимое место было у Ахиллеса?",
+              "answer": "Пятка",
+              "altAnswers": [
+                "Ахиллесова пята"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Что греки оставили под стенами Трои, спрятав внутри воинов?",
+              "answer": "Троянского коня",
+              "altAnswers": [
+                "Троянский конь",
+                "деревянный конь"
+              ],
+              "cat": {
+                "theme": "Античность",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-mifologiya-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто десять лет возвращался с войны на родную Итаку?",
+              "answer": "Одиссей",
+              "altAnswers": [
+                "Улисс"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто убил Ахиллеса, попав стрелой в пятку?",
+              "answer": "Парис",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-mifologiya-r2-t4",
+          "title": "Легенды мира",
+          "questions": [
+            {
+              "id": "pack-mifologiya-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут короля, собравшего рыцарей за круглым столом?",
+              "answer": "Артур",
+              "altAnswers": [
+                "Король Артур"
+              ]
+            },
+            {
+              "id": "pack-mifologiya-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется меч короля Артура?",
+              "answer": "Экскалибур",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как зовут волшебника, наставника Артура?",
+              "answer": "Мерлин",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется остров-государство, о гибели которого писал Платон?",
+              "answer": "Атлантида",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-mifologiya-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как ласково зовут чудовище из шотландского озера Лох-Несс?",
+              "answer": "Несси",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-mifologiya-f1",
+        "title": "Оружие богов",
+        "question": {
+          "id": "pack-mifologiya-f1-q",
+          "text": "Как называется копьё Одина, которое никогда не пролетает мимо цели?",
+          "answer": "Гунгнир",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "pack-mifologiya-f2",
+        "title": "Загробный мир",
+        "question": {
+          "id": "pack-mifologiya-f2-q",
+          "text": "Как зовут перевозчика, переправляющего души через реку Стикс за монету?",
+          "answer": "Харон",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "pack-mifologiya-f3",
+        "title": "Крылатые выражения",
+        "question": {
+          "id": "pack-mifologiya-f3-q",
+          "text": "Чей сосуд, открытый из любопытства, выпустил в мир все беды?",
+          "answer": "Ящик Пандоры",
+          "altAnswers": [
+            "Пандоры",
+            "Пандора"
+          ]
+        }
+      }
+    ]
+  }
+}

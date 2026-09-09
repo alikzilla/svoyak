@@ -1,0 +1,480 @@
+{
+  "id": "pack-zhivotnye",
+  "title": "Животные и природа",
+  "author": "Свояк",
+  "description": "Хищники, птицы, море, динозавры и растения.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-zhivotnye-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-zhivotnye-r1-t1",
+          "title": "Хищники",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какого зверя называют царём зверей?",
+              "answer": "Лев",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Самое быстрое наземное животное.",
+              "answer": "Гепард",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Самый крупный из современных медведей.",
+              "answer": "Белый медведь",
+              "altAnswers": [
+                "Полярный медведь"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется самый крупный подвид тигра, живущий на российском Дальнем Востоке?",
+              "answer": "Амурский тигр",
+              "altAnswers": [
+                "Уссурийский тигр"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Самая длинная ядовитая змея в мире.",
+              "answer": "Королевская кобра",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-zhivotnye-r1-t2",
+          "title": "Птицы",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какая птица самая крупная и совсем не умеет летать?",
+              "answer": "Страус",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая птица умеет летать задом наперёд?",
+              "answer": "Колибри",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какую птицу традиционно считают символом мудрости?",
+              "answer": "Сова",
+              "altAnswers": [
+                "Филин"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая птица лучше всех повторяет человеческую речь?",
+              "answer": "Попугай",
+              "altAnswers": [
+                "Жако",
+                "попугай жако"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "У какой птицы самый большой размах крыльев — до трёх с половиной метров?",
+              "answer": "Странствующий альбатрос",
+              "altAnswers": [
+                "Альбатрос"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-zhivotnye-r1-t3",
+          "title": "Море",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Самое большое животное на планете.",
+              "answer": "Синий кит",
+              "altAnswers": [
+                "Голубой кит"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Сколько щупалец у осьминога?",
+              "answer": "Восемь",
+              "altAnswers": [
+                "8"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какой морской хищник всю жизнь меняет зубы, теряя тысячи за жизнь?",
+              "answer": "Акула",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется рыба, которая раздувается шаром, а её мясо смертельно опасно, если повар ошибётся?",
+              "answer": "Фугу",
+              "altAnswers": [
+                "Иглобрюх",
+                "рыба фугу"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "У какого морского животного три сердца и голубая кровь?",
+              "answer": "Осьминог",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-zhivotnye-r1-t4",
+          "title": "Рекорды животного мира",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Самое высокое животное суши.",
+              "answer": "Жираф",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Самое крупное сухопутное животное.",
+              "answer": "Африканский слон",
+              "altAnswers": [
+                "Слон"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какое животное спит до двадцати часов в сутки, вися на ветке вниз спиной?",
+              "answer": "Ленивец",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какое животное дольше всех обходится без воды в пустыне?",
+              "answer": "Верблюд",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какое микроскопическое существо переживает кипяток, радиацию и открытый космос?",
+              "answer": "Тихоходка",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-zhivotnye-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-zhivotnye-r2-t1",
+          "title": "Насекомые",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Сколько ног у насекомых?",
+              "answer": "Шесть",
+              "altAnswers": [
+                "6"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется сделанный человеком дом для пчелиной семьи?",
+              "answer": "Улей",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как называется превращение гусеницы в бабочку через стадию куколки?",
+              "answer": "Полное превращение",
+              "altAnswers": [
+                "Метаморфоз",
+                "полный метаморфоз"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-zhivotnye-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какое насекомое переносит малярию?",
+              "answer": "Комар",
+              "altAnswers": [
+                "Малярийный комар",
+                "анофелес"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Пауки — вовсе не насекомые. Сколько у них ног?",
+              "answer": "Восемь",
+              "altAnswers": [
+                "8"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-zhivotnye-r2-t2",
+          "title": "Домашние животные",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется самая маленькая порода собак, родом из Мексики?",
+              "answer": "Чихуахуа",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "От какого дикого зверя произошли все домашние собаки?",
+              "answer": "От волка",
+              "altAnswers": [
+                "Волк"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какая порода кошек знаменита полным отсутствием шерсти?",
+              "answer": "Сфинкс",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется наука, изучающая кошек?",
+              "answer": "Фелинология",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как звали собаку, первой отправившуюся на орбиту Земли?",
+              "answer": "Лайка",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-zhivotnye-r2-t3",
+          "title": "Динозавры",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как по-русски называют T-Rex — хищника с огромной пастью и крошечными передними лапами?",
+              "answer": "Тираннозавр",
+              "altAnswers": [
+                "Тираннозавр рекс"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "У какого динозавра на спине росли костные пластины, а на хвосте были шипы?",
+              "answer": "Стегозавр",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Какой динозавр носил на морде три рога и костяной воротник?",
+              "answer": "Трицератопс",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Древний мир",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-zhivotnye-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В конце какого периода вымерли динозавры?",
+              "answer": "Мелового",
+              "altAnswers": [
+                "Мел",
+                "меловой период"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется наука об ископаемых организмах?",
+              "answer": "Палеонтология",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-zhivotnye-r2-t4",
+          "title": "Растения",
+          "questions": [
+            {
+              "id": "pack-zhivotnye-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется процесс, которым растения на свету производят кислород и питание?",
+              "answer": "Фотосинтез",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какое дерево вырастает выше всех на Земле?",
+              "answer": "Секвойя",
+              "altAnswers": [
+                "Секвойядендрон",
+                "калифорнийская секвойя"
+              ]
+            },
+            {
+              "id": "pack-zhivotnye-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какое африканское дерево с толстенным стволом живёт тысячи лет?",
+              "answer": "Баобаб",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какое растение растёт быстрее всех — иногда почти на метр в сутки?",
+              "answer": "Бамбук",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-zhivotnye-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется хищное растение, которое захлопывает створки-ловушку на насекомом?",
+              "answer": "Венерина мухоловка",
+              "altAnswers": [
+                "Мухоловка"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-zhivotnye-f1",
+        "title": "Миграции",
+        "question": {
+          "id": "pack-zhivotnye-f1-q",
+          "text": "Какая птица совершает самый длинный перелёт в мире — из Арктики в Антарктику и обратно?",
+          "answer": "Полярная крачка",
+          "altAnswers": [
+            "Крачка"
+          ]
+        }
+      },
+      {
+        "id": "pack-zhivotnye-f2",
+        "title": "Вымершие",
+        "question": {
+          "id": "pack-zhivotnye-f2-q",
+          "text": "Как называется нелетающая птица с острова Маврикий, истреблённая моряками в XVII веке?",
+          "answer": "Дронт",
+          "altAnswers": [
+            "Додо"
+          ]
+        }
+      },
+      {
+        "id": "pack-zhivotnye-f3",
+        "title": "Природа",
+        "question": {
+          "id": "pack-zhivotnye-f3-q",
+          "text": "Как называется свечение неба в высоких широтах, вызванное солнечным ветром?",
+          "answer": "Полярное сияние",
+          "altAnswers": [
+            "Северное сияние",
+            "аврора"
+          ]
+        }
+      }
+    ]
+  }
+}

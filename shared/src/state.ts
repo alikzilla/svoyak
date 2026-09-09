@@ -23,7 +23,7 @@ export type Phase =
 
 /** Таймеры ограничивают только игроков. Темп игры задаёт ведущий:
  *  он открывает вопрос, открывает кнопку и решает, когда ответа достаточно. */
-export type TimerKind = 'buzz' | 'final_bet' | 'final_answer';
+export type TimerKind = 'reading' | 'buzz' | 'final_bet' | 'final_answer';
 
 export interface TimerState {
   kind: TimerKind;

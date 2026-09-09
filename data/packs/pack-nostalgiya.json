@@ -1,0 +1,517 @@
+{
+  "id": "pack-nostalgiya",
+  "title": "Девяностые и нулевые",
+  "author": "Свояк",
+  "description": "Тамагочи, кассеты, «Денди», ICQ и хиты нашего детства.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-nostalgiya-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-nostalgiya-r1-t1",
+          "title": "Игрушки и гаджеты",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется электронный питомец в яйце-брелоке, которого надо было кормить каждые полчаса?",
+              "answer": "Тамагочи",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-nostalgiya-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется головоломка из 26 разноцветных элементов, изобретённая венгром?",
+              "answer": "Кубик Рубика",
+              "altAnswers": [
+                "Кубик Рубика"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как назывался портативный кассетный плеер Sony, изменивший привычку слушать музыку?",
+              "answer": "Walkman",
+              "altAnswers": [
+                "Уокмен"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называлась приставка-клон NES, на которой в СНГ выросло целое поколение?",
+              "answer": "Денди",
+              "altAnswers": [
+                "Dendy"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется игрушка-пружина, которая умеет самостоятельно шагать по ступенькам?",
+              "answer": "Слинки",
+              "altAnswers": [
+                "Slinky",
+                "пружинка"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-nostalgiya-r1-t2",
+          "title": "Музыка девяностых",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какая британская женская группа спела «Wannabe»?",
+              "answer": "Spice Girls",
+              "altAnswers": [
+                "Спайс Гёрлз"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая американская бой-бэнд-группа исполнила «Everybody (Backstreet's Back)»?",
+              "answer": "Backstreet Boys",
+              "altAnswers": [
+                "Бэкстрит Бойз"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как звали лидера Nirvana, погибшего в 1994 году?",
+              "answer": "Курт Кобейн",
+              "altAnswers": [
+                "Кобейн"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой испанский дуэт заставил весь мир танцевать под «Macarena»?",
+              "answer": "Los del Río",
+              "altAnswers": [
+                "Лос дель Рио"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какая датско-норвежская группа спела «Barbie Girl»?",
+              "answer": "Aqua",
+              "altAnswers": [
+                "Аква"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-nostalgiya-r1-t3",
+          "title": "Кино девяностых",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какой фильм 1999 года объяснил зрителям, что мир — это симуляция?",
+              "answer": "Матрица",
+              "altAnswers": [
+                "The Matrix"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какой фильм Тарантино 1994 года запомнился танцем Умы Турман и Джона Траволты?",
+              "answer": "Криминальное чтиво",
+              "altAnswers": [
+                "Pulp Fiction"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется фильм Балабанова о Даниле Багрове?",
+              "answer": "Брат",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-nostalgiya-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В каком фильме герой Джима Керри узнаёт, что вся его жизнь — телешоу?",
+              "answer": "Шоу Трумана",
+              "altAnswers": [
+                "The Truman Show"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какой фильм 1999 года с Брэдом Питтом и Эдвардом Нортоном рассказывает о подпольных драках?",
+              "answer": "Бойцовский клуб",
+              "altAnswers": [
+                "Fight Club"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-nostalgiya-r1-t4",
+          "title": "Телевидение",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется передача, где знатоки за круглым столом отвечают на вопросы телезрителей?",
+              "answer": "Что? Где? Когда?",
+              "altAnswers": [
+                "Что где когда"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называлась игра, в которой участники крутили барабан и угадывали буквы?",
+              "answer": "Поле чудес",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-nostalgiya-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кто ведёт «Поле чудес» с 1991 года?",
+              "answer": "Леонид Якубович",
+              "altAnswers": [
+                "Якубович"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называлась передача о животных, которую вёл Николай Дроздов?",
+              "answer": "В мире животных",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-nostalgiya-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называлась детская телеигра, которую вёл Сергей Супонев?",
+              "answer": "Звёздный час",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-nostalgiya-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-nostalgiya-r2-t1",
+          "title": "Технологии нулевых",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как назывался мессенджер с зелёным цветком, где вместо имени был номер?",
+              "answer": "ICQ",
+              "altAnswers": [
+                "Аська"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой формат сжатия позволил уместить сотни песен в маленький плеер?",
+              "answer": "MP3",
+              "altAnswers": [
+                "эм-пэ-три"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как называлась российская соцсеть, придуманная, чтобы найти бывших школьных друзей?",
+              "answer": "Одноклассники",
+              "altAnswers": [],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-nostalgiya-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как назывался тонкий телефон-раскладушка Motorola, ставший символом моды 2004 года?",
+              "answer": "RAZR",
+              "altAnswers": [
+                "Motorola RAZR",
+                "Разр"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какой компактный носитель окончательно вытеснил дискеты?",
+              "answer": "Флешка",
+              "altAnswers": [
+                "USB-накопитель",
+                "флеш-накопитель"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-nostalgiya-r2-t2",
+          "title": "Хиты нулевых",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Какой российский дуэт в школьной форме спел «Нас не догонят»?",
+              "answer": "t.A.T.u.",
+              "altAnswers": [
+                "Тату"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая группа исполнила «Numb» и «In the End»?",
+              "answer": "Linkin Park",
+              "altAnswers": [
+                "Линкин Парк"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какая песня Рианны 2007 года посвящена зонтику?",
+              "answer": "Umbrella",
+              "altAnswers": [
+                "Амбрелла"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто исполнил «Танцы на стёклах»?",
+              "answer": "МакSим",
+              "altAnswers": [
+                "Максим",
+                "MakSim"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто в 2009 году выпустил «Bad Romance»?",
+              "answer": "Леди Гага",
+              "altAnswers": [
+                "Lady Gaga"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-nostalgiya-r2-t3",
+          "title": "Игры детства",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется серия стратегий, в которой Союз воевал с СССР, а русская версия звалась «Красная угроза»?",
+              "answer": "Command & Conquer: Red Alert",
+              "altAnswers": [
+                "Red Alert",
+                "Красная угроза"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В какой игре усатый герой прыгал по трубам, выручая принцессу?",
+              "answer": "Super Mario",
+              "altAnswers": [
+                "Марио",
+                "Super Mario Bros"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Как называется симулятор жизни, где строят дом и следят за настроением виртуальной семьи?",
+              "answer": "The Sims",
+              "altAnswers": [
+                "Симс"
+              ],
+              "cat": {
+                "theme": "Игры",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-nostalgiya-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется стратегия Blizzard, где орки и люди сражались, а принц Артас пал во тьму?",
+              "answer": "Warcraft III",
+              "altAnswers": [
+                "Варкрафт",
+                "Warcraft"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется серия гонок, в которой герой удирает от полиции по ночным улицам?",
+              "answer": "Need for Speed",
+              "altAnswers": [
+                "NFS",
+                "Нид фор спид"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-nostalgiya-r2-t4",
+          "title": "Реклама и бренды",
+          "questions": [
+            {
+              "id": "pack-nostalgiya-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Караван грузовиков с гирляндами и слоган «Праздник к нам приходит» — реклама какого напитка?",
+              "answer": "Coca-Cola",
+              "altAnswers": [
+                "Кока-кола"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Чей слоган — «Just Do It»?",
+              "answer": "Nike",
+              "altAnswers": [
+                "Найк"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какой батончик советовал «не тормозить», а «сникерснуть»?",
+              "answer": "Snickers",
+              "altAnswers": [
+                "Сникерс"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какой батончик с кокосом обещал «райское наслаждение»?",
+              "answer": "Bounty",
+              "altAnswers": [
+                "Баунти"
+              ]
+            },
+            {
+              "id": "pack-nostalgiya-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какая компания годами подписывала свои телефоны словами «Connecting People»?",
+              "answer": "Nokia",
+              "altAnswers": [
+                "Нокиа"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-nostalgiya-f1",
+        "title": "Мода",
+        "question": {
+          "id": "pack-nostalgiya-f1-q",
+          "text": "Какой предмет мужского гардероба определённого цвета стал главным символом «новых русских» девяностых?",
+          "answer": "Малиновый пиджак",
+          "altAnswers": [
+            "Малиновый пиджак"
+          ]
+        }
+      },
+      {
+        "id": "pack-nostalgiya-f2",
+        "title": "Слоганы",
+        "question": {
+          "id": "pack-nostalgiya-f2-q",
+          "text": "«Иногда лучше жевать, чем говорить» — реклама какого продукта?",
+          "answer": "Жевательная резинка Stimorol",
+          "altAnswers": [
+            "Stimorol",
+            "Стиморол",
+            "жвачка"
+          ]
+        }
+      },
+      {
+        "id": "pack-nostalgiya-f3",
+        "title": "Возвращение",
+        "question": {
+          "id": "pack-nostalgiya-f3-q",
+          "text": "Какую консоль Nintendo в 2016 году переиздала в мини-версии с тридцатью встроенными играми?",
+          "answer": "NES",
+          "altAnswers": [
+            "Dendy",
+            "NES Classic Mini",
+            "Nintendo Entertainment System"
+          ]
+        }
+      }
+    ]
+  }
+}

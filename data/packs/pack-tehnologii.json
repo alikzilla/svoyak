@@ -1,0 +1,521 @@
+{
+  "id": "pack-tehnologii",
+  "title": "Технологии",
+  "author": "Свояк",
+  "description": "Интернет, гаджеты, код и IT-гиганты.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-tehnologii-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-tehnologii-r1-t1",
+          "title": "Интернет",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как расшифровывается www в адресе сайта?",
+              "answer": "World Wide Web",
+              "altAnswers": [
+                "Всемирная паутина"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какой протокол показывает замочек в адресной строке и шифрует соединение?",
+              "answer": "HTTPS",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-tehnologii-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется система, которая превращает имя сайта в IP-адрес?",
+              "answer": "DNS",
+              "altAnswers": [
+                "Система доменных имён"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называлась сеть Министерства обороны США, из которой вырос интернет?",
+              "answer": "ARPANET",
+              "altAnswers": [
+                "Арпанет"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Кто в 1989 году придумал World Wide Web?",
+              "answer": "Тим Бернерс-Ли",
+              "altAnswers": [
+                "Бернерс-Ли"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-tehnologii-r1-t2",
+          "title": "Смартфоны",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В каком году вышел первый iPhone?",
+              "answer": "2007",
+              "altAnswers": [
+                "в 2007 году"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая операционная система стоит на большинстве смартфонов мира?",
+              "answer": "Android",
+              "altAnswers": [
+                "Андроид"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кто представил первый iPhone со сцены?",
+              "answer": "Стив Джобс",
+              "altAnswers": [
+                "Джобс"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая компания выпускает смартфоны линейки Galaxy?",
+              "answer": "Samsung",
+              "altAnswers": [
+                "Самсунг"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какая технология позволяет расплатиться, поднеся телефон к терминалу?",
+              "answer": "NFC",
+              "altAnswers": [
+                "Ближняя бесконтактная связь"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-tehnologii-r1-t3",
+          "title": "Компьютеры",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как по-русски называют CPU — главную вычислительную микросхему?",
+              "answer": "Процессор",
+              "altAnswers": [
+                "Центральный процессор"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется быстрая память, которая очищается при выключении компьютера?",
+              "answer": "Оперативная память",
+              "altAnswers": [
+                "ОЗУ",
+                "RAM"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется накопитель без движущихся частей, пришедший на смену жёсткому диску?",
+              "answer": "SSD",
+              "altAnswers": [
+                "Твердотельный накопитель"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Сколько бит в одном байте?",
+              "answer": "Восемь",
+              "altAnswers": [
+                "8"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как назывался один из первых электронных компьютеров, построенный в США в 1945 году?",
+              "answer": "ENIAC",
+              "altAnswers": [
+                "Эниак"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-tehnologii-r1-t4",
+          "title": "Соцсети",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какая соцсеть с логотипом-птичкой позже переименовалась в X?",
+              "answer": "Twitter",
+              "altAnswers": [
+                "Твиттер"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какую фотосеть Facebook купил в 2012 году за миллиард долларов?",
+              "answer": "Instagram",
+              "altAnswers": [
+                "Инстаграм"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какой мессенджер создал Павел Дуров?",
+              "answer": "Telegram",
+              "altAnswers": [
+                "Телеграм"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "А какую соцсеть Дуров основал ещё раньше?",
+              "answer": "ВКонтакте",
+              "altAnswers": [
+                "VK"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется соцсеть, где вместо фотографий выкладывают резюме и вакансии?",
+              "answer": "LinkedIn",
+              "altAnswers": [
+                "Линкедин"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-tehnologii-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-tehnologii-r2-t1",
+          "title": "Языки программирования",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Язык с чашкой кофе на логотипе, названный в честь индонезийского острова.",
+              "answer": "Java",
+              "altAnswers": [
+                "Джава",
+                "Ява"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Язык, названный не в честь змеи, а в честь комик-группы «Монти Пайтон».",
+              "answer": "Python",
+              "altAnswers": [
+                "Питон",
+                "Пайтон"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "На каком языке исполняются скрипты во всех браузерах? Его постоянно путают с предыдущим ответом соседней клетки.",
+              "answer": "JavaScript",
+              "altAnswers": [
+                "Джаваскрипт",
+                "JS"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-tehnologii-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто создал язык C++?",
+              "answer": "Бьёрн Страуструп",
+              "altAnswers": [
+                "Страуструп"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какой язык используют, чтобы делать запросы к реляционным базам данных?",
+              "answer": "SQL",
+              "altAnswers": [
+                "Эс-кью-эль"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-tehnologii-r2-t2",
+          "title": "Игры и железо",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая компания выпускает приставки PlayStation?",
+              "answer": "Sony",
+              "altAnswers": [
+                "Сони"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "А кто выпускает Xbox?",
+              "answer": "Microsoft",
+              "altAnswers": [
+                "Майкрософт"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Японская компания, подарившая миру Марио, Зельду и консоль Switch.",
+              "answer": "Nintendo",
+              "altAnswers": [
+                "Нинтендо"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какая компания делает видеокарты GeForce?",
+              "answer": "NVIDIA",
+              "altAnswers": [
+                "Нвидиа"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как принято называть разрешение экрана 3840 на 2160 пикселей?",
+              "answer": "4K",
+              "altAnswers": [
+                "UHD",
+                "4К"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-tehnologii-r2-t3",
+          "title": "Компании",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Надкушенное яблоко — логотип какой компании?",
+              "answer": "Apple",
+              "altAnswers": [
+                "Эпл"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая компания владеет YouTube?",
+              "answer": "Google",
+              "altAnswers": [
+                "Гугл"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Как называется холдинг, в который в 2015 году переоформили Google?",
+              "answer": "Alphabet",
+              "altAnswers": [
+                "Алфабет"
+              ],
+              "cat": {
+                "theme": "IT-гиганты",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-tehnologii-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какая компания выпустила ChatGPT?",
+              "answer": "OpenAI",
+              "altAnswers": [
+                "ОпенЭйАй"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какой корпорации принадлежат WhatsApp и Instagram?",
+              "answer": "Meta",
+              "altAnswers": [
+                "Мета",
+                "Facebook"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-tehnologii-r2-t4",
+          "title": "Аббревиатуры",
+          "questions": [
+            {
+              "id": "pack-tehnologii-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Что означает USB?",
+              "answer": "Universal Serial Bus",
+              "altAnswers": [
+                "универсальная последовательная шина"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Что скрывается за тремя буквами VPN?",
+              "answer": "Виртуальная частная сеть",
+              "altAnswers": [
+                "Virtual Private Network"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как расшифровывается GPS?",
+              "answer": "Global Positioning System",
+              "altAnswers": [
+                "система глобального позиционирования"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Что означает формат PDF?",
+              "answer": "Portable Document Format",
+              "altAnswers": [
+                "переносимый формат документов"
+              ]
+            },
+            {
+              "id": "pack-tehnologii-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как расшифровывается URL — то, что вы вводите в адресную строку?",
+              "answer": "Uniform Resource Locator",
+              "altAnswers": [
+                "единый указатель ресурса"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-tehnologii-f1",
+        "title": "Искусственный интеллект",
+        "question": {
+          "id": "pack-tehnologii-f1-q",
+          "text": "Как называется предложенная в 1950 году проверка: сможет ли человек в переписке отличить машину от человека?",
+          "answer": "Тест Тьюринга",
+          "altAnswers": [
+            "Тьюринга"
+          ]
+        }
+      },
+      {
+        "id": "pack-tehnologii-f2",
+        "title": "Изобретатели",
+        "question": {
+          "id": "pack-tehnologii-f2-q",
+          "text": "Кто вместе со Стивом Джобсом основал Apple и собственноручно спроектировал первые компьютеры компании?",
+          "answer": "Стив Возняк",
+          "altAnswers": [
+            "Возняк"
+          ]
+        }
+      },
+      {
+        "id": "pack-tehnologii-f3",
+        "title": "Будущее",
+        "question": {
+          "id": "pack-tehnologii-f3-q",
+          "text": "Как называется технология распределённой цепочки блоков, на которой работает биткоин?",
+          "answer": "Блокчейн",
+          "altAnswers": [
+            "Blockchain"
+          ]
+        }
+      }
+    ]
+  }
+}

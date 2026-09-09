@@ -264,9 +264,30 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         return { ...started, effects: [{ type: 'clearTimer' }, ...started.effects] };
       }
 
+      // Кнопку открывает ведущий, но если включён автостарт, движок делает это
+      // за него: пауза даётся на то, чтобы дочитать вопрос вслух.
+      if (phase === 'reading' && state.settings.autoOpenBuzzer) {
+        const pause = state.settings.readingMs;
+        if (pause <= 0) {
+          const started = openBuzzer(opened, action.at);
+          return { ...started, effects: [{ type: 'clearTimer' }, ...started.effects] };
+        }
+        return {
+          state: opened,
+          effects: [
+            {
+              type: 'setTimer',
+              kind: 'reading',
+              durationMs: pause,
+              onExpire: { type: 'OPEN_BUZZER', at: action.at + pause },
+            },
+            { type: 'persist' },
+          ],
+        };
+      }
+
       return {
         state: opened,
-        // Таймера чтения нет: кнопку открывает ведущий, когда дочитает вопрос.
         effects: [{ type: 'clearTimer' }, { type: 'persist' }],
       };
     }

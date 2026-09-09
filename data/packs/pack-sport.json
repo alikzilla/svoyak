@@ -1,0 +1,502 @@
+{
+  "id": "pack-sport",
+  "title": "Спорт",
+  "author": "Свояк",
+  "description": "Футбол, Олимпиада, НБА, теннис и единоборства.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-sport-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-sport-r1-t1",
+          "title": "Футбол",
+          "questions": [
+            {
+              "id": "pack-sport-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Сколько игроков одной команды одновременно находятся на поле?",
+              "answer": "Одиннадцать",
+              "altAnswers": [
+                "11"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется приз лучшему футболисту года по версии журнала France Football?",
+              "answer": "Золотой мяч",
+              "altAnswers": [
+                "Ballon d'Or"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какая сборная выиграла чемпионат мира 2022 года в Катаре?",
+              "answer": "Аргентина",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Гол «рукой Бога» в 1986 году забил какой футболист?",
+              "answer": "Диего Марадона",
+              "altAnswers": [
+                "Марадона"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется главный клубный турнир Европы, победитель которого получает «ушастый» кубок?",
+              "answer": "Лига чемпионов",
+              "altAnswers": [
+                "Кубок европейских чемпионов",
+                "Champions League"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-sport-r1-t2",
+          "title": "Олимпиада",
+          "questions": [
+            {
+              "id": "pack-sport-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Сколько колец на олимпийском флаге?",
+              "answer": "Пять",
+              "altAnswers": [
+                "5"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "В какой стране зародились Олимпийские игры?",
+              "answer": "Греция",
+              "altAnswers": [
+                "Древняя Греция"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Раз в сколько лет проходят летние Олимпийские игры?",
+              "answer": "Раз в четыре года",
+              "altAnswers": [
+                "четыре",
+                "4"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой пловец собрал 23 олимпийских золота — больше всех в истории?",
+              "answer": "Майкл Фелпс",
+              "altAnswers": [
+                "Фелпс"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "В каком городе прошли первые современные Олимпийские игры в 1896 году?",
+              "answer": "Афины",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-sport-r1-t3",
+          "title": "Зимние виды",
+          "questions": [
+            {
+              "id": "pack-sport-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В каком виде спорта игроки натирают лёд щётками перед скользящим камнем?",
+              "answer": "Кёрлинг",
+              "altAnswers": [
+                "Керлинг"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какой вид спорта соединяет лыжную гонку и стрельбу из винтовки?",
+              "answer": "Биатлон",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется спуск по ледяному жёлобу головой вперёд, лёжа на животе?",
+              "answer": "Скелетон",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В каком российском городе прошла зимняя Олимпиада 2014 года?",
+              "answer": "Сочи",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется главный трофей Национальной хоккейной лиги?",
+              "answer": "Кубок Стэнли",
+              "altAnswers": [
+                "Стэнли"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-sport-r1-t4",
+          "title": "Правила игры",
+          "questions": [
+            {
+              "id": "pack-sport-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Сколько минут длится футбольный матч без учёта добавленного времени?",
+              "answer": "90 минут",
+              "altAnswers": [
+                "девяносто",
+                "90"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Что означает жёлтая карточка?",
+              "answer": "Предупреждение",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется положение вне игры в футболе?",
+              "answer": "Офсайд",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Сколько сетов надо выиграть мужчине на турнире Большого шлема в теннисе?",
+              "answer": "Три",
+              "altAnswers": [
+                "3"
+              ]
+            },
+            {
+              "id": "pack-sport-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как в волейболе называют игрока в форме другого цвета, который играет только в защите?",
+              "answer": "Либеро",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-sport-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-sport-r2-t1",
+          "title": "Баскетбол и НБА",
+          "questions": [
+            {
+              "id": "pack-sport-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Сколько игроков одной команды одновременно на площадке в баскетболе?",
+              "answer": "Пять",
+              "altAnswers": [
+                "5"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "За какой клуб Майкл Джордан выиграл все шесть своих титулов?",
+              "answer": "Чикаго Буллз",
+              "altAnswers": [
+                "Буллз",
+                "Chicago Bulls"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Игрок «Лейкерс» под номерами 8 и 24, известный как «Чёрная мамба».",
+              "answer": "Коби Брайант",
+              "altAnswers": [
+                "Брайант"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-sport-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто стал лучшим бомбардиром за всю историю НБА?",
+              "answer": "Леброн Джеймс",
+              "altAnswers": [
+                "Леброн",
+                "Джеймс"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется бросок, когда мяч вколачивают в кольцо сверху?",
+              "answer": "Данк",
+              "altAnswers": [
+                "Слэм-данк",
+                "dunk"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-sport-r2-t2",
+          "title": "Теннис",
+          "questions": [
+            {
+              "id": "pack-sport-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "На каком покрытии играют Уимблдонский турнир?",
+              "answer": "На траве",
+              "altAnswers": [
+                "Трава",
+                "травяное"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Испанец, которого зовут «королём грунта» за рекордные победы на «Ролан Гаррос».",
+              "answer": "Рафаэль Надаль",
+              "altAnswers": [
+                "Надаль"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Швейцарец с двадцатью титулами Большого шлема, эталон тенниса нулевых.",
+              "answer": "Роджер Федерер",
+              "altAnswers": [
+                "Федерер"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется решающий гейм при счёте 6:6 в сете?",
+              "answer": "Тай-брейк",
+              "altAnswers": [
+                "Тайбрейк"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называют четыре главных турнира сезона вместе?",
+              "answer": "Большой шлем",
+              "altAnswers": [
+                "Grand Slam"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-sport-r2-t3",
+          "title": "Единоборства",
+          "questions": [
+            {
+              "id": "pack-sport-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется крупнейшая в мире организация смешанных единоборств?",
+              "answer": "UFC",
+              "altAnswers": [
+                "ЮФС"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Японская борьба, где поединок идёт в круге под названием дохё.",
+              "answer": "Сумо",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Российский боец, завершивший карьеру с рекордом 29 побед без поражений.",
+              "answer": "Хабиб Нурмагомедов",
+              "altAnswers": [
+                "Хабиб",
+                "Нурмагомедов"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Корейское боевое искусство с высокими ударами ногами, входящее в программу Олимпиады.",
+              "answer": "Тхэквондо",
+              "altAnswers": [
+                "Тэквондо"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется победа в боксе, когда соперник не поднимается за десять секунд?",
+              "answer": "Нокаут",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-sport-r2-t4",
+          "title": "Спортивная география",
+          "questions": [
+            {
+              "id": "pack-sport-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В какой стране появился хоккей с шайбой?",
+              "answer": "Канада",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-sport-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "По какой стране идёт самая известная многодневная велогонка мира?",
+              "answer": "Франция",
+              "altAnswers": [
+                "Франции"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t4-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "В какой стране придумали дзюдо?",
+              "answer": "Япония",
+              "altAnswers": [
+                "Японии"
+              ],
+              "cat": {
+                "theme": "Виды спорта",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-sport-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется домашний стадион «Барселоны»?",
+              "answer": "Камп Ноу",
+              "altAnswers": [
+                "Camp Nou"
+              ]
+            },
+            {
+              "id": "pack-sport-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В какой стране прошёл чемпионат мира по футболу 2018 года?",
+              "answer": "Россия",
+              "altAnswers": [
+                "Российская Федерация"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-sport-f1",
+        "title": "Чемпионы мира",
+        "question": {
+          "id": "pack-sport-f1-q",
+          "text": "Какая сборная выигрывала чемпионат мира по футболу чаще всех — пять раз?",
+          "answer": "Бразилия",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "pack-sport-f2",
+        "title": "Рекорды",
+        "question": {
+          "id": "pack-sport-f2-q",
+          "text": "Кому принадлежит мировой рекорд на 100 метрах — 9,58 секунды?",
+          "answer": "Усэйн Болт",
+          "altAnswers": [
+            "Болт"
+          ]
+        }
+      },
+      {
+        "id": "pack-sport-f3",
+        "title": "Трофеи",
+        "question": {
+          "id": "pack-sport-f3-q",
+          "text": "Как называется главный трофей мирового регби?",
+          "answer": "Кубок Уэбба Эллиса",
+          "altAnswers": [
+            "Webb Ellis Cup",
+            "Кубок мира по регби"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,512 @@
+{
+  "id": "pack-literatura",
+  "title": "Литература",
+  "author": "Свояк",
+  "description": "Классика, фэнтези, детективы и первые строки.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-literatura-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-literatura-r1-t1",
+          "title": "Русская классика",
+          "questions": [
+            {
+              "id": "pack-literatura-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Кто написал «Евгения Онегина»?",
+              "answer": "Александр Пушкин",
+              "altAnswers": [
+                "Пушкин"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто написал «Мастера и Маргариту»?",
+              "answer": "Михаил Булгаков",
+              "altAnswers": [
+                "Булгаков"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кто написал «Преступление и наказание»?",
+              "answer": "Фёдор Достоевский",
+              "altAnswers": [
+                "Достоевский"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто написал «Мёртвые души»?",
+              "answer": "Николай Гоголь",
+              "altAnswers": [
+                "Гоголь"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Кто написал «Отцы и дети»?",
+              "answer": "Иван Тургенев",
+              "altAnswers": [
+                "Тургенев"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-literatura-r1-t2",
+          "title": "Мировая классика",
+          "questions": [
+            {
+              "id": "pack-literatura-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Кто написал «Ромео и Джульетту»?",
+              "answer": "Уильям Шекспир",
+              "altAnswers": [
+                "Шекспир"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто написал «Дон Кихота»?",
+              "answer": "Мигель де Сервантес",
+              "altAnswers": [
+                "Сервантес"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кто написал «Сто лет одиночества»?",
+              "answer": "Габриэль Гарсиа Маркес",
+              "altAnswers": [
+                "Маркес"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто написал роман «1984»?",
+              "answer": "Джордж Оруэлл",
+              "altAnswers": [
+                "Оруэлл"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Кто написал «Улисса» — роман об одном дублинском дне?",
+              "answer": "Джеймс Джойс",
+              "altAnswers": [
+                "Джойс"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-literatura-r1-t3",
+          "title": "Персонажи",
+          "questions": [
+            {
+              "id": "pack-literatura-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут сыщика, снимавшего квартиру на Бейкер-стрит, 221б?",
+              "answer": "Шерлок Холмс",
+              "altAnswers": [
+                "Холмс"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут огромного говорящего кота из свиты Воланда?",
+              "answer": "Бегемот",
+              "altAnswers": [
+                "Кот Бегемот"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут героя Дефо, прожившего 28 лет на необитаемом острове?",
+              "answer": "Робинзон Крузо",
+              "altAnswers": [
+                "Робинзон"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут капитана подводной лодки «Наутилус»?",
+              "answer": "Капитан Немо",
+              "altAnswers": [
+                "Немо"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут студента Достоевского, убившего старуху-процентщицу?",
+              "answer": "Родион Раскольников",
+              "altAnswers": [
+                "Раскольников"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-literatura-r1-t4",
+          "title": "Первые строки",
+          "questions": [
+            {
+              "id": "pack-literatura-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "«Мой дядя самых честных правил...» — начало какого произведения?",
+              "answer": "Евгений Онегин",
+              "altAnswers": [
+                "Онегин"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "«Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему» — какой роман?",
+              "answer": "Анна Каренина",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-literatura-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "«Однажды весною, в час небывало жаркого заката, в Москве, на Патриарших прудах...» — что за роман?",
+              "answer": "Мастер и Маргарита",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-literatura-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "«Зовите меня Измаил» — так начинается какой роман?",
+              "answer": "Моби Дик",
+              "altAnswers": [
+                "Моби Дик, или Белый кит"
+              ]
+            },
+            {
+              "id": "pack-literatura-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "«Это было самое прекрасное время, это было самое злосчастное время» — начало какого романа Диккенса?",
+              "answer": "Повесть о двух городах",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-literatura-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-literatura-r2-t1",
+          "title": "Фэнтези",
+          "questions": [
+            {
+              "id": "pack-literatura-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто написал «Властелина колец»?",
+              "answer": "Джон Толкин",
+              "altAnswers": [
+                "Толкин",
+                "Толкиен"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто написал книги о Гарри Поттере?",
+              "answer": "Джоан Роулинг",
+              "altAnswers": [
+                "Роулинг"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Кто написал цикл «Песнь льда и пламени», по которому сняли «Игру престолов»?",
+              "answer": "Джордж Мартин",
+              "altAnswers": [
+                "Джордж Р. Р. Мартин",
+                "Мартин"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-literatura-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто написал «Хроники Нарнии»?",
+              "answer": "Клайв Стейплз Льюис",
+              "altAnswers": [
+                "Льюис",
+                "К. С. Льюис"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто придумал ведьмака Геральта?",
+              "answer": "Анджей Сапковский",
+              "altAnswers": [
+                "Сапковский"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-literatura-r2-t2",
+          "title": "Детективы",
+          "questions": [
+            {
+              "id": "pack-literatura-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто придумал Шерлока Холмса?",
+              "answer": "Артур Конан Дойл",
+              "altAnswers": [
+                "Конан Дойл"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какую английскую писательницу называют королевой детектива?",
+              "answer": "Агата Кристи",
+              "altAnswers": [
+                "Кристи"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как зовут бельгийского сыщика с безупречными усами из её романов?",
+              "answer": "Эркюль Пуаро",
+              "altAnswers": [
+                "Пуаро"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто написал «Девушку с татуировкой дракона»?",
+              "answer": "Стиг Ларссон",
+              "altAnswers": [
+                "Ларссон"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как зовут пожилую сыщицу-любительницу из деревни Сент-Мэри-Мид?",
+              "answer": "Мисс Марпл",
+              "altAnswers": [
+                "Марпл"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-literatura-r2-t3",
+          "title": "Поэзия",
+          "questions": [
+            {
+              "id": "pack-literatura-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто написал «Я помню чудное мгновенье»?",
+              "answer": "Александр Пушкин",
+              "altAnswers": [
+                "Пушкин"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какого поэта называли последним поэтом деревни, автора «Письма к женщине»?",
+              "answer": "Сергей Есенин",
+              "altAnswers": [
+                "Есенин"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Кто написал поэму «Облако в штанах»?",
+              "answer": "Владимир Маяковский",
+              "altAnswers": [
+                "Маяковский"
+              ],
+              "cat": {
+                "theme": "Русская поэзия",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-literatura-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто написал «Реквием» — поэму о годах репрессий?",
+              "answer": "Анна Ахматова",
+              "altAnswers": [
+                "Ахматова"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто написал «Божественную комедию»?",
+              "answer": "Данте Алигьери",
+              "altAnswers": [
+                "Данте"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-literatura-r2-t4",
+          "title": "Книги и премии",
+          "questions": [
+            {
+              "id": "pack-literatura-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется главная международная литературная награда, которую вручают в Стокгольме?",
+              "answer": "Нобелевская премия по литературе",
+              "altAnswers": [
+                "Нобелевская премия"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая книга остаётся самой издаваемой в истории человечества?",
+              "answer": "Библия",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-literatura-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Кто из советских писателей получил Нобелевскую премию 1965 года за «Тихий Дон»?",
+              "answer": "Михаил Шолохов",
+              "altAnswers": [
+                "Шолохов"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто написал «Маленького принца»?",
+              "answer": "Антуан де Сент-Экзюпери",
+              "altAnswers": [
+                "Экзюпери",
+                "Сент-Экзюпери"
+              ]
+            },
+            {
+              "id": "pack-literatura-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В какой стране вручают Букеровскую премию?",
+              "answer": "Великобритания",
+              "altAnswers": [
+                "Англия",
+                "Британия"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-literatura-f1",
+        "title": "Романы",
+        "question": {
+          "id": "pack-literatura-f1-q",
+          "text": "Какой роман-эпопея Толстого охватывает войну 1812 года и состоит из четырёх томов?",
+          "answer": "Война и мир",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "pack-literatura-f2",
+        "title": "Псевдонимы",
+        "question": {
+          "id": "pack-literatura-f2-q",
+          "text": "Под каким именем публиковался Эрик Артур Блэр?",
+          "answer": "Джордж Оруэлл",
+          "altAnswers": [
+            "Оруэлл"
+          ]
+        }
+      },
+      {
+        "id": "pack-literatura-f3",
+        "title": "Сказки",
+        "question": {
+          "id": "pack-literatura-f3-q",
+          "text": "Кто написал «Русалочку», «Снежную королеву» и «Гадкого утёнка»?",
+          "answer": "Ганс Христиан Андерсен",
+          "altAnswers": [
+            "Андерсен"
+          ]
+        }
+      }
+    ]
+  }
+}

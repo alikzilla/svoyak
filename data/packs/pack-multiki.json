@@ -1,0 +1,488 @@
+{
+  "id": "pack-multiki",
+  "title": "Мультфильмы",
+  "author": "Свояк",
+  "description": "Disney, Pixar, «Союзмультфильм», Ghibli и аниме.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-multiki-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-multiki-r1-t1",
+          "title": "Disney",
+          "questions": [
+            {
+              "id": "pack-multiki-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут мышонка — главный символ студии Disney?",
+              "answer": "Микки Маус",
+              "altAnswers": [
+                "Микки"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут русалочку из одноимённого мультфильма?",
+              "answer": "Ариэль",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут львёнка — главного героя «Короля Льва»?",
+              "answer": "Симба",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут снеговика из «Холодного сердца»?",
+              "answer": "Олаф",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какой полнометражный мультфильм Disney вышел первым, в 1937 году?",
+              "answer": "Белоснежка и семь гномов",
+              "altAnswers": [
+                "Белоснежка"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-multiki-r1-t2",
+          "title": "Советские мультфильмы",
+          "questions": [
+            {
+              "id": "pack-multiki-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут крокодила — лучшего друга Чебурашки?",
+              "answer": "Гена",
+              "altAnswers": [
+                "Крокодил Гена"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут полосатого кота из Простоквашино?",
+              "answer": "Матроскин",
+              "altAnswers": [
+                "Кот Матроскин"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут почтальона из Простоквашино?",
+              "answer": "Печкин",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется мультсериал, где Волк гоняется за Зайцем?",
+              "answer": "Ну, погоди!",
+              "altAnswers": [
+                "Ну погоди"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут домовёнка из советского мультфильма про Наташу и сундук?",
+              "answer": "Кузя",
+              "altAnswers": [
+                "Домовёнок Кузя"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-multiki-r1-t3",
+          "title": "Pixar",
+          "questions": [
+            {
+              "id": "pack-multiki-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут ковбоя — главного героя «Истории игрушек»?",
+              "answer": "Вуди",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут рыбку-клоуна, которую отец ищет по всему океану?",
+              "answer": "Немо",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут крысу-повара из мультфильма о парижском ресторане?",
+              "answer": "Реми",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется мультфильм о роботе-мусорщике, оставшемся на опустевшей Земле?",
+              "answer": "ВАЛЛ-И",
+              "altAnswers": [
+                "WALL-E"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется мультфильм, где эмоции девочки Райли живут в пульте управления?",
+              "answer": "Головоломка",
+              "altAnswers": [
+                "Inside Out"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-multiki-r1-t4",
+          "title": "Аниме",
+          "questions": [
+            {
+              "id": "pack-multiki-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут ниндзя в оранжевом костюме, мечтающего стать Хокаге?",
+              "answer": "Наруто",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется аниме про пиратов и капитана Монки Д. Луффи?",
+              "answer": "Ван-Пис",
+              "altAnswers": [
+                "One Piece"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется аниме про Танджиро и его сестру, ставшую демоном?",
+              "answer": "Клинок, рассекающий демонов",
+              "altAnswers": [
+                "Kimetsu no Yaiba",
+                "Демон Слэйер"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В каком аниме школьник получает тетрадь, убивающую любого, чьё имя в неё вписать?",
+              "answer": "Тетрадь смерти",
+              "altAnswers": [
+                "Death Note"
+              ]
+            },
+            {
+              "id": "pack-multiki-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется аниме о братьях Элриках и цене человеческого преображения?",
+              "answer": "Стальной алхимик",
+              "altAnswers": [
+                "Fullmetal Alchemist"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-multiki-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-multiki-r2-t1",
+          "title": "Взрослая анимация",
+          "questions": [
+            {
+              "id": "pack-multiki-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут отца жёлтого семейства из Спрингфилда?",
+              "answer": "Гомер Симпсон",
+              "altAnswers": [
+                "Гомер"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В каком штате находится городок из «Южного парка»?",
+              "answer": "Колорадо",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как называется мультсериал про безумного учёного и его внука, путешествующих по мирам?",
+              "answer": "Рик и Морти",
+              "altAnswers": [
+                "Rick and Morty"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-multiki-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как зовут говорящего пса из «Гриффинов»?",
+              "answer": "Брайан",
+              "altAnswers": [
+                "Brian"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется мультсериал Мэтта Гроунинга про разносчика пиццы, замороженного на тысячу лет?",
+              "answer": "Футурама",
+              "altAnswers": [
+                "Futurama"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-multiki-r2-t2",
+          "title": "Студия Ghibli",
+          "questions": [
+            {
+              "id": "pack-multiki-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто основал студию Ghibli и снял «Унесённых призраками»?",
+              "answer": "Хаяо Миядзаки",
+              "altAnswers": [
+                "Миядзаки"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут большого лесного духа, ставшего эмблемой студии?",
+              "answer": "Тоторо",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как называется мультфильм про шагающий дом волшебника Хаула?",
+              "answer": "Ходячий замок",
+              "altAnswers": [
+                "Ходячий замок Хаула"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как зовут девочку, которая работает в бане для духов, чтобы спасти родителей?",
+              "answer": "Тихиро",
+              "altAnswers": [
+                "Сэн",
+                "Тихиро Огино"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется мультфильм о девушке, выросшей среди волков, и о духе леса?",
+              "answer": "Принцесса Мононоке",
+              "altAnswers": [
+                "Мононоке"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-multiki-r2-t3",
+          "title": "Голоса и песни",
+          "questions": [
+            {
+              "id": "pack-multiki-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Из какого мультфильма песня «Let It Go»?",
+              "answer": "Холодное сердце",
+              "altAnswers": [
+                "Frozen"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Из какого мультфильма фраза-песня «Hakuna Matata»?",
+              "answer": "Король Лев",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Кто озвучил Джинна в диснеевском «Аладдине» 1992 года, импровизируя большую часть реплик?",
+              "answer": "Робин Уильямс",
+              "altAnswers": [
+                "Уильямс"
+              ],
+              "cat": {
+                "theme": "Голоса",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-multiki-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какую песню поёт крокодил Гена, играя на гармошке?",
+              "answer": "Пусть бегут неуклюже",
+              "altAnswers": [
+                "Песенка крокодила Гены",
+                "Голубой вагон"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто написал песни к диснеевскому «Королю Льву», включая «Can You Feel the Love Tonight»?",
+              "answer": "Элтон Джон",
+              "altAnswers": [
+                "Элтон Джон"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-multiki-r2-t4",
+          "title": "Злодеи",
+          "questions": [
+            {
+              "id": "pack-multiki-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут брата Муфасы, убившего его ради трона?",
+              "answer": "Шрам",
+              "altAnswers": [
+                "Скар"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут морскую ведьму-осьминога из «Русалочки»?",
+              "answer": "Урсула",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как зовут злодейку, охотившуюся за шкурками далматинцев?",
+              "answer": "Круэлла де Виль",
+              "altAnswers": [
+                "Круэлла"
+              ]
+            },
+            {
+              "id": "pack-multiki-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как зовут визиря-злодея из «Аладдина»?",
+              "answer": "Джафар",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-multiki-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как зовут злую фею из диснеевской «Спящей красавицы»?",
+              "answer": "Малефисента",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-multiki-f1",
+        "title": "Оскар",
+        "question": {
+          "id": "pack-multiki-f1-q",
+          "text": "Какой мультфильм Хаяо Миядзаки получил «Оскар» за лучший анимационный фильм?",
+          "answer": "Унесённые призраками",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "pack-multiki-f2",
+        "title": "Классика",
+        "question": {
+          "id": "pack-multiki-f2-q",
+          "text": "Какой герой заговорил в мультфильме «Пароходик Вилли» 1928 года?",
+          "answer": "Микки Маус",
+          "altAnswers": [
+            "Микки"
+          ]
+        }
+      },
+      {
+        "id": "pack-multiki-f3",
+        "title": "Герои",
+        "question": {
+          "id": "pack-multiki-f3-q",
+          "text": "Как зовут зелёного огра из мультфильма студии DreamWorks?",
+          "answer": "Шрек",
+          "altAnswers": []
+        }
+      }
+    ]
+  }
+}

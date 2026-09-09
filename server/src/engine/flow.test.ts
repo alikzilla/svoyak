@@ -68,13 +68,30 @@ describe('выбор вопроса', () => {
     expect(cell?.played).toBe(true);
   });
 
-  it('не заводит таймеров: кнопку откроет ведущий, когда дочитает вопрос', () => {
-    const result = reduce(started(), {
+  it('при выключенном автостарте таймеров не заводит: кнопку откроет ведущий', () => {
+    const manual = createRoomState({
+      code: '1234',
+      pack: demoClassicPack,
+      settings: { ...DEFAULT_SETTINGS, autoOpenBuzzer: false },
+      hostToken: 'h',
+      now: 1000,
+    });
+    const withPlayer = reduce(manual, {
+      type: 'PLAYER_JOIN',
+      playerId: 'p1',
+      name: 'Вася',
+      sessionToken: 't1',
+      at: 2000,
+    }).state;
+    const inGame = reduce(withPlayer, { type: 'START_GAME', at: 3000 }).state;
+
+    const result = reduce(inGame, {
       type: 'PICK_QUESTION',
       themeId: 'r1-kino',
       questionId: 'r1-kino-q3',
       at: 4000,
     });
+
     expect(result.state.phase).toBe('reading');
     expect(result.effects.some((effect) => effect.type === 'setTimer')).toBe(false);
   });

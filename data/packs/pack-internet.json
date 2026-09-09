@@ -1,0 +1,536 @@
+{
+  "id": "pack-internet",
+  "title": "Интернет и мемы",
+  "author": "Свояк",
+  "description": "Мемы, сленг, вирусные видео и история сети.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-internet-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-internet-r1-t1",
+          "title": "Мемы",
+          "questions": [
+            {
+              "id": "pack-internet-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется мем, где слева кричит женщина, а справа за столом сидит белый кот?",
+              "answer": "Женщина кричит на кота",
+              "altAnswers": [
+                "Кот за столом",
+                "Woman Yelling at a Cat"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Собака какой породы стала мемом Doge?",
+              "answer": "Сиба-ину",
+              "altAnswers": [
+                "Сиба",
+                "Shiba Inu"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется мем, где парень оборачивается вслед другой девушке, а его спутница возмущена?",
+              "answer": "Отвлёкшийся парень",
+              "altAnswers": [
+                "Distracted Boyfriend",
+                "неверный парень"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Мем с рэпером, который сначала отмахивается, а потом одобрительно указывает пальцем, сделан из клипа какого исполнителя?",
+              "answer": "Дрейк",
+              "altAnswers": [
+                "Drake",
+                "Hotline Bling"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут зелёного лягушонка, ставшего одним из главных мемов интернета?",
+              "answer": "Пепе",
+              "altAnswers": [
+                "Pepe",
+                "лягушонок Пепе"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-internet-r1-t2",
+          "title": "Сетевой сленг",
+          "questions": [
+            {
+              "id": "pack-internet-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называются короткие вертикальные видео в Instagram?",
+              "answer": "Reels",
+              "altAnswers": [
+                "Рилс",
+                "рилсы"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Что означает слово «краш»?",
+              "answer": "Объект влюблённости",
+              "altAnswers": [
+                "Тот, кто нравится",
+                "симпатия"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Что означает «кринж»?",
+              "answer": "Испанский стыд, неловкость",
+              "altAnswers": [
+                "Стыд за другого",
+                "неловко"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Что скрывается за словом «рофл»?",
+              "answer": "Шутка, смех до упаду",
+              "altAnswers": [
+                "ROFL",
+                "катаюсь по полу от смеха"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Что в сетевом сленге значит одобрительное «база»?",
+              "answer": "Здравое, правильное мнение",
+              "altAnswers": [
+                "Правильно сказано",
+                "это верно"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-internet-r1-t3",
+          "title": "YouTube",
+          "questions": [
+            {
+              "id": "pack-internet-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Что жмут под видео, чтобы поддержать автора?",
+              "answer": "Лайк",
+              "altAnswers": [
+                "Палец вверх"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "На какой значок просят нажать, чтобы получать уведомления о новых роликах?",
+              "answer": "Колокольчик",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-internet-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какое видео первым в истории YouTube набрало миллиард просмотров?",
+              "answer": "Gangnam Style",
+              "altAnswers": [
+                "Гангнам Стайл"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется формат ролика, в котором блогер смотрит и комментирует чужое видео?",
+              "answer": "Реакция",
+              "altAnswers": [
+                "Реакт",
+                "reaction"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется самый первый ролик, загруженный на YouTube в 2005 году?",
+              "answer": "Me at the zoo",
+              "altAnswers": [
+                "Я в зоопарке"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-internet-r1-t4",
+          "title": "Символы и эмодзи",
+          "questions": [
+            {
+              "id": "pack-internet-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как в России в быту называют символ @?",
+              "answer": "Собака",
+              "altAnswers": [
+                "Собачка"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какое эмодзи чаще всего используют в мире, судя по статистике соцсетей?",
+              "answer": "Плачущий от смеха",
+              "altAnswers": [
+                "😂",
+                "смех до слёз"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называются японские смайлики, собранные из символов и читающиеся без поворота головы?",
+              "answer": "Каомодзи",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-internet-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой символ ставят перед словом, чтобы получился хэштег?",
+              "answer": "Решётку",
+              "altAnswers": [
+                "Решётка",
+                "#",
+                "октоторп"
+              ]
+            },
+            {
+              "id": "pack-internet-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Что обычно означает эмодзи с огнём под постом?",
+              "answer": "Одобрение, «огонь»",
+              "altAnswers": [
+                "Круто",
+                "восторг"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-internet-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-internet-r2-t1",
+          "title": "Вирусные видео",
+          "questions": [
+            {
+              "id": "pack-internet-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как назывался вирусный танцевальный флешмоб 2013 года, начинавшийся с одного танцующего в шлеме?",
+              "answer": "Harlem Shake",
+              "altAnswers": [
+                "Харлем Шейк"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как назывался благотворительный челлендж с ведром ледяной воды?",
+              "answer": "Ice Bucket Challenge",
+              "altAnswers": [
+                "Челлендж с ведром льда"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как называется классический ролик раннего YouTube, где младенец кусает брата за палец?",
+              "answer": "Charlie Bit My Finger",
+              "altAnswers": [
+                "Чарли укусил мой палец"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-internet-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Песню какого исполнителя подсовывают в шутку вместо обещанной ссылки — приём назвали рикроллингом?",
+              "answer": "Рик Эстли",
+              "altAnswers": [
+                "Rick Astley",
+                "Never Gonna Give You Up"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как прозвали кошку с вечно недовольной мордой, ставшую мемом?",
+              "answer": "Grumpy Cat",
+              "altAnswers": [
+                "Сердитый кот",
+                "Грампи Кэт"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-internet-r2-t2",
+          "title": "Игровой интернет",
+          "questions": [
+            {
+              "id": "pack-internet-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется мессенджер с серверами и голосовыми каналами, который выбрали геймеры?",
+              "answer": "Discord",
+              "altAnswers": [
+                "Дискорд"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется главный магазин компьютерных игр, принадлежащий Valve?",
+              "answer": "Steam",
+              "altAnswers": [
+                "Стим"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как пренебрежительно называют неопытного игрока?",
+              "answer": "Нуб",
+              "altAnswers": [
+                "Noob"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называют человека, который специально провоцирует конфликт в сети ради реакции?",
+              "answer": "Тролль",
+              "altAnswers": [
+                "Троллинг"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называют внешние предметы для персонажа, которые не дают преимущества в бою?",
+              "answer": "Скины",
+              "altAnswers": [
+                "Скин",
+                "косметика"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-internet-r2-t3",
+          "title": "История сети",
+          "questions": [
+            {
+              "id": "pack-internet-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В каком году основали Google?",
+              "answer": "1998",
+              "altAnswers": [
+                "в 1998 году"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой портал был главным поисковиком и каталогом сети до расцвета Google?",
+              "answer": "Yahoo",
+              "altAnswers": [
+                "Яху"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Какую соцсеть с музыкой на страницах Facebook обошёл в конце нулевых?",
+              "answer": "MySpace",
+              "altAnswers": [
+                "Май спейс"
+              ],
+              "cat": {
+                "theme": "Старый интернет",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-internet-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какой браузер победил Netscape в первой войне браузеров?",
+              "answer": "Internet Explorer",
+              "altAnswers": [
+                "Интернет Эксплорер",
+                "IE"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какие две буквы стали первым сообщением, переданным по сети ARPANET в 1969 году, — попытка набрать LOGIN оборвалась?",
+              "answer": "LO",
+              "altAnswers": [
+                "«ло»",
+                "lo"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-internet-r2-t4",
+          "title": "Онлайн-сервисы",
+          "questions": [
+            {
+              "id": "pack-internet-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется энциклопедия, которую пишут и правят сами пользователи?",
+              "answer": "Википедия",
+              "altAnswers": [
+                "Wikipedia"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется главный сервис хранения исходного кода, купленный Microsoft в 2018 году?",
+              "answer": "GitHub",
+              "altAnswers": [
+                "Гитхаб"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как называется облачное хранилище файлов от Google?",
+              "answer": "Google Drive",
+              "altAnswers": [
+                "Гугл Диск",
+                "Диск"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какой сайт называет себя «главной страницей интернета» и состоит из тематических сообществ?",
+              "answer": "Reddit",
+              "altAnswers": [
+                "Реддит"
+              ]
+            },
+            {
+              "id": "pack-internet-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "На каком сайте программисты всего мира ищут ответы на вопросы по коду?",
+              "answer": "Stack Overflow",
+              "altAnswers": [
+                "Стек Оверфлоу"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-internet-f1",
+        "title": "Законы интернета",
+        "question": {
+          "id": "pack-internet-f1-q",
+          "text": "Как называется наблюдение, что в любом достаточно длинном споре в сети кто-нибудь вспомнит нацистов?",
+          "answer": "Закон Годвина",
+          "altAnswers": [
+            "Годвина"
+          ]
+        }
+      },
+      {
+        "id": "pack-internet-f2",
+        "title": "Аббревиатуры",
+        "question": {
+          "id": "pack-internet-f2-q",
+          "text": "Как расшифровывается ИМХО?",
+          "answer": "По моему скромному мнению",
+          "altAnswers": [
+            "IMHO",
+            "in my humble opinion"
+          ]
+        }
+      },
+      {
+        "id": "pack-internet-f3",
+        "title": "Криптовалюты",
+        "question": {
+          "id": "pack-internet-f3-q",
+          "text": "Под каким именем известен анонимный создатель биткоина?",
+          "answer": "Сатоси Накамото",
+          "altAnswers": [
+            "Сатоши Накамото",
+            "Накамото"
+          ]
+        }
+      }
+    ]
+  }
+}

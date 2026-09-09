@@ -1,0 +1,524 @@
+{
+  "id": "pack-znamenitosti",
+  "title": "Знаменитости",
+  "author": "Свояк",
+  "description": "Звёзды экрана, учёные, миллиардеры и настоящие имена.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-znamenitosti-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-znamenitosti-r1-t1",
+          "title": "Звёзды экрана",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какой актёр сыграл Гарри Поттера во всех восьми фильмах?",
+              "answer": "Дэниел Рэдклифф",
+              "altAnswers": [
+                "Рэдклифф"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Актриса, сыгравшая Чёрную вдову в фильмах Marvel.",
+              "answer": "Скарлетт Йоханссон",
+              "altAnswers": [
+                "Йоханссон"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Бывший рестлер, ставший самым высокооплачиваемым актёром Голливуда; его прозвище — «Скала».",
+              "answer": "Дуэйн Джонсон",
+              "altAnswers": [
+                "Скала",
+                "The Rock",
+                "Дуэйн Скала Джонсон"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Он был и Нео, и Джоном Уиком.",
+              "answer": "Киану Ривз",
+              "altAnswers": [
+                "Ривз"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Британец, сыгравший Шерлока в сериале BBC и Доктора Стрэнджа.",
+              "answer": "Бенедикт Камбербэтч",
+              "altAnswers": [
+                "Камбербэтч"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-znamenitosti-r1-t2",
+          "title": "Легенды спорта",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Аргентинец, рекордсмен по числу «Золотых мячей» и чемпион мира 2022 года.",
+              "answer": "Лионель Месси",
+              "altAnswers": [
+                "Месси"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "В честь какого баскетболиста названы кроссовки Air Jordan?",
+              "answer": "Майкл Джордан",
+              "altAnswers": [
+                "Джордан"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Ямаец, которому принадлежат мировые рекорды на 100 и 200 метрах.",
+              "answer": "Усэйн Болт",
+              "altAnswers": [
+                "Болт"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Норвежский шахматист, чемпион мира, добровольно отказавшийся защищать титул в 2023 году.",
+              "answer": "Магнус Карлсен",
+              "altAnswers": [
+                "Карлсен"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Боксёр, называвший себя «Величайшим»; до принятия ислама его звали Кассиус Клей.",
+              "answer": "Мохаммед Али",
+              "altAnswers": [
+                "Мухаммед Али",
+                "Али"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-znamenitosti-r1-t3",
+          "title": "Учёные",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Автор теории относительности.",
+              "answer": "Альберт Эйнштейн",
+              "altAnswers": [
+                "Эйнштейн"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто сформулировал закон всемирного тяготения и три закона механики?",
+              "answer": "Исаак Ньютон",
+              "altAnswers": [
+                "Ньютон"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Единственная женщина — дважды нобелевский лауреат, по физике и по химии.",
+              "answer": "Мария Кюри",
+              "altAnswers": [
+                "Кюри",
+                "Мария Склодовская-Кюри"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Автор теории эволюции путём естественного отбора.",
+              "answer": "Чарльз Дарвин",
+              "altAnswers": [
+                "Дарвин"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Кто составил периодическую систему химических элементов?",
+              "answer": "Дмитрий Менделеев",
+              "altAnswers": [
+                "Менделеев"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-znamenitosti-r1-t4",
+          "title": "Настоящие имена",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Под каким именем прославился Фаррух Булсара?",
+              "answer": "Фредди Меркьюри",
+              "altAnswers": [
+                "Меркьюри"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Норма Джин Мортенсон вошла в историю под каким именем?",
+              "answer": "Мэрилин Монро",
+              "altAnswers": [
+                "Монро"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какая настоящая фамилия была у Ленина?",
+              "answer": "Ульянов",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-znamenitosti-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называет себя Маршалл Брюс Мэтерс III?",
+              "answer": "Эминем",
+              "altAnswers": [
+                "Eminem",
+                "Slim Shady"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Сэмюэл Клеменс подписывал книги псевдонимом, взятым из речного жаргона. Каким?",
+              "answer": "Марк Твен",
+              "altAnswers": [
+                "Твен"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-znamenitosti-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-znamenitosti-r2-t1",
+          "title": "Миллиардеры",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто основал Microsoft вместе с Полом Алленом?",
+              "answer": "Билл Гейтс",
+              "altAnswers": [
+                "Гейтс"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто начал с интернет-магазина книг и построил Amazon?",
+              "answer": "Джефф Безос",
+              "altAnswers": [
+                "Безос"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Кто одновременно руководит Tesla и SpaceX?",
+              "answer": "Илон Маск",
+              "altAnswers": [
+                "Маск"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-znamenitosti-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто создал Facebook в комнате общежития Гарварда?",
+              "answer": "Марк Цукерберг",
+              "altAnswers": [
+                "Цукерберг"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Американский инвестор, которого называют «оракулом из Омахи».",
+              "answer": "Уоррен Баффет",
+              "altAnswers": [
+                "Баффет"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-znamenitosti-r2-t2",
+          "title": "Политики XX века",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Единственный президент СССР.",
+              "answer": "Михаил Горбачёв",
+              "altAnswers": [
+                "Горбачёв",
+                "Горбачев"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Британский премьер-министр, руководивший страной в годы Второй мировой войны.",
+              "answer": "Уинстон Черчилль",
+              "altAnswers": [
+                "Черчилль"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Первый чернокожий президент ЮАР, отсидевший 27 лет в тюрьме.",
+              "answer": "Нельсон Мандела",
+              "altAnswers": [
+                "Мандела"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Лидер ненасильственного сопротивления, приведший Индию к независимости.",
+              "answer": "Махатма Ганди",
+              "altAnswers": [
+                "Ганди"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Президент США, убитый в Далласе в 1963 году.",
+              "answer": "Джон Кеннеди",
+              "altAnswers": [
+                "Кеннеди",
+                "Джон Фицджеральд Кеннеди"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-znamenitosti-r2-t3",
+          "title": "Художники и писатели",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто написал «Мону Лизу»?",
+              "answer": "Леонардо да Винчи",
+              "altAnswers": [
+                "да Винчи",
+                "Леонардо"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Художник, отрезавший себе часть уха и написавший «Звёздную ночь».",
+              "answer": "Винсент Ван Гог",
+              "altAnswers": [
+                "Ван Гог"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Испанец, один из основоположников кубизма, автор «Герники».",
+              "answer": "Пабло Пикассо",
+              "altAnswers": [
+                "Пикассо"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто написал «Войну и мир»?",
+              "answer": "Лев Толстой",
+              "altAnswers": [
+                "Толстой"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Испанский сюрреалист с закрученными усами, автор «Постоянства памяти» с текучими часами.",
+              "answer": "Сальвадор Дали",
+              "altAnswers": [
+                "Дали"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-znamenitosti-r2-t4",
+          "title": "Звёзды интернета",
+          "questions": [
+            {
+              "id": "pack-znamenitosti-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется платформа коротких вертикальных видео, ставшая главным приложением 2020 года?",
+              "answer": "TikTok",
+              "altAnswers": [
+                "Тикток"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Швед Феликс Чельберг много лет держал звание самого популярного ютубера. Под каким ником?",
+              "answer": "PewDiePie",
+              "altAnswers": [
+                "ПьюДиПай"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t4-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Как называют человека, который ведёт прямые эфиры с играми?",
+              "answer": "Стример",
+              "altAnswers": [
+                "Streamer"
+              ],
+              "cat": {
+                "theme": "Интернет",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-znamenitosti-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Крупнейшая платформа игровых трансляций, купленная Amazon.",
+              "answer": "Twitch",
+              "altAnswers": [
+                "Твич"
+              ]
+            },
+            {
+              "id": "pack-znamenitosti-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто прославился дорогими челленджами и раздачей денег, а в 2020-х возглавил список ютуберов?",
+              "answer": "MrBeast",
+              "altAnswers": [
+                "Мистер Бист",
+                "Джимми Дональдсон"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-znamenitosti-f1",
+        "title": "Нобель",
+        "question": {
+          "id": "pack-znamenitosti-f1-q",
+          "text": "Кто завещал состояние на премию, разбогатев на изобретении динамита?",
+          "answer": "Альфред Нобель",
+          "altAnswers": [
+            "Нобель"
+          ]
+        }
+      },
+      {
+        "id": "pack-znamenitosti-f2",
+        "title": "Псевдонимы",
+        "question": {
+          "id": "pack-znamenitosti-f2-q",
+          "text": "Под каким сценическим именем поёт Стефани Джоанн Анджелина Джерманотта?",
+          "answer": "Леди Гага",
+          "altAnswers": [
+            "Lady Gaga"
+          ]
+        }
+      },
+      {
+        "id": "pack-znamenitosti-f3",
+        "title": "Первые",
+        "question": {
+          "id": "pack-znamenitosti-f3-q",
+          "text": "Кто первым ступил на поверхность Луны?",
+          "answer": "Нил Армстронг",
+          "altAnswers": [
+            "Армстронг"
+          ]
+        }
+      }
+    ]
+  }
+}

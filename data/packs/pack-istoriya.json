@@ -1,0 +1,519 @@
+{
+  "id": "pack-istoriya",
+  "title": "История",
+  "author": "Свояк",
+  "description": "От пирамид до холодной войны.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-istoriya-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-istoriya-r1-t1",
+          "title": "Древний мир",
+          "questions": [
+            {
+              "id": "pack-istoriya-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В какой стране стоят пирамиды Гизы?",
+              "answer": "Египет",
+              "altAnswers": [
+                "Египте"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какой царь Македонии дошёл со своим войском до Индии?",
+              "answer": "Александр Македонский",
+              "altAnswers": [
+                "Александр Великий"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кому приписывают предсмертное «И ты, Брут?»",
+              "answer": "Юлий Цезарь",
+              "altAnswers": [
+                "Цезарь"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется письменность Древнего Египта?",
+              "answer": "Иероглифы",
+              "altAnswers": [
+                "Египетские иероглифы"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какой город погиб под пеплом Везувия в 79 году?",
+              "answer": "Помпеи",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-istoriya-r1-t2",
+          "title": "Средневековье",
+          "questions": [
+            {
+              "id": "pack-istoriya-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называли скандинавских воинов-мореходов, наводивших ужас на Европу?",
+              "answer": "Викинги",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-istoriya-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называют эпидемию чумы, выкосившую треть Европы в XIV веке?",
+              "answer": "Чёрная смерть",
+              "altAnswers": [
+                "Чёрный мор",
+                "Чума"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Французская крестьянка, возглавившая войско и сожжённая на костре в 1431 году.",
+              "answer": "Жанна д'Арк",
+              "altAnswers": [
+                "Жанна дАрк"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называются походы европейских рыцарей на Ближний Восток за Гроб Господень?",
+              "answer": "Крестовые походы",
+              "altAnswers": [
+                "Крестовый поход"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "В каком году турки взяли Константинополь?",
+              "answer": "1453",
+              "altAnswers": [
+                "в 1453 году"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-istoriya-r1-t3",
+          "title": "Великие открытия",
+          "questions": [
+            {
+              "id": "pack-istoriya-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Кто в 1492 году доплыл до Америки, думая, что нашёл путь в Индию?",
+              "answer": "Христофор Колумб",
+              "altAnswers": [
+                "Колумб"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Чья экспедиция первой обогнула земной шар?",
+              "answer": "Фернана Магеллана",
+              "altAnswers": [
+                "Магеллан",
+                "Магеллана"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Кто первым достиг Южного полюса?",
+              "answer": "Руаль Амундсен",
+              "altAnswers": [
+                "Амундсен"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто открыл морской путь в Индию вокруг Африки?",
+              "answer": "Васко да Гама",
+              "altAnswers": [
+                "да Гама"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какой материк люди открыли последним?",
+              "answer": "Антарктида",
+              "altAnswers": [
+                "Антарктиду"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-istoriya-r1-t4",
+          "title": "Даты",
+          "questions": [
+            {
+              "id": "pack-istoriya-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В каком году закончилась Вторая мировая война?",
+              "answer": "1945",
+              "altAnswers": [
+                "в 1945 году"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "В каком году человек впервые полетел в космос?",
+              "answer": "1961",
+              "altAnswers": [
+                "в 1961 году"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В каком году прекратил существование СССР?",
+              "answer": "1991",
+              "altAnswers": [
+                "в 1991 году"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В каком году началась Первая мировая война?",
+              "answer": "1914",
+              "altAnswers": [
+                "в 1914 году"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "В каком году пала Берлинская стена?",
+              "answer": "1989",
+              "altAnswers": [
+                "в 1989 году"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-istoriya-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-istoriya-r2-t1",
+          "title": "Войны",
+          "questions": [
+            {
+              "id": "pack-istoriya-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется главное сражение 1812 года под Москвой?",
+              "answer": "Бородинское сражение",
+              "altAnswers": [
+                "Бородино"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как назывался план немецкого вторжения в СССР в 1941 году?",
+              "answer": "Барбаросса",
+              "altAnswers": [
+                "План Барбаросса"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как называют высадку союзников в Нормандии 6 июня 1944 года?",
+              "answer": "День Д",
+              "altAnswers": [
+                "D-Day",
+                "Операция Оверлорд"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-istoriya-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Между какими странами шла Столетняя война?",
+              "answer": "Между Англией и Францией",
+              "altAnswers": [
+                "Англия и Франция"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется противостояние СССР и США, шедшее без прямых боёв между ними?",
+              "answer": "Холодная война",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-istoriya-r2-t2",
+          "title": "Россия",
+          "questions": [
+            {
+              "id": "pack-istoriya-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто стал первым российским императором?",
+              "answer": "Пётр I",
+              "altAnswers": [
+                "Пётр Первый",
+                "Пётр Великий",
+                "Петр I"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой князь крестил Русь в 988 году?",
+              "answer": "Владимир Святой",
+              "altAnswers": [
+                "Князь Владимир",
+                "Владимир Красное Солнышко"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какого царя прозвали Грозным?",
+              "answer": "Ивана IV",
+              "altAnswers": [
+                "Иван Грозный",
+                "Иван IV"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какая императрица правила Россией 34 года во второй половине XVIII века?",
+              "answer": "Екатерина II",
+              "altAnswers": [
+                "Екатерина Великая"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В каком году основан Санкт-Петербург?",
+              "answer": "1703",
+              "altAnswers": [
+                "в 1703 году"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-istoriya-r2-t3",
+          "title": "XX век",
+          "questions": [
+            {
+              "id": "pack-istoriya-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "На какой японский город сбросили первую в истории атомную бомбу?",
+              "answer": "Хиросима",
+              "altAnswers": [
+                "Хиросиму"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называлась стена, разделявшая город и две Германии с 1961 по 1989 год?",
+              "answer": "Берлинская стена",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-istoriya-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Кто был президентом США во время Карибского кризиса 1962 года?",
+              "answer": "Джон Кеннеди",
+              "altAnswers": [
+                "Кеннеди"
+              ],
+              "cat": {
+                "theme": "Холодная война",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-istoriya-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называют соперничество СССР и США за первенство в освоении космоса?",
+              "answer": "Космическая гонка",
+              "altAnswers": [
+                "Космическая гонка",
+                "Лунная гонка"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В каком крымском городе в феврале 1945 года встретились Сталин, Рузвельт и Черчилль?",
+              "answer": "Ялта",
+              "altAnswers": [
+                "Ялте"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-istoriya-r2-t4",
+          "title": "Изобретения",
+          "questions": [
+            {
+              "id": "pack-istoriya-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто довёл лампу накаливания до массового производства?",
+              "answer": "Томас Эдисон",
+              "altAnswers": [
+                "Эдисон"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто наладил книгопечатание подвижными литерами в Европе?",
+              "answer": "Иоганн Гутенберг",
+              "altAnswers": [
+                "Гутенберг"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Кому принадлежит патент на телефон 1876 года?",
+              "answer": "Александру Беллу",
+              "altAnswers": [
+                "Белл",
+                "Александр Белл"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто открыл пенициллин?",
+              "answer": "Александр Флеминг",
+              "altAnswers": [
+                "Флеминг"
+              ]
+            },
+            {
+              "id": "pack-istoriya-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какого изобретателя радио чествуют в России 7 мая?",
+              "answer": "Александра Попова",
+              "altAnswers": [
+                "Попов",
+                "Александр Попов"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-istoriya-f1",
+        "title": "Империи",
+        "question": {
+          "id": "pack-istoriya-f1-q",
+          "text": "Какая империя была самой большой по площади за всю историю человечества?",
+          "answer": "Британская империя",
+          "altAnswers": [
+            "Британская"
+          ]
+        }
+      },
+      {
+        "id": "pack-istoriya-f2",
+        "title": "Правители",
+        "question": {
+          "id": "pack-istoriya-f2-q",
+          "text": "Какой французский император проиграл битву при Ватерлоо?",
+          "answer": "Наполеон Бонапарт",
+          "altAnswers": [
+            "Наполеон"
+          ]
+        }
+      },
+      {
+        "id": "pack-istoriya-f3",
+        "title": "Революции",
+        "question": {
+          "id": "pack-istoriya-f3-q",
+          "text": "В каком году началась Великая французская революция — со взятия Бастилии?",
+          "answer": "1789",
+          "altAnswers": [
+            "в 1789 году"
+          ]
+        }
+      }
+    ]
+  }
+}

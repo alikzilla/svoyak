@@ -1,0 +1,516 @@
+{
+  "id": "pack-muzyka",
+  "title": "Музыка",
+  "author": "Свояк",
+  "description": "Рок, поп, хип-хоп, классика и инструменты.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-muzyka-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-muzyka-r1-t1",
+          "title": "Легенды рока",
+          "questions": [
+            {
+              "id": "pack-muzyka-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какая ливерпульская четвёрка записала альбом «Abbey Road»?",
+              "answer": "The Beatles",
+              "altAnswers": [
+                "Битлз",
+                "Битлс"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Фронтмен Queen, исполнивший «Bohemian Rhapsody».",
+              "answer": "Фредди Меркьюри",
+              "altAnswers": [
+                "Меркьюри"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Группа, на обложке альбома которой луч света проходит сквозь призму.",
+              "answer": "Pink Floyd",
+              "altAnswers": [
+                "Пинк Флойд"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Левша, игравший на перевёрнутой гитаре и поджёгший её на фестивале в Монтерее.",
+              "answer": "Джими Хендрикс",
+              "altAnswers": [
+                "Хендрикс"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Кто записал «Stairway to Heaven»?",
+              "answer": "Led Zeppelin",
+              "altAnswers": [
+                "Лед Зеппелин"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-muzyka-r1-t2",
+          "title": "Поп-музыка",
+          "questions": [
+            {
+              "id": "pack-muzyka-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Кого называют королём поп-музыки?",
+              "answer": "Майкл Джексон",
+              "altAnswers": [
+                "Джексон"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Певица с титулом королевы попа, исполнившая «Like a Prayer».",
+              "answer": "Мадонна",
+              "altAnswers": [
+                "Madonna"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Британец, который выходит на стадион один — с гитарой и петлевой станцией — и поёт «Shape of You».",
+              "answer": "Эд Ширан",
+              "altAnswers": [
+                "Ширан"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Чьи альбомы называются «1989», «Folklore» и «Midnights»?",
+              "answer": "Тейлор Свифт",
+              "altAnswers": [
+                "Свифт"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Корейская группа, взорвавшая чарты песнями «Dynamite» и «Butter».",
+              "answer": "BTS",
+              "altAnswers": [
+                "БТС",
+                "Bangtan Boys"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-muzyka-r1-t3",
+          "title": "Инструменты",
+          "questions": [
+            {
+              "id": "pack-muzyka-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Сколько струн у классической гитары?",
+              "answer": "Шесть",
+              "altAnswers": [
+                "6"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Сколько клавиш у стандартного современного фортепиано?",
+              "answer": "88",
+              "altAnswers": [
+                "восемьдесят восемь"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Самый крупный смычковый инструмент симфонического оркестра.",
+              "answer": "Контрабас",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-muzyka-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой духовой инструмент изобрёл бельгиец Адольф Сакс?",
+              "answer": "Саксофон",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-muzyka-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "На каком электронном инструменте играют, вообще не касаясь его, — движением рук между антеннами?",
+              "answer": "Терменвокс",
+              "altAnswers": [
+                "Theremin"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-muzyka-r1-t4",
+          "title": "Наши артисты",
+          "questions": [
+            {
+              "id": "pack-muzyka-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Кто был лидером группы «Кино»?",
+              "answer": "Виктор Цой",
+              "altAnswers": [
+                "Цой"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Группа Егора Летова, спевшая «Всё идёт по плану».",
+              "answer": "Гражданская оборона",
+              "altAnswers": [
+                "ГрОб"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какой группой руководит Юрий Шевчук?",
+              "answer": "ДДТ",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-muzyka-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто исполнил «Миллион алых роз»?",
+              "answer": "Алла Пугачёва",
+              "altAnswers": [
+                "Пугачёва",
+                "Пугачева"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Бессменный лидер «Аквариума».",
+              "answer": "Борис Гребенщиков",
+              "altAnswers": [
+                "Гребенщиков",
+                "БГ"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-muzyka-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-muzyka-r2-t1",
+          "title": "Хип-хоп",
+          "questions": [
+            {
+              "id": "pack-muzyka-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Рэпер из Детройта, сыгравший самого себя в фильме «8 миля».",
+              "answer": "Эминем",
+              "altAnswers": [
+                "Eminem",
+                "Маршалл Мэтерс"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется рэп-поединок, где текст сочиняют прямо на ходу?",
+              "answer": "Фристайл",
+              "altAnswers": [
+                "Freestyle"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Продюсер, основавший лейбл Aftermath и открывший миру Эминема и 50 Cent.",
+              "answer": "Dr. Dre",
+              "altAnswers": [
+                "Доктор Дре",
+                "Дре"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-muzyka-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В каком районе Нью-Йорка в 1970-х зародился хип-хоп?",
+              "answer": "Бронкс",
+              "altAnswers": [
+                "Южный Бронкс"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Канадец, который начинал как актёр подросткового сериала «Degrassi», а стал автором «God's Plan».",
+              "answer": "Дрейк",
+              "altAnswers": [
+                "Drake"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-muzyka-r2-t2",
+          "title": "Классика",
+          "questions": [
+            {
+              "id": "pack-muzyka-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто написал «Лунную сонату»?",
+              "answer": "Людвиг ван Бетховен",
+              "altAnswers": [
+                "Бетховен"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Автор балетов «Лебединое озеро» и «Щелкунчик».",
+              "answer": "Пётр Чайковский",
+              "altAnswers": [
+                "Чайковский"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Австрийский вундеркинд, написавший «Волшебную флейту» и «Реквием».",
+              "answer": "Вольфганг Амадей Моцарт",
+              "altAnswers": [
+                "Моцарт"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кому принадлежат «Времена года» — цикл из четырёх скрипичных концертов?",
+              "answer": "Антонио Вивальди",
+              "altAnswers": [
+                "Вивальди"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Русский композитор, автор оперы «Борис Годунов» и «Картинок с выставки».",
+              "answer": "Модест Мусоргский",
+              "altAnswers": [
+                "Мусоргский"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-muzyka-r2-t3",
+          "title": "Мировые хиты",
+          "questions": [
+            {
+              "id": "pack-muzyka-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Песня Джона Леннона, которая начинается словами «Imagine there's no heaven».",
+              "answer": "Imagine",
+              "altAnswers": [
+                "Имэджин"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Шведский квартет, победивший на Евровидении-1974 с песней «Waterloo».",
+              "answer": "ABBA",
+              "altAnswers": [
+                "АББА"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Хит Майкла Джексона, клип на который снят как 14-минутный фильм ужасов.",
+              "answer": "Thriller",
+              "altAnswers": [
+                "Триллер"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какая песня Луи Армстронга начинается со слов «I see trees of green»?",
+              "answer": "What a Wonderful World",
+              "altAnswers": [
+                "Какой чудесный мир"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Песня Nirvana 1991 года, ставшая гимном гранжа.",
+              "answer": "Smells Like Teen Spirit",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-muzyka-r2-t4",
+          "title": "Группы и альбомы",
+          "questions": [
+            {
+              "id": "pack-muzyka-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В какой группе поют и играют Мик Джаггер и Кит Ричардс?",
+              "answer": "The Rolling Stones",
+              "altAnswers": [
+                "Роллинг Стоунз"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t4-q2",
+              "price": 400,
+              "type": "cat",
+              "text": "Чей альбом «Thriller» остаётся самым продаваемым в истории?",
+              "answer": "Майкл Джексон",
+              "altAnswers": [
+                "Джексон"
+              ],
+              "cat": {
+                "theme": "Рекорды музыки",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-muzyka-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Ирландская группа, которой руководит Боно.",
+              "answer": "U2",
+              "altAnswers": [
+                "Ю ту"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто выпустил альбом «OK Computer»?",
+              "answer": "Radiohead",
+              "altAnswers": [
+                "Радиохед"
+              ]
+            },
+            {
+              "id": "pack-muzyka-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Австралийская рок-группа, спевшая «Highway to Hell».",
+              "answer": "AC/DC",
+              "altAnswers": [
+                "Эй-си-ди-си"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-muzyka-f1",
+        "title": "Битлз",
+        "question": {
+          "id": "pack-muzyka-f1-q",
+          "text": "Кто из «Битлз» сидел за барабанами?",
+          "answer": "Ринго Старр",
+          "altAnswers": [
+            "Старр"
+          ]
+        }
+      },
+      {
+        "id": "pack-muzyka-f2",
+        "title": "Премии",
+        "question": {
+          "id": "pack-muzyka-f2-q",
+          "text": "Как называется главная музыкальная премия США, статуэтка которой — золотой граммофон?",
+          "answer": "Грэмми",
+          "altAnswers": [
+            "Grammy"
+          ]
+        }
+      },
+      {
+        "id": "pack-muzyka-f3",
+        "title": "Клипы",
+        "question": {
+          "id": "pack-muzyka-f3-q",
+          "text": "Клип какого корейского исполнителя первым на YouTube набрал миллиард просмотров?",
+          "answer": "PSY",
+          "altAnswers": [
+            "Псай",
+            "Пси"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -18,6 +18,12 @@ export interface RoomSettings {
   finalRequiresPositive: boolean;
   /** Минимальный шаг повышения ставки на аукционе. */
   auctionStep: number;
+  /** Пауза после показа вопроса: ведущий читает вслух, кнопки заблокированы.
+   *  Ноль — кнопка открывается сразу вместе с вопросом. */
+  readingMs: number;
+  /** Открывать ли кнопку самостоятельно по истечении паузы.
+   *  Выключено — ведущий открывает её сам, как раньше. */
+  autoOpenBuzzer: boolean;
 }
 
 export const DEFAULT_SETTINGS: RoomSettings = {
@@ -31,4 +37,6 @@ export const DEFAULT_SETTINGS: RoomSettings = {
   allowNegative: true,
   finalRequiresPositive: true,
   auctionStep: 100,
+  readingMs: 5000,
+  autoOpenBuzzer: true,
 };

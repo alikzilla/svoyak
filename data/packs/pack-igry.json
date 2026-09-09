@@ -1,0 +1,523 @@
+{
+  "id": "pack-igry",
+  "title": "Видеоигры",
+  "author": "Свояк",
+  "description": "От «Тетриса» до киберспорта и инди-хитов.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-igry-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-igry-r1-t1",
+          "title": "Классика",
+          "questions": [
+            {
+              "id": "pack-igry-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В какой игре с неба падают фигуры из четырёх квадратиков?",
+              "answer": "Тетрис",
+              "altAnswers": [
+                "Tetris"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто придумал «Тетрис»?",
+              "answer": "Алексей Пажитнов",
+              "altAnswers": [
+                "Пажитнов"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут жёлтого круглого героя, который ест точки в лабиринте, убегая от призраков?",
+              "answer": "Пакман",
+              "altAnswers": [
+                "Pac-Man"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая игра 1993 года про морпеха на базе Марса задала канон шутеров от первого лица?",
+              "answer": "DOOM",
+              "altAnswers": [
+                "Дум"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут синего ежа — талисман SEGA?",
+              "answer": "Соник",
+              "altAnswers": [
+                "Sonic"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-igry-r1-t2",
+          "title": "Nintendo",
+          "questions": [
+            {
+              "id": "pack-igry-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут усатого водопроводчика — главный символ компании?",
+              "answer": "Марио",
+              "altAnswers": [
+                "Mario"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут брата Марио?",
+              "answer": "Луиджи",
+              "altAnswers": [
+                "Luigi"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется серия про ловлю монстров в шары и их тренировку?",
+              "answer": "Покемон",
+              "altAnswers": [
+                "Pokemon"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут героя серии The Legend of Zelda? Нет, не Зельда.",
+              "answer": "Линк",
+              "altAnswers": [
+                "Link"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут рогатую черепаху — главного врага Марио?",
+              "answer": "Боузер",
+              "altAnswers": [
+                "Bowser",
+                "Купа"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-igry-r1-t3",
+          "title": "Шутеры",
+          "questions": [
+            {
+              "id": "pack-igry-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется командный шутер, где террористы закладывают бомбу, а спецназ её обезвреживает?",
+              "answer": "Counter-Strike",
+              "altAnswers": [
+                "Контр-страйк",
+                "КС"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется «королевская битва» от Epic Games, где можно строить укрытия?",
+              "answer": "Fortnite",
+              "altAnswers": [
+                "Фортнайт"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как полностью называется военная серия, которую сокращают до CoD?",
+              "answer": "Call of Duty",
+              "altAnswers": [
+                "Кол оф дьюти"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В какой серии Valve играют за физика Гордона Фримена?",
+              "answer": "Half-Life",
+              "altAnswers": [
+                "Халф-лайф"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут героя серии Halo в зелёной броне?",
+              "answer": "Мастер Чиф",
+              "altAnswers": [
+                "Master Chief"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-igry-r1-t4",
+          "title": "Игровые миры",
+          "questions": [
+            {
+              "id": "pack-igry-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В какой игре весь мир состоит из кубов, которые можно добывать и ставить?",
+              "answer": "Minecraft",
+              "altAnswers": [
+                "Майнкрафт"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как полностью расшифровывается GTA?",
+              "answer": "Grand Theft Auto",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-igry-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В какой серии игр играют за ведьмака Геральта?",
+              "answer": "Ведьмак",
+              "altAnswers": [
+                "The Witcher"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется постапокалиптическая серия, герои которой выходят из Убежищ?",
+              "answer": "Fallout",
+              "altAnswers": [
+                "Фоллаут"
+              ]
+            },
+            {
+              "id": "pack-igry-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется провинция, где происходит действие пятой части The Elder Scrolls?",
+              "answer": "Скайрим",
+              "altAnswers": [
+                "Skyrim"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-igry-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-igry-r2-t1",
+          "title": "Киберспорт",
+          "questions": [
+            {
+              "id": "pack-igry-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется главный ежегодный турнир по Dota 2?",
+              "answer": "The International",
+              "altAnswers": [
+                "Интернешнл",
+                "ТИ"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая компания выпускает League of Legends?",
+              "answer": "Riot Games",
+              "altAnswers": [
+                "Райот"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как называется трофей, который вручают победителям The International?",
+              "answer": "Эгида чемпионов",
+              "altAnswers": [
+                "Эгида",
+                "Aegis of Champions"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-igry-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется жанр, где сотня игроков бьётся на сжимающейся карте до последнего выжившего?",
+              "answer": "Королевская битва",
+              "altAnswers": [
+                "Battle royale",
+                "батл-рояль"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В какой стране киберспорт первым стал массовым: матчи по StarCraft показывали по телевидению?",
+              "answer": "Южная Корея",
+              "altAnswers": [
+                "Корея"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-igry-r2-t2",
+          "title": "Инди",
+          "questions": [
+            {
+              "id": "pack-igry-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В какой пиксельной игре герой бросает офис и уезжает поднимать ферму, доставшуюся от деда?",
+              "answer": "Stardew Valley",
+              "altAnswers": [
+                "Стардью Вэлли"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется метроидвания про безмолвного рыцаря-жука в подземном королевстве Халлоунест?",
+              "answer": "Hollow Knight",
+              "altAnswers": [
+                "Холлоу Найт"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "В какой игре можно пройти всё, никого не убив, а монстры это запомнят?",
+              "answer": "Undertale",
+              "altAnswers": [
+                "Андертейл"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется платформер про девушку Мэдлин, которая взбирается на гору и борется с тревогой?",
+              "answer": "Celeste",
+              "altAnswers": [
+                "Селеста"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В какой игре космонавт попадает в 22-минутную петлю времени, которая заканчивается взрывом звезды?",
+              "answer": "Outer Wilds",
+              "altAnswers": [
+                "Аутер Уайлдс"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-igry-r2-t3",
+          "title": "Персонажи",
+          "questions": [
+            {
+              "id": "pack-igry-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут самую известную расхитительницу гробниц?",
+              "answer": "Лара Крофт",
+              "altAnswers": [
+                "Лара"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называют лысого киллера со штрихкодом на затылке?",
+              "answer": "Агент 47",
+              "altAnswers": [
+                "Agent 47"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Как зовут главного героя серии Uncharted?",
+              "answer": "Нейтан Дрейк",
+              "altAnswers": [
+                "Нейт Дрейк",
+                "Дрейк"
+              ],
+              "cat": {
+                "theme": "Герои игр",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-igry-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как полностью зовут ведьмака из книг Сапковского?",
+              "answer": "Геральт из Ривии",
+              "altAnswers": [
+                "Геральт"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как зовут героя серии Metal Gear, которого прячут в картонной коробке?",
+              "answer": "Солид Снейк",
+              "altAnswers": [
+                "Снейк",
+                "Snake"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-igry-r2-t4",
+          "title": "Студии",
+          "questions": [
+            {
+              "id": "pack-igry-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая студия создала Minecraft?",
+              "answer": "Mojang",
+              "altAnswers": [
+                "Моянг"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая студия выпускает GTA и Red Dead Redemption?",
+              "answer": "Rockstar Games",
+              "altAnswers": [
+                "Рокстар"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какая польская студия сделала «Ведьмак 3» и Cyberpunk 2077?",
+              "answer": "CD Projekt Red",
+              "altAnswers": [
+                "CD Projekt",
+                "СД Проджект"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какая компания придумала Half-Life, Portal и магазин Steam?",
+              "answer": "Valve",
+              "altAnswers": [
+                "Вэлв"
+              ]
+            },
+            {
+              "id": "pack-igry-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какая японская компания стоит за Resident Evil и Street Fighter?",
+              "answer": "Capcom",
+              "altAnswers": [
+                "Капком"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-igry-f1",
+        "title": "Консоли",
+        "question": {
+          "id": "pack-igry-f1-q",
+          "text": "Какая игровая приставка стала самой продаваемой в истории?",
+          "answer": "PlayStation 2",
+          "altAnswers": [
+            "PS2"
+          ]
+        }
+      },
+      {
+        "id": "pack-igry-f2",
+        "title": "Продажи",
+        "question": {
+          "id": "pack-igry-f2-q",
+          "text": "Какая игра продалась тиражом более 300 миллионов копий и стала самой продаваемой в истории?",
+          "answer": "Minecraft",
+          "altAnswers": [
+            "Майнкрафт"
+          ]
+        }
+      },
+      {
+        "id": "pack-igry-f3",
+        "title": "Музыка игр",
+        "question": {
+          "id": "pack-igry-f3-q",
+          "text": "Композитор Нобуо Уэмацу написал музыку к какой знаменитой японской ролевой серии?",
+          "answer": "Final Fantasy",
+          "altAnswers": [
+            "Файнал Фэнтези"
+          ]
+        }
+      }
+    ]
+  }
+}

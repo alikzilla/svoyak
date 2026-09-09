@@ -1,0 +1,474 @@
+{
+  "id": "pack-geografiya",
+  "title": "География",
+  "author": "Свояк",
+  "description": "Столицы, реки, флаги и природные рекорды планеты.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-geografiya-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-geografiya-r1-t1",
+          "title": "Столицы",
+          "questions": [
+            {
+              "id": "pack-geografiya-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Столица Франции.",
+              "answer": "Париж",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Столица Австралии — и это не Сидней.",
+              "answer": "Канберра",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Столица Канады — и это не Торонто.",
+              "answer": "Оттава",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Столица Бразилии — город, построенный с нуля в середине XX века.",
+              "answer": "Бразилиа",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Столица Турции — и это не Стамбул.",
+              "answer": "Анкара",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-geografiya-r1-t2",
+          "title": "Реки и озёра",
+          "questions": [
+            {
+              "id": "pack-geografiya-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Самая длинная река Африки.",
+              "answer": "Нил",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Самая полноводная река мира.",
+              "answer": "Амазонка",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Самое глубокое озеро планеты.",
+              "answer": "Байкал",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Самый большой по площади замкнутый водоём Земли, который называют морем, хотя это озеро.",
+              "answer": "Каспийское море",
+              "altAnswers": [
+                "Каспий"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какая река течёт через Париж?",
+              "answer": "Сена",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-geografiya-r1-t3",
+          "title": "Горы",
+          "questions": [
+            {
+              "id": "pack-geografiya-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Высочайшая вершина мира.",
+              "answer": "Эверест",
+              "altAnswers": [
+                "Джомолунгма"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Высочайшая вершина России и, по распространённой версии, Европы.",
+              "answer": "Эльбрус",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какие горы служат условной границей между Европой и Азией?",
+              "answer": "Уральские горы",
+              "altAnswers": [
+                "Урал"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Самая длинная горная цепь на суше, вытянутая вдоль Южной Америки.",
+              "answer": "Анды",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется вулкан, ставший символом Японии?",
+              "answer": "Фудзияма",
+              "altAnswers": [
+                "Фудзи"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-geografiya-r1-t4",
+          "title": "Флаги",
+          "questions": [
+            {
+              "id": "pack-geografiya-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "На флаге какой страны изображён кленовый лист?",
+              "answer": "Канада",
+              "altAnswers": [
+                "Канады"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Красный круг на белом полотнище — флаг какой страны?",
+              "answer": "Япония",
+              "altAnswers": [
+                "Японии"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Флаг какой страны единственный в мире не прямоугольный, а из двух треугольников?",
+              "answer": "Непал",
+              "altAnswers": [
+                "Непала"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "На флаге какой страны нарисован дракон, держащий драгоценности?",
+              "answer": "Бутан",
+              "altAnswers": [
+                "Бутана"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Синее полотнище с жёлтым скандинавским крестом — какая страна?",
+              "answer": "Швеция",
+              "altAnswers": [
+                "Швеции"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-geografiya-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-geografiya-r2-t1",
+          "title": "Океаны и моря",
+          "questions": [
+            {
+              "id": "pack-geografiya-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Самый большой океан планеты.",
+              "answer": "Тихий океан",
+              "altAnswers": [
+                "Тихий"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В каком водоёме настолько солёная вода, что в ней невозможно утонуть?",
+              "answer": "Мёртвое море",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Единственное море без берегов, названное по плавающим в нём водорослям.",
+              "answer": "Саргассово море",
+              "altAnswers": [
+                "Саргассово"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-geografiya-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какое море омывает и Одессу, и Сочи?",
+              "answer": "Чёрное море",
+              "altAnswers": [
+                "Чёрное"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется самое глубокое место Мирового океана?",
+              "answer": "Марианская впадина",
+              "altAnswers": [
+                "Марианский жёлоб"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-geografiya-r2-t2",
+          "title": "Города мира",
+          "questions": [
+            {
+              "id": "pack-geografiya-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Город на сотне островов, где вместо улиц каналы, а вместо такси гондолы.",
+              "answer": "Венеция",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой крупный город стоит сразу на двух континентах?",
+              "answer": "Стамбул",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Агломерация какого города считается самой населённой в мире?",
+              "answer": "Токио",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В каком городе на горе стоит статуя Христа-Искупителя?",
+              "answer": "Рио-де-Жанейро",
+              "altAnswers": [
+                "Рио"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Самое маленькое государство мира целиком помещается внутри Рима. Как оно называется?",
+              "answer": "Ватикан",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-geografiya-r2-t3",
+          "title": "Страны-рекордсмены",
+          "questions": [
+            {
+              "id": "pack-geografiya-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Самая большая страна мира по площади.",
+              "answer": "Россия",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая страна с 2023 года стала самой населённой?",
+              "answer": "Индия",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Какая страна занимает целый материк?",
+              "answer": "Австралия",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Страны",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-geografiya-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Государство из 17 тысяч островов, где действующих вулканов больше, чем где-либо ещё.",
+              "answer": "Индонезия",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какая страна целиком окружена территорией ЮАР?",
+              "answer": "Лесото",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-geografiya-r2-t4",
+          "title": "Природные чудеса",
+          "questions": [
+            {
+              "id": "pack-geografiya-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется самый высокий водопад мира, находящийся в Венесуэле?",
+              "answer": "Анхель",
+              "altAnswers": [
+                "Водопад Анхель",
+                "Керепакупаи-меру"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В какой стране находится Большой каньон?",
+              "answer": "США",
+              "altAnswers": [
+                "Соединённые Штаты",
+                "Америка"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Крупнейшая коралловая система планеты лежит у берегов Австралии. Как она называется?",
+              "answer": "Большой Барьерный риф",
+              "altAnswers": [
+                "Барьерный риф"
+              ]
+            },
+            {
+              "id": "pack-geografiya-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Крупнейшая жаркая пустыня Земли.",
+              "answer": "Сахара",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-geografiya-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Крупнейший тропический лес планеты, который зовут «лёгкими Земли».",
+              "answer": "Амазонский лес",
+              "altAnswers": [
+                "Амазония",
+                "сельва Амазонки"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-geografiya-f1",
+        "title": "Континенты",
+        "question": {
+          "id": "pack-geografiya-f1-q",
+          "text": "Сколько материков принято выделять на Земле в русской географической традиции?",
+          "answer": "Шесть",
+          "altAnswers": [
+            "6"
+          ]
+        }
+      },
+      {
+        "id": "pack-geografiya-f2",
+        "title": "Острова",
+        "question": {
+          "id": "pack-geografiya-f2-q",
+          "text": "Самый большой остров мира.",
+          "answer": "Гренландия",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "pack-geografiya-f3",
+        "title": "Границы",
+        "question": {
+          "id": "pack-geografiya-f3-q",
+          "text": "Какие две страны разделяет самая длинная сухопутная граница в мире?",
+          "answer": "США и Канада",
+          "altAnswers": [
+            "Канада и США"
+          ]
+        }
+      }
+    ]
+  }
+}

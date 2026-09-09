@@ -1,0 +1,520 @@
+{
+  "id": "pack-serialy",
+  "title": "Сериалы",
+  "author": "Свояк",
+  "description": "Культовые шоу, ситкомы, Netflix и Вестерос.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-serialy-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-serialy-r1-t1",
+          "title": "Культовые сериалы",
+          "questions": [
+            {
+              "id": "pack-serialy-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется сериал об учителе химии, который стал варить метамфетамин?",
+              "answer": "Во все тяжкие",
+              "altAnswers": [
+                "Breaking Bad"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется сериал о рекламщиках Мэдисон-авеню шестидесятых?",
+              "answer": "Безумцы",
+              "altAnswers": [
+                "Mad Men"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется сериал о выживших после авиакатастрофы на загадочном острове?",
+              "answer": "Остаться в живых",
+              "altAnswers": [
+                "Lost",
+                "Лост"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется сериал о зомби-апокалипсисе и шерифе Рике Граймсе?",
+              "answer": "Ходячие мертвецы",
+              "altAnswers": [
+                "The Walking Dead"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется сериал HBO о мафиозном боссе, который ходит к психотерапевту?",
+              "answer": "Клан Сопрано",
+              "altAnswers": [
+                "Сопрано",
+                "The Sopranos"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-serialy-r1-t2",
+          "title": "Ситкомы",
+          "questions": [
+            {
+              "id": "pack-serialy-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Сколько главных героев в сериале «Друзья»?",
+              "answer": "Шесть",
+              "altAnswers": [
+                "6"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут физика-теоретика из «Теории большого взрыва», который говорит «Базинга»?",
+              "answer": "Шелдон Купер",
+              "altAnswers": [
+                "Шелдон"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется кофейня, где вечно сидят «Друзья»?",
+              "answer": "Central Perk",
+              "altAnswers": [
+                "Централ Перк"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется ситком, где Тед девять сезонов рассказывает детям историю знакомства с их матерью?",
+              "answer": "Как я встретил вашу маму",
+              "altAnswers": [
+                "How I Met Your Mother"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется псевдодокументальный ситком о сотрудниках бумажной компании Dunder Mifflin?",
+              "answer": "Офис",
+              "altAnswers": [
+                "The Office"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-serialy-r1-t3",
+          "title": "Стриминг",
+          "questions": [
+            {
+              "id": "pack-serialy-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется сериал о детях из Хокинса, девочке Одиннадцать и мире Изнанка?",
+              "answer": "Очень странные дела",
+              "altAnswers": [
+                "Stranger Things"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется испанский сериал об ограблении Монетного двора людьми в масках Дали?",
+              "answer": "Бумажный дом",
+              "altAnswers": [
+                "La Casa de Papel"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется корейский сериал, где должники играют в детские игры на выживание?",
+              "answer": "Игра в кальмара",
+              "altAnswers": [
+                "Squid Game"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется сериал о жизни британской королевской семьи?",
+              "answer": "Корона",
+              "altAnswers": [
+                "The Crown"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется мини-сериал о шахматистке Бет Хармон?",
+              "answer": "Ход королевы",
+              "altAnswers": [
+                "The Queen's Gambit"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-serialy-r1-t4",
+          "title": "Герои сериалов",
+          "questions": [
+            {
+              "id": "pack-serialy-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут учителя химии из «Во все тяжкие»?",
+              "answer": "Уолтер Уайт",
+              "altAnswers": [
+                "Уолтер",
+                "Хайзенберг"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как зовут детектива Мэттью Макконахи из первого сезона «Настоящего детектива»?",
+              "answer": "Раст Коул",
+              "altAnswers": [
+                "Растин Коул",
+                "Коул"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут гениального и невыносимого диагноста с тростью?",
+              "answer": "Грегори Хаус",
+              "altAnswers": [
+                "Доктор Хаус",
+                "Хаус"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Кем работает Декстер Морган днём, если ночью он серийный убийца?",
+              "answer": "Экспертом по брызгам крови",
+              "altAnswers": [
+                "Судмедэксперт",
+                "эксперт полиции по крови"
+              ]
+            },
+            {
+              "id": "pack-serialy-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут адвоката, ставшего героем приквела «Во все тяжкие»?",
+              "answer": "Сол Гудман",
+              "altAnswers": [
+                "Джимми Макгилл",
+                "Сол"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-serialy-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-serialy-r2-t1",
+          "title": "Игра престолов",
+          "questions": [
+            {
+              "id": "pack-serialy-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Девиз какого дома звучит как «Зима близко»?",
+              "answer": "Дом Старков",
+              "altAnswers": [
+                "Старки",
+                "Старк"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут Матерь драконов?",
+              "answer": "Дейенерис Таргариен",
+              "altAnswers": [
+                "Дейенерис",
+                "Дени"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Как зовут младшего Ланнистера, самого умного в семье?",
+              "answer": "Тирион",
+              "altAnswers": [
+                "Тирион Ланнистер"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-serialy-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется орден, охраняющий Стену на севере?",
+              "answer": "Ночной Дозор",
+              "altAnswers": [
+                "Ночной дозор"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто в финале сериала занял трон Семи Королевств?",
+              "answer": "Бран Старк",
+              "altAnswers": [
+                "Бран",
+                "Бран Сломленный"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-serialy-r2-t2",
+          "title": "Криминальные драмы",
+          "questions": [
+            {
+              "id": "pack-serialy-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется сериал о Томми Шелби и бирмингемской банде?",
+              "answer": "Острые козырьки",
+              "altAnswers": [
+                "Peaky Blinders"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется сериал о колумбийском наркобароне Пабло Эскобаре?",
+              "answer": "Нарко",
+              "altAnswers": [
+                "Narcos"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как называется сериал о полиции и улицах Балтимора, который критики зовут лучшим в истории?",
+              "answer": "Прослушка",
+              "altAnswers": [
+                "The Wire"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется мини-сериал HBO о катастрофе на атомной станции в 1986 году?",
+              "answer": "Чернобыль",
+              "altAnswers": [
+                "Chernobyl"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется сериал, где Мадс Миккельсен играет доктора Лектера?",
+              "answer": "Ганнибал",
+              "altAnswers": [
+                "Hannibal"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-serialy-r2-t3",
+          "title": "Наши сериалы",
+          "questions": [
+            {
+              "id": "pack-serialy-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется сериал про врача Быкова и его подопечных в больнице?",
+              "answer": "Интерны",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-serialy-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется сериал ТНТ о студентах общежития, шедший больше десяти лет?",
+              "answer": "Универ",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-serialy-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Как называется сериал о Саше Белом и его друзьях из девяностых?",
+              "answer": "Бригада",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Наше кино",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-serialy-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется сериал о петербургских операх, знакомый по «ментам»?",
+              "answer": "Улицы разбитых фонарей",
+              "altAnswers": [
+                "Менты"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется комедийный сериал о работе ресторана Claude Monet?",
+              "answer": "Кухня",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-serialy-r2-t4",
+          "title": "Фантастика в сериалах",
+          "questions": [
+            {
+              "id": "pack-serialy-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется британская антология о тёмной стороне технологий?",
+              "answer": "Чёрное зеркало",
+              "altAnswers": [
+                "Black Mirror"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется сериал о путешественнике во времени, летающем в синей телефонной будке?",
+              "answer": "Доктор Кто",
+              "altAnswers": [
+                "Doctor Who"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как называется сериал о парке развлечений с андроидами на Диком Западе?",
+              "answer": "Мир Дикого Запада",
+              "altAnswers": [
+                "Westworld"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется сериал о корабле «Росинант» и конфликте Земли, Марса и Пояса?",
+              "answer": "Пространство",
+              "altAnswers": [
+                "The Expanse",
+                "Экспансия"
+              ]
+            },
+            {
+              "id": "pack-serialy-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется сериал о наёмнике в бескиде, который возит с собой Грогу?",
+              "answer": "Мандалорец",
+              "altAnswers": [
+                "The Mandalorian"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-serialy-f1",
+        "title": "Финалы",
+        "question": {
+          "id": "pack-serialy-f1-q",
+          "text": "Финал какого сериала в 2019 году вызвал петицию с миллионом подписей о пересъёмке сезона?",
+          "answer": "Игра престолов",
+          "altAnswers": [
+            "Game of Thrones"
+          ]
+        }
+      },
+      {
+        "id": "pack-serialy-f2",
+        "title": "Долгожители",
+        "question": {
+          "id": "pack-serialy-f2-q",
+          "text": "Какой мультсериал выходит с 1989 года и стал самым долгим ситкомом в истории США?",
+          "answer": "Симпсоны",
+          "altAnswers": [
+            "The Simpsons"
+          ]
+        }
+      },
+      {
+        "id": "pack-serialy-f3",
+        "title": "Спин-оффы",
+        "question": {
+          "id": "pack-serialy-f3-q",
+          "text": "Как называется приквел «Во все тяжкие» об адвокате Джимми Макгилле?",
+          "answer": "Лучше звоните Солу",
+          "altAnswers": [
+            "Better Call Saul"
+          ]
+        }
+      }
+    ]
+  }
+}

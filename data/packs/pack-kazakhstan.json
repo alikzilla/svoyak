@@ -1,0 +1,498 @@
+{
+  "id": "pack-kazakhstan",
+  "title": "Казахстан",
+  "author": "Свояк",
+  "description": "Города, история, кухня, спорт и известные земляки.",
+  "createdAt": 1788963617196,
+  "updatedAt": 1788963617196,
+  "rounds": [
+    {
+      "id": "pack-kazakhstan-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "pack-kazakhstan-r1-t1",
+          "title": "Города",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называется столица Казахстана сегодня?",
+              "answer": "Астана",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Самый крупный город страны и её бывшая столица.",
+              "answer": "Алматы",
+              "altAnswers": [
+                "Алма-Ата"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какой город на западе страны считают нефтяной столицей Казахстана?",
+              "answer": "Атырау",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется город при космодроме, арендованный Россией вместе с ним?",
+              "answer": "Байконур",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как назывался Алматы в советские годы?",
+              "answer": "Алма-Ата",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "pack-kazakhstan-r1-t2",
+          "title": "География Казахстана",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какой крупнейший в мире замкнутый водоём омывает запад страны?",
+              "answer": "Каспийское море",
+              "altAnswers": [
+                "Каспий"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какое казахстанское озеро уникально тем, что одна его половина пресная, а другая солёная?",
+              "answer": "Балхаш",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какое море почти исчезло с карты за вторую половину XX века?",
+              "answer": "Аральское море",
+              "altAnswers": [
+                "Арал"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какое место в мире занимает Казахстан по площади территории?",
+              "answer": "Девятое",
+              "altAnswers": [
+                "9",
+                "девятое место"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется хребет, который поднимается прямо над Алматы?",
+              "answer": "Заилийский Алатау",
+              "altAnswers": [
+                "Алатау",
+                "Тянь-Шань"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-kazakhstan-r1-t3",
+          "title": "История",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как называются три исторических объединения казахских племён?",
+              "answer": "Жузы",
+              "altAnswers": [
+                "Три жуза",
+                "жуз"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто был первым президентом независимого Казахстана?",
+              "answer": "Нурсултан Назарбаев",
+              "altAnswers": [
+                "Назарбаев"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В каком году Казахстан объявил независимость?",
+              "answer": "1991",
+              "altAnswers": [
+                "в 1991 году"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какие два хана в XV веке увели племена и основали Казахское ханство?",
+              "answer": "Керей и Жанибек",
+              "altAnswers": [
+                "Керей и Жанибек ханы"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется сражение 1729 года, в котором казахское ополчение разбило джунгар?",
+              "answer": "Аныракайская битва",
+              "altAnswers": [
+                "Аныракай"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-kazakhstan-r1-t4",
+          "title": "Символы",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какая птица парит под солнцем на флаге Казахстана?",
+              "answer": "Беркут",
+              "altAnswers": [
+                "Орёл",
+                "степной орёл"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какого цвета полотнище государственного флага?",
+              "answer": "Голубого",
+              "altAnswers": [
+                "Голубой",
+                "небесно-голубой"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какой элемент юрты — круг с перекрестьем в центре купола — изображён на гербе?",
+              "answer": "Шанырак",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется гимн Казахстана?",
+              "answer": "Менің Қазақстаным",
+              "altAnswers": [
+                "Мой Казахстан"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется национальная валюта страны?",
+              "answer": "Тенге",
+              "altAnswers": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-kazakhstan-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "pack-kazakhstan-r2-t1",
+          "title": "Культура",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется казахский двухструнный щипковый инструмент?",
+              "answer": "Домбра",
+              "altAnswers": [
+                "Домбыра"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называют народного поэта-импровизатора, который состязается в айтысе?",
+              "answer": "Акын",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r2-t1-q3",
+              "price": 600,
+              "type": "auction",
+              "text": "Кто написал кюй «Адай» и считается величайшим домбристом-композитором?",
+              "answer": "Курмангазы",
+              "altAnswers": [
+                "Курмангазы Сагырбайулы"
+              ],
+              "hostComment": "Вопрос-аукцион: разыгрывается в торгах."
+            },
+            {
+              "id": "pack-kazakhstan-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто автор «Слов назидания» и главный поэт-просветитель казахов?",
+              "answer": "Абай Кунанбаев",
+              "altAnswers": [
+                "Абай"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется казахский лиро-эпос о влюблённых, который сравнивают с «Ромео и Джульеттой»?",
+              "answer": "Козы-Корпеш и Баян-сулу",
+              "altAnswers": [
+                "Козы Корпеш"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-kazakhstan-r2-t2",
+          "title": "Спорт",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В каком виде спорта казахстанцы чаще всего берут олимпийские медали?",
+              "answer": "Бокс",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется казахстанская профессиональная велокоманда?",
+              "answer": "Астана",
+              "altAnswers": [
+                "Astana"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какой казахстанский боксёр стал абсолютным чемпионом мира в среднем весе?",
+              "answer": "Геннадий Головкин",
+              "altAnswers": [
+                "Головкин",
+                "GGG"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто принёс Казахстану историческую медаль в фигурном катании на Олимпиаде-2014?",
+              "answer": "Денис Тен",
+              "altAnswers": [
+                "Тен"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называется конная игра, в которой всадники борются за тушу козла?",
+              "answer": "Кокпар",
+              "altAnswers": [
+                "Кокпар-тартыс"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-kazakhstan-r2-t3",
+          "title": "Кухня",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется главное праздничное блюдо из мяса и раскатанного теста?",
+              "answer": "Бешбармак",
+              "altAnswers": [
+                "Бесбармак",
+                "ет"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется кисломолочный напиток из кобыльего молока?",
+              "answer": "Кумыс",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r2-t3-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "А как называется напиток из верблюжьего молока?",
+              "answer": "Шубат",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Дастархан",
+                "price": "nominal",
+                "canKeep": true
+              },
+              "hostComment": "Кот в мешке: передайте вопрос другому игроку."
+            },
+            {
+              "id": "pack-kazakhstan-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как называется вяленая конская колбаса из рёберной части?",
+              "answer": "Казы",
+              "altAnswers": []
+            },
+            {
+              "id": "pack-kazakhstan-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как называются кусочки теста, обжаренные в масле и подаваемые к чаю?",
+              "answer": "Баурсаки",
+              "altAnswers": [
+                "Баурсак"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack-kazakhstan-r2-t4",
+          "title": "Известные земляки",
+          "questions": [
+            {
+              "id": "pack-kazakhstan-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Кто стал первым космонавтом-казахом?",
+              "answer": "Тохтар Аубакиров",
+              "altAnswers": [
+                "Аубакиров"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой казахстанский певец покорил Китай и мир диапазоном голоса под именем Dimash?",
+              "answer": "Димаш Кудайберген",
+              "altAnswers": [
+                "Димаш"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Кто написал роман-эпопею «Путь Абая»?",
+              "answer": "Мухтар Ауэзов",
+              "altAnswers": [
+                "Ауэзов"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Как звали легендарного борца начала XX века, первого казаха — чемпиона мира по борьбе?",
+              "answer": "Кажымукан Мунайтпасов",
+              "altAnswers": [
+                "Кажымукан"
+              ]
+            },
+            {
+              "id": "pack-kazakhstan-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Какой панфиловец стал героем книги Александра Бека «Волоколамское шоссе»?",
+              "answer": "Бауыржан Момышулы",
+              "altAnswers": [
+                "Момышулы"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "pack-kazakhstan-f1",
+        "title": "Природа",
+        "question": {
+          "id": "pack-kazakhstan-f1-q",
+          "text": "Как называется степная антилопа с горбатым носом, которая пасётся в казахстанских степях?",
+          "answer": "Сайгак",
+          "altAnswers": [
+            "Сайга"
+          ]
+        }
+      },
+      {
+        "id": "pack-kazakhstan-f2",
+        "title": "Язык",
+        "question": {
+          "id": "pack-kazakhstan-f2-q",
+          "text": "Как по-казахски будет «спасибо»?",
+          "answer": "Рахмет",
+          "altAnswers": [
+            "Рақмет"
+          ]
+        }
+      },
+      {
+        "id": "pack-kazakhstan-f3",
+        "title": "Современность",
+        "question": {
+          "id": "pack-kazakhstan-f3-q",
+          "text": "Как называется космодром, с которого стартовал Гагарин и который Россия арендует у Казахстана?",
+          "answer": "Байконур",
+          "altAnswers": []
+        }
+      }
+    ]
+  }
+}
