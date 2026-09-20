@@ -1,0 +1,1081 @@
+{
+  "id": "koval-05-shlakoblokun",
+  "title": "Коваль #5 · Шлакоблокунь",
+  "author": "Дима Коваль (СВОЯК) — разбор выпуска",
+  "description": "Венера, Юпитер, Москва или Питер; песни задом наперёд; в какой руке микрофон; картинки-гибриды вроде дыроколеня и самые странные соревнования планеты.",
+  "createdAt": 1789372034218,
+  "updatedAt": 1789925372320,
+  "rounds": [
+    {
+      "id": "koval-05-shlakoblokun-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "koval-05-shlakoblokun-r1-t1",
+          "title": "Венера, Юпитер, Москва или Питер",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Венера, Юпитер, Москва или Питер?",
+              "answer": "Юпитер",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-100.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Венера, Юпитер, Москва или Питер?",
+              "answer": "Венера",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Венера, Юпитер, Москва или Питер?",
+              "answer": "Питер (Дом Зингера)",
+              "altAnswers": [
+                "питер",
+                "санкт-петербург"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Венера, Юпитер, Москва или Питер?",
+              "answer": "Москва (фонтан «Дружба народов»)",
+              "altAnswers": [
+                "москва"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-400.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Венера, Юпитер, Москва или Питер?",
+              "answer": "Юпитер",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-500.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/vump-500-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Сильно увеличенный фрагмент: планета или город?"
+        },
+        {
+          "id": "koval-05-shlakoblokun-r1-t2",
+          "title": "Самый сок",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какой это сок?",
+              "answer": "Яблочный",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/sok-100.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какой это сок?",
+              "answer": "Томатный",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Какой это сок?",
+              "answer": "Вишнёвый",
+              "altAnswers": [
+                "вишневый"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/sok-300.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой это сок?",
+              "answer": "Морковный",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какой это сок?",
+              "answer": "Ананасовый",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/sok-500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r1-t3",
+          "title": "Эксперты",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Почаще целовать свою собаку, чтобы наладить крепкую эмоциональную связь и завоевать любовь питомца.",
+              "answer": "Собаководы",
+              "altAnswers": [
+                "кинологи"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Открывать окна на ночь для свежего воздуха и отключать из розетки электроприборы.",
+              "answer": "Комары",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Ложиться в густую траву в голом виде, чтобы эффективнее вывести статическое электричество из организма.",
+              "answer": "Клещи",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Чаще бывать на солнце без головного убора, чтобы кожа головы дышала.",
+              "answer": "Продавцы шампуня от перхоти",
+              "altAnswers": [
+                "дерматологи"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t3-q5",
+              "price": 500,
+              "type": "cat",
+              "text": "Употреблять продукты, богатые железом, чтобы поднять гемоглобин, и не носить высокие воротники, чтобы кожа дышала.",
+              "answer": "Вампиры",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Эксперты",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Чей это совет? Ответ — кто такие эти «эксперты»."
+        },
+        {
+          "id": "koval-05-shlakoblokun-r1-t4",
+          "title": "Технологии",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Частью какого устройства является эта деталь?",
+              "answer": "Пылесос",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/tech-100.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Частью какого устройства является эта деталь?",
+              "answer": "Принтер",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/tech-200.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Частью какого устройства является эта деталь?",
+              "answer": "Степлер",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Частью какого устройства является эта деталь?",
+              "answer": "Кофемашина",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Частью какого устройства является эта деталь?",
+              "answer": "Видеомагнитофон",
+              "altAnswers": [
+                "видак",
+                "vhs"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/tech-500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r1-t5",
+          "title": "Рандомные вопросы",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r1-t5-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Какая басня Крылова начинается со слов «Уж сколько раз твердили миру…»?",
+              "answer": "«Ворона и лисица»",
+              "altAnswers": [
+                "ворона и лисица"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t5-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется медицинский инструмент, используемый для прослушивания сердца и лёгких?",
+              "answer": "Стетоскоп",
+              "altAnswers": [
+                "фонендоскоп"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t5-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Исполнители получают это в знак высокого коммерческого успеха музыкального альбома или сингла. Обычно это диск, покрытый серебристым напылением.",
+              "answer": "Платиновый диск",
+              "altAnswers": [
+                "платиновый альбом",
+                "платина"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t5-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как называется самая маленькая кость в теле человека?",
+              "answer": "Стремечко",
+              "altAnswers": [
+                "стремя"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-05-shlakoblokun-r1-t5-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как называется колокол часов Вестминстерского дворца в Лондоне?",
+              "answer": "Биг Бен",
+              "altAnswers": [
+                "big ben"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koval-05-shlakoblokun-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "koval-05-shlakoblokun-r2-t1",
+          "title": "Ошибочка вышла",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "ЕГО назвали так по ошибке: за время четырёхмесячного перехода — от Огненной Земли до Филиппин — команда Фернана Магеллана не встретила ни одного шторма.",
+              "answer": "Тихий океан",
+              "altAnswers": [
+                "тихий"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Международный день интернета празднуется ежегодно в особую ДАТУ — она символизирует ошибку «Страница не найдена».",
+              "answer": "4 апреля (4.04)",
+              "altAnswers": [
+                "4 апреля",
+                "404"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t1-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Во время предвыборной кампании Барака Обамы в Мичигане вместо номера горячей линии штаба демократов в буклетах случайно написали телефон этой УСЛУГИ. В целом, такие разговоры удовлетворили избирателей.",
+              "answer": "Секс по телефону",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В 1631 году из-за ошибки издателя тираж Библии стал известен своей порочностью. Опечатка заключалась в пропаже этой ЧАСТИЦЫ, что повторяется 10 раз.",
+              "answer": "Частица «не»",
+              "altAnswers": [
+                "не"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Астроном Персиваль Лоуэлл считал, что он был первым, кто увидел каналы и большое пятно в середине Венеры. Но на самом деле он допустил ошибку в настройке телескопа и всё время наблюдал за своим же… Чем?",
+              "answer": "За своим глазом",
+              "altAnswers": [
+                "глаз",
+                "своим глазом"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r2-t2",
+          "title": "Закрытый микрофон",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В какой руке у артиста микрофон?",
+              "answer": "В левой",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t2-q2",
+              "price": 400,
+              "type": "cat",
+              "text": "В какой руке у артиста микрофон?",
+              "answer": "В правой",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-400.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-400-otvet.jpg"
+              },
+              "cat": {
+                "theme": "Закрытый микрофон",
+                "price": "nominal",
+                "canKeep": false
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "В какой руке у артиста микрофон?",
+              "answer": "В правой",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В какой руке у артиста микрофон?",
+              "answer": "В правой",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-800.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-800-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В какой руке у артиста микрофон?",
+              "answer": "Ни в какой — микрофон на стойке",
+              "altAnswers": [
+                "ни в какой",
+                "на стойке"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-1000.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/mikro-1000-otvet.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r2-t3",
+          "title": "Душная тема",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Что это за душ?",
+              "answer": "Тюремный",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/dush-200.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Что это за душ?",
+              "answer": "Гигиенический",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/dush-400.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Что это за душ?",
+              "answer": "Тропический (верхний)",
+              "altAnswers": [
+                "тропический"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/dush-600.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Что это за душ?",
+              "answer": "Шарко",
+              "altAnswers": [
+                "душ шарко"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Что это за душ?",
+              "answer": "Космический",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/dush-1000.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r2-t4",
+          "title": "Наоборот",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Песня звучит задом наперёд. Назовите исполнителя и песню.",
+              "answer": "Ленинград — WWW",
+              "altAnswers": [
+                "ленинград"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Песня звучит задом наперёд. Назовите исполнителя и песню.",
+              "answer": "PSY — Gangnam Style",
+              "altAnswers": [
+                "gangnam style",
+                "psy"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Песня звучит задом наперёд. Назовите исполнителя и песню.",
+              "answer": "КИНО — Перемен",
+              "altAnswers": [
+                "кино",
+                "перемен"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Песня звучит задом наперёд. Назовите исполнителя и песню.",
+              "answer": "FEDUK — Околофутбола",
+              "altAnswers": [
+                "feduk",
+                "околофутбола"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Песня звучит задом наперёд. Назовите исполнителя и песню.",
+              "answer": "Rammstein — Ausländer",
+              "altAnswers": [
+                "rammstein",
+                "ausländer"
+              ]
+            }
+          ],
+          "comment": "Аудиовопрос: трек включён задом наперёд."
+        },
+        {
+          "id": "koval-05-shlakoblokun-r2-t5",
+          "title": "Парни пробуют",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r2-t5-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Что пробуют парни в этом ролике? Название закрашено.",
+              "answer": "Балет",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/parni-200.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t5-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Что пробуют парни в этом ролике? Название закрашено.",
+              "answer": "Фигурное катание",
+              "altAnswers": [
+                "коньки"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t5-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Что пробуют парни в этом ролике? Название закрашено.",
+              "answer": "Тверкинг",
+              "altAnswers": [
+                "тверк"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/parni-600.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t5-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Что пробуют парни в этом ролике? Название закрашено.",
+              "answer": "Танцы на пилоне",
+              "altAnswers": [
+                "пилон",
+                "пол-дэнс"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/parni-800.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/parni-800-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r2-t5-q5",
+              "price": 1000,
+              "type": "cat",
+              "text": "Что пробуют парни в этом ролике? Название закрашено.",
+              "answer": "Рожать",
+              "altAnswers": [
+                "роды"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/parni-1000.jpg"
+              },
+              "cat": {
+                "theme": "Парни пробуют",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koval-05-shlakoblokun-r3",
+      "title": "Третий раунд",
+      "themes": [
+        {
+          "id": "koval-05-shlakoblokun-r3-t1",
+          "title": "Необычные соревнования",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r3-t1-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Что это за гонки?",
+              "answer": "Гонки на лопатах",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/sorev-300.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t1-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "В чём заключается данный конкурс?",
+              "answer": "Имитация хрюканья свиньи",
+              "altAnswers": [
+                "хрюканье"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/sorev-600.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t1-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Что за конкурс?",
+              "answer": "Заплыв на надувных женщинах",
+              "altAnswers": [
+                "заплыв на надувных куклах"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t1-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Что за конкурс?",
+              "answer": "Конкурс по кривляньям (гримасам)",
+              "altAnswers": [
+                "гримасы",
+                "кривляния"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t1-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Что происходит здесь?",
+              "answer": "Сырные гонки",
+              "altAnswers": [
+                "гонки за сыром",
+                "сыр"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r3-t2",
+          "title": "Шлакоблокунь",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r3-t2-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Что же это? Назовите слово-гибрид.",
+              "answer": "Заборлан (заборёл)",
+              "altAnswers": [
+                "заборлан",
+                "заборёл"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/shlako-300.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t2-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Что же это? Назовите слово-гибрид.",
+              "answer": "Пловца",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/shlako-600.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t2-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Что же это? Назовите слово-гибрид.",
+              "answer": "Хамелеонтьев",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/shlako-900.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t2-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Что же это? Назовите слово-гибрид.",
+              "answer": "Дыроколень",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/shlako-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t2-q5",
+              "price": 1500,
+              "type": "cat",
+              "text": "Что же это? Назовите слово-гибрид.",
+              "answer": "Крабрикос",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Шлакоблокунь",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Картинка склеена из двух слов — назовите гибрид."
+        },
+        {
+          "id": "koval-05-shlakoblokun-r3-t3",
+          "title": "Чё за группа",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r3-t3-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Чё за группа зашифрована на картинке?",
+              "answer": "Звери",
+              "altAnswers": [
+                "группа звери"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/gruppa-300.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t3-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Чё за группа зашифрована на картинке?",
+              "answer": "Ленинград",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/gruppa-600.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t3-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Чё за группа зашифрована на картинке?",
+              "answer": "Три дня дождя",
+              "altAnswers": [
+                "3 дня дождя"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t3-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Чё за группа зашифрована на картинке?",
+              "answer": "Кино",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/gruppa-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t3-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Чё за группа зашифрована на картинке?",
+              "answer": "Чай вдвоём",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/gruppa-1500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r3-t4",
+          "title": "Древний Египет",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r3-t4-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Несколько веков назад ОНИ были идеально белыми благодаря известняку в составе. Однако с возрастом цвет потускнел.",
+              "answer": "Пирамиды",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t4-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Отгадайте древнеегипетскую загадку: «Я приношу жизнь, я приношу смерть. Я питаю землю, но могу и затопить её. Кто я?»",
+              "answer": "Нил",
+              "altAnswers": [
+                "река нил"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t4-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Египетские иероглифы могут читаться как справа налево, так и наоборот. Выбор делается исходя из нарисованных людей. Как именно?",
+              "answer": "По направлению, куда смотрит фигура человека",
+              "altAnswers": [
+                "по направлению фигуры",
+                "куда смотрит человек"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t4-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Этот камень с одним текстом на трёх письменностях позволил Шампольону расшифровать иероглифы.",
+              "answer": "Розеттский камень",
+              "altAnswers": [
+                "розеттский"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t4-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Когда ты думаешь, она слышит тебя, даже если ты не произносишь ни слова. Взглядом бога она читает в тебе твои мысли. О ком так говорилось в одном из папирусов Древнего Египта?",
+              "answer": "Кошка",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "koval-05-shlakoblokun-r3-t5",
+          "title": "Картинки со звуком",
+          "questions": [
+            {
+              "id": "koval-05-shlakoblokun-r3-t5-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Что это за звук?",
+              "answer": "Свист закипевшего чайника",
+              "altAnswers": [
+                "чайник",
+                "свист"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/zvuk-300.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t5-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Что это за звук?",
+              "answer": "Хлопанье крыльев и воркование голубей",
+              "altAnswers": [
+                "голуби",
+                "воркование"
+              ]
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t5-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Что это за звук?",
+              "answer": "Кот, которого тошнит",
+              "altAnswers": [
+                "кот",
+                "мяуканье"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/zvuk-900.jpg"
+              }
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t5-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Что это за звук?",
+              "answer": "Скрип открывающейся двери",
+              "altAnswers": [
+                "скрип двери"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-05-shlakoblokun-r3-t5-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Что это за звук?",
+              "answer": "Звук подключения dial-up модема",
+              "altAnswers": [
+                "модем",
+                "диалап"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/zvuk-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Показываем предмет — назвать звук, который он издаёт."
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "koval-05-shlakoblokun-f1",
+        "title": "Лудка",
+        "question": {
+          "id": "koval-05-shlakoblokun-f1-q",
+          "text": "Красное, чёрное или зеро?",
+          "answer": "Зеро",
+          "altAnswers": [
+            "зеро",
+            "0"
+          ]
+        }
+      },
+      {
+        "id": "koval-05-shlakoblokun-f2",
+        "title": "Города",
+        "question": {
+          "id": "koval-05-shlakoblokun-f2-q",
+          "text": "Какой город называют Северной Пальмирой?",
+          "answer": "Санкт-Петербург",
+          "altAnswers": [
+            "петербург",
+            "питер"
+          ]
+        }
+      },
+      {
+        "id": "koval-05-shlakoblokun-f3",
+        "title": "Книжная тема",
+        "question": {
+          "id": "koval-05-shlakoblokun-f3-q",
+          "text": "Какой роман начинается словами «Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему»?",
+          "answer": "Анна Каренина",
+          "altAnswers": [
+            "анна каренина"
+          ]
+        }
+      }
+    ]
+  }
+}

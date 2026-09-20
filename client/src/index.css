@@ -106,3 +106,13 @@ button {
   outline: 2px solid var(--color-gold);
   outline-offset: 2px;
 }
+
+/* Эквалайзер аудиовопроса: единственная анимация, которую нельзя выразить утилитами. */
+@keyframes eq {
+  from {
+    transform: scaleY(0.35);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

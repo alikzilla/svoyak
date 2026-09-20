@@ -235,6 +235,8 @@ export interface FinalPublicView {
   themeTitle: string | null;
   /** Текст вопроса появляется только когда пора отвечать: ставят вслепую. */
   questionText: string | null;
+  /** Медиа финального вопроса. Появляется вместе с текстом. */
+  questionMedia?: Media;
   removalTurnPlayerId: string | null;
   participantIds: string[];
   /** Кто уже сделал ставку и написал ответ — без содержимого. */

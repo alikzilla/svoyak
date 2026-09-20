@@ -13,6 +13,7 @@ import { DoodleTimer } from '../../design/DoodleTimer.js';
 import { RoughFrame } from '../../design/rough.js';
 import { Stamp } from '../../design/Stamp.js';
 import { Standings } from '../Standings.js';
+import { QuestionMedia } from '../QuestionMedia.js';
 
 interface HostGameProps {
   view: HostView;
@@ -137,6 +138,9 @@ export function HostGame({ view }: HostGameProps) {
                 {question.themeTitle} · <span className="tabular-nums">{question.price}</span>
               </p>
               <TypedQuestion text={question.text} />
+              {question.media && (
+                <QuestionMedia media={question.media} variant="host" alt={question.text} />
+              )}
 
               <div className="ink-border bg-p4 rounded-2xl px-4 py-3">
                 <p className="font-body text-xs font-bold opacity-70">ответ — видите только вы</p>
@@ -145,6 +149,15 @@ export function HostGame({ view }: HostGameProps) {
                   <p className="font-body text-sm font-bold opacity-70">
                     также принимается: {question.altAnswers.join(', ')}
                   </p>
+                )}
+                {question.answerMedia && (
+                  <div className="mt-2">
+                    <QuestionMedia
+                      media={question.answerMedia}
+                      variant="host"
+                      alt={question.answer}
+                    />
+                  </div>
                 )}
                 {question.hostComment && (
                   <p className="font-body mt-1 text-sm font-bold opacity-70 text-pretty">

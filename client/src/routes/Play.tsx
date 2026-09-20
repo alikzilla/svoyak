@@ -13,6 +13,7 @@ import { BigBuzzer, type BuzzerState } from '../design/BigBuzzer.js';
 import { DoodleButton } from '../design/DoodleButton.js';
 import { DoodleField } from '../design/Doodles.js';
 import { RoughFrame } from '../design/rough.js';
+import { QuestionMedia } from '../ui/QuestionMedia.js';
 import { SoundToggle } from '../ui/SoundToggle.js';
 import { CatPick } from '../ui/CatPick.js';
 import { BidPanel } from '../ui/BidPanel.js';
@@ -172,7 +173,10 @@ export default function Play() {
         <RoughFrame
           fill="var(--color-card)"
           seed={11}
-          className="relative max-h-[26dvh] shrink-0 overflow-y-auto"
+          // Картинке нужно место: без неё вопрос занимает четверть экрана, с ней — треть.
+          className={`relative shrink-0 overflow-y-auto ${
+            view.question.media ? 'max-h-[34dvh]' : 'max-h-[26dvh]'
+          }`}
           contentClassName="text-ink px-4 py-3 text-center"
         >
           <p className="font-body text-ink/60 text-xs font-bold">
@@ -181,6 +185,15 @@ export default function Play() {
           <p className="font-body mt-1 text-lg leading-snug font-bold text-pretty">
             {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
           </p>
+          {view.question.media && (
+            <div className="mt-2">
+              <QuestionMedia
+                media={view.question.media}
+                variant="player"
+                alt={view.question.text}
+              />
+            </div>
+          )}
           {view.question.revealedAnswer && (
             <p className="font-pop text-yes mt-2 text-xl font-black">{view.question.revealedAnswer}</p>
           )}

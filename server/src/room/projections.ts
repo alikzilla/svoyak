@@ -126,6 +126,9 @@ function projectFinalPublic(state: RoomState): FinalPublicView | null {
     themes: final.themes,
     themeTitle: theme?.title ?? null,
     questionText: questionVisible ? (theme?.question.text ?? null) : null,
+    ...(questionVisible && theme?.question.media
+      ? { questionMedia: theme.question.media }
+      : {}),
     removalTurnPlayerId: final.removalTurnPlayerId,
     participantIds: final.participantIds,
     betPlacedIds: Object.keys(final.bets),
@@ -166,6 +169,7 @@ export function projectForHost(
           ...finalPublic,
           // Ведущему вопрос виден всегда: ему его читать.
           questionText: theme?.question.text ?? null,
+          ...(theme?.question.media ? { questionMedia: theme.question.media } : {}),
           answer: theme?.question.answer ?? null,
           altAnswers: theme?.question.altAnswers ?? [],
           ...(theme?.question.hostComment !== undefined

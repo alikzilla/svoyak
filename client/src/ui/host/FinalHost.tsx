@@ -1,4 +1,5 @@
 import type { HostView } from '@svoyak/shared';
+import { QuestionMedia } from '../QuestionMedia.js';
 
 interface FinalHostProps {
   view: HostView;
@@ -57,6 +58,15 @@ export function FinalHost({ view, onJudge, onForce }: FinalHostProps) {
       {final.questionText && (
         <div className="rounded-2xl border border-line bg-surface-2 p-4">
           <p className="text-lg text-pretty">{final.questionText}</p>
+          {final.questionMedia && (
+            <div className="mt-3">
+              <QuestionMedia
+                media={final.questionMedia}
+                variant="host"
+                alt={final.questionText}
+              />
+            </div>
+          )}
           <div className="mt-3 rounded-xl border border-gold/40 bg-gold/10 p-3">
             <p className="text-sm text-gold">Ответ — виден только вам</p>
             <p className="text-lg font-bold">{final.answer}</p>

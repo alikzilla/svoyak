@@ -7,6 +7,7 @@ import { useBoardRoom } from '../net/useRoom.js';
 import { unlockAudio } from '../net/sounds.js';
 import { QrCode } from '../ui/QrCode.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
+import { QuestionMedia } from '../ui/QuestionMedia.js';
 import { Standings } from '../ui/Standings.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { CatScene } from '../ui/scenes/CatScene.js';
@@ -134,7 +135,9 @@ export default function Board() {
               </motion.div>
             ) : view.question ? (
               <motion.div
-                key={view.question.text}
+                // Текст у вопроса-картинки бывает общий на всю тему, а у скрытого
+                // его нет вовсе, поэтому ключ собираем из темы и номинала.
+                key={`${view.question.themeTitle}:${view.question.price}`}
                 initial={{ scale: 0.85, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0 }}
@@ -152,6 +155,13 @@ export default function Board() {
                   <p className="font-body text-[clamp(1.8rem,4vw,3.5rem)] leading-tight font-bold text-pretty">
                     {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
                   </p>
+                  {view.question.media && (
+                    <QuestionMedia
+                      media={view.question.media}
+                      variant="board"
+                      alt={view.question.text}
+                    />
+                  )}
                   {view.question.revealedAnswer && (
                     <motion.p
                       initial={{ scale: 0.6, rotate: -6, opacity: 0 }}
@@ -161,6 +171,13 @@ export default function Board() {
                     >
                       {view.question.revealedAnswer}
                     </motion.p>
+                  )}
+                  {view.question.revealedAnswerMedia && (
+                    <QuestionMedia
+                      media={view.question.revealedAnswerMedia}
+                      variant="board"
+                      alt={view.question.revealedAnswer ?? ''}
+                    />
                   )}
                 </RoughFrame>
               </motion.div>
@@ -241,6 +258,15 @@ function FinalScene({ view }: { view: BoardView }) {
           <p className="font-body text-[clamp(1.8rem,4vw,3.2rem)] leading-tight font-bold text-pretty">
             {final.questionText}
           </p>
+          {final.questionMedia && (
+            <div className="mt-5">
+              <QuestionMedia
+                media={final.questionMedia}
+                variant="board"
+                alt={final.questionText}
+              />
+            </div>
+          )}
         </RoughFrame>
       ) : (
         <ul className="mx-auto grid w-full max-w-3xl gap-3">
