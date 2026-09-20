@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { RoomSettings } from '@svoyak/shared';
+import { DEFAULT_SETTINGS, type RoomSettings } from '@svoyak/shared';
 
 interface SettingsPanelProps {
   settings: RoomSettings;
@@ -134,6 +134,25 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
         </span>
       </label>
 
+      <label className="ink-border bg-card text-ink font-body flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold">
+        <input
+          type="checkbox"
+          className="size-5"
+          checked={settings.answerRevealMs > 0}
+          onChange={(event) =>
+            onChange({ answerRevealMs: event.target.checked ? DEFAULT_SETTINGS.answerRevealMs : 0 })
+          }
+        />
+        <span>
+          Держать ответ на экране {seconds(settings.answerRevealMs || DEFAULT_SETTINGS.answerRevealMs)} с
+          <span className="block text-xs font-bold opacity-60">
+            {settings.answerRevealMs > 0
+              ? 'сцену можно закрыть раньше кнопкой «дальше»'
+              : 'сейчас сцену закрывает ведущий сам'}
+          </span>
+        </span>
+      </label>
+
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
@@ -157,6 +176,13 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
               step={500}
               value={settings.buzzOpenMs}
               onChange={(buzzOpenMs) => onChange({ buzzOpenMs })}
+            />
+            <NumberField
+              label="Показ ответа, мс"
+              hint="0 — сцену закрывает ведущий"
+              step={1000}
+              value={settings.answerRevealMs}
+              onChange={(answerRevealMs) => onChange({ answerRevealMs })}
             />
             <NumberField
               label="Блокировка за фальстарт, мс"

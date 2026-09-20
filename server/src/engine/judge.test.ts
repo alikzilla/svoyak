@@ -50,10 +50,17 @@ describe('верный ответ', () => {
     expect(state.controlPlayerId).toBe('p2');
   });
 
-  it('возвращает к выбору вопроса', () => {
+  it('сначала показывает ответ, а не возвращает сразу к выбору', () => {
     const state = reduce(answering(), { type: 'JUDGE', verdict: 'correct', at: T0 + 5000 }).state;
-    expect(state.phase).toBe('picking');
-    expect(state.active).toBeNull();
+    expect(state.phase).toBe('answer_reveal');
+    expect(state.active?.answerRevealed).toBe(true);
+  });
+
+  it('счёт и право хода применяются до показа ответа', () => {
+    const state = reduce(answering(), { type: 'JUDGE', verdict: 'correct', at: T0 + 5000 }).state;
+    expect(state.phase).toBe('answer_reveal');
+    expect(score(state, 'p2')).toBe(300);
+    expect(state.controlPlayerId).toBe('p2');
   });
 
   it('играет звук верного ответа', () => {
@@ -228,5 +235,69 @@ describe('ручные действия ведущего', () => {
   it('во время устного ответа таймера нет — ведущий не ограничен', () => {
     const result = reduce(answering(), { type: 'EXTEND_TIME', at: T0 + 5000 });
     expect(result.error).toBeDefined();
+  });
+});
+
+describe('сцена с ответом', () => {
+  it('заводит таймер на показ ответа', () => {
+    const result = reduce(answering(), { type: 'JUDGE', verdict: 'correct', at: T0 + 5000 });
+    expect(result.effects).toContainEqual({
+      type: 'setTimer',
+      kind: 'reveal',
+      durationMs: DEFAULT_SETTINGS.answerRevealMs,
+      onExpire: {
+        type: 'TIMER_EXPIRED',
+        kind: 'reveal',
+        at: T0 + 5000 + DEFAULT_SETTINGS.answerRevealMs,
+      },
+    });
+  });
+
+  it('по истечении таймера возвращает к выбору вопроса', () => {
+    const state = reduce(answering(), { type: 'JUDGE', verdict: 'correct', at: T0 + 5000 }).state;
+    expect(state.phase).toBe('answer_reveal');
+    const after = reduce(state, {
+      type: 'TIMER_EXPIRED',
+      kind: 'reveal',
+      at: T0 + 5000 + DEFAULT_SETTINGS.answerRevealMs,
+    }).state;
+
+    expect(after.phase).toBe('picking');
+    expect(after.active).toBeNull();
+  });
+
+  it('при нулевой настройке таймера нет — сцену закрывает ведущий', () => {
+    const result = reduce(answering({ answerRevealMs: 0 }), {
+      type: 'JUDGE',
+      verdict: 'correct',
+      at: T0 + 5000,
+    });
+
+    expect(result.state.phase).toBe('answer_reveal');
+    expect(result.effects).toContainEqual({ type: 'clearTimer' });
+    expect(result.effects.some((effect) => effect.type === 'setTimer')).toBe(false);
+  });
+
+  it('ведущий закрывает сцену раньше таймера', () => {
+    const state = reduce(answering(), { type: 'JUDGE', verdict: 'correct', at: T0 + 5000 }).state;
+    expect(state.phase).toBe('answer_reveal');
+    const after = reduce(state, { type: 'CONTINUE', at: T0 + 6000 }).state;
+
+    expect(after.phase).toBe('picking');
+    expect(after.active).toBeNull();
+  });
+
+  it('снятый вопрос тоже держит сцену под таймером', () => {
+    const result = reduce(answering(), { type: 'SKIP_QUESTION', at: T0 + 5000 });
+    expect(result.effects).toContainEqual({
+      type: 'setTimer',
+      kind: 'reveal',
+      durationMs: DEFAULT_SETTINGS.answerRevealMs,
+      onExpire: {
+        type: 'TIMER_EXPIRED',
+        kind: 'reveal',
+        at: T0 + 5000 + DEFAULT_SETTINGS.answerRevealMs,
+      },
+    });
   });
 });

@@ -106,7 +106,8 @@ describe('кот в мешке', () => {
 
     expect(score(state, 'p2')).toBe(800);
     expect(state.controlPlayerId).toBe('p2');
-    expect(state.phase).toBe('picking');
+    // Вопрос не закрывается сразу: сначала сцена с правильным ответом.
+    expect(state.phase).toBe('answer_reveal');
   });
 
   it('неверный ответ снимает деньги с получившего и оставляет ход передавшему', () => {

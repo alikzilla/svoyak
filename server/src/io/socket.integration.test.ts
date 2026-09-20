@@ -324,7 +324,7 @@ describe('сокет-слой', () => {
     const room = rooms.get(code);
     expect(room?.state.players[0]?.score).toBe(300);
     expect(room?.state.controlPlayerId).toBe(joined.data.playerId);
-    expect(room?.state.phase).toBe('picking');
+    expect(room?.state.phase).toBe('answer_reveal');
 
     host.disconnect();
     player.disconnect();

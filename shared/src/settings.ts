@@ -8,6 +8,8 @@ export interface RoomSettings {
   buzzReopenMinMs: number;
   /** Блокировка игрока за фальстарт в пределах вопроса. */
   falseStartLockMs: number;
+  /** Сколько держать сцену с правильным ответом. Ноль — сцену закрывает ведущий. */
+  answerRevealMs: number;
   finalBetTimeMs: number;
   finalAnswerTimeMs: number;
   /** Снимать ли стоимость за неверный ответ. */
@@ -31,6 +33,7 @@ export const DEFAULT_SETTINGS: RoomSettings = {
   buzzGraceMs: 150,
   buzzReopenMinMs: 3000,
   falseStartLockMs: 2500,
+  answerRevealMs: 10000,
   finalBetTimeMs: 60000,
   finalAnswerTimeMs: 60000,
   penaltyOnWrong: true,

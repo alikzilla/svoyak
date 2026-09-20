@@ -481,18 +481,14 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
 
     case 'REVEAL_ANSWER': {
       if (!state.active) return reject(state, 'Нет открытого вопроса');
-      return {
-        state: revealAnswer(state, action.at, 'Ведущий раскрыл ответ'),
-        effects: [{ type: 'clearTimer' }, { type: 'persist' }],
-      };
+      const revealed = enterReveal(state, action.at, 'Ведущий раскрыл ответ');
+      return { ...revealed, effects: [...revealed.effects, { type: 'persist' }] };
     }
 
     case 'SKIP_QUESTION': {
       if (!state.active) return reject(state, 'Нет открытого вопроса');
-      return {
-        state: revealAnswer(state, action.at, 'Вопрос снят'),
-        effects: [{ type: 'clearTimer' }, { type: 'persist' }],
-      };
+      const skipped = enterReveal(state, action.at, 'Вопрос снят');
+      return { ...skipped, effects: [...skipped.effects, { type: 'persist' }] };
     }
 
     case 'EXTEND_TIME': {
@@ -706,9 +702,18 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     case 'TIMER_EXPIRED': {
       if (action.kind === 'buzz') {
         if (state.phase !== 'buzzer_open') return { state, effects: [] };
+        const expired = enterReveal(state, action.at, 'Время вышло, никто не ответил');
         return {
-          state: revealAnswer(state, action.at, 'Время вышло, никто не ответил'),
-          effects: [{ type: 'sound', sound: 'time_up' }, { type: 'clearTimer' }, { type: 'persist' }],
+          ...expired,
+          effects: [{ type: 'sound', sound: 'time_up' }, ...expired.effects, { type: 'persist' }],
+        };
+      }
+
+      if (action.kind === 'reveal') {
+        if (state.phase !== 'answer_reveal') return { state, effects: [] };
+        return {
+          state: closeQuestion(state),
+          effects: [{ type: 'clearTimer' }, { type: 'persist' }],
         };
       }
 
@@ -782,14 +787,20 @@ function judge(state: RoomState, verdict: 'correct' | 'wrong', at: number): Redu
   }));
 
   if (verdict === 'correct') {
-    return {
-      state: closeQuestion({
+    // Счёт и право хода применяются сразу, а вопрос ещё висит на сцене с ответом:
+    // закроет её таймер или ведущий кнопкой «дальше».
+    const correct = enterReveal(
+      {
         ...state,
         players,
         controlPlayerId: playerId,
-        log: log(state, at, `${player.name}: верно, +${active.price}`),
-      }),
-      effects: [{ type: 'sound', sound: 'correct' }, { type: 'clearTimer' }, { type: 'persist' }],
+      },
+      at,
+      `${player.name}: верно, +${active.price}`,
+    );
+    return {
+      ...correct,
+      effects: [{ type: 'sound', sound: 'correct' }, ...correct.effects, { type: 'persist' }],
     };
   }
 
@@ -814,13 +825,14 @@ function judge(state: RoomState, verdict: 'correct' | 'wrong', at: number): Redu
 
   // У спецвопросов кнопки нет: играл один, значит вопрос закончен.
   if (active.soloPlayerId !== null || !someoneLeft) {
+    const done = enterReveal(
+      afterWrong,
+      at,
+      active.soloPlayerId !== null ? 'Вопрос играл один игрок' : 'Отвечать больше некому',
+    );
     return {
-      state: revealAnswer(
-        afterWrong,
-        at,
-        active.soloPlayerId !== null ? 'Вопрос играл один игрок' : 'Отвечать больше некому',
-      ),
-      effects: [{ type: 'sound', sound: 'wrong' }, { type: 'clearTimer' }, { type: 'persist' }],
+      ...done,
+      effects: [{ type: 'sound', sound: 'wrong' }, ...done.effects, { type: 'persist' }],
     };
   }
 
@@ -879,13 +891,39 @@ function openBuzzer(state: RoomState, at: number): ReduceResult {
   };
 }
 
+/** Сцена с ответом: держится таймером, а ведущий может закрыть её раньше кнопкой
+ *  «дальше». При `answerRevealMs: 0` таймера нет — сцена ждёт ведущего. */
+function enterReveal(state: RoomState, at: number, reason: string): ReduceResult {
+  const next = revealAnswer(state, at, reason);
+  const durationMs = state.settings.answerRevealMs;
+  if (durationMs <= 0) return { state: next, effects: [{ type: 'clearTimer' }] };
+
+  return {
+    state: next,
+    effects: [
+      {
+        type: 'setTimer',
+        kind: 'reveal',
+        durationMs,
+        onExpire: { type: 'TIMER_EXPIRED', kind: 'reveal', at: at + durationMs },
+      },
+    ],
+  };
+}
+
 /** Показать правильный ответ всем: с этого момента он попадает в проекции игроков. */
 export function revealAnswer(state: RoomState, at: number, reason: string): RoomState {
   return {
     ...state,
     phase: 'answer_reveal',
     active: state.active ? { ...state.active, answerRevealed: true } : null,
-    buzz: { ...state.buzz, answeringPlayerId: null, candidates: [], graceClosesAt: null },
+    buzz: {
+      ...state.buzz,
+      answeringPlayerId: null,
+      answeringSince: null,
+      candidates: [],
+      graceClosesAt: null,
+    },
     timer: null,
     log: [...state.log, { at, text: reason }].slice(-200),
   };
