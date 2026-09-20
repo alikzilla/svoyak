@@ -13,6 +13,7 @@ export const PUBLIC_URL = (process.env['PUBLIC_URL'] ?? '').replace(/\/+$/, '');
 
 export const DATA_DIR = process.env['DATA_DIR'] ?? path.join(ROOT_DIR, 'data');
 export const PACKS_DIR = path.join(DATA_DIR, 'packs');
+export const GAMES_DIR = path.join(DATA_DIR, 'games');
 export const ROOMS_DIR = path.join(DATA_DIR, 'rooms');
 export const HISTORY_DIR = path.join(DATA_DIR, 'history');
 export const UPLOADS_DIR = process.env['UPLOADS_DIR'] ?? path.join(ROOT_DIR, 'uploads');

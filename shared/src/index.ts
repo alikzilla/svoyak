@@ -5,3 +5,5 @@ export * from './state.js';
 export * from './events.js';
 export * from './validate.js';
 export * from './parseTheme.js';
+export * from './modifiers.js';
+export * from './game.js';
