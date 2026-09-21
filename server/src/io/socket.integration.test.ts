@@ -504,25 +504,58 @@ describe('состав игры', () => {
     });
 
     const host = await connect();
-    const created = await emit<'room:create', { code: string; hostToken: string }>(
-      host,
-      'room:create',
-      { gameId: 'game-test' },
-    );
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error('комната не создалась');
+    try {
+      const created = await emit<'room:create', { code: string; hostToken: string }>(
+        host,
+        'room:create',
+        { gameId: 'game-test' },
+      );
+      expect(created.ok).toBe(true);
+      if (!created.ok) throw new Error('комната не создалась');
 
-    const room = rooms.get(created.data.code);
-    expect(room?.state.pack.rounds).toHaveLength(1);
-    expect(room?.state.board[0]?.title).toBe(theme.title);
-    host.disconnect();
+      const room = rooms.get(created.data.code);
+      expect(room?.state.pack.rounds).toHaveLength(1);
+      expect(room?.state.board[0]?.title).toBe(theme.title);
+    } finally {
+      host.disconnect();
+    }
   });
 
   it('отказывает по несуществующей игре', async () => {
     const host = await connect();
-    const created = await emit(host, 'room:create', { gameId: 'game-нет' });
-    expect(created.ok).toBe(false);
-    host.disconnect();
+    try {
+      const created = await emit(host, 'room:create', { gameId: 'game-нет' });
+      expect(created.ok).toBe(false);
+    } finally {
+      host.disconnect();
+    }
+  });
+
+  it('отказывает по игре с потерянной темой', async () => {
+    const { saveGame } = await import('../storage/gamesRepo.js');
+
+    saveGame({
+      id: 'game-broken-ref',
+      title: 'Игра с потерянной темой',
+      createdAt: 1,
+      updatedAt: 1,
+      recipe: {
+        rounds: [[{ packId: 'demo-classic', themeId: 'нет-такой-темы' }]],
+        final: [{ packId: 'demo-classic', themeId: 'нет-такой-темы' }],
+      },
+      modifiers: { perRound: 0, kinds: [] },
+    });
+
+    const host = await connect();
+    try {
+      const created = await emit(host, 'room:create', { gameId: 'game-broken-ref' });
+      expect(created.ok).toBe(false);
+      if (!created.ok) {
+        expect(created.error).toBe('В игре потерялись темы: откройте её и почините состав');
+      }
+    } finally {
+      host.disconnect();
+    }
   });
 });
 
