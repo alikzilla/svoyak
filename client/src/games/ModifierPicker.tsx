@@ -69,7 +69,7 @@ export function ModifierPicker({ plan, onChange }: ModifierPickerProps) {
       )}
 
       {plan.perRound > 0 && plan.kinds.length === 0 && (
-        <p className="font-body text-bad text-xs font-bold">
+        <p className="font-body text-no text-xs font-bold">
           Ни один вид не включён — модификаторов не будет
         </p>
       )}

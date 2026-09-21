@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { ComposeResponse, Game, PackSummary } from '@svoyak/shared';
+import { GAME_LIMITS, type ComposeResponse, type Game, type PackSummary } from '@svoyak/shared';
 import { composeGame } from '../net/gameApi.js';
 import { saveGame } from './api.js';
 import { ModifierPicker } from './ModifierPicker.js';
@@ -10,6 +10,10 @@ interface GameBuilderProps {
   onSaved: (game: Game) => void;
   onClose: () => void;
 }
+
+const [ROUNDS_MIN, ROUNDS_MAX] = GAME_LIMITS.rounds;
+const [THEMES_MIN, THEMES_MAX] = GAME_LIMITS.themesPerRound;
+const [FINAL_MIN, FINAL_MAX] = GAME_LIMITS.finalThemes;
 
 /** Конструктор одной игры: паки → состав → модификаторы → сохранить. */
 export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps) {
@@ -26,14 +30,24 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
   const [busy, setBusy] = useState(false);
 
   // `packs` приходит от родителя асинхронно: на момент первого рендера конструктора
-  // список может быть ещё пуст. Раз выставленный выбор не трогаем, даже когда
-  // `packs` потом обновится (перезагрузится, изменится порядок и т. п.).
+  // список может быть ещё пуст. У сохранённой игры уже есть состав — выбор паков
+  // выводим из него (иначе повторное открытие подменяет паки на "первые три" и
+  // «Сохранить игру» тихо перезаписывает исходный состав). Пустой рецепт (только
+  // что созданная игра) — единственный случай, когда берём дефолт. Раз
+  // выставленный выбор не трогаем, даже когда `packs` потом обновится.
   const defaulted = useRef(false);
   useEffect(() => {
     if (defaulted.current || packs.length === 0) return;
     defaulted.current = true;
-    setSelected(packs.filter((pack) => pack.playable).slice(0, 3).map((pack) => pack.id));
-  }, [packs]);
+    const fromRecipe = Array.from(
+      new Set(game.recipe.rounds.flat().concat(game.recipe.final).map((ref) => ref.packId)),
+    );
+    setSelected(
+      fromRecipe.length > 0
+        ? fromRecipe
+        : packs.filter((pack) => pack.playable).slice(0, 3).map((pack) => pack.id),
+    );
+  }, [packs, game]);
 
   const compose = useCallback(() => {
     if (selected.length === 0) {
@@ -103,10 +117,12 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
           <span>Раундов</span>
           <input
             type="number"
-            min={1}
-            max={5}
+            min={ROUNDS_MIN}
+            max={ROUNDS_MAX}
             value={rounds}
-            onChange={(event) => setRounds(Number(event.target.value) || 1)}
+            onChange={(event) =>
+              setRounds(Math.min(ROUNDS_MAX, Math.max(ROUNDS_MIN, Number(event.target.value) || ROUNDS_MIN)))
+            }
             className="ink-border bg-paper rounded-xl px-3 py-2 tabular-nums"
           />
         </label>
@@ -114,10 +130,14 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
           <span>Тем в раунде</span>
           <input
             type="number"
-            min={1}
-            max={8}
+            min={THEMES_MIN}
+            max={THEMES_MAX}
             value={themesPerRound}
-            onChange={(event) => setThemesPerRound(Number(event.target.value) || 1)}
+            onChange={(event) =>
+              setThemesPerRound(
+                Math.min(THEMES_MAX, Math.max(THEMES_MIN, Number(event.target.value) || THEMES_MIN)),
+              )
+            }
             className="ink-border bg-paper rounded-xl px-3 py-2 tabular-nums"
           />
         </label>
@@ -125,10 +145,12 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
           <span>Тем в финале</span>
           <input
             type="number"
-            min={1}
-            max={8}
+            min={FINAL_MIN}
+            max={FINAL_MAX}
             value={finalThemes}
-            onChange={(event) => setFinalThemes(Number(event.target.value) || 1)}
+            onChange={(event) =>
+              setFinalThemes(Math.min(FINAL_MAX, Math.max(FINAL_MIN, Number(event.target.value) || FINAL_MIN)))
+            }
             className="ink-border bg-paper rounded-xl px-3 py-2 tabular-nums"
           />
         </label>
@@ -149,14 +171,14 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
         </section>
       )}
 
-      {error && <p className="font-body text-bad text-sm font-bold">{error}</p>}
+      {error && <p className="font-body text-no text-sm font-bold">{error}</p>}
 
       <div className="flex flex-wrap gap-3">
         <button
           type="button"
           onClick={compose}
           disabled={busy}
-          className="ink-border bg-card font-body rounded-2xl px-4 py-2 text-sm font-bold"
+          className="ink-border bg-card text-ink font-body rounded-2xl px-4 py-2 text-sm font-bold"
         >
           Пересобрать состав
         </button>

@@ -125,7 +125,7 @@ export default function Games() {
                 <span className="block text-sm text-ink/60">
                   {game.roundsCount} раунда · {game.themesCount} тем ·{' '}
                   {game.modifiersPerRound > 0
-                    ? `${game.modifiersPerRound} модификатора на раунд`
+                    ? `модификаторов на раунд: ${game.modifiersPerRound}`
                     : 'без модификаторов'}
                 </span>
                 {!game.playable && (
