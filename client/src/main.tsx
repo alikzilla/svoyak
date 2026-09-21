@@ -9,6 +9,7 @@ import Join from './routes/Join.js';
 import Play from './routes/Play.js';
 import Board from './routes/Board.js';
 import Editor from './routes/Editor.js';
+import Games from './routes/Games.js';
 import Style from './routes/Style.js';
 
 const router = createBrowserRouter([
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
   { path: '/board', element: <Board /> },
   { path: '/editor', element: <Editor /> },
   { path: '/editor/:packId', element: <Editor /> },
+  { path: '/games', element: <Games /> },
   { path: '/style', element: <Style /> },
 ]);
 

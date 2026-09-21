@@ -3,5 +3,6 @@ dist/
 uploads/
 data/rooms/
 data/history/
+data/games/
 *.log
 .DS_Store

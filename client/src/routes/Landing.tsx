@@ -9,6 +9,7 @@ const ROLES = [
   { to: '/join', title: 'Я играю', hint: 'войти по коду комнаты', tone: 'var(--color-p5)' },
   { to: '/board', title: 'Общий экран', hint: 'табло для телевизора', tone: 'var(--color-p3)' },
   { to: '/editor', title: 'Свои вопросы', hint: 'собрать пак в редакторе', tone: 'var(--color-p4)' },
+  { to: '/games', title: 'Игры', hint: 'собрать вечер из паков', tone: 'var(--color-p2)' },
 ];
 
 export default function Landing() {
