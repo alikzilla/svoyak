@@ -106,6 +106,14 @@ describe('раскладка модификаторов', () => {
     expect(kinds).toContain('jackpot');
   });
 
+  it('колода видов переживает переход между раундами', () => {
+    // При perRound=1 второй раунд обязан достать оставшийся вид из колоды
+    // первого раунда, а не начать новую — иначе колода не «переживает»
+    // раунды, а тест на очерёдность видов (выше) этого не различает.
+    const cells = planModifierCells(pack, { perRound: 1, kinds: ['flip', 'jackpot'] }, firstAlways);
+    expect(cells).toEqual({ a1: 'jackpot', b1: 'flip' });
+  });
+
   it('в финале модификаторов нет', () => {
     const cells = planModifierCells(pack, { perRound: 5, kinds: ['flip'] }, firstAlways);
     expect(cells['fq']).toBeUndefined();

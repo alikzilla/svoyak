@@ -3,7 +3,10 @@ import type { ModifierKind, ModifierPlan, Pack } from '@svoyak/shared';
 /** Источник случайности параметром: раскладку надо уметь проверить тестом. */
 export type Random = () => number;
 
-/** Достаёт из массива случайный элемент, не меняя исходный. */
+/** Достаёт из массива случайный элемент и удаляет его на месте (splice) —
+ *  повторно тот же элемент не вытянуть. Поэтому вызывающий обязан передавать
+ *  одноразовую копию массива, а не оригинал (например, `plan.kinds` из
+ *  сохранённой `Game` трогать напрямую нельзя — только через `[...kinds]`). */
 function drawFrom<T>(items: T[], random: Random): T | undefined {
   if (items.length === 0) return undefined;
   const index = Math.min(items.length - 1, Math.floor(random() * items.length));
