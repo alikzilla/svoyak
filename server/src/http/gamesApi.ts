@@ -95,11 +95,16 @@ export function gamesRouter(): Router {
       return;
     }
 
+    // Заголовок мог прийти чем угодно — тело не типизировано до этой точки.
+    // Нестроковый заголовок ведём себя как отсутствующий: откатываемся к прежнему,
+    // а не падаем на .trim() чужого типа.
+    const title = typeof incoming.title === 'string' ? incoming.title.trim().slice(0, MAX_TITLE) : '';
+
     // Идентификатор берём из адреса: тело запроса не должно уметь писать в чужой файл.
     const game: Game = {
       ...incoming,
       id: existing.id,
-      title: (incoming.title ?? '').trim().slice(0, MAX_TITLE) || existing.title,
+      title: title || existing.title,
       createdAt: existing.createdAt,
       updatedAt: Date.now(),
       modifiers: plan,

@@ -5,6 +5,7 @@ import path from 'node:path';
 import express from 'express';
 import { createServer, type Server } from 'node:http';
 import type { Game, GameResponse, GamesListResponse } from '@svoyak/shared';
+import { GAME_LIMITS } from '@svoyak/shared';
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'svoyak-games-api-'));
 process.env['DATA_DIR'] = tempDir;
@@ -117,5 +118,67 @@ describe('REST игр', () => {
   it('на несуществующую игру отвечает 404', async () => {
     const response = await fetch(`${base}/api/games/нет-такой`);
     expect(response.status).toBe(404);
+  });
+
+  it('нестроковый заголовок не роняет сервер, а откатывается к прежнему', async () => {
+    const game = await createGame('Прежнее название');
+    const response = await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ game: { ...game, title: 123 } }),
+    });
+    expect(response.status).not.toBe(500);
+    expect(response.status).toBe(200);
+    const body = (await response.json()) as GameResponse;
+    expect(body.game.title).toBe('Прежнее название');
+  });
+
+  it('тело без объекта игры отклоняется с понятным текстом', async () => {
+    const game = await createGame();
+    const response = await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    expect(response.status).toBe(400);
+    const body = (await response.json()) as { error: string };
+    expect(body.error).toBe('Ожидается объект игры');
+  });
+
+  it('отсутствующий состав отклоняется с понятным текстом', async () => {
+    const game = await createGame();
+    const response = await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ game: { ...game, recipe: null } }),
+    });
+    expect(response.status).toBe(400);
+    const body = (await response.json()) as { error: string };
+    expect(body.error).toBe('В игре нет состава');
+  });
+
+  it('состав без массивов раундов и финала отклоняется с понятным текстом', async () => {
+    const game = await createGame();
+    const response = await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ game: { ...game, recipe: { rounds: 'не массив', final: [] } } }),
+    });
+    expect(response.status).toBe(400);
+    const body = (await response.json()) as { error: string };
+    expect(body.error).toBe('Состав должен содержать раунды и финал');
+  });
+
+  it('слишком много раундов отклоняется с понятным текстом', async () => {
+    const game = await createGame();
+    const tooManyRounds = Array.from({ length: GAME_LIMITS.rounds[1] + 1 }, () => []);
+    const response = await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ game: { ...game, recipe: { rounds: tooManyRounds, final: [] } } }),
+    });
+    expect(response.status).toBe(400);
+    const body = (await response.json()) as { error: string };
+    expect(body.error).toBe(`Раундов не больше ${GAME_LIMITS.rounds[1]}`);
   });
 });
