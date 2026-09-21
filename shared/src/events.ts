@@ -19,6 +19,8 @@ export interface ClockPong {
 export interface CreateRoomPayload {
   packId?: string;
   recipe?: GameRecipe;
+  /** Сохранённая игра: сервер сам достанет из неё состав. */
+  gameId?: string;
   settings?: Partial<RoomSettings>;
 }
 

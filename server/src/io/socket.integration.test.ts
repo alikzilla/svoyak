@@ -481,6 +481,49 @@ describe('состав игры', () => {
     host.disconnect();
     player.disconnect();
   });
+
+  it('создаёт комнату по сохранённой игре', async () => {
+    const { saveGame } = await import('../storage/gamesRepo.js');
+    const { getPack } = await import('../storage/packsRepo.js');
+    const pack = getPack('demo-classic');
+    if (!pack) throw new Error('Для теста нужен пак demo-classic');
+    const theme = pack.rounds[0]?.themes[0];
+    const finalTheme = pack.final.themes[0];
+    if (!theme || !finalTheme) throw new Error('Пак demo-classic неожиданно пуст');
+
+    saveGame({
+      id: 'game-test',
+      title: 'Тестовая игра',
+      createdAt: 1,
+      updatedAt: 1,
+      recipe: {
+        rounds: [[{ packId: pack.id, themeId: theme.id }]],
+        final: [{ packId: pack.id, themeId: finalTheme.id }],
+      },
+      modifiers: { perRound: 0, kinds: [] },
+    });
+
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { gameId: 'game-test' },
+    );
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error('комната не создалась');
+
+    const room = rooms.get(created.data.code);
+    expect(room?.state.pack.rounds).toHaveLength(1);
+    expect(room?.state.board[0]?.title).toBe(theme.title);
+    host.disconnect();
+  });
+
+  it('отказывает по несуществующей игре', async () => {
+    const host = await connect();
+    const created = await emit(host, 'room:create', { gameId: 'game-нет' });
+    expect(created.ok).toBe(false);
+    host.disconnect();
+  });
 });
 
 describe('пауза на чтение', () => {

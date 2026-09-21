@@ -7,15 +7,35 @@ import type { RoomRuntime } from '../room/RoomRuntime.js';
 import { adjustBuzzTime } from '../engine/buzz.js';
 import { buildPackFromRecipe } from '../packs/compose.js';
 import { getPack } from '../storage/packsRepo.js';
+import { getGame, summarizeGame } from '../storage/gamesRepo.js';
 import type { AppServer, AppSocket } from './types.js';
 
 const MAX_NAME_LENGTH = 20;
 
-/** Пак для комнаты: либо целиком по идентификатору, либо собранный по рецепту.
- *  Возвращает текст ошибки строкой — её показываем ведущему как есть. */
-function resolvePack({ packId, recipe }: { packId?: string; recipe?: GameRecipe }): Pack | string {
+/** Пак для комнаты: по сохранённой игре, целиком по идентификатору пака,
+ *  либо собранный по рецепту. Возвращает текст ошибки строкой — её
+ *  показываем ведущему как есть. */
+function resolvePack({
+  packId,
+  recipe,
+  gameId,
+}: {
+  packId?: string;
+  recipe?: GameRecipe;
+  gameId?: string;
+}): Pack | string {
   let pack: Pack | null = null;
-  if (recipe) {
+  if (gameId !== undefined) {
+    const game = getGame(gameId);
+    if (!game) return 'Игра не найдена';
+    const summary = summarizeGame(game, getPack);
+    if (!summary.playable) return 'В игре потерялись темы: откройте её и почините состав';
+    try {
+      pack = buildPackFromRecipe(game.recipe, getPack);
+    } catch (cause) {
+      return cause instanceof Error ? cause.message : 'Не удалось собрать игру';
+    }
+  } else if (recipe) {
     try {
       pack = buildPackFromRecipe(recipe, getPack);
     } catch (cause) {
@@ -108,8 +128,8 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack({ t0, tServer: Date.now() });
     });
 
-    socket.on('room:create', ({ packId, recipe, settings }, ack) => {
-      const pack = resolvePack({ packId, recipe });
+    socket.on('room:create', ({ packId, recipe, gameId, settings }, ack) => {
+      const pack = resolvePack({ packId, recipe, gameId });
       if (typeof pack === 'string') {
         ack({ ok: false, error: pack });
         return;
