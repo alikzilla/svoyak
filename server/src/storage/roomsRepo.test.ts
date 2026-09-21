@@ -60,4 +60,18 @@ describe('хранилище комнат', () => {
     expect(() => loadRooms(60_000)).not.toThrow();
     expect(fs.existsSync(path.join(tempDir, 'rooms', 'broken.json'))).toBe(false);
   });
+
+  it('игрок без жетонов подсказки в сохранённом файле получает hints: 0 при загрузке', () => {
+    // Комната, сохранённая до появления поля hints в Player, — файл на диске
+    // его не содержит, хотя тип на это рассчитывает.
+    const state = roomWithPlayer(Date.now());
+    const raw = JSON.parse(JSON.stringify(state)) as { players: Array<Record<string, unknown>> };
+    for (const player of raw.players) delete player['hints'];
+    fs.mkdirSync(path.join(tempDir, 'rooms'), { recursive: true });
+    fs.writeFileSync(path.join(tempDir, 'rooms', `${state.code}.json`), JSON.stringify(raw), 'utf8');
+
+    const restored = loadRooms(60_000);
+    expect(restored).toHaveLength(1);
+    expect(restored[0]!.players[0]!.hints).toBe(0);
+  });
 });

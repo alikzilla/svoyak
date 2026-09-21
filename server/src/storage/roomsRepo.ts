@@ -36,7 +36,12 @@ export function loadRooms(maxAgeMs: number, now = Date.now()): RoomState[] {
     rooms.push({
       ...state,
       hostConnected: false,
-      players: state.players.map((player) => ({ ...player, connected: false })),
+      players: state.players.map((player) => ({
+        ...player,
+        connected: false,
+        // Комната могла быть сохранена до появления жетонов подсказки.
+        hints: player.hints ?? 0,
+      })),
       timer: null,
     });
   }

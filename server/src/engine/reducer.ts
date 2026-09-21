@@ -99,6 +99,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
               connected: true,
               joinedAt: action.at,
               sessionToken: action.sessionToken,
+              hints: 0,
             },
           ],
           log: log(state, action.at, `${name} присоединился`),

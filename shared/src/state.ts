@@ -42,6 +42,8 @@ export interface Player {
   joinedAt: number;
   /** Секрет для переподключения. Никогда не попадает в проекции. */
   sessionToken: string;
+  /** Жетоны подсказки: тратит их ведущий по просьбе игрока вслух. */
+  hints: number;
 }
 
 export interface BoardCell {
@@ -168,6 +170,7 @@ export interface PlayerPublic {
   isAnswering: boolean;
   /** Заблокирован фальстартом до этого момента. */
   lockedUntil: number | null;
+  hints: number;
 }
 
 export interface QuestionViewCommon {

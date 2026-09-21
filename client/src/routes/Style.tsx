@@ -53,6 +53,7 @@ const MOCK_PLAYERS = PLAYER_NAMES.slice(0, 4).map((name, index) => ({
   isControl: index === 0,
   isAnswering: false,
   lockedUntil: null,
+  hints: 0,
 }));
 
 /** Цвет сцены. Карточки поверх остаются светлыми, меняется только фон —

@@ -1,4 +1,5 @@
-import type { ModifierKind, ModifierPlan, Pack } from '@svoyak/shared';
+import type { ModifierKind, ModifierPlan, Pack, Player, RoomSettings } from '@svoyak/shared';
+import { JACKPOT_AMOUNT, TRANSFER_AMOUNT } from '@svoyak/shared';
 
 /** Источник случайности параметром: раскладку надо уметь проверить тестом. */
 export type Random = () => number;
@@ -53,4 +54,92 @@ export function planModifierCells(
   }
 
   return cells;
+}
+
+/** Настройка «не уходить в минус» должна соблюдаться одинаково всеми.
+ *  Перевёртыш, удвоение и обмен — не дельты, поэтому `applyDelta` их не ловит. */
+export function clampScore(score: number, settings: RoomSettings): number {
+  return settings.allowNegative ? score : Math.max(0, score);
+}
+
+/** Эффект клетки-модификатора. Чистая функция над списком игроков: ни фаз,
+ *  ни таймеров, ни доски — только счёт и жетоны. */
+export function applyModifier(
+  players: Player[],
+  kind: ModifierKind,
+  playerId: string,
+  targetPlayerId: string | null,
+  settings: RoomSettings,
+): Player[] {
+  const me = players.find((player) => player.id === playerId);
+  if (!me) return players;
+
+  const withScore = (player: Player, score: number): Player => ({
+    ...player,
+    score: clampScore(score, settings),
+  });
+
+  switch (kind) {
+    case 'nothing':
+      return players;
+
+    case 'flip':
+      return players.map((player) =>
+        player.id === playerId ? withScore(player, -player.score) : player,
+      );
+
+    case 'jackpot':
+      return players.map((player) =>
+        player.id === playerId ? withScore(player, player.score + JACKPOT_AMOUNT) : player,
+      );
+
+    case 'double':
+      return players.map((player) =>
+        player.id === playerId ? withScore(player, player.score * 2) : player,
+      );
+
+    case 'hint':
+      return players.map((player) =>
+        // Комната, восстановленная с диска, может быть сохранена до появления поля hints.
+        player.id === playerId ? { ...player, hints: (player.hints ?? 0) + 1 } : player,
+      );
+
+    case 'robbery': {
+      // Лидер ищется среди остальных: сам себя открывший не грабит.
+      const others = players.filter((player) => player.id !== playerId);
+      const leader = others.reduce<Player | null>(
+        (best, player) => (best === null || player.score > best.score ? player : best),
+        null,
+      );
+      if (!leader) return players;
+      return players.map((player) => {
+        if (player.id === leader.id) return withScore(player, player.score - TRANSFER_AMOUNT);
+        if (player.id === playerId) return withScore(player, player.score + TRANSFER_AMOUNT);
+        return player;
+      });
+    }
+
+    case 'generosity': {
+      const others = players.filter((player) => player.id !== playerId);
+      if (others.length === 0) return players;
+      return players.map((player) =>
+        player.id === playerId
+          ? withScore(player, player.score - TRANSFER_AMOUNT)
+          : withScore(player, player.score + TRANSFER_AMOUNT),
+      );
+    }
+
+    case 'swap': {
+      if (targetPlayerId === null || targetPlayerId === playerId) return players;
+      const target = players.find((player) => player.id === targetPlayerId);
+      if (!target) return players;
+      // Счёт открывшего берём заранее (`me`), а не из уже обновлённого списка,
+      // иначе обмен прочитал бы половину значений после самого себя.
+      return players.map((player) => {
+        if (player.id === playerId) return withScore(player, target.score);
+        if (player.id === targetPlayerId) return withScore(player, me.score);
+        return player;
+      });
+    }
+  }
 }

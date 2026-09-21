@@ -25,6 +25,8 @@ function projectPlayers(state: RoomState, now: number): PlayerPublic[] {
       isAnswering:
         state.buzz.answeringPlayerId === player.id || state.active?.soloPlayerId === player.id,
       lockedUntil: lockedUntil !== null && lockedUntil > now ? lockedUntil : null,
+      // Комната, восстановленная с диска, может быть сохранена до появления этого поля.
+      hints: player.hints ?? 0,
     };
   });
 }
