@@ -46,8 +46,13 @@ beforeAll(async () => {
   port = typeof address === 'object' && address ? address.port : 0;
 });
 
-afterAll(() => {
-  httpServer.close();
+afterAll(async () => {
+  // Тот же приём, что и в REST-тестах: закрываем соединения принудительно и
+  // ждём коллбэк, а не полагаемся на то, что сокеты сами отвалятся когда-то.
+  await new Promise<void>((resolve) => {
+    httpServer.close(() => resolve());
+    httpServer.closeAllConnections();
+  });
   fs.rmSync(tempDir, { recursive: true, force: true });
 });
 

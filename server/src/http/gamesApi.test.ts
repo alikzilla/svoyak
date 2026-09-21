@@ -23,8 +23,14 @@ beforeAll(async () => {
   base = `http://localhost:${typeof address === 'object' && address ? address.port : 0}`;
 });
 
-afterAll(() => {
-  server.close();
+afterAll(async () => {
+  // close() ждёт живые соединения бесконечно; fetch держит keep-alive сокет
+  // открытым, так что без closeAllConnections() и ожидания коллбэка хендл
+  // сервера переживает тест и копится вместе с хендлами соседних файлов.
+  await new Promise<void>((resolve) => {
+    server.close(() => resolve());
+    server.closeAllConnections();
+  });
   fs.rmSync(tempDir, { recursive: true, force: true });
 });
 
