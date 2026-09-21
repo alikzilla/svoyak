@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { CreateRoomResult, GameRecipe, PackSummary, RoomSettings } from '@svoyak/shared';
+import type { CreateRoomResult, GameRecipe, GameSummary, PackSummary, RoomSettings } from '@svoyak/shared';
 import { DEFAULT_SETTINGS } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
 import { fetchPacks } from '../net/gameApi.js';
+import { listGames } from '../games/api.js';
 import { GameSetup } from '../ui/host/GameSetup.js';
 import { SettingsPanel } from '../ui/host/SettingsPanel.js';
 import { clearSession, saveSession } from '../net/session.js';
@@ -20,6 +21,7 @@ import { RoughFrame } from '../design/rough.js';
 export default function Host() {
   const { view, connected, closed } = useHostRoom();
   const [packs, setPacks] = useState<PackSummary[]>([]);
+  const [games, setGames] = useState<GameSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [recipe, setRecipe] = useState<GameRecipe | null>(null);
@@ -31,11 +33,21 @@ export default function Host() {
       .catch(() => setError('Не удалось загрузить список паков'));
   }, []);
 
-  const createRoom = async (): Promise<void> => {
-    if (!recipe) return;
+  useEffect(() => {
+    // Список сохранённых игр не критичен для мастера на ходу, поэтому при сбое
+    // падаем на пустой список — но хост должен видеть ошибку, а не тишину.
+    void listGames()
+      .then(setGames)
+      .catch(() => {
+        setGames([]);
+        setError('Не удалось загрузить список сохранённых игр');
+      });
+  }, []);
+
+  const createRoom = async (payload: { recipe: GameRecipe } | { gameId: string }): Promise<void> => {
     setCreating(true);
     setError(null);
-    const result = await ask<CreateRoomResult>('room:create', { recipe, settings });
+    const result = await ask<CreateRoomResult>('room:create', { ...payload, settings });
     setCreating(false);
     if (!result.ok) {
       setError(result.error);
@@ -79,6 +91,31 @@ export default function Host() {
           </p>
         ) : (
           <>
+            {games.length > 0 && (
+              <section className="ink-border bg-card text-ink relative grid gap-2 rounded-2xl p-4">
+                <span className="font-body text-sm font-bold">Сохранённые игры</span>
+                {games.map((game) => (
+                  <button
+                    key={game.id}
+                    type="button"
+                    disabled={!game.playable || creating || !connected}
+                    onClick={() => void createRoom({ gameId: game.id })}
+                    className="ink-border font-body flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm font-bold disabled:opacity-40"
+                  >
+                    <span>{game.title}</span>
+                    <span className="text-xs opacity-60">
+                      {game.playable
+                        ? `${game.roundsCount} раунда · ${game.themesCount} тем`
+                        : 'состав потерялся'}
+                    </span>
+                  </button>
+                ))}
+                <span className="font-body text-xs font-bold opacity-60">
+                  или соберите игру на ходу ниже
+                </span>
+              </section>
+            )}
+
             <section className="relative">
               <GameSetup packs={packs} onRecipeChange={setRecipe} />
             </section>
@@ -97,7 +134,9 @@ export default function Host() {
                 size="lg"
                 idle={recipe !== null && connected}
                 disabled={creating || !connected || recipe === null}
-                onClick={() => void createRoom()}
+                onClick={() => {
+                  if (recipe) void createRoom({ recipe });
+                }}
               >
                 {creating ? 'Создаём…' : 'Создать комнату'}
               </DoodleButton>
