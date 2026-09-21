@@ -1,4 +1,5 @@
 import type { Pack, PackSummary } from './pack.js';
+import type { Game, GameSummary } from './game.js';
 import type { GameRecipe } from './recipe.js';
 import type { RoomSettings } from './settings.js';
 import type { AnyView, Role } from './state.js';
@@ -178,4 +179,13 @@ export interface PacksListResponse {
 
 export interface PackResponse {
   pack: Pack;
+}
+
+/** REST-контракты редактора игр. */
+export interface GamesListResponse {
+  games: GameSummary[];
+}
+
+export interface GameResponse {
+  game: Game;
 }

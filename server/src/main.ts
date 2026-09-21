@@ -5,6 +5,7 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import {
   CLIENT_PORT,
+  GAMES_DIR,
   HISTORY_DIR,
   PACKS_DIR,
   PORT,
@@ -15,12 +16,13 @@ import {
 import { printBanner } from './net/banner.js';
 import { getLanAddress } from './net/lan.js';
 import { packsRouter } from './http/packsApi.js';
+import { gamesRouter } from './http/gamesApi.js';
 import { mediaRouter } from './http/mediaApi.js';
 import { RoomManager } from './room/RoomManager.js';
 import { registerSocketHandlers } from './io/registerSocketHandlers.js';
 import type { AppServer } from './io/types.js';
 
-for (const dir of [PACKS_DIR, ROOMS_DIR, HISTORY_DIR, UPLOADS_DIR]) {
+for (const dir of [PACKS_DIR, GAMES_DIR, ROOMS_DIR, HISTORY_DIR, UPLOADS_DIR]) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
@@ -29,6 +31,7 @@ app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/api', packsRouter());
+app.use('/api', gamesRouter());
 app.use('/api', mediaRouter());
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
