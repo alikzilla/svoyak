@@ -1,4 +1,4 @@
-import type { Pack, RoomSettings, RoomState } from '@svoyak/shared';
+import type { ModifierKind, Pack, RoomSettings, RoomState } from '@svoyak/shared';
 import { DEFAULT_SETTINGS } from '@svoyak/shared';
 import { randomUUID } from 'node:crypto';
 import type { Effect } from '../engine/actions.js';
@@ -32,7 +32,11 @@ export class RoomManager {
     return new Set(this.rooms.keys());
   }
 
-  create(pack: Pack, settings?: Partial<RoomSettings>): { room: RoomRuntime; hostToken: string } {
+  create(
+    pack: Pack,
+    settings?: Partial<RoomSettings>,
+    modifierCells: Record<string, ModifierKind> = {},
+  ): { room: RoomRuntime; hostToken: string } {
     const code = generateRoomCode(this.codes);
     const hostToken = randomUUID();
     const state = createRoomState({
@@ -40,6 +44,7 @@ export class RoomManager {
       pack,
       settings: { ...DEFAULT_SETTINGS, ...settings },
       hostToken,
+      modifierCells,
     });
     const room = this.attach(state);
     saveRoom(state);

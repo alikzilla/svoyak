@@ -1,4 +1,4 @@
-import type { BuzzState, Pack, RoomSettings, RoomState } from '@svoyak/shared';
+import type { BuzzState, ModifierKind, Pack, RoomSettings, RoomState } from '@svoyak/shared';
 import { buildBoard } from './board.js';
 
 export interface CreateRoomArgs {
@@ -7,6 +7,7 @@ export interface CreateRoomArgs {
   settings: RoomSettings;
   hostToken: string;
   now?: number;
+  modifierCells?: Record<string, ModifierKind>;
 }
 
 export const EMPTY_BUZZ: BuzzState = {
@@ -25,6 +26,7 @@ export function createRoomState({
   settings,
   hostToken,
   now = Date.now(),
+  modifierCells = {},
 }: CreateRoomArgs): RoomState {
   const firstRound = pack.rounds[0];
   return {
@@ -32,12 +34,13 @@ export function createRoomState({
     createdAt: now,
     settings,
     pack,
+    modifierCells,
     hostToken,
     hostConnected: false,
     players: [],
     phase: 'lobby',
     roundIndex: 0,
-    board: firstRound ? buildBoard(firstRound) : [],
+    board: firstRound ? buildBoard(firstRound, modifierCells) : [],
     active: null,
     controlPlayerId: null,
     buzz: { ...EMPTY_BUZZ, lockedUntil: {} },

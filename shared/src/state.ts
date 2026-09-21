@@ -1,4 +1,5 @@
 import type { Media, Pack, QuestionType } from './pack.js';
+import type { ModifierKind } from './modifiers.js';
 import type { RoomSettings } from './settings.js';
 
 /** Фазы игры. Пауза — отдельный флаг поверх фазы, а не фаза. */
@@ -50,6 +51,9 @@ export interface BoardCell {
   questionId: string;
   price: number;
   played: boolean;
+  /** Под клеткой не вопрос, а модификатор. В проекции срезается, пока клетка
+   *  не открыта: снаружи она ничем не отличается от обычной. */
+  modifier?: ModifierKind;
 }
 
 export interface BoardTheme {
@@ -139,6 +143,9 @@ export interface RoomState {
   settings: RoomSettings;
   /** Пак копируется в комнату целиком: правки пака не меняют идущую игру. */
   pack: Pack;
+  /** Куда легли клетки-модификаторы: questionId → вид. Считается один раз при
+   *  создании комнаты, поэтому переживает сохранение и отмену хода. */
+  modifierCells: Record<string, ModifierKind>;
   hostToken: string;
   hostConnected: boolean;
   players: Player[];

@@ -59,7 +59,7 @@ export function advanceRound(state: RoomState): RoomState {
   return {
     ...state,
     roundIndex: nextIndex,
-    board: buildBoard(nextRound),
+    board: buildBoard(nextRound, state.modifierCells),
     active: null,
     buzz: resetBuzz(),
     timer: null,

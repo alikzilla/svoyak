@@ -42,6 +42,8 @@ export function loadRooms(maxAgeMs: number, now = Date.now()): RoomState[] {
         // Комната могла быть сохранена до появления жетонов подсказки.
         hints: player.hints ?? 0,
       })),
+      // Комната могла быть сохранена до появления клеток-модификаторов.
+      modifierCells: state.modifierCells ?? {},
       timer: null,
     });
   }
