@@ -64,6 +64,20 @@ export interface BoardTheme {
   cells: BoardCell[];
 }
 
+/** Клетка доски снаружи, для всех проекций: `modifier` тут структурно
+ *  невозможен, а не просто не заполнен. Раньше секрет держался только на
+ *  runtime-деструктуризации в projectBoard() и на тесте modifierSecrecy —
+ *  `board: state.board` типизировался бы молча. Теперь `BoardView.modifier`
+ *  и `BoardCellView.modifier` — разные поля разных типов, и присвоить
+ *  «сырую» `BoardCell[]` в `BoardThemeView[]` компилятор не даст. */
+export type BoardCellView = Omit<BoardCell, 'modifier'>;
+
+export interface BoardThemeView {
+  id: string;
+  title: string;
+  cells: BoardCellView[];
+}
+
 /** Вопрос, который сейчас в игре. */
 export interface ActiveQuestion {
   themeId: string;
@@ -242,7 +256,7 @@ export interface BaseView {
   roundTitle: string;
   roundIndex: number;
   roundsTotal: number;
-  board: BoardTheme[];
+  board: BoardThemeView[];
   players: PlayerPublic[];
   controlPlayerId: string | null;
   timer: TimerView | null;

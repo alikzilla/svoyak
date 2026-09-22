@@ -1,8 +1,8 @@
-import type { BoardTheme } from '@svoyak/shared';
+import type { BoardThemeView } from '@svoyak/shared';
 import { PriceCell } from '../design/PriceCell.js';
 
 interface BoardGridProps {
-  board: BoardTheme[];
+  board: BoardThemeView[];
   onPick?: (themeId: string, questionId: string) => void;
   /** Компактный вариант для телефона. */
   compact?: boolean;

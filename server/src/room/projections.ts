@@ -1,6 +1,6 @@
 import type {
   BaseView,
-  BoardTheme,
+  BoardThemeView,
   BoardView,
   FinalPublicView,
   HostQuestionView,
@@ -36,7 +36,7 @@ function projectPlayers(state: RoomState, now: number): PlayerPublic[] {
 /** Доска наружу. Модификатор виден только на уже открытой клетке: пока клетка
  *  закрыта, она обязана быть неотличима от обычной — это единственная точка,
  *  через которую доска уходит во все три проекции. */
-function projectBoard(state: RoomState): BoardTheme[] {
+function projectBoard(state: RoomState): BoardThemeView[] {
   return state.board.map((theme) => ({
     ...theme,
     cells: theme.cells.map(({ questionId, price, played }) => ({ questionId, price, played })),
