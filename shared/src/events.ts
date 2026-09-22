@@ -84,6 +84,10 @@ export interface CatTransferPayload {
   toPlayerId: string;
 }
 
+export interface ModifierTargetPayload {
+  targetPlayerId: string;
+}
+
 export interface BidPayload {
   /** Сумма ставки; `all-in` — весь счёт игрока. */
   amount: number | 'all-in' | 'pass';
@@ -159,6 +163,7 @@ export interface ClientToServerEvents {
 
   'player:buzz': (payload: BuzzPayload, ack: Ack<null>) => void;
   'player:catTransfer': (payload: CatTransferPayload, ack: Ack<null>) => void;
+  'player:modifierTarget': (payload: ModifierTargetPayload, ack: Ack<null>) => void;
   'player:bid': (payload: BidPayload, ack: Ack<null>) => void;
   'player:finalRemoveTheme': (payload: FinalRemoveThemePayload, ack: Ack<null>) => void;
   'player:finalBet': (payload: FinalBetPayload, ack: Ack<null>) => void;

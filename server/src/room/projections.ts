@@ -231,6 +231,23 @@ function projectPrompt(state: RoomState, playerId: string, now: number): PlayerP
       };
     }
 
+    case 'modifier': {
+      // Цель ещё не выбрана — сцена ждёт именно открывшего клетку, остальные смотрят.
+      if (
+        state.modifier?.kind === 'swap' &&
+        state.modifier.targetPlayerId === null &&
+        state.modifier.playerId === playerId
+      ) {
+        return {
+          kind: 'modifier_swap',
+          candidates: state.players
+            .filter((player) => player.id !== playerId)
+            .map((player) => ({ id: player.id, name: player.name })),
+        };
+      }
+      return { kind: 'wait' };
+    }
+
     case 'cat_transfer': {
       if (state.cat?.fromPlayerId !== playerId) return { kind: 'wait' };
       const question = activeQuestion(state);

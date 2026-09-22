@@ -303,6 +303,21 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
+    socket.on('player:modifierTarget', ({ targetPlayerId }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      if (room.state.modifier?.playerId !== playerId) {
+        ack({ ok: false, error: 'Выбирает тот, кто открыл клетку' });
+        return;
+      }
+      const result = room.dispatch({ type: 'MODIFIER_TARGET', playerId, targetPlayerId, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
     socket.on('player:bid', ({ amount }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;

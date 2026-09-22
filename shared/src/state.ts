@@ -311,6 +311,8 @@ export type PlayerPrompt =
   /** Очередь этого игрока называть вопрос — вслух ведущему, не кликом. */
   | { kind: 'your_turn' }
   | { kind: 'cat_pick'; candidates: Array<{ id: string; name: string }>; canKeep: boolean }
+  /** Обмен счётом: открывший клетку выбирает, с кем поменяться. */
+  | { kind: 'modifier_swap'; candidates: Array<{ id: string; name: string }> }
   | { kind: 'auction_bid'; currentBid: number; minBid: number; maxBid: number; canPass: boolean }
   | { kind: 'solo_answer' }
   | { kind: 'final_remove_theme'; themes: Array<{ id: string; title: string }> }

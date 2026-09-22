@@ -570,6 +570,43 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       };
     }
 
+    case 'MODIFIER_TARGET': {
+      const modifier = state.modifier;
+      if (state.phase !== 'modifier' || !modifier) return reject(state, 'Сейчас нечего менять');
+      if (modifier.kind !== 'swap') return reject(state, 'Этот модификатор не меняет счёт');
+      if (modifier.targetPlayerId !== null) return reject(state, 'Обмен уже состоялся');
+      if (modifier.playerId !== action.playerId) {
+        return reject(state, 'Выбирает тот, кто открыл клетку');
+      }
+      if (action.targetPlayerId === action.playerId) {
+        return reject(state, 'С самим собой меняться нельзя');
+      }
+      const target = findPlayer(state, action.targetPlayerId);
+      if (!target) return reject(state, 'Игрок не найден');
+
+      const players = applyModifier(
+        state.players,
+        'swap',
+        action.playerId,
+        action.targetPlayerId,
+        state.settings,
+      );
+
+      return {
+        state: {
+          ...state,
+          players,
+          modifier: { ...modifier, targetPlayerId: action.targetPlayerId },
+          log: log(
+            state,
+            action.at,
+            `${nameOf(state, action.playerId)} меняется счётом с ${target.name}`,
+          ),
+        },
+        effects: [...modifierEffects(state, action.at), { type: 'persist' }],
+      };
+    }
+
     case 'BID': {
       const auction = state.auction;
       if (state.phase !== 'auction_bidding' || !auction || !state.active) {

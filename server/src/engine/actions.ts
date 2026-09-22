@@ -32,6 +32,8 @@ export type GameAction =
   | { type: 'EXTEND_TIME'; at: number }
   /** Кот в мешке: открывший передаёт вопрос выбранному игроку. */
   | { type: 'CAT_TRANSFER'; toPlayerId: string; at: number }
+  /** Обмен счётом: открывший клетку выбирает, с кем меняется. */
+  | { type: 'MODIFIER_TARGET'; playerId: string; targetPlayerId: string; at: number }
   /** Аукцион: ставка, ва-банк или пас. */
   | { type: 'BID'; playerId: string; amount: number | 'all-in' | 'pass'; at: number }
   | { type: 'FINAL_REMOVE_THEME'; playerId: string; themeId: string; at: number }
@@ -59,6 +61,7 @@ const UNDOABLE = new Set<GameAction['type']>([
   'SKIP_QUESTION',
   'CAT_TRANSFER',
   'FINAL_JUDGE',
+  'MODIFIER_TARGET',
 ]);
 
 export function isUndoable(action: GameAction): boolean {
