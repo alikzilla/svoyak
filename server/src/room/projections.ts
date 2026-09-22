@@ -5,6 +5,7 @@ import type {
   FinalPublicView,
   HostQuestionView,
   HostView,
+  ModifierView,
   PlayerPrompt,
   PlayerPublic,
   PlayerView,
@@ -156,6 +157,16 @@ function projectFinalPublic(state: RoomState): FinalPublicView | null {
   };
 }
 
+/** Открытая клетка-модификатор наружу. Секрета тут уже нет: клетку открыли. */
+function projectModifier(state: RoomState): ModifierView | null {
+  if (!state.modifier) return null;
+  return {
+    kind: state.modifier.kind,
+    playerId: state.modifier.playerId,
+    targetPlayerId: state.modifier.targetPlayerId,
+  };
+}
+
 export interface HostProjectionOptions {
   canUndo?: boolean;
   now?: number;
@@ -177,6 +188,7 @@ export function projectForHost(
     question: projectHostQuestion(state),
     auction: state.auction,
     cat: state.cat,
+    modifier: projectModifier(state),
     final: finalPublic
       ? {
           ...finalPublic,
@@ -287,6 +299,7 @@ export function projectForPlayer(state: RoomState, playerId: string, now = Date.
     prompt: projectPrompt(state, playerId, now),
     auction: state.auction,
     cat: state.cat,
+    modifier: projectModifier(state),
     final: projectFinalPublic(state),
     myFinalBet: state.final?.bets[playerId] ?? null,
     myFinalAnswer: state.final?.answers[playerId] ?? null,
@@ -300,6 +313,7 @@ export function projectForBoard(state: RoomState, joinUrl: string, now = Date.no
     question: projectPublicQuestion(state),
     cat: state.cat,
     auction: state.auction,
+    modifier: projectModifier(state),
     final: projectFinalPublic(state),
     joinUrl,
   };

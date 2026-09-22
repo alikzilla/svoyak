@@ -16,6 +16,7 @@ export function closeQuestion(state: RoomState): RoomState {
     buzz: resetBuzz(),
     auction: null,
     cat: null,
+    modifier: null,
     timer: null,
     phase: hasUnplayedCells(state.board) ? 'picking' : 'round_end',
   };
@@ -69,6 +70,7 @@ export function advanceRound(state: RoomState): RoomState {
 
 /** Фазы, в которых на столе есть открытый вопрос. */
 const QUESTION_PHASES = new Set<RoomState['phase']>([
+  'modifier',
   'reading',
   'buzzer_open',
   'answering',

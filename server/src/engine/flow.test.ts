@@ -151,6 +151,37 @@ describe('конец раунда', () => {
     expect(state.players.find((player) => player.id === 'p1')?.score).toBe(900);
   });
 
+  it('клетки-модификаторы попадают на доску следующего раунда', () => {
+    // Раскладка клеток считается один раз при создании комнаты и хранится в
+    // state.modifierCells — advanceRound обязан передать её в buildBoard и для
+    // второго раунда, а не только для первого (его строит createRoomState).
+    let state = createRoomState({
+      code: '1234',
+      pack: demoClassicPack,
+      settings: DEFAULT_SETTINGS,
+      hostToken: 'h',
+      now: 1000,
+      modifierCells: { 'r2-history-q1': 'jackpot' },
+    });
+    state = reduce(state, {
+      type: 'PLAYER_JOIN',
+      playerId: 'p1',
+      name: 'Вася',
+      sessionToken: 't1',
+      at: 2000,
+    }).state;
+    state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+    state = { ...state, roundIndex: 0, phase: 'round_end' };
+
+    state = reduce(state, { type: 'NEXT_ROUND', at: 9000 }).state;
+
+    expect(state.roundIndex).toBe(1);
+    const cell = state.board
+      .find((theme) => theme.id === 'r2-history')
+      ?.cells.find((item) => item.questionId === 'r2-history-q1');
+    expect(cell?.modifier).toBe('jackpot');
+  });
+
   it('после последнего раунда игра идёт к результатам', () => {
     let state = started();
     state = { ...state, roundIndex: demoClassicPack.rounds.length - 1, phase: 'round_end' };

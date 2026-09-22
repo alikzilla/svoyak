@@ -26,6 +26,8 @@ export interface RoomSettings {
   /** Открывать ли кнопку самостоятельно по истечении паузы.
    *  Выключено — ведущий открывает её сам, как раньше. */
   autoOpenBuzzer: boolean;
+  /** Сколько держать сцену модификатора. Ноль — закрывает ведущий. */
+  modifierMs: number;
 }
 
 export const DEFAULT_SETTINGS: RoomSettings = {
@@ -42,4 +44,5 @@ export const DEFAULT_SETTINGS: RoomSettings = {
   auctionStep: 100,
   readingMs: 5000,
   autoOpenBuzzer: true,
+  modifierMs: 6000,
 };

@@ -124,4 +124,37 @@ describe('отмена не трогает состав комнаты', () => {
     room.undo();
     expect(room.state.players.map((player) => player.name)).toEqual(['Вася']);
   });
+
+  it('возвращает счёт и клетку, съеденную модификатором', () => {
+    const firstTheme = demoClassicPack.rounds[0]?.themes[0];
+    const firstQuestion = firstTheme?.questions[0];
+    if (!firstTheme || !firstQuestion) throw new Error('Пак demo-classic неожиданно пуст');
+
+    const state = createRoomState({
+      code: '1234',
+      pack: demoClassicPack,
+      settings: DEFAULT_SETTINGS,
+      hostToken: 'host-token',
+      now: 1000,
+      modifierCells: { [firstQuestion.id]: 'jackpot' },
+    });
+    const room = new RoomRuntime(state, { persist: () => {}, joinUrlFor: () => 'url' });
+    room.dispatch({ type: 'PLAYER_JOIN', playerId: 'p1', name: 'Вася', sessionToken: 't1', at: 2000 });
+    room.dispatch({ type: 'START_GAME', at: 3000 });
+    room.dispatch({
+      type: 'PICK_QUESTION',
+      themeId: firstTheme.id,
+      questionId: firstQuestion.id,
+      at: 4000,
+    });
+    expect(room.state.players[0]!.score).toBe(2000);
+
+    expect(room.undo()).toBe(true);
+    expect(room.state.players[0]!.score).toBe(0);
+    expect(room.state.phase).toBe('picking');
+    const cell = room.state.board
+      .find((theme) => theme.id === firstTheme.id)
+      ?.cells.find((item) => item.questionId === firstQuestion.id);
+    expect(cell?.played).toBe(false);
+  });
 });

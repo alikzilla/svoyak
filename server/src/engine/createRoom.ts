@@ -46,6 +46,7 @@ export function createRoomState({
     buzz: { ...EMPTY_BUZZ, lockedUntil: {} },
     auction: null,
     cat: null,
+    modifier: null,
     final: null,
     timer: null,
     paused: false,

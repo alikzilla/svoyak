@@ -7,6 +7,7 @@ export type Phase =
   | 'lobby'
   | 'round_intro'
   | 'picking'
+  | 'modifier'
   | 'reading'
   | 'cat_transfer'
   | 'cat_answer'
@@ -24,7 +25,7 @@ export type Phase =
 
 /** Таймеры ограничивают только игроков. Темп игры задаёт ведущий:
  *  он открывает вопрос, открывает кнопку и решает, когда ответа достаточно. */
-export type TimerKind = 'reading' | 'buzz' | 'reveal' | 'final_bet' | 'final_answer';
+export type TimerKind = 'reading' | 'buzz' | 'reveal' | 'modifier' | 'final_bet' | 'final_answer';
 
 export interface TimerState {
   kind: TimerKind;
@@ -132,6 +133,21 @@ export interface FinalState {
   judged: Record<string, boolean>;
 }
 
+/** Открытая клетка-модификатор. Вопроса под ней нет. */
+export interface ModifierState {
+  kind: ModifierKind;
+  /** Кто открыл клетку: эффект действует на него. */
+  playerId: string;
+  /** Только для обмена: с кем меняемся. До выбора — null. */
+  targetPlayerId: string | null;
+}
+
+export interface ModifierView {
+  kind: ModifierKind;
+  playerId: string;
+  targetPlayerId: string | null;
+}
+
 export interface LogEntry {
   at: number;
   text: string;
@@ -158,6 +174,7 @@ export interface RoomState {
   buzz: BuzzState;
   auction: AuctionState | null;
   cat: CatState | null;
+  modifier: ModifierState | null;
   final: FinalState | null;
   timer: TimerState | null;
   paused: boolean;
@@ -280,6 +297,7 @@ export interface HostView extends BaseView {
   question: HostQuestionView | null;
   auction: AuctionView | null;
   cat: CatView | null;
+  modifier: ModifierView | null;
   final: FinalHostView | null;
   log: LogEntry[];
   canUndo: boolean;
@@ -308,6 +326,7 @@ export interface PlayerView extends BaseView {
   prompt: PlayerPrompt;
   auction: AuctionView | null;
   cat: CatView | null;
+  modifier: ModifierView | null;
   final: FinalPublicView | null;
   /** Моя ставка и мой ответ в финале — только свои. */
   myFinalBet: number | null;
@@ -320,6 +339,7 @@ export interface BoardView extends BaseView {
   /** Спецвопросы показываются и на общем экране: секретного в них ничего нет. */
   cat: CatView | null;
   auction: AuctionView | null;
+  modifier: ModifierView | null;
   final: FinalPublicView | null;
   joinUrl: string;
 }

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { RoomState } from '@svoyak/shared';
+import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
 import { ROOMS_DIR } from '../config.js';
 import { readJson, writeJsonAtomic } from './atomicWrite.js';
 
@@ -36,6 +36,9 @@ export function loadRooms(maxAgeMs: number, now = Date.now()): RoomState[] {
     rooms.push({
       ...state,
       hostConnected: false,
+      // Спред поверх дефолтов чинит разом все настройки, добавленные после
+      // сохранения файла: и уже известные (answerRevealMs), и будущие.
+      settings: { ...DEFAULT_SETTINGS, ...state.settings },
       players: state.players.map((player) => ({
         ...player,
         connected: false,
@@ -44,6 +47,8 @@ export function loadRooms(maxAgeMs: number, now = Date.now()): RoomState[] {
       })),
       // Комната могла быть сохранена до появления клеток-модификаторов.
       modifierCells: state.modifierCells ?? {},
+      // Комната могла быть сохранена до появления сцены модификатора.
+      modifier: state.modifier ?? null,
       timer: null,
     });
   }

@@ -1,8 +1,10 @@
+import { MODIFIER_TITLES } from '@svoyak/shared';
 import type { AuctionState, FinalState, LogEntry, RoomState, TimerKind } from '@svoyak/shared';
 import type { Effect, GameAction } from './actions.js';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
 import { advanceRound, closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
 import { buildBoard } from './board.js';
+import { applyModifier } from './modifiers.js';
 import { activeQuestion, findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
 import { minRaise, nextBidder } from './auction.js';
@@ -214,6 +216,38 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       if (!cell) return reject(state, 'Клетки нет на доске');
       if (cell.played) return reject(state, 'Этот вопрос уже разыгран');
 
+      // Под клеткой-модификатором нет вопроса: эффект срабатывает сразу,
+      // и открывший выбирает следующую клетку.
+      const modifierKind = cell.modifier;
+      if (modifierKind !== undefined) {
+        const playerId = state.controlPlayerId;
+        if (!playerId) return reject(state, 'Некому открывать клетку');
+
+        const players =
+          modifierKind === 'swap'
+            ? state.players
+            : applyModifier(state.players, modifierKind, playerId, null, state.settings);
+
+        const opened: RoomState = {
+          ...state,
+          phase: 'modifier',
+          players,
+          active: null,
+          cat: null,
+          auction: null,
+          modifier: { kind: modifierKind, playerId, targetPlayerId: null },
+          board: markPlayed(state.board, action.themeId, action.questionId),
+          buzz: resetBuzz(),
+          log: log(state, action.at, `${nameOf(state, playerId)}: ${MODIFIER_TITLES[modifierKind]}`),
+        };
+
+        // Обмену нужна цель: сцена ждёт выбора, а не таймера.
+        if (modifierKind === 'swap') {
+          return { state: opened, effects: [{ type: 'clearTimer' }, { type: 'persist' }] };
+        }
+        return { state: opened, effects: [...modifierEffects(state, action.at), { type: 'persist' }] };
+      }
+
       const openedBy = state.controlPlayerId;
       const catPrice =
         question.type === 'cat' && question.cat
@@ -243,16 +277,7 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
                 }
               : null,
           auction: null,
-          board: state.board.map((candidate) =>
-            candidate.id !== action.themeId
-              ? candidate
-              : {
-                  ...candidate,
-                  cells: candidate.cells.map((current) =>
-                    current.questionId === action.questionId ? { ...current, played: true } : current,
-                  ),
-                },
-          ),
+          board: markPlayed(state.board, action.themeId, action.questionId),
           active: {
             themeId: theme.id,
             themeTitle: theme.title,
@@ -310,6 +335,12 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     }
 
     case 'CONTINUE': {
+      if (state.phase === 'modifier') {
+        return {
+          state: closeQuestion(state),
+          effects: [{ type: 'clearTimer' }, { type: 'persist' }],
+        };
+      }
       const final = state.final;
       if (state.phase === 'final_bets' && final) {
         // Кто не успел поставить — ставит минимум: игра не должна вставать из-за отвалившегося.
@@ -718,9 +749,54 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         };
       }
 
+      if (action.kind === 'modifier') {
+        if (state.phase !== 'modifier') return { state, effects: [] };
+        return {
+          state: closeQuestion(state),
+          effects: [{ type: 'clearTimer' }, { type: 'persist' }],
+        };
+      }
+
       return { state, effects: [] };
     }
   }
+}
+
+/** Отметить клетку сыгранной. Общее для вопросов и модификаторов. */
+function markPlayed(
+  board: RoomState['board'],
+  themeId: string,
+  questionId: string,
+): RoomState['board'] {
+  return board.map((theme) =>
+    theme.id !== themeId
+      ? theme
+      : {
+          ...theme,
+          cells: theme.cells.map((cell) =>
+            cell.questionId === questionId ? { ...cell, played: true } : cell,
+          ),
+        },
+  );
+}
+
+const nameOf = (state: RoomState, playerId: string): string =>
+  state.players.find((player) => player.id === playerId)?.name ?? 'Игрок';
+
+/** Эффекты сцены модификатора: таймер, а при нулевой настройке — его отсутствие.
+ *  Имя нарочно отличается от `enterReveal`: та сцена показывает ответ на вопрос,
+ *  эта — выпавший модификатор, и путать их нельзя. */
+function modifierEffects(state: RoomState, at: number): Effect[] {
+  const durationMs = state.settings.modifierMs;
+  if (durationMs <= 0) return [{ type: 'clearTimer' }];
+  return [
+    {
+      type: 'setTimer',
+      kind: 'modifier',
+      durationMs,
+      onExpire: { type: 'TIMER_EXPIRED', kind: 'modifier', at: at + durationMs },
+    },
+  ];
 }
 
 /** После каждой ставки: либо ход следующему, либо торги закончены и играет лидер. */
