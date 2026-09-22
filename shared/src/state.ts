@@ -64,13 +64,25 @@ export interface BoardTheme {
   cells: BoardCell[];
 }
 
-/** Клетка доски снаружи, для всех проекций: `modifier` тут структурно
- *  невозможен, а не просто не заполнен. Раньше секрет держался только на
- *  runtime-деструктуризации в projectBoard() и на тесте modifierSecrecy —
- *  `board: state.board` типизировался бы молча. Теперь `BoardView.modifier`
- *  и `BoardCellView.modifier` — разные поля разных типов, и присвоить
- *  «сырую» `BoardCell[]` в `BoardThemeView[]` компилятор не даст. */
-export type BoardCellView = Omit<BoardCell, 'modifier'>;
+/** Клетка доски снаружи, для всех проекций. `Omit<BoardCell, 'modifier'>`
+ *  тут не годится: Omit лишь убирает поле из объявленной формы, но не
+ *  запрещает источник, который структурно всё ещё его несёт, — `BoardCell[]`
+ *  (с необязательным `modifier`) прошёл бы в `Omit<BoardCell,
+ *  'modifier'>[]` без единой ошибки, потому что проверка совместимости
+ *  массива смотрит на присваиваемость элементов, а не на точный список
+ *  ключей. Поэтому `modifier` объявлен как `never`: значение вида
+ *  `ModifierKind`, пришедшее из `BoardCell`, в `never` не влезает, и
+ *  `board: state.board` откажется типизироваться. Это доказано тестом
+ *  `boardSecrecy.test.ts` (`@ts-expect-error` на незаконном присваивании),
+ *  а не только утверждается в комментарии. Runtime-срез в `projectBoard()` и
+ *  `modifierSecrecy.test.ts` остаются: тип ловит ошибку в коде, тест —
+ *  то, что реально уходит по сети. */
+export interface BoardCellView {
+  questionId: string;
+  price: number;
+  played: boolean;
+  modifier?: never;
+}
 
 export interface BoardThemeView {
   id: string;
