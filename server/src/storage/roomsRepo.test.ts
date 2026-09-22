@@ -103,6 +103,20 @@ describe('хранилище комнат', () => {
     expect(restored[0]!.modifier).toBeNull();
   });
 
+  it('комната без modifierPlan в сохранённом файле получает пустой план при загрузке', () => {
+    // Комната, сохранённая до появления плана модификаторов, — файл на диске
+    // не содержит этого поля вовсе, а не содержит его равным undefined.
+    const state = roomWithPlayer(Date.now());
+    const raw = JSON.parse(JSON.stringify(state)) as Record<string, unknown>;
+    delete raw['modifierPlan'];
+    fs.mkdirSync(path.join(tempDir, 'rooms'), { recursive: true });
+    fs.writeFileSync(path.join(tempDir, 'rooms', `${state.code}.json`), JSON.stringify(raw), 'utf8');
+
+    const restored = loadRooms(60_000);
+    expect(restored).toHaveLength(1);
+    expect(restored[0]!.modifierPlan).toEqual({ perRound: 0, kinds: [] });
+  });
+
   it('комната с неполным settings в сохранённом файле получает дефолты недостающих полей', () => {
     // Комната, сохранённая до появления настройки (например, modifierMs), —
     // файл на диске не содержит этого ключа внутри settings вовсе.

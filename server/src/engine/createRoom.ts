@@ -1,4 +1,5 @@
-import type { BuzzState, ModifierKind, Pack, RoomSettings, RoomState } from '@svoyak/shared';
+import type { BuzzState, ModifierKind, ModifierPlan, Pack, RoomSettings, RoomState } from '@svoyak/shared';
+import { EMPTY_MODIFIER_PLAN } from '@svoyak/shared';
 import { buildBoard } from './board.js';
 
 export interface CreateRoomArgs {
@@ -8,6 +9,9 @@ export interface CreateRoomArgs {
   hostToken: string;
   now?: number;
   modifierCells?: Record<string, ModifierKind>;
+  /** План, по которому уже посчитана `modifierCells`. Хранится отдельно, чтобы
+   *  пересборка состава в лобби могла пересчитать раскладку под новый пак. */
+  modifierPlan?: ModifierPlan;
 }
 
 export const EMPTY_BUZZ: BuzzState = {
@@ -27,6 +31,7 @@ export function createRoomState({
   hostToken,
   now = Date.now(),
   modifierCells = {},
+  modifierPlan = EMPTY_MODIFIER_PLAN,
 }: CreateRoomArgs): RoomState {
   const firstRound = pack.rounds[0];
   return {
@@ -35,6 +40,7 @@ export function createRoomState({
     settings,
     pack,
     modifierCells,
+    modifierPlan,
     hostToken,
     hostConnected: false,
     players: [],

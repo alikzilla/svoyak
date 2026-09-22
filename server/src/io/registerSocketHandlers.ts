@@ -1,10 +1,11 @@
 import { randomUUID } from 'node:crypto';
-import type { Ack, GameRecipe, Pack, RoomSettings } from '@svoyak/shared';
-import { validatePack } from '@svoyak/shared';
+import type { Ack, GameRecipe, ModifierPlan, Pack, RoomSettings } from '@svoyak/shared';
+import { EMPTY_MODIFIER_PLAN, validatePack } from '@svoyak/shared';
 import type { Effect, GameAction } from '../engine/actions.js';
 import type { RoomManager } from '../room/RoomManager.js';
 import type { RoomRuntime } from '../room/RoomRuntime.js';
 import { adjustBuzzTime } from '../engine/buzz.js';
+import { planModifierCells } from '../engine/modifiers.js';
 import { buildPackFromRecipe } from '../packs/compose.js';
 import { getPack } from '../storage/packsRepo.js';
 import { getGame, summarizeGame } from '../storage/gamesRepo.js';
@@ -12,30 +13,22 @@ import type { AppServer, AppSocket } from './types.js';
 
 const MAX_NAME_LENGTH = 20;
 
-/** Пак для комнаты: по сохранённой игре, целиком по идентификатору пака,
- *  либо собранный по рецепту. Возвращает текст ошибки строкой — её
- *  показываем ведущему как есть. */
-function resolvePack({
-  packId,
-  recipe,
-  gameId,
-}: {
-  packId?: string;
-  recipe?: GameRecipe;
-  gameId?: string;
-}): Pack | string {
+/** Недоделанный пак можно править, но играть им нельзя. */
+function validatePlayable(pack: Pack): Pack | string {
+  const errors = validatePack(pack).filter((issue) => issue.level === 'error');
+  if (errors.length > 0) {
+    return `Пак не готов к игре: ${errors[0]?.message ?? ''}${errors.length > 1 ? ` (и ещё ${errors.length - 1})` : ''}`;
+  }
+  return pack;
+}
+
+/** Пак для комнаты: целиком по идентификатору пака либо собранный по рецепту.
+ *  О сохранённых играх не знает — тот путь у `resolveGameSetup`, где план
+ *  модификаторов достаётся из того же чтения игры, что и рецепт. Возвращает
+ *  текст ошибки строкой — её показываем ведущему как есть. */
+function resolvePack({ packId, recipe }: { packId?: string; recipe?: GameRecipe }): Pack | string {
   let pack: Pack | null = null;
-  if (gameId !== undefined) {
-    const game = getGame(gameId);
-    if (!game) return 'Игра не найдена';
-    const summary = summarizeGame(game, getPack);
-    if (!summary.playable) return 'В игре потерялись темы: откройте её и почините состав';
-    try {
-      pack = buildPackFromRecipe(game.recipe, getPack);
-    } catch (cause) {
-      return cause instanceof Error ? cause.message : 'Не удалось собрать игру';
-    }
-  } else if (recipe) {
+  if (recipe) {
     try {
       pack = buildPackFromRecipe(recipe, getPack);
     } catch (cause) {
@@ -47,13 +40,43 @@ function resolvePack({
   } else {
     return 'Не выбран ни пак, ни состав игры';
   }
+  return validatePlayable(pack);
+}
 
-  // Недоделанный пак можно править, но играть им нельзя.
-  const errors = validatePack(pack).filter((issue) => issue.level === 'error');
-  if (errors.length > 0) {
-    return `Пак не готов к игре: ${errors[0]?.message ?? ''}${errors.length > 1 ? ` (и ещё ${errors.length - 1})` : ''}`;
+interface GameSetup {
+  pack: Pack;
+  /** План, по которому комната раскладывает клетки-модификаторы: пустой,
+   *  если комната создана по голому паку или ad-hoc рецепту без игры. */
+  modifierPlan: ModifierPlan;
+}
+
+/** Пак и план модификаторов для новой комнаты. Игра читается с диска ровно
+ *  один раз — и пак, и план приходят из этого единственного чтения. */
+function resolveGameSetup(payload: {
+  packId?: string;
+  recipe?: GameRecipe;
+  gameId?: string;
+}): GameSetup | string {
+  if (payload.gameId === undefined) {
+    const pack = resolvePack(payload);
+    if (typeof pack === 'string') return pack;
+    return { pack, modifierPlan: EMPTY_MODIFIER_PLAN };
   }
-  return pack;
+
+  const game = getGame(payload.gameId);
+  if (!game) return 'Игра не найдена';
+  const summary = summarizeGame(game, getPack);
+  if (!summary.playable) return 'В игре потерялись темы: откройте её и почините состав';
+
+  let pack: Pack;
+  try {
+    pack = buildPackFromRecipe(game.recipe, getPack);
+  } catch (cause) {
+    return cause instanceof Error ? cause.message : 'Не удалось собрать игру';
+  }
+  const validated = validatePlayable(pack);
+  if (typeof validated === 'string') return validated;
+  return { pack: validated, modifierPlan: game.modifiers };
 }
 
 export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void {
@@ -129,12 +152,15 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
     });
 
     socket.on('room:create', ({ packId, recipe, gameId, settings }, ack) => {
-      const pack = resolvePack({ packId, recipe, gameId });
-      if (typeof pack === 'string') {
-        ack({ ok: false, error: pack });
+      const setup = resolveGameSetup({ packId, recipe, gameId });
+      if (typeof setup === 'string') {
+        ack({ ok: false, error: setup });
         return;
       }
-      const { room, hostToken } = rooms.create(pack, settings);
+      // Раскладка модификаторов — тоже случайность, поэтому считается здесь,
+      // в обработчике, а не внутри чистых createRoomState/reduce.
+      const modifierCells = planModifierCells(setup.pack, setup.modifierPlan);
+      const { room, hostToken } = rooms.create(setup.pack, settings, modifierCells, setup.modifierPlan);
       socket.data = { role: 'host', code: room.state.code, playerId: null };
       bind(socket, room, room.state.code);
       room.dispatch({ type: 'HOST_PRESENCE', connected: true });
@@ -427,7 +453,12 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
         ack({ ok: false, error: pack });
         return;
       }
-      const result = room.dispatch({ type: 'SET_PACK', pack });
+      // Старая карта клеток ключена по вопросам прежнего пака: под новый пак
+      // раскладку считаем заново по тому же плану. Считаем здесь, а не в
+      // редьюсере — planModifierCells трогает Math.random, а редьюсер обязан
+      // быть чистым (иначе отмена хода вернёт не ту доску, что была).
+      const modifierCells = planModifierCells(pack, room.state.modifierPlan);
+      const result = room.dispatch({ type: 'SET_PACK', pack, modifierCells });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 

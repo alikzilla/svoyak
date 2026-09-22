@@ -1,5 +1,6 @@
 import type { Media, Pack, QuestionType } from './pack.js';
 import type { ModifierKind } from './modifiers.js';
+import type { ModifierPlan } from './game.js';
 import type { RoomSettings } from './settings.js';
 
 /** Фазы игры. Пауза — отдельный флаг поверх фазы, а не фаза. */
@@ -162,6 +163,11 @@ export interface RoomState {
   /** Куда легли клетки-модификаторы: questionId → вид. Считается один раз при
    *  создании комнаты, поэтому переживает сохранение и отмену хода. */
   modifierCells: Record<string, ModifierKind>;
+  /** План, по которому раскладка считалась. Хранится отдельно от самой
+   *  раскладки: при пересборке состава в лобби («Состав игры») новый пак
+   *  получает свежую раскладку по этому же плану, а не наследует старую
+   *  карту, ссылающуюся на вопросы, которых в новом паке уже нет. */
+  modifierPlan: ModifierPlan;
   hostToken: string;
   hostConnected: boolean;
   players: Player[];

@@ -102,7 +102,7 @@ describe('редьюсер: лобби', () => {
       rounds: [{ ...demoClassicPack.rounds[1]!, id: 'only', title: 'Единственный раунд' }],
     };
 
-    const result = reduce(state, { type: 'SET_PACK', pack: swapped });
+    const result = reduce(state, { type: 'SET_PACK', pack: swapped, modifierCells: {} });
 
     expect(result.state.pack.id).toBe('other');
     expect(result.state.board.map((theme) => theme.title)).toEqual(
@@ -110,11 +110,32 @@ describe('редьюсер: лобби', () => {
     );
   });
 
+  it('замена пака переносит присланные клетки-модификаторы на новую доску', () => {
+    // Раскладка приходит уже посчитанной от вызывающего (сокет-обработчика):
+    // редьюсер её не считает, только переносит в состояние и на доску.
+    const state = join(fresh(), 'Вася', 'p1', 't1');
+    const swapped: Pack = {
+      ...demoClassicPack,
+      id: 'other',
+      rounds: [{ ...demoClassicPack.rounds[1]!, id: 'only', title: 'Единственный раунд' }],
+    };
+    const firstQuestionId = swapped.rounds[0]!.themes[0]!.questions[0]!.id;
+
+    const result = reduce(state, {
+      type: 'SET_PACK',
+      pack: swapped,
+      modifierCells: { [firstQuestionId]: 'jackpot' },
+    });
+
+    expect(result.state.modifierCells).toEqual({ [firstQuestionId]: 'jackpot' });
+    expect(result.state.board[0]!.cells[0]).toMatchObject({ modifier: 'jackpot' });
+  });
+
   it('после старта пак заменить нельзя', () => {
     let state = join(fresh(), 'Вася', 'p1', 't1');
     state = reduce(state, { type: 'START_GAME', at: 5000 }).state;
 
-    const result = reduce(state, { type: 'SET_PACK', pack: demoClassicPack });
+    const result = reduce(state, { type: 'SET_PACK', pack: demoClassicPack, modifierCells: {} });
 
     expect(result.error).toBe('Состав можно менять только до начала игры');
     expect(result.state.pack.id).toBe(demoClassicPack.id);

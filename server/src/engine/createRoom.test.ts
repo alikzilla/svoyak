@@ -40,4 +40,20 @@ describe('createRoomState', () => {
     expect(state.buzz.answeringPlayerId).toBeNull();
     expect(state.buzz.lockedUntil).toEqual({});
   });
+
+  it('без явного плана модификаторов используется пустой план', () => {
+    const state = room();
+    expect(state.modifierPlan).toEqual({ perRound: 0, kinds: [] });
+  });
+
+  it('явный план модификаторов сохраняется в состоянии комнаты', () => {
+    const state = createRoomState({
+      code: '1234',
+      pack: demoClassicPack,
+      settings: DEFAULT_SETTINGS,
+      hostToken: 'host-token',
+      modifierPlan: { perRound: 3, kinds: ['jackpot'] },
+    });
+    expect(state.modifierPlan).toEqual({ perRound: 3, kinds: ['jackpot'] });
+  });
 });

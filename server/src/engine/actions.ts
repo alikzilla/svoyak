@@ -1,4 +1,4 @@
-import type { Pack, RoomSettings, SoundId, TimerKind } from '@svoyak/shared';
+import type { ModifierKind, Pack, RoomSettings, SoundId, TimerKind } from '@svoyak/shared';
 
 /** Действия, которые понимает редьюсер. Всё, что меняет игру, проходит через них. */
 export type GameAction =
@@ -7,7 +7,10 @@ export type GameAction =
   | { type: 'PLAYER_KICK'; playerId: string }
   | { type: 'SET_SCORE'; playerId: string; score: number }
   | { type: 'SET_SETTINGS'; settings: Partial<RoomSettings> }
-  | { type: 'SET_PACK'; pack: Pack }
+  /** Новый пак вместе с уже посчитанной раскладкой модификаторов под него:
+   *  раскладку считает вызывающий (сокет-обработчик), не редьюсер — она
+   *  зависит от Math.random, а редьюсер обязан оставаться чистым. */
+  | { type: 'SET_PACK'; pack: Pack; modifierCells: Record<string, ModifierKind> }
   | { type: 'HOST_PRESENCE'; connected: boolean }
   | { type: 'START_GAME'; at: number }
   /** Вопрос всегда открывает ведущий: игрок называет свой выбор вслух. */

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
+import { DEFAULT_SETTINGS, EMPTY_MODIFIER_PLAN, type RoomState } from '@svoyak/shared';
 import { ROOMS_DIR } from '../config.js';
 import { readJson, writeJsonAtomic } from './atomicWrite.js';
 
@@ -47,6 +47,8 @@ export function loadRooms(maxAgeMs: number, now = Date.now()): RoomState[] {
       })),
       // Комната могла быть сохранена до появления клеток-модификаторов.
       modifierCells: state.modifierCells ?? {},
+      // Комната могла быть сохранена до появления плана модификаторов.
+      modifierPlan: state.modifierPlan ?? EMPTY_MODIFIER_PLAN,
       // Комната могла быть сохранена до появления сцены модификатора.
       modifier: state.modifier ?? null,
       timer: null,

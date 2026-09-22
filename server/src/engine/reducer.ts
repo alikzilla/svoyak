@@ -170,8 +170,11 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         state: {
           ...state,
           pack: action.pack,
+          // Старая карта клеток ссылалась на вопросы прежнего пака — новую
+          // раскладку под новый пак вызывающий уже посчитал и передал сюда.
+          modifierCells: action.modifierCells,
           roundIndex: 0,
-          board: first ? buildBoard(first) : [],
+          board: first ? buildBoard(first, action.modifierCells) : [],
         },
         effects: [{ type: 'persist' }],
       };

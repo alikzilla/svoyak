@@ -1,5 +1,5 @@
-import type { ModifierKind, Pack, RoomSettings, RoomState } from '@svoyak/shared';
-import { DEFAULT_SETTINGS } from '@svoyak/shared';
+import type { ModifierKind, ModifierPlan, Pack, RoomSettings, RoomState } from '@svoyak/shared';
+import { DEFAULT_SETTINGS, EMPTY_MODIFIER_PLAN } from '@svoyak/shared';
 import { randomUUID } from 'node:crypto';
 import type { Effect } from '../engine/actions.js';
 import { createRoomState } from '../engine/createRoom.js';
@@ -36,6 +36,7 @@ export class RoomManager {
     pack: Pack,
     settings?: Partial<RoomSettings>,
     modifierCells: Record<string, ModifierKind> = {},
+    modifierPlan: ModifierPlan = EMPTY_MODIFIER_PLAN,
   ): { room: RoomRuntime; hostToken: string } {
     const code = generateRoomCode(this.codes);
     const hostToken = randomUUID();
@@ -45,6 +46,7 @@ export class RoomManager {
       settings: { ...DEFAULT_SETTINGS, ...settings },
       hostToken,
       modifierCells,
+      modifierPlan,
     });
     const room = this.attach(state);
     saveRoom(state);

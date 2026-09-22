@@ -557,6 +557,104 @@ describe('состав игры', () => {
       host.disconnect();
     }
   });
+
+  it('раскладывает модификаторы из плана игры', async () => {
+    const { saveGame } = await import('../storage/gamesRepo.js');
+    const { getPack } = await import('../storage/packsRepo.js');
+    const pack = getPack('demo-classic');
+    if (!pack) throw new Error('Для теста нужен пак demo-classic');
+    const theme = pack.rounds[0]?.themes[0];
+    const finalTheme = pack.final.themes[0];
+    if (!theme || !finalTheme) throw new Error('Пак demo-classic неожиданно пуст');
+
+    saveGame({
+      id: 'game-mods',
+      title: 'С модификаторами',
+      createdAt: 1,
+      updatedAt: 1,
+      recipe: {
+        rounds: [[{ packId: pack.id, themeId: theme.id }]],
+        final: [{ packId: pack.id, themeId: finalTheme.id }],
+      },
+      modifiers: { perRound: 2, kinds: ['jackpot', 'nothing'] },
+    });
+
+    const host = await connect();
+    try {
+      const created = await emit<'room:create', { code: string; hostToken: string }>(
+        host,
+        'room:create',
+        { gameId: 'game-mods' },
+      );
+      expect(created.ok).toBe(true);
+      if (!created.ok) throw new Error('комната не создалась');
+      const room = rooms.get(created.data.code);
+      expect(Object.keys(room?.state.modifierCells ?? {})).toHaveLength(2);
+      expect(room?.state.modifierPlan).toEqual({ perRound: 2, kinds: ['jackpot', 'nothing'] });
+    } finally {
+      host.disconnect();
+    }
+  });
+
+  it('без плана модификаторов клетки не появляются', async () => {
+    const host = await connect();
+    try {
+      const created = await emit<'room:create', { code: string; hostToken: string }>(
+        host,
+        'room:create',
+        { packId: 'demo-classic' },
+      );
+      if (!created.ok) throw new Error('комната не создалась');
+      const room = rooms.get(created.data.code);
+      expect(room?.state.modifierCells).toEqual({});
+    } finally {
+      host.disconnect();
+    }
+  });
+
+  it('пересборка состава в лобби пересчитывает модификаторы под новый пак, а не теряет их', async () => {
+    const { saveGame } = await import('../storage/gamesRepo.js');
+
+    saveGame({
+      id: 'game-mods-rebuild',
+      title: 'С модификаторами для пересборки',
+      createdAt: 1,
+      updatedAt: 1,
+      recipe: recipeOf([['r1-kino']], ['f-geo']),
+      modifiers: { perRound: 2, kinds: ['jackpot', 'nothing'] },
+    });
+
+    const host = await connect();
+    try {
+      const created = await emit<'room:create', { code: string; hostToken: string }>(
+        host,
+        'room:create',
+        { gameId: 'game-mods-rebuild' },
+      );
+      if (!created.ok) throw new Error('комната не создалась');
+      const before = rooms.get(created.data.code);
+      expect(Object.keys(before?.state.modifierCells ?? {})).toHaveLength(2);
+
+      // Старая карта клеток ключена по вопросам темы «Кино» — новая доска должна
+      // получить свежую раскладку под свои идентификаторы вопросов, а не
+      // унаследовать карту, ссылающуюся в никуда.
+      const changed = await emit(host, 'host:setRecipe', {
+        recipe: recipeOf([['r1-space', 'r1-food']], ['f-sport']),
+      });
+      expect(changed.ok).toBe(true);
+
+      const after = rooms.get(created.data.code);
+      expect(Object.keys(after?.state.modifierCells ?? {})).toHaveLength(2);
+      const boardQuestionIds = new Set(
+        after?.state.board.flatMap((theme) => theme.cells.map((cell) => cell.questionId)) ?? [],
+      );
+      for (const questionId of Object.keys(after?.state.modifierCells ?? {})) {
+        expect(boardQuestionIds.has(questionId)).toBe(true);
+      }
+    } finally {
+      host.disconnect();
+    }
+  });
 });
 
 describe('пауза на чтение', () => {
