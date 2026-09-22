@@ -10,6 +10,8 @@ interface PlayerLedgerProps {
   onKick?: (playerId: string) => void;
   /** Передать право хода вручную. */
   onSetControl?: (playerId: string) => void;
+  /** Списать жетон подсказки: ведущий говорит подсказку вслух сам. */
+  onGiveHint?: (playerId: string) => void;
   highlightId?: string | null;
 }
 
@@ -21,6 +23,7 @@ export function PlayerLedger({
   onScoreChange,
   onKick,
   onSetControl,
+  onGiveHint,
   highlightId,
 }: PlayerLedgerProps) {
   const [pendingKick, setPendingKick] = useState<string | null>(null);
@@ -80,6 +83,17 @@ export function PlayerLedger({
               {onSetControl && !control && (
                 <button onClick={() => onSetControl(player.id)} className={chip} title="Передать ход">
                   ход
+                </button>
+              )}
+
+              {onGiveHint && player.hints > 0 && (
+                <button
+                  type="button"
+                  onClick={() => onGiveHint(player.id)}
+                  className="ink-border bg-gold text-ink font-body rounded-xl px-2 py-1 text-xs font-bold"
+                  title="Подсказка: скажите её вслух, жетон спишется"
+                >
+                  подсказка ×{player.hints}
                 </button>
               )}
 

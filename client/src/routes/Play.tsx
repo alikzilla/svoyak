@@ -16,8 +16,10 @@ import { RoughFrame } from '../design/rough.js';
 import { QuestionMedia } from '../ui/QuestionMedia.js';
 import { SoundToggle } from '../ui/SoundToggle.js';
 import { CatPick } from '../ui/CatPick.js';
+import { SwapPick } from '../ui/SwapPick.js';
 import { BidPanel } from '../ui/BidPanel.js';
 import { FinalPlayer } from '../ui/FinalPlayer.js';
+import { ModifierScene } from '../ui/scenes/ModifierScene.js';
 
 /** Подписи ожидания: пустой экран не должен быть немым. */
 const WAIT_HINT: Partial<Record<string, string>> = {
@@ -27,6 +29,7 @@ const WAIT_HINT: Partial<Record<string, string>> = {
   reading: 'Слушайте вопрос',
   answering: 'Кто-то отвечает',
   answer_reveal: 'Раскрывают ответ',
+  modifier: 'Клетка с сюрпризом',
   cat_transfer: 'Кота кому-то передают',
   cat_answer: 'Отвечает тот, кому достался кот',
   auction_bidding: 'Идут торги',
@@ -228,6 +231,11 @@ export default function Play() {
             canPass={view.prompt.canPass}
             onBid={(amount) => void ask('player:bid', { amount })}
           />
+        ) : view.prompt.kind === 'modifier_swap' ? (
+          <SwapPick
+            candidates={view.prompt.candidates}
+            onPick={(targetPlayerId) => void ask('player:modifierTarget', { targetPlayerId })}
+          />
         ) : view.prompt.kind === 'final_remove_theme' ||
           view.prompt.kind === 'final_bet' ||
           view.prompt.kind === 'final_answer' ? (
@@ -242,6 +250,12 @@ export default function Play() {
           <WaitScreen view={view} answering={answering ?? null} />
         )}
       </main>
+
+      {view.phase === 'modifier' && view.modifier && view.prompt.kind !== 'modifier_swap' && (
+        <div className="px-4">
+          <ModifierScene modifier={view.modifier} players={view.players} />
+        </div>
+      )}
 
       <AnimatePresence>
         {toast && Date.now() - toast.at < 4000 && (

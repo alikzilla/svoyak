@@ -185,6 +185,13 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
               onChange={(answerRevealMs) => onChange({ answerRevealMs })}
             />
             <NumberField
+              label="Сцена модификатора, мс"
+              hint="0 — закрывает ведущий"
+              step={1000}
+              value={settings.modifierMs}
+              onChange={(modifierMs) => onChange({ modifierMs })}
+            />
+            <NumberField
               label="Блокировка за фальстарт, мс"
               step={500}
               value={settings.falseStartLockMs}

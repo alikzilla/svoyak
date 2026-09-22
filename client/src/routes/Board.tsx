@@ -11,6 +11,7 @@ import { QuestionMedia } from '../ui/QuestionMedia.js';
 import { Standings } from '../ui/Standings.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { CatScene } from '../ui/scenes/CatScene.js';
+import { ModifierScene } from '../ui/scenes/ModifierScene.js';
 import { AuctionScene } from '../ui/scenes/AuctionScene.js';
 import { VictoryScene } from '../ui/scenes/VictoryScene.js';
 import { RoundIntro } from '../ui/scenes/RoundIntro.js';
@@ -109,7 +110,11 @@ export default function Board() {
       ) : (
         <section className="relative flex flex-1 flex-col justify-center gap-6">
           <AnimatePresence mode="wait">
-            {view.cat && (view.phase === 'cat_transfer' || view.phase === 'cat_answer') ? (
+            {view.modifier && view.phase === 'modifier' ? (
+              <motion.div key="modifier" initial={{ scale: 0.92 }} animate={{ scale: 1 }}>
+                <ModifierScene modifier={view.modifier} players={view.players} />
+              </motion.div>
+            ) : view.cat && (view.phase === 'cat_transfer' || view.phase === 'cat_answer') ? (
               <motion.div key="cat" initial={{ scale: 0.92 }} animate={{ scale: 1 }}>
                 <CatScene
                   theme={view.cat.theme}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import type { HostView } from '@svoyak/shared';
+import { MODIFIER_HINTS, MODIFIER_TITLES } from '@svoyak/shared';
 import { ask } from '../../net/socket.js';
 import { BoardGrid } from '../BoardGrid.js';
 import { PlayerLedger } from '../PlayerLedger.js';
@@ -128,6 +129,21 @@ export function HostGame({ view }: HostGameProps) {
               onJudge={(correct) => send('host:finalJudge', { correct })}
               onForce={() => send('host:continue')}
             />
+          ) : view.phase === 'modifier' && view.modifier ? (
+            <RoughFrame fill="var(--color-card)" seed={13} contentClassName="text-ink grid gap-3 p-6 text-center">
+              <p className="font-body text-ink/60 text-sm font-bold">вместо вопроса выпало</p>
+              <p className="font-pop text-3xl font-black">{MODIFIER_TITLES[view.modifier.kind]}</p>
+              <p className="font-body text-sm font-bold opacity-70">
+                {MODIFIER_HINTS[view.modifier.kind]} —{' '}
+                {view.players.find((player) => player.id === view.modifier?.playerId)?.name ?? '—'}
+              </p>
+              {view.modifier.kind === 'swap' && view.modifier.targetPlayerId === null && (
+                <p className="font-body text-sm font-bold opacity-70">ждём выбора игрока на телефоне</p>
+              )}
+              <DoodleButton tone="p1" className="justify-self-center" onClick={() => send('host:continue')}>
+                Дальше
+              </DoodleButton>
+            </RoughFrame>
           ) : question ? (
             <RoughFrame
               fill="var(--color-card)"
@@ -251,6 +267,7 @@ export function HostGame({ view }: HostGameProps) {
             onScoreChange={(playerId, score) => send('host:adjustScore', { playerId, score })}
             onKick={(playerId) => send('host:kick', { playerId })}
             onSetControl={(playerId) => send('host:setControl', { playerId })}
+            onGiveHint={(playerId) => send('host:giveHint', { playerId })}
           />
         </div>
 
