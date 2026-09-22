@@ -41,3 +41,13 @@ export interface ComposeResponse {
   pool: ThemeOption[];
   finalPool: ThemeOption[];
 }
+
+/** Уже сохранённый рецепт с подписанными темами — то, что видит мастер,
+ *  открывая игру заново, без пересборки состава (никакого seed здесь нет,
+ *  потому что ничего не бросается заново). Ссылка, переставшая резолвиться
+ *  (пак удалили, тему вырезали), приходит как null: место в раскладке
+ *  остаётся, а не пропадает молча. */
+export interface RecipeResolution {
+  rounds: (ThemeOption | null)[][];
+  final: (ThemeOption | null)[];
+}

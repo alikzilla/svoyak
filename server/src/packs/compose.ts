@@ -4,6 +4,7 @@ import type {
   GameRecipe,
   Pack,
   Question,
+  RecipeResolution,
   Round,
   Theme,
   ThemeOption,
@@ -155,6 +156,39 @@ export function listFinalOptions(packIds: string[], lookup: PackLookup): ThemeOp
     }
   }
   return options;
+}
+
+/** Подписывает уже сохранённый рецепт именами тем — для мастера, открывающего
+ *  игру заново. В отличие от `draftRecipe`, ничего не бросает: рецепт уже
+ *  зафиксирован, пересборка тут — не решение этой функции, а явное действие
+ *  хоста. Ссылка, которая больше не резолвится (пак удалили, тему вырезали),
+ *  приходит как null, а не рушит весь просмотр — `summarizeGame()` в
+ *  gamesRepo.ts эту же терпимость закладывает в `missingRefs`. */
+export function resolveRecipe(recipe: GameRecipe, lookup: PackLookup): RecipeResolution {
+  const roundOption = (ref: ThemeRef): ThemeOption | null => {
+    const pack = lookup(ref.packId);
+    const theme = pack && findRoundTheme(pack, ref.themeId);
+    if (!pack || !theme) return null;
+    return {
+      packId: ref.packId,
+      themeId: ref.themeId,
+      title: theme.title,
+      packTitle: pack.title,
+      questionsCount: theme.questions.length,
+    };
+  };
+
+  const finalOption = (ref: ThemeRef): ThemeOption | null => {
+    const pack = lookup(ref.packId);
+    const theme = pack?.final.themes.find((candidate) => candidate.id === ref.themeId);
+    if (!pack || !theme) return null;
+    return { packId: ref.packId, themeId: ref.themeId, title: theme.title, packTitle: pack.title, questionsCount: 1 };
+  };
+
+  return {
+    rounds: recipe.rounds.map((refs) => refs.map(roundOption)),
+    final: recipe.final.map(finalOption),
+  };
 }
 
 const strip = (option: ThemeOption): ThemeRef => ({ packId: option.packId, themeId: option.themeId });

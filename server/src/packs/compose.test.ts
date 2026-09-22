@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { Pack } from '@svoyak/shared';
-import { buildPackFromRecipe, draftRecipe } from './compose.js';
+import { buildPackFromRecipe, draftRecipe, resolveRecipe } from './compose.js';
 
 function packWith(id: string, themes: { id: string; title: string; prices: number[] }[]): Pack {
   return {
@@ -172,6 +172,17 @@ describe('draftRecipe', () => {
     expect(other).not.toEqual(first);
   });
 
+  // Это ровно та развилка, что ломала «Сохранить игру»: GameBuilder раньше не
+  // передавал seed вовсе, и /api/compose сам бросал кубик на каждый рендер —
+  // открыть сохранённую игру и открыть её снова означало два разных состава.
+  it('без seed каждый вызов бросает свой, и составы расходятся', () => {
+    const request = { packIds: ['a', 'b', 'c'], rounds: 2, themesPerRound: 4, finalThemes: 3 };
+    const first = draftRecipe(request, manyLookup);
+    const second = draftRecipe(request, manyLookup);
+    expect(first.seed).not.toBe(second.seed);
+    expect(first.recipe).not.toEqual(second.recipe);
+  });
+
   it('раздаёт темы по кругу, чтобы раунд не состоял из одного пака', () => {
     // Шесть тем на три пака: каждый должен дать ровно по две, на любом seed.
     for (const seed of [1, 2, 3, 17, 100]) {
@@ -241,5 +252,40 @@ describe('draftRecipe', () => {
     const pack = buildPackFromRecipe(recipe, manyLookup);
     expect(pack.rounds).toHaveLength(2);
     expect(pack.rounds[1]!.themes[0]!.questions[0]!.price).toBe(200);
+  });
+});
+
+describe('resolveRecipe', () => {
+  it('подписывает сохранённые ссылки именами тем, не трогая сам рецепт', () => {
+    const recipe = {
+      rounds: [[{ packId: 'kino', themeId: 'kino-t1' }, { packId: 'muz', themeId: 'muz-t1' }]],
+      final: [{ packId: 'kino', themeId: 'kino-f1' }],
+    };
+    const resolution = resolveRecipe(recipe, lookup);
+    expect(resolution.rounds[0]![0]).toEqual({
+      packId: 'kino',
+      themeId: 'kino-t1',
+      title: 'Режиссёры',
+      packTitle: 'Пак kino',
+      questionsCount: 5,
+    });
+    expect(resolution.rounds[0]![1]!.title).toBe('Рок');
+    expect(resolution.final[0]!.title).toBe('Финал kino');
+  });
+
+  it('повторный вызов на тех же ссылках отдаёт тот же результат — открытие не пересобирает', () => {
+    const recipe = { rounds: [[{ packId: 'kino', themeId: 'kino-t1' }]], final: [{ packId: 'kino', themeId: 'kino-f1' }] };
+    expect(resolveRecipe(recipe, lookup)).toEqual(resolveRecipe(recipe, lookup));
+  });
+
+  it('потерянная ссылка (пак удалили) приходит как null, а не рушит остальное', () => {
+    const recipe = {
+      rounds: [[{ packId: 'нет-пака', themeId: 'т1' }, { packId: 'kino', themeId: 'kino-t1' }]],
+      final: [{ packId: 'kino', themeId: 'нет-темы' }],
+    };
+    const resolution = resolveRecipe(recipe, lookup);
+    expect(resolution.rounds[0]![0]).toBeNull();
+    expect(resolution.rounds[0]![1]!.title).toBe('Режиссёры');
+    expect(resolution.final[0]).toBeNull();
   });
 });

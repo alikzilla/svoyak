@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import type { Game, ModifierPlan } from '@svoyak/shared';
 import { GAME_LIMITS, MODIFIER_KINDS } from '@svoyak/shared';
 import { getPack } from '../storage/packsRepo.js';
+import { resolveRecipe } from '../packs/compose.js';
 import { deleteGame, getGame, listGames, saveGame } from '../storage/gamesRepo.js';
 
 const MAX_TITLE = 80;
@@ -41,6 +42,18 @@ export function gamesRouter(): Router {
       return;
     }
     res.json({ game });
+  });
+
+  // Подписанный состав уже сохранённой игры — без пересборки. Открытие игры
+  // для правки не должно перебрасывать её темы: мастер использует /api/compose
+  // отдельно, и только когда хост сам об этом просит.
+  router.get('/games/:id/composition', (req, res) => {
+    const game = getGame(req.params.id);
+    if (!game) {
+      res.status(404).json({ error: 'Игра не найдена' });
+      return;
+    }
+    res.json({ resolution: resolveRecipe(game.recipe, getPack) });
   });
 
   router.post('/games', (req, res) => {

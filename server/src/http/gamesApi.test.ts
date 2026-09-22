@@ -4,12 +4,13 @@ import os from 'node:os';
 import path from 'node:path';
 import express from 'express';
 import { createServer, type Server } from 'node:http';
-import type { Game, GameResponse, GamesListResponse } from '@svoyak/shared';
+import type { Game, GameResponse, GamesListResponse, Pack, RecipeResolutionResponse } from '@svoyak/shared';
 import { GAME_LIMITS } from '@svoyak/shared';
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'svoyak-games-api-'));
 process.env['DATA_DIR'] = tempDir;
 const { gamesRouter } = await import('./gamesApi.js');
+const { savePack } = await import('../storage/packsRepo.js');
 
 let server: Server;
 let base: string;
@@ -180,5 +181,89 @@ describe('REST игр', () => {
     expect(response.status).toBe(400);
     const body = (await response.json()) as { error: string };
     expect(body.error).toBe(`Раундов не больше ${GAME_LIMITS.rounds[1]}`);
+  });
+});
+
+/** Минимальный пак с одной темой раунда и одной финальной — состав игры
+ *  резолвится к нему. */
+const pack: Pack = {
+  id: 'resolve-pack',
+  title: 'Пак для проверки состава',
+  createdAt: 1,
+  updatedAt: 1,
+  rounds: [
+    {
+      id: 'resolve-pack-r1',
+      title: 'Первый раунд',
+      themes: [
+        {
+          id: 'resolve-pack-t1',
+          title: 'Столицы',
+          questions: [
+            { id: 'resolve-pack-t1-q1', price: 100, type: 'normal', text: 'в', answer: 'о', altAnswers: [] },
+          ],
+        },
+      ],
+    },
+  ],
+  final: {
+    themes: [
+      {
+        id: 'resolve-pack-f1',
+        title: 'Финальная тема',
+        question: { id: 'resolve-pack-f1-q', text: 'ф', answer: 'о', altAnswers: [] },
+      },
+    ],
+  },
+};
+
+describe('состав уже сохранённой игры (без пересборки)', () => {
+  it('открытие игры отдаёт её собственный состав с названиями тем', async () => {
+    savePack(pack);
+    const game = await createGame('Со своим составом');
+    const withRecipe: Game = {
+      ...game,
+      recipe: {
+        rounds: [[{ packId: pack.id, themeId: 'resolve-pack-t1' }]],
+        final: [{ packId: pack.id, themeId: 'resolve-pack-f1' }],
+      },
+    };
+    await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ game: withRecipe }),
+    });
+
+    const response = await fetch(`${base}/api/games/${game.id}/composition`);
+    expect(response.status).toBe(200);
+    const body = (await response.json()) as RecipeResolutionResponse;
+    expect(body.resolution.rounds[0]?.[0]?.title).toBe('Столицы');
+    expect(body.resolution.final[0]?.title).toBe('Финальная тема');
+  });
+
+  it('повторное открытие отдаёт тот же состав — никакой переброски', async () => {
+    savePack(pack);
+    const game = await createGame();
+    const withRecipe: Game = {
+      ...game,
+      recipe: {
+        rounds: [[{ packId: pack.id, themeId: 'resolve-pack-t1' }]],
+        final: [{ packId: pack.id, themeId: 'resolve-pack-f1' }],
+      },
+    };
+    await fetch(`${base}/api/games/${game.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ game: withRecipe }),
+    });
+
+    const first = (await (await fetch(`${base}/api/games/${game.id}/composition`)).json()) as RecipeResolutionResponse;
+    const second = (await (await fetch(`${base}/api/games/${game.id}/composition`)).json()) as RecipeResolutionResponse;
+    expect(second).toEqual(first);
+  });
+
+  it('на несуществующую игру отвечает 404', async () => {
+    const response = await fetch(`${base}/api/games/нет-такой/composition`);
+    expect(response.status).toBe(404);
   });
 });

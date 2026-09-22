@@ -1,4 +1,10 @@
-import type { Game, GameResponse, GamesListResponse } from '@svoyak/shared';
+import type {
+  Game,
+  GameResponse,
+  GamesListResponse,
+  RecipeResolution,
+  RecipeResolutionResponse,
+} from '@svoyak/shared';
 
 async function json<T>(response: Response): Promise<T> {
   if (!response.ok) {
@@ -17,6 +23,11 @@ export const listGames = async (): Promise<GamesListResponse['games']> =>
 
 export const fetchGame = async (id: string): Promise<Game> =>
   (await json<GameResponse>(await fetch(`/api/games/${id}`))).game;
+
+/** Состав уже сохранённой игры с подписанными темами — открытие игры на
+ *  правку не пересобирает её заново, см. GameBuilder.tsx. */
+export const fetchGameComposition = async (id: string): Promise<RecipeResolution> =>
+  (await json<RecipeResolutionResponse>(await fetch(`/api/games/${id}/composition`))).resolution;
 
 export const createGame = async (title: string): Promise<Game> =>
   (

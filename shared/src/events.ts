@@ -1,6 +1,6 @@
 import type { Pack, PackSummary } from './pack.js';
 import type { Game, GameSummary } from './game.js';
-import type { GameRecipe } from './recipe.js';
+import type { GameRecipe, RecipeResolution } from './recipe.js';
 import type { RoomSettings } from './settings.js';
 import type { AnyView, Role } from './state.js';
 
@@ -200,4 +200,9 @@ export interface GamesListResponse {
 
 export interface GameResponse {
   game: Game;
+}
+
+/** Ответ на запрос уже сохранённого состава — без пересборки, см. `RecipeResolution`. */
+export interface RecipeResolutionResponse {
+  resolution: RecipeResolution;
 }

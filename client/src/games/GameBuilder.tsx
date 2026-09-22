@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { GAME_LIMITS, type ComposeResponse, type Game, type PackSummary } from '@svoyak/shared';
+import {
+  GAME_LIMITS,
+  type Game,
+  type GameRecipe,
+  type PackSummary,
+  type RecipeResolution,
+} from '@svoyak/shared';
 import { composeGame } from '../net/gameApi.js';
-import { saveGame } from './api.js';
+import { fetchGameComposition, saveGame } from './api.js';
 import { ModifierPicker } from './ModifierPicker.js';
 
 interface GameBuilderProps {
@@ -15,7 +21,14 @@ const [ROUNDS_MIN, ROUNDS_MAX] = GAME_LIMITS.rounds;
 const [THEMES_MIN, THEMES_MAX] = GAME_LIMITS.themesPerRound;
 const [FINAL_MIN, FINAL_MAX] = GAME_LIMITS.finalThemes;
 
-/** Конструктор одной игры: паки → состав → модификаторы → сохранить. */
+/** Конструктор одной игры: паки → состав → модификаторы → сохранить.
+ *
+ *  Состав — не производная от полей формы, а собственное состояние
+ *  (`recipe`/`preview`). У уже сохранённой игры открытие показывает именно
+ *  тот состав, с которым она была сохранена: пересборка — только по кнопке
+ *  «Пересобрать состав». Иначе переименование тихо перебрасывает темы (сервер
+ *  без явного seed сам бросает кубик), а «Сохранить игру» затирает исходную
+ *  сборку составом, который хост не просил. */
 export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps) {
   const [title, setTitle] = useState(game.title);
   const [selected, setSelected] = useState<string[]>([]);
@@ -25,16 +38,22 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
   );
   const [finalThemes, setFinalThemes] = useState(Math.max(1, game.recipe.final.length || 3));
   const [modifiers, setModifiers] = useState(game.modifiers);
-  const [draft, setDraft] = useState<ComposeResponse | null>(null);
+  const [recipe, setRecipe] = useState<GameRecipe>(game.recipe);
+  const [preview, setPreview] = useState<RecipeResolution | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  // У новой игры (`+ собрать игру`) рецепт пуст — показывать нечего, и первый
+  // состав нужен сразу. У уже сохранённой — рецепт не пуст, и это ровно то,
+  // что должно остаться на экране до явной пересборки.
+  const hasSavedComposition = game.recipe.rounds.length > 0;
 
   // `packs` приходит от родителя асинхронно: на момент первого рендера конструктора
   // список может быть ещё пуст. У сохранённой игры уже есть состав — выбор паков
   // выводим из него (иначе повторное открытие подменяет паки на "первые три" и
-  // «Сохранить игру» тихо перезаписывает исходный состав). Пустой рецепт (только
-  // что созданная игра) — единственный случай, когда берём дефолт. Раз
-  // выставленный выбор не трогаем, даже когда `packs` потом обновится.
+  // «Пересобрать состав» соберёт не то). Пустой рецепт (только что созданная
+  // игра) — единственный случай, когда берём дефолт. Раз выставленный выбор не
+  // трогаем, даже когда `packs` потом обновится.
   const defaulted = useRef(false);
   useEffect(() => {
     if (defaulted.current || packs.length === 0) return;
@@ -49,16 +68,39 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
     );
   }, [packs, game]);
 
+  // Открытие уже собранной игры показывает её собственный состав — сервер
+  // подписывает те же ссылки именами тем, ничего не бросая заново.
+  useEffect(() => {
+    if (!hasSavedComposition) return;
+    let cancelled = false;
+    setBusy(true);
+    void fetchGameComposition(game.id)
+      .then((resolution) => {
+        if (!cancelled) setPreview(resolution);
+      })
+      .catch((cause: unknown) => {
+        if (!cancelled) {
+          setError(cause instanceof Error ? cause.message : 'Не удалось открыть состав игры');
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setBusy(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [game.id, hasSavedComposition]);
+
   const compose = useCallback(() => {
     if (selected.length === 0) {
-      setDraft(null);
       setError('Выберите хотя бы один пак');
       return;
     }
     setBusy(true);
     void composeGame({ packIds: selected, rounds, themesPerRound, finalThemes })
       .then((response) => {
-        setDraft(response);
+        setRecipe(response.recipe);
+        setPreview({ rounds: response.rounds, final: response.final });
         setError(null);
       })
       .catch((cause: unknown) =>
@@ -67,7 +109,15 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
       .finally(() => setBusy(false));
   }, [selected, rounds, themesPerRound, finalThemes]);
 
-  useEffect(compose, [compose]);
+  // Только для только что созданной игры: показать хоть какой-то состав сразу,
+  // не дожидаясь ручной «Пересобрать состав». Дальше — только по кнопке или
+  // изменению паков/чисел, которые «Пересобрать состав» использует при клике.
+  const autoComposed = useRef(false);
+  useEffect(() => {
+    if (hasSavedComposition || autoComposed.current || selected.length === 0) return;
+    autoComposed.current = true;
+    compose();
+  }, [hasSavedComposition, selected, compose]);
 
   const togglePack = (id: string): void =>
     setSelected((current) =>
@@ -75,9 +125,9 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
     );
 
   const save = (): void => {
-    if (!draft) return;
+    if (recipe.rounds.length === 0) return;
     setBusy(true);
-    void saveGame({ ...game, title: title.trim() || 'Новая игра', recipe: draft.recipe, modifiers })
+    void saveGame({ ...game, title: title.trim() || 'Новая игра', recipe, modifiers })
       .then(onSaved)
       .catch((cause: unknown) =>
         setError(cause instanceof Error ? cause.message : 'Не удалось сохранить игру'),
@@ -158,15 +208,15 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
 
       <ModifierPicker plan={modifiers} onChange={setModifiers} />
 
-      {draft && (
+      {preview && (
         <section className="ink-border bg-card text-ink grid gap-2 rounded-2xl p-4">
-          {draft.rounds.map((round, index) => (
+          {preview.rounds.map((round, index) => (
             <p key={index} className="font-body text-sm font-bold">
-              Раунд {index + 1}: {round.map((theme) => theme.title).join(', ')}
+              Раунд {index + 1}: {round.map((theme) => theme?.title ?? '— тема недоступна —').join(', ')}
             </p>
           ))}
           <p className="font-body text-sm font-bold opacity-70">
-            Финал: {draft.final.map((theme) => theme.title).join(', ')}
+            Финал: {preview.final.map((theme) => theme?.title ?? '— тема недоступна —').join(', ')}
           </p>
         </section>
       )}
@@ -185,8 +235,8 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
         <button
           type="button"
           onClick={save}
-          disabled={busy || !draft}
-          className="ink-border bg-gold font-body rounded-2xl px-4 py-2 text-sm font-bold"
+          disabled={busy || recipe.rounds.length === 0}
+          className="ink-border bg-gold text-ink font-body rounded-2xl px-4 py-2 text-sm font-bold"
         >
           Сохранить игру
         </button>
