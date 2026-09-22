@@ -768,6 +768,25 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       };
     }
 
+    case 'GIVE_HINT': {
+      const player = findPlayer(state, action.playerId);
+      if (!player) return reject(state, 'Игрок не найден');
+      // Без этой проверки счётчик мог бы уйти в минус, и ведущий раздавал бы подсказки без ограничений.
+      if ((player.hints ?? 0) <= 0) return reject(state, 'У игрока нет жетона подсказки');
+
+      return {
+        state: {
+          ...state,
+          players: updatePlayer(state.players, action.playerId, (candidate) => ({
+            ...candidate,
+            hints: (candidate.hints ?? 0) - 1,
+          })),
+          log: log(state, action.at, `${player.name} получает подсказку от ведущего`),
+        },
+        effects: [{ type: 'persist' }],
+      };
+    }
+
     case 'TIMER_EXPIRED': {
       if (action.kind === 'buzz') {
         if (state.phase !== 'buzzer_open') return { state, effects: [] };

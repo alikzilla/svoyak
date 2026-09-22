@@ -39,7 +39,9 @@ export type GameAction =
   | { type: 'FINAL_REMOVE_THEME'; playerId: string; themeId: string; at: number }
   | { type: 'FINAL_BET'; playerId: string; bet: number; at: number }
   | { type: 'FINAL_ANSWER'; playerId: string; answer: string; at: number }
-  | { type: 'FINAL_JUDGE'; correct: boolean; at: number };
+  | { type: 'FINAL_JUDGE'; correct: boolean; at: number }
+  /** Ведущий тратит жетон подсказки игрока: сам текст он говорит вслух. */
+  | { type: 'GIVE_HINT'; playerId: string; at: number };
 
 /** Побочные действия: редьюсер их только описывает, исполняет RoomRuntime. */
 export type Effect =
@@ -62,6 +64,7 @@ const UNDOABLE = new Set<GameAction['type']>([
   'CAT_TRANSFER',
   'FINAL_JUDGE',
   'MODIFIER_TARGET',
+  'GIVE_HINT',
 ]);
 
 export function isUndoable(action: GameAction): boolean {

@@ -80,6 +80,10 @@ export interface KickPayload {
   playerId: string;
 }
 
+export interface GiveHintPayload {
+  playerId: string;
+}
+
 export interface CatTransferPayload {
   toPlayerId: string;
 }
@@ -155,6 +159,7 @@ export interface ClientToServerEvents {
   'host:extendTime': (ack: Ack<null>) => void;
   'host:setControl': (payload: { playerId: string }, ack: Ack<null>) => void;
   'host:adjustScore': (payload: AdjustScorePayload, ack: Ack<null>) => void;
+  'host:giveHint': (payload: GiveHintPayload, ack: Ack<null>) => void;
   'host:kick': (payload: KickPayload, ack: Ack<null>) => void;
   'host:pause': (payload: { paused: boolean }, ack: Ack<null>) => void;
   'host:undo': (ack: Ack<null>) => void;

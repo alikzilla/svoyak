@@ -390,6 +390,13 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
+    socket.on('host:giveHint', ({ playerId }, ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const result = room.dispatch({ type: 'GIVE_HINT', playerId, at: Date.now() });
+      ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
     socket.on('host:kick', ({ playerId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
