@@ -226,8 +226,14 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         const playerId = state.controlPlayerId;
         if (!playerId) return reject(state, 'Некому открывать клетку');
 
+        // Меняться счётом не с кем в комнате на одного — тогда обмен ведёт
+        // себя как пустышка, а не как вопрос без ответа: без этой проверки
+        // телефон открывшего застревал бы на «с кем меняешься?» без единой
+        // кнопки, а фаза 'modifier' не заканчивалась бы (таймер не ставился).
+        const swapHasTarget = modifierKind === 'swap' && state.players.some((p) => p.id !== playerId);
+
         const players =
-          modifierKind === 'swap'
+          modifierKind === 'swap' && swapHasTarget
             ? state.players
             : applyModifier(state.players, modifierKind, playerId, null, state.settings);
 
@@ -238,14 +244,22 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
           active: null,
           cat: null,
           auction: null,
-          modifier: { kind: modifierKind, playerId, targetPlayerId: null },
+          // Без цели обмен сразу помечается как решённый (цель — сам открывший):
+          // это не настоящий обмен, а сигнал сцене не ждать выбора на телефоне.
+          modifier: {
+            kind: modifierKind,
+            playerId,
+            targetPlayerId: modifierKind === 'swap' && !swapHasTarget ? playerId : null,
+          },
           board: markPlayed(state.board, action.themeId, action.questionId),
           buzz: resetBuzz(),
           log: log(state, action.at, `${nameOf(state, playerId)}: ${MODIFIER_TITLES[modifierKind]}`),
         };
 
-        // Обмену нужна цель: сцена ждёт выбора, а не таймера.
-        if (modifierKind === 'swap') {
+        // Обмену с доступной целью нужна цель: сцена ждёт выбора, а не
+        // таймера. Во всех остальных случаях, включая обмен без кандидатов,
+        // сцена таймерная, как у пустышки.
+        if (swapHasTarget) {
           return { state: opened, effects: [{ type: 'clearTimer' }, { type: 'persist' }] };
         }
         return { state: opened, effects: [...modifierEffects(state, action.at), { type: 'persist' }] };

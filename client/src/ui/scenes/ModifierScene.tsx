@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import type { ModifierView, PlayerPublic } from '@svoyak/shared';
-import { MODIFIER_HINTS, MODIFIER_TITLES } from '@svoyak/shared';
+import { MODIFIER_HINTS, MODIFIER_TITLES, modifierApplies } from '@svoyak/shared';
 import { RoughFrame } from '../../design/rough.js';
 
 interface ModifierSceneProps {
@@ -13,6 +13,11 @@ interface ModifierSceneProps {
 export function ModifierScene({ modifier, players }: ModifierSceneProps) {
   const name = (id: string | null): string =>
     players.find((player) => player.id === id)?.name ?? '—';
+
+  // Ограбление, щедрость и обмен трогают чужой счёт. В комнате на одного
+  // applyModifier() тихо вырождается в пустышку — сцена не должна обещать
+  // эффект, которого не было.
+  const applied = modifierApplies(modifier.kind, players.length);
 
   return (
     <RoughFrame
@@ -30,12 +35,12 @@ export function ModifierScene({ modifier, players }: ModifierSceneProps) {
         {MODIFIER_TITLES[modifier.kind]}
       </motion.p>
       <p className="font-body text-[clamp(1.2rem,2.5vw,2rem)] font-bold">
-        {MODIFIER_HINTS[modifier.kind]}
+        {applied ? MODIFIER_HINTS[modifier.kind] : 'не сработало — в комнате больше никого нет'}
       </p>
       <p className="font-body text-lg font-bold opacity-70">
         {modifier.kind === 'swap' && modifier.targetPlayerId === null
           ? `${name(modifier.playerId)} выбирает, с кем меняться`
-          : modifier.kind === 'swap'
+          : modifier.kind === 'swap' && modifier.targetPlayerId !== modifier.playerId
             ? `${name(modifier.playerId)} ↔ ${name(modifier.targetPlayerId)}`
             : name(modifier.playerId)}
       </p>

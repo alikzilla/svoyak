@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import type { HostView } from '@svoyak/shared';
-import { MODIFIER_HINTS, MODIFIER_TITLES } from '@svoyak/shared';
+import { MODIFIER_HINTS, MODIFIER_TITLES, modifierApplies } from '@svoyak/shared';
 import { ask } from '../../net/socket.js';
 import { BoardGrid } from '../BoardGrid.js';
 import { PlayerLedger } from '../PlayerLedger.js';
@@ -134,7 +134,10 @@ export function HostGame({ view }: HostGameProps) {
               <p className="font-body text-ink/60 text-sm font-bold">вместо вопроса выпало</p>
               <p className="font-pop text-3xl font-black">{MODIFIER_TITLES[view.modifier.kind]}</p>
               <p className="font-body text-sm font-bold opacity-70">
-                {MODIFIER_HINTS[view.modifier.kind]} —{' '}
+                {modifierApplies(view.modifier.kind, view.players.length)
+                  ? MODIFIER_HINTS[view.modifier.kind]
+                  : 'не сработало — в комнате больше никого нет'}{' '}
+                —{' '}
                 {view.players.find((player) => player.id === view.modifier?.playerId)?.name ?? '—'}
               </p>
               {view.modifier.kind === 'swap' && view.modifier.targetPlayerId === null && (
@@ -335,7 +338,7 @@ function SpecialNote({ view, kind }: { view: HostView; kind: 'cat' | 'auction' }
 
   if (kind === 'auction' && view.auction) {
     return (
-      <div className="ink-border bg-gold font-body rounded-2xl px-4 py-2 font-bold">
+      <div className="ink-border bg-gold text-ink font-body rounded-2xl px-4 py-2 font-bold">
         <p>
           аукцион · ставка <span className="font-pop tabular-nums">{view.auction.currentBid}</span>
           {view.auction.leaderId && ` — ${nameOf(view.auction.leaderId)}`}
