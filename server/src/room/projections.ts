@@ -232,18 +232,21 @@ function projectPrompt(state: RoomState, playerId: string, now: number): PlayerP
     }
 
     case 'modifier': {
-      // Цель ещё не выбрана — сцена ждёт именно открывшего клетку, остальные смотрят.
+      const candidates = state.players
+        .filter((player) => player.id !== playerId)
+        .map((player) => ({ id: player.id, name: player.name }));
+      // Цель ещё не выбрана — сцена ждёт именно открывшего клетку, остальные
+      // смотрят. Но ждать нечего, если меняться не с кем: в комнате на
+      // одного targetPlayerId остаётся null до конца сцены (выбирать некого),
+      // и без проверки candidates.length телефон показал бы «С кем
+      // меняешься счётом?» без единой кнопки.
       if (
         state.modifier?.kind === 'swap' &&
         state.modifier.targetPlayerId === null &&
-        state.modifier.playerId === playerId
+        state.modifier.playerId === playerId &&
+        candidates.length > 0
       ) {
-        return {
-          kind: 'modifier_swap',
-          candidates: state.players
-            .filter((player) => player.id !== playerId)
-            .map((player) => ({ id: player.id, name: player.name })),
-        };
+        return { kind: 'modifier_swap', candidates };
       }
       return { kind: 'wait' };
     }

@@ -244,13 +244,13 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
           active: null,
           cat: null,
           auction: null,
-          // Без цели обмен сразу помечается как решённый (цель — сам открывший):
-          // это не настоящий обмен, а сигнал сцене не ждать выбора на телефоне.
-          modifier: {
-            kind: modifierKind,
-            playerId,
-            targetPlayerId: modifierKind === 'swap' && !swapHasTarget ? playerId : null,
-          },
+          // targetPlayerId всегда null здесь, кандидат на обмен есть или нет:
+          // «цель — сам открывший» была бы значением, которое MODIFIER_TARGET
+          // сам же и запрещает («С самим собой меняться нельзя»), и файл с
+          // таким состоянием выглядел бы повреждённым. Кто должен ждать
+          // выбора, а кто — нет, решает projectPrompt() по числу игроков, а
+          // не эта клетка по выдуманному значению.
+          modifier: { kind: modifierKind, playerId, targetPlayerId: null },
           board: markPlayed(state.board, action.themeId, action.questionId),
           buzz: resetBuzz(),
           log: log(state, action.at, `${nameOf(state, playerId)}: ${MODIFIER_TITLES[modifierKind]}`),

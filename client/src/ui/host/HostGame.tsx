@@ -140,9 +140,11 @@ export function HostGame({ view }: HostGameProps) {
                 —{' '}
                 {view.players.find((player) => player.id === view.modifier?.playerId)?.name ?? '—'}
               </p>
-              {view.modifier.kind === 'swap' && view.modifier.targetPlayerId === null && (
-                <p className="font-body text-sm font-bold opacity-70">ждём выбора игрока на телефоне</p>
-              )}
+              {view.modifier.kind === 'swap' &&
+                view.modifier.targetPlayerId === null &&
+                modifierApplies(view.modifier.kind, view.players.length) && (
+                  <p className="font-body text-sm font-bold opacity-70">ждём выбора игрока на телефоне</p>
+                )}
               <DoodleButton tone="p1" className="justify-self-center" onClick={() => send('host:continue')}>
                 Дальше
               </DoodleButton>

@@ -38,9 +38,16 @@ export function ModifierScene({ modifier, players }: ModifierSceneProps) {
         {applied ? MODIFIER_HINTS[modifier.kind] : 'не сработало — в комнате больше никого нет'}
       </p>
       <p className="font-body text-lg font-bold opacity-70">
-        {modifier.kind === 'swap' && modifier.targetPlayerId === null
+        {/* `applied` — та же проверка «есть ли с кем», что и у строки выше:
+            в комнате на одного targetPlayerId держится в null весь показ
+            сцены (выбирать некого, а не «пока не выбрал»), так что без
+            этого условия тут всегда читалось бы «выбирает, с кем
+            меняться». Это не подпорка под неверное значение состояния —
+            targetPlayerId честен (null, потому что цели нет и не будет);
+            просто у «идёт выбор» и «выбирать не из кого» разный текст. */}
+        {modifier.kind === 'swap' && applied && modifier.targetPlayerId === null
           ? `${name(modifier.playerId)} выбирает, с кем меняться`
-          : modifier.kind === 'swap' && modifier.targetPlayerId !== modifier.playerId
+          : modifier.kind === 'swap' && applied
             ? `${name(modifier.playerId)} ↔ ${name(modifier.targetPlayerId)}`
             : name(modifier.playerId)}
       </p>

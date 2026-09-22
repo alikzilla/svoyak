@@ -188,3 +188,43 @@ describe('проекция общего экрана', () => {
     expect(view.players).toHaveLength(2);
   });
 });
+
+describe('запрос на обмен счётом в проекции игрока', () => {
+  const firstTheme = demoClassicPack.rounds[0]?.themes[0];
+  const firstQuestion = firstTheme?.questions[0];
+  if (!firstTheme || !firstQuestion) throw new Error('Пак demo-classic неожиданно пуст');
+
+  it('в комнате на одного не предлагает выбрать цель — targetPlayerId=null сам по себе кандидатов не даёт', () => {
+    let state = createRoomState({
+      code: '1234',
+      pack: demoClassicPack,
+      settings: DEFAULT_SETTINGS,
+      hostToken: 'host-token',
+      now: 1000,
+      modifierCells: { [firstQuestion.id]: 'swap' },
+    });
+    state = reduce(state, {
+      type: 'PLAYER_JOIN',
+      playerId: 'p1',
+      name: 'Вася',
+      sessionToken: 'secret-token-1',
+      at: 2000,
+    }).state;
+    state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+    state = reduce(state, {
+      type: 'PICK_QUESTION',
+      themeId: firstTheme.id,
+      questionId: firstQuestion.id,
+      at: 4000,
+    }).state;
+
+    expect(state.modifier?.targetPlayerId).toBeNull();
+    // Сырое состояние честно (цели нет, а не «уже выбрана»), поэтому гейт
+    // прежде проверял только kind/targetPlayerId/playerId — этого мало:
+    // без учёта числа кандидатов подсказка ушла бы игроку без единой
+    // кнопки выбора.
+    const prompt = projectForPlayer(state, 'p1').prompt;
+    expect(prompt.kind).not.toBe('modifier_swap');
+    expect(prompt.kind).toBe('wait');
+  });
+});
