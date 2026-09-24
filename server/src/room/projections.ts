@@ -2,6 +2,8 @@ import type {
   BaseView,
   BoardThemeView,
   BoardView,
+  CheatSheetQuestion,
+  CheatSheetTheme,
   FinalPublicView,
   HostQuestionView,
   HostView,
@@ -13,7 +15,7 @@ import type {
   RoomState,
   TimerView,
 } from '@svoyak/shared';
-import { activeQuestion } from '../engine/questions.js';
+import { activeQuestion, findTheme } from '../engine/questions.js';
 
 function projectPlayers(state: RoomState, now: number): PlayerPublic[] {
   return state.players.map((player) => {
@@ -209,9 +211,48 @@ export function projectForHost(
         }
       : null,
     log: state.log,
+    cheatSheet: projectCheatSheet(state),
     canUndo: options.canUndo ?? false,
     joinUrl,
   };
+}
+
+/** Шпаргалка ведущего. Идёт от доски, а не от пака: так в ней ровно те
+ *  клетки, что ещё закрыты, и ни одного поля `modifier` — клетка-модификатор
+ *  выглядит в ней как обычный вопрос, который под ней лежит. */
+function projectCheatSheet(state: RoomState): CheatSheetTheme[] {
+  if (state.final !== null || state.phase === 'results') return [];
+
+  return state.board.flatMap((boardTheme) => {
+    const theme = findTheme(state.pack, state.roundIndex, boardTheme.id);
+    if (!theme) return [];
+    const questions = boardTheme.cells.flatMap((cell): CheatSheetQuestion[] => {
+      if (cell.played) return [];
+      const question = theme.questions.find((candidate) => candidate.id === cell.questionId);
+      if (!question) return [];
+      return [
+        {
+          questionId: question.id,
+          price: cell.price,
+          type: question.type,
+          text: question.text,
+          answer: question.answer,
+          altAnswers: question.altAnswers,
+          ...(question.hostComment ? { hostComment: question.hostComment } : {}),
+          ...(question.type === 'cat' && question.cat ? { catTheme: question.cat.theme } : {}),
+        },
+      ];
+    });
+    if (questions.length === 0) return [];
+    return [
+      {
+        id: theme.id,
+        title: theme.title,
+        ...(theme.comment ? { comment: theme.comment } : {}),
+        questions,
+      },
+    ];
+  });
 }
 
 /** Что телефон игрока предлагает сделать прямо сейчас. */

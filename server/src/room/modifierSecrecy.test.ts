@@ -68,3 +68,39 @@ describe('секретность модификатора', () => {
     expect(JSON.stringify(view)).not.toContain('jackpot');
   });
 });
+
+describe('шпаргалка ведущего', () => {
+  it('клетка-модификатор в ней неотличима от обычной', () => {
+    const state = roomWithModifier();
+    const view = projectForHost(state, 'http://x', { now: Date.now() });
+    const [first, second] = view.cheatSheet[0]?.questions ?? [];
+    expect(first).toBeDefined();
+    expect(Object.keys(first ?? {}).sort()).toEqual(Object.keys(second ?? {}).sort());
+    expect(JSON.stringify(view.cheatSheet)).not.toContain('jackpot');
+  });
+
+  it('разыгранные клетки из неё пропадают', () => {
+    const state = roomWithModifier();
+    const firstTheme = state.board[0];
+    const firstCell = firstTheme?.cells[0];
+    if (!firstTheme || !firstCell) throw new Error('доска пуста');
+    const played: RoomState = {
+      ...state,
+      board: state.board.map((theme, index) =>
+        index === 0
+          ? { ...theme, cells: theme.cells.map((cell, cellIndex) => (cellIndex === 0 ? { ...cell, played: true } : cell)) }
+          : theme,
+      ),
+    };
+    const view = projectForHost(played, 'http://x', { now: Date.now() });
+    const ids = view.cheatSheet.flatMap((theme) => theme.questions.map((question) => question.questionId));
+    expect(ids).not.toContain(firstCell.questionId);
+    expect(ids.length).toBe(state.board.flatMap((theme) => theme.cells).length - 1);
+  });
+
+  it('игроку и общему экрану шпаргалка не уходит', () => {
+    const state = roomWithModifier();
+    expect('cheatSheet' in projectForPlayer(state, 'p1', Date.now())).toBe(false);
+    expect('cheatSheet' in projectForBoard(state, 'http://x', Date.now())).toBe(false);
+  });
+});

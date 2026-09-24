@@ -122,6 +122,22 @@ export interface FinalJudgePayload {
   correct: boolean;
 }
 
+/** Реакции с телефона на общий экран. Набор закрытый: сервер пропускает
+ *  только эти значения, а не произвольный текст с телефона. */
+export const REACTIONS = ['😂', '🔥', '👏', '😱', '🤦', '🤔'] as const;
+export type Reaction = (typeof REACTIONS)[number];
+
+export interface ReactPayload {
+  emoji: Reaction;
+}
+
+export interface ReactionEvent {
+  playerId: string;
+  emoji: Reaction;
+  /** Уникален в пределах комнаты: ключ для анимации на экране. */
+  id: string;
+}
+
 export type SoundId =
   | 'buzz_open'
   | 'buzz_hit'
@@ -173,6 +189,8 @@ export interface ClientToServerEvents {
   'player:finalRemoveTheme': (payload: FinalRemoveThemePayload, ack: Ack<null>) => void;
   'player:finalBet': (payload: FinalBetPayload, ack: Ack<null>) => void;
   'player:finalAnswer': (payload: FinalAnswerPayload, ack: Ack<null>) => void;
+  /** Реакция живёт мимо состояния: не сохраняется, не отменяется и не будит проекции. */
+  'player:react': (payload: ReactPayload, ack: Ack<null>) => void;
 }
 
 export interface ServerToClientEvents {
@@ -182,6 +200,7 @@ export interface ServerToClientEvents {
   /** Короткое сообщение поверх интерфейса (фальстарт, ошибка действия). */
   'toast': (payload: { text: string; tone: 'info' | 'warn' | 'error' }) => void;
   'room:closed': (payload: { reason: string }) => void;
+  'reaction': (payload: ReactionEvent) => void;
 }
 
 /** REST-контракты редактора паков. */

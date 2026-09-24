@@ -8,6 +8,7 @@ import { BoardGrid } from '../BoardGrid.js';
 import { PlayerLedger } from '../PlayerLedger.js';
 import { SoundToggle } from '../SoundToggle.js';
 import { FinalHost } from './FinalHost.js';
+import { CheatSheet } from './CheatSheet.js';
 import { Avatar, colorForIndex } from '../../design/Avatar.js';
 import { DoodleButton } from '../../design/DoodleButton.js';
 import { DoodleTimer } from '../../design/DoodleTimer.js';
@@ -321,6 +322,7 @@ export function HostGame({ view }: HostGameProps) {
                   идёт вопрос — закончите его, чтобы открыть следующий
                 </p>
               )}
+              <CheatSheet themes={view.cheatSheet} />
             </>
           )}
         </section>

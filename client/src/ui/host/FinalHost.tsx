@@ -1,4 +1,5 @@
-import type { HostView } from '@svoyak/shared';
+import type { AnswerMatch, HostView } from '@svoyak/shared';
+import { matchAnswer } from '@svoyak/shared';
 import { QuestionMedia } from '../QuestionMedia.js';
 
 interface FinalHostProps {
@@ -23,6 +24,10 @@ export function FinalHost({ view, onJudge, onForce }: FinalHostProps) {
         : [];
 
   const current = final.currentRevealPlayerId;
+  const suggestion =
+    current && final.answer !== null
+      ? matchAnswer(final.answers[current] ?? '', [final.answer, ...final.altAnswers])
+      : null;
 
   return (
     <section className="grid gap-4 rounded-3xl border border-line bg-surface p-5">
@@ -105,16 +110,21 @@ export function FinalHost({ view, onJudge, onForce }: FinalHostProps) {
           <p className="text-muted">
             ставка <span className="tabular-nums text-gold">{final.bets[current] ?? 0}</span>
           </p>
+          {suggestion && <SuggestionNote suggestion={suggestion} />}
           <div className="flex gap-2">
             <button
               onClick={() => onJudge(true)}
-              className="rounded-xl bg-good px-6 py-3 font-bold text-bg"
+              className={`rounded-xl bg-good px-6 py-3 font-bold text-bg ${
+                suggestion?.kind === 'exact' ? 'ring-4 ring-good/50' : ''
+              }`}
             >
               Верно
             </button>
             <button
               onClick={() => onJudge(false)}
-              className="rounded-xl bg-bad px-6 py-3 font-bold text-bg"
+              className={`rounded-xl bg-bad px-6 py-3 font-bold text-bg ${
+                suggestion?.kind === 'none' ? 'ring-4 ring-bad/50' : ''
+              }`}
             >
               Неверно
             </button>
@@ -139,4 +149,18 @@ export function FinalHost({ view, onJudge, onForce }: FinalHostProps) {
       )}
     </section>
   );
+}
+
+/** Подсказка, а не вердикт: судит всё равно ведущий. Кнопка, которую
+ *  подсказка советует, подсвечена, а «похоже» не подсвечивает ни одну. */
+function SuggestionNote({ suggestion }: { suggestion: AnswerMatch }) {
+  if (suggestion.kind === 'exact') {
+    return <p className="text-sm font-bold text-good">✓ совпадает с «{suggestion.matched}»</p>;
+  }
+  if (suggestion.kind === 'close') {
+    return (
+      <p className="text-sm font-bold text-gold">≈ похоже на «{suggestion.matched}» — решайте сами</p>
+    );
+  }
+  return <p className="text-sm font-bold text-bad">✕ не похоже на правильный ответ</p>;
 }

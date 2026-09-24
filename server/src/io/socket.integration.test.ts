@@ -170,6 +170,43 @@ describe('сокет-слой', () => {
     host.disconnect();
   });
 
+  it('реакция игрока доходит до общего экрана, чужое и частое отбрасывается', async () => {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+
+    const board = await connect();
+    await emit(board, 'room:watch', { code: created.data.code });
+
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code: created.data.code, name: 'Катя' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+
+    const received = new Promise((resolve) => board.once('reaction', resolve));
+    expect(await emit(player, 'player:react', { emoji: '🔥' })).toEqual({ ok: true, data: null });
+    expect(await received).toMatchObject({ playerId: joined.data.playerId, emoji: '🔥' });
+
+    // Сразу вторая — слишком часто.
+    expect((await emit(player, 'player:react', { emoji: '😂' })).ok).toBe(false);
+    // Произвольный текст вместо реакции не проходит.
+    const forged = { emoji: 'купите слона' } as unknown as { emoji: '🔥' };
+    expect(await emit(player, 'player:react', forged)).toEqual({ ok: false, error: 'Такой реакции нет' });
+    // Ведущий и общий экран не реагируют — это кнопка игрока.
+    expect((await emit(board, 'player:react', { emoji: '🔥' })).ok).toBe(false);
+
+    host.disconnect();
+    board.disconnect();
+    player.disconnect();
+  });
+
   it('игрок не может выполнить действие ведущего', async () => {
     const host = await connect();
     const created = await emit<'room:create', { code: string; hostToken: string }>(

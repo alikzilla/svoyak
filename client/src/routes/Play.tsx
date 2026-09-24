@@ -8,6 +8,7 @@ import { useClock } from '../net/useClock.js';
 import { loadSession } from '../net/session.js';
 import { ask } from '../net/socket.js';
 import { unlockAudio } from '../net/sounds.js';
+import { usePlayerHaptics } from '../net/haptics.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { BigBuzzer, type BuzzerState } from '../design/BigBuzzer.js';
 import { DoodleButton } from '../design/DoodleButton.js';
@@ -20,6 +21,8 @@ import { SwapPick } from '../ui/SwapPick.js';
 import { BidPanel } from '../ui/BidPanel.js';
 import { FinalPlayer } from '../ui/FinalPlayer.js';
 import { ModifierScene } from '../ui/scenes/ModifierScene.js';
+import { ReactionBar } from '../ui/ReactionBar.js';
+import { ActivationGate } from '../ui/ActivationGate.js';
 
 /** Подписи ожидания: пустой экран не должен быть немым. */
 const WAIT_HINT: Partial<Record<string, string>> = {
@@ -56,7 +59,6 @@ export default function Play() {
   const navigate = useNavigate();
   const { view, connected, closed, toast } = usePlayerRoom();
   const clock = useClock();
-  const lastPhase = useRef<string | null>(null);
 
   useEffect(() => {
     if (!loadSession()) void navigate('/join');
@@ -68,16 +70,8 @@ export default function Play() {
   );
   const myColor = colorForIndex(Math.max(0, myIndex));
 
-  // Телефон лежит экраном вниз или в кармане — про открытие кнопки и вердикт сообщаем вибрацией.
-  useEffect(() => {
-    if (!view) return;
-    const previous = lastPhase.current;
-    lastPhase.current = view.phase;
-    if (previous === view.phase) return;
-
-    if (view.phase === 'buzzer_open') navigator.vibrate?.([0, 40, 60, 40]);
-    if (view.phase === 'answer_reveal') navigator.vibrate?.(25);
-  }, [view]);
+  // Телефон лежит экраном вниз или в кармане — о своих событиях игрок узнаёт вибрацией.
+  usePlayerHaptics(view);
 
   const myScore = view?.myScore ?? 0;
   const previousScore = useRef<number | null>(null);
@@ -89,15 +83,12 @@ export default function Play() {
       return;
     }
     if (myScore > previousScore.current) {
-      navigator.vibrate?.([0, 30, 40, 30]);
       void confetti({
         particleCount: 70,
         spread: 70,
         origin: { y: 0.7 },
         colors: [myColor, '#fff6e9', '#1a1a1a'],
       });
-    } else if (myScore < previousScore.current) {
-      navigator.vibrate?.(120);
     }
     previousScore.current = myScore;
   }, [myScore, myColor, view]);
@@ -160,6 +151,7 @@ export default function Play() {
       style={{ color: '#f6f1ff' }}
     >
       <DoodleField density="light" night />
+      <ActivationGate />
 
       <header className="relative flex shrink-0 items-center gap-3">
         <Avatar seed={me?.name ?? 'игрок'} color={myColor} size={44} mood={iAnswer ? 'answering' : 'idle'} />
@@ -286,6 +278,9 @@ export default function Play() {
           </motion.p>
         )}
       </AnimatePresence>
+
+      {/* Реакции — пока телефону нечего делать: под кнопкой ответа их легко задеть. */}
+      {(view.prompt.kind === 'wait' || view.prompt.kind === 'your_turn') && <ReactionBar />}
 
       <ul className="relative hidden shrink-0 gap-2 overflow-x-auto pb-1 [@media(min-height:600px)]:flex">
         {others.map((player) => (
