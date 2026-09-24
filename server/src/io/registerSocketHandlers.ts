@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Ack, GameRecipe, ModifierPlan, Pack, RoomSettings } from '@svoyak/shared';
-import { EMPTY_MODIFIER_PLAN, validatePack } from '@svoyak/shared';
+import { EMPTY_MODIFIER_PLAN, REACTIONS, validatePack } from '@svoyak/shared';
 import type { Effect, GameAction } from '../engine/actions.js';
 import type { RoomManager } from '../room/RoomManager.js';
 import type { RoomRuntime } from '../room/RoomRuntime.js';
@@ -12,6 +12,8 @@ import { getGame, summarizeGame } from '../storage/gamesRepo.js';
 import type { AppServer, AppSocket } from './types.js';
 
 const MAX_NAME_LENGTH = 20;
+/** Реакции — украшение, а не канал: чаще этого с одного телефона не пропускаем. */
+export const REACTION_MIN_INTERVAL_MS = 600;
 
 /** Недоделанный пак можно править, но играть им нельзя. */
 function validatePlayable(pack: Pack): Pack | string {
@@ -143,6 +145,10 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
     }
     return room;
   };
+
+  /** Когда игрок последний раз реагировал: ключ — комната и игрок, чтобы
+   *  переподключение с нового сокета не сбрасывало ограничение. */
+  const lastReactionAt = new Map<string, number>();
 
   io.on('connection', (socket: AppSocket) => {
     socket.data = { role: null, code: null, playerId: null };
@@ -407,6 +413,28 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       const atServerTime = adjustBuzzTime({ clientTime, clockOffset, minRtt, receivedAt });
       const result = room.dispatch({ type: 'BUZZ', playerId, atServerTime, receivedAt });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
+    });
+
+    socket.on('player:react', ({ emoji }, ack) => {
+      const room = requireRoom(socket);
+      const playerId = socket.data.playerId;
+      if (!room || socket.data.role !== 'player' || !playerId) {
+        ack({ ok: false, error: 'Вы не в игре' });
+        return;
+      }
+      if (!(REACTIONS as readonly string[]).includes(emoji)) {
+        ack({ ok: false, error: 'Такой реакции нет' });
+        return;
+      }
+      const key = `${room.state.code}:${playerId}`;
+      const now = Date.now();
+      if (now - (lastReactionAt.get(key) ?? 0) < REACTION_MIN_INTERVAL_MS) {
+        ack({ ok: false, error: 'Не так часто' });
+        return;
+      }
+      lastReactionAt.set(key, now);
+      io.to(`room:${room.state.code}`).emit('reaction', { playerId, emoji, id: `${key}:${now}` });
+      ack({ ok: true, data: null });
     });
 
     socket.on('host:adjustScore', ({ playerId, score }, ack) => {

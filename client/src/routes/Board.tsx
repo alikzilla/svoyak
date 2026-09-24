@@ -19,6 +19,7 @@ import { RoundIntro } from '../ui/scenes/RoundIntro.js';
 import { DoodleButton } from '../design/DoodleButton.js';
 import { DoodleField } from '../design/Doodles.js';
 import { RoughFrame } from '../design/rough.js';
+import { ReactionLayer } from '../ui/ReactionLayer.js';
 
 export default function Board() {
   const [params, setParams] = useSearchParams();
@@ -216,6 +217,7 @@ export default function Board() {
       )}
 
       {view.phase !== 'results' && <PlayerStrip players={view.players} />}
+      <ReactionLayer players={view.players} />
     </motion.div>
   );
 }

@@ -324,6 +324,29 @@ export interface FinalHostView extends FinalPublicView {
   answers: Record<string, string>;
 }
 
+/** Шпаргалка ведущего: вопросы раунда, которые ещё можно выбрать, чтобы
+ *  прочитать их заранее. Строится по закрытым клеткам, и у клетки-модификатора
+ *  тут та же запись, что у обычной, — модификатор ведущему не выдаётся. */
+export interface CheatSheetQuestion {
+  questionId: string;
+  price: number;
+  type: QuestionType;
+  text: string;
+  answer: string;
+  altAnswers: string[];
+  hostComment?: string;
+  /** Тема кота в мешке: её объявляют вместо темы клетки. */
+  catTheme?: string;
+}
+
+export interface CheatSheetTheme {
+  id: string;
+  title: string;
+  /** Пояснение к теме из пака — зачитывается перед раундом. */
+  comment?: string;
+  questions: CheatSheetQuestion[];
+}
+
 export interface HostView extends BaseView {
   role: 'host';
   settings: RoomSettings;
@@ -333,6 +356,7 @@ export interface HostView extends BaseView {
   modifier: ModifierView | null;
   final: FinalHostView | null;
   log: LogEntry[];
+  cheatSheet: CheatSheetTheme[];
   canUndo: boolean;
   /** Ссылка для подключения игроков, показывается вместе с QR. */
   joinUrl: string;
