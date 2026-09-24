@@ -22,6 +22,7 @@ import { BidPanel } from '../ui/BidPanel.js';
 import { FinalPlayer } from '../ui/FinalPlayer.js';
 import { ModifierScene } from '../ui/scenes/ModifierScene.js';
 import { ReactionBar } from '../ui/ReactionBar.js';
+import { ActivationGate } from '../ui/ActivationGate.js';
 
 /** Подписи ожидания: пустой экран не должен быть немым. */
 const WAIT_HINT: Partial<Record<string, string>> = {
@@ -150,6 +151,7 @@ export default function Play() {
       style={{ color: '#f6f1ff' }}
     >
       <DoodleField density="light" night />
+      <ActivationGate />
 
       <header className="relative flex shrink-0 items-center gap-3">
         <Avatar seed={me?.name ?? 'игрок'} color={myColor} size={44} mood={iAnswer ? 'answering' : 'idle'} />

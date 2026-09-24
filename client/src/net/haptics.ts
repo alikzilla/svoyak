@@ -2,51 +2,63 @@ import { useEffect, useRef } from 'react';
 import type { PlayerView } from '@svoyak/shared';
 
 /** Телефон лежит экраном вниз или в руке, а глаза — на ведущем: о том, что
- *  случилось с тобой, сообщаем вибрацией, и у каждого события свой ритм. */
+ *  случилось с тобой, сообщаем вибрацией, и у каждого события свой ритм.
+ *  Массив читается как «вибрация, пауза, вибрация…» — первым идёт жужжание,
+ *  а не пауза. Короче ~40 мс многие моторы не ощущаются вовсе. */
 const PATTERNS = {
   /** Любое нажатие на экране. */
-  tap: 15,
+  tap: 40,
   /** Нажата кнопка ответа. */
-  buzz: 35,
+  buzz: 60,
   /** Кнопка открылась. */
-  open: [0, 40, 60, 40],
+  open: [80, 60, 80],
   /** Ты нажал первым — отвечай. */
-  answering: [0, 90, 60, 90],
+  answering: [200, 80, 200],
   /** Твой ход: выбрать вопрос, отдать кота, сделать ставку. */
-  attention: [0, 60, 80, 60, 80, 60],
+  attention: [120, 80, 120, 80, 120],
   /** Фальстарт: одна длинная и неприятная. */
-  falseStart: [0, 280],
-  gain: [0, 30, 40, 30],
-  loss: 120,
-  reveal: 25,
+  falseStart: 400,
+  gain: [60, 50, 60],
+  loss: 250,
+  reveal: 50,
 } satisfies Record<string, number | number[]>;
 
 export type HapticKind = keyof typeof PATTERNS;
 
-/** Safari на iPhone не знает `navigator.vibrate`, но с iOS 18 щёлкает
- *  таптиком, когда переключают `<input switch>`. Срабатывает только в ответ
- *  на касание, поэтому для событий с сервера на iPhone останется тишина —
- *  там звук. */
-let iosSwitch: HTMLLabelElement | null = null;
-
+/** Safari на iPhone не знает `navigator.vibrate`. На iOS 17.4–26.4 таптик
+ *  щёлкал, если в ответ на касание переключить `<input switch>` через его
+ *  label; в iOS 26.5 Apple это закрыла. Оставлено для старых iOS — на новых
+ *  вызов просто ничего не делает, и игрок узнаёт о событиях по звуку. */
 function iosTick(): void {
   if (typeof document === 'undefined') return;
-  if (!iosSwitch) {
-    const label = document.createElement('label');
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.setAttribute('switch', '');
-    label.append(input);
-    label.setAttribute('aria-hidden', 'true');
-    label.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px';
-    document.body.append(label);
-    iosSwitch = label;
-  }
-  iosSwitch.click();
+  const label = document.createElement('label');
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.setAttribute('switch', '');
+  label.append(input);
+  label.setAttribute('aria-hidden', 'true');
+  label.style.display = 'none';
+  document.head.append(label);
+  label.click();
+  label.remove();
+}
+
+/** Умеет ли этот браузер вибрировать по-настоящему. */
+export function canVibrate(): boolean {
+  return typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
+}
+
+/** Chrome глушит вибрацию, пока страницу ни разу не нажимали по-настоящему:
+ *  касание (touchstart, pointerdown) не считается — только отпускание, клик.
+ *  Телефон, открывший /play сразу по ссылке или после перезагрузки, первым
+ *  делом жмёт кнопку ответа на pointerdown, и эта вибрация пропадает. */
+export function needsActivation(): boolean {
+  if (typeof navigator === 'undefined' || !navigator.userActivation) return false;
+  return !navigator.userActivation.hasBeenActive;
 }
 
 export function haptic(kind: HapticKind): void {
-  if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+  if (canVibrate()) {
     navigator.vibrate(PATTERNS[kind]);
     return;
   }
