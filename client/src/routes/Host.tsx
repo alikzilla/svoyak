@@ -63,7 +63,7 @@ export default function Host() {
 
   if (!view) {
     return (
-      <div className="app-shell relative mx-auto flex w-full max-w-5xl flex-col gap-6 overflow-y-auto p-6">
+      <div className="app-shell relative isolate mx-auto flex w-full max-w-5xl flex-col gap-6 overflow-y-auto p-6">
         <DoodleField density="light" night />
 
         <header className="relative">
@@ -155,7 +155,7 @@ export default function Host() {
 
   if (view.phase !== 'lobby') {
     return (
-      <div className="app-shell relative overflow-y-auto">
+      <div className="app-shell relative isolate overflow-y-auto">
         <DoodleField density="light" night />
         <HostGame view={view} />
       </div>
@@ -165,7 +165,7 @@ export default function Host() {
   const canStart = view.players.length > 0;
 
   return (
-    <div className="app-shell relative mx-auto flex w-full max-w-5xl flex-col gap-5 overflow-y-auto p-6">
+    <div className="app-shell relative isolate mx-auto flex w-full max-w-5xl flex-col gap-5 overflow-y-auto p-6">
       <DoodleField density="light" night />
 
       <header className="relative flex flex-wrap items-center justify-between gap-3">

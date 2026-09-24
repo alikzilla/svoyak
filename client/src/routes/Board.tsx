@@ -35,7 +35,7 @@ export default function Board() {
 
   if (!code || (error && !view)) {
     return (
-      <div className="app-shell relative grid place-items-center gap-5 p-8">
+      <div className="app-shell relative isolate grid place-items-center gap-5 p-8">
         <DoodleField density="light" night />
         <h1
           className="font-pop relative text-5xl font-black"
@@ -87,7 +87,7 @@ export default function Board() {
 
   return (
     <motion.div
-      className="app-shell relative flex flex-col gap-6 overflow-hidden p-8"
+      className="app-shell relative isolate flex flex-col gap-6 overflow-hidden p-8"
       onPointerDown={unlockAudio}
       // Финал и результаты уходят в глубокую ночь: сцена сама подсказывает, что игра к развязке.
       animate={{

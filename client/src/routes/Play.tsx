@@ -152,7 +152,7 @@ export default function Play() {
 
   return (
     <motion.div
-      className="screen-lock relative flex flex-col gap-2 p-3 select-none"
+      className="screen-lock relative isolate flex flex-col gap-2 p-3 select-none"
       onPointerDown={unlockAudio}
       animate={{ backgroundColor: sceneColor(view, myColor) }}
       transition={{ duration: 0.45 }}

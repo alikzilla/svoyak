@@ -53,3 +53,250 @@
     transition-duration: 120ms !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Контекст поверхности.
+
+   Раньше вторичный текст везде писался как `text-ink/60`. Но `--color-ink`
+   в рисованной теме — почти чёрный (#1a1a1a), и на сцене (индиго #4a3aa8)
+   это давало контраст 1.6:1 — «чёрным по тёмному». Внутри кремовой карточки
+   тот же класс читался нормально, поэтому дефект жил незаметно.
+
+   Теперь цвет вторичного текста и линий берётся из переменной, а переменную
+   задаёт поверхность: `.on-scene` на оболочке экрана, `.on-paper` на каждой
+   карточке. Один и тот же `.text-soft` читается и там, и там.
+   ───────────────────────────────────────────────────────────────────────── */
+@layer base {
+  .on-scene {
+    --ui-fg: var(--color-scene-ink);
+    --ui-fg-soft: color-mix(in srgb, var(--color-scene-ink) 78%, transparent);
+    --ui-line: color-mix(in srgb, var(--color-scene-ink) 55%, transparent);
+    --ui-fill: color-mix(in srgb, var(--color-card) 14%, transparent);
+  }
+
+  .on-paper {
+    /* Нативные чекбоксы, стрелки number и выпадающий список select берут
+       оформление из color-scheme. Глобально она тёмная (ради экранов игры),
+       и на кремовой карточке контролы выходили тёмными пятнами. */
+    color-scheme: light;
+    accent-color: var(--color-p1);
+    --ui-fg: var(--color-ink);
+    --ui-fg-soft: var(--color-ink-soft);
+    --ui-line: color-mix(in srgb, var(--color-ink) 45%, transparent);
+    --ui-fill: var(--color-paper);
+  }
+
+  .text-soft {
+    color: var(--ui-fg-soft, var(--color-ink-soft));
+  }
+
+  /* ── Кнопка ──────────────────────────────────────────────────────────────
+     Тот же язык, что у DoodleButton (обводка + жёсткая тень + вдавливание),
+     но в плотном масштабе редактора. Живёт в слое base, поэтому утилиты
+     Tailwind (bg-*, px-*, text-*) по-прежнему перебивают её значения. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    /* Tailwind v4 не ставит кнопкам cursor: pointer — без этого вся страница
+       ощущается неживой, даже когда обработчики на месте. */
+    cursor: pointer;
+    border: 4px solid var(--color-ink);
+    border-radius: 0.875rem;
+    background-color: var(--color-card);
+    color: var(--color-ink);
+    /* Палец попадает по кнопке с первого раза. */
+    min-block-size: 2.5rem;
+    padding-inline: 0.85rem;
+    padding-block: 0.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease,
+      border-color 120ms ease;
+  }
+
+  .btn:hover:not(:disabled) {
+    transform: translate(-1px, -2px);
+    box-shadow: 6px 7px 0 var(--color-ink);
+  }
+
+  /* Нажатие вдавливает кнопку в собственную тень — как у DoodleButton. */
+  .btn:active:not(:disabled) {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 var(--color-ink);
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    filter: saturate(0.5);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+
+  /* Второстепенная кнопка поверх сцены: бумажный чип, а не прозрачная рамка.
+     Прозрачная кнопка на индиго читалась как неактивная. */
+  .btn-quiet {
+    background-color: var(--ui-fill);
+    border-color: var(--ui-line);
+    color: var(--ui-fg);
+    box-shadow: 3px 3px 0 rgb(0 0 0 / 28%);
+  }
+
+  .btn-quiet:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--color-card) 28%, transparent);
+    box-shadow: 5px 6px 0 rgb(0 0 0 / 28%);
+  }
+
+  .btn-quiet:active:not(:disabled) {
+    box-shadow: 0 0 0 rgb(0 0 0 / 28%);
+  }
+
+  /* «Добавить ещё один» — пунктир вместо заливки, цвет из контекста. */
+  .btn-dashed {
+    border: 3px dashed var(--ui-line);
+    background-color: transparent;
+    color: var(--ui-fg-soft);
+    box-shadow: none;
+  }
+
+  .btn-dashed:hover:not(:disabled) {
+    border-color: var(--color-p1);
+    color: var(--ui-fg);
+    background-color: color-mix(in srgb, var(--color-p1) 12%, transparent);
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-dashed:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  .btn-dashed:disabled {
+    box-shadow: none;
+  }
+
+  /* Опасное действие: ярко-красная заливка и кремовый текст. */
+  .btn-danger {
+    background-color: var(--color-no);
+    border-color: var(--color-ink);
+    color: var(--color-card);
+  }
+
+  /* Ручка перетаскивания: тень и вдавливание тут только мешают. */
+  .btn-grip {
+    cursor: grab;
+    border: none;
+    background: transparent;
+    color: var(--ui-fg-soft);
+    box-shadow: none;
+    min-inline-size: 2rem;
+    padding-inline: 0.25rem;
+  }
+
+  .btn-grip:hover:not(:disabled) {
+    color: var(--ui-fg);
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-grip:active:not(:disabled) {
+    cursor: grabbing;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ── Поля ввода ─────────────────────────────────────────────────────── */
+  .field {
+    inline-size: 100%;
+    border: 4px solid var(--color-ink);
+    border-radius: 0.75rem;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    min-block-size: 2.5rem;
+    padding-inline: 0.75rem;
+    padding-block: 0.45rem;
+    transition:
+      border-color 120ms ease,
+      box-shadow 120ms ease;
+  }
+
+  .field::placeholder {
+    color: color-mix(in srgb, var(--color-ink) 42%, transparent);
+  }
+
+  .field:hover:not(:disabled) {
+    border-color: var(--color-p1);
+  }
+
+  /* Поле-заголовок: рамка появляется только при наведении и фокусе,
+     поэтому строка выглядит как текст, но остаётся редактируемой. */
+  .field-bare {
+    inline-size: 100%;
+    border: 4px solid transparent;
+    border-radius: 0.75rem;
+    background-color: transparent;
+    color: inherit;
+    min-block-size: 2.5rem;
+    padding-inline: 0.5rem;
+    padding-block: 0.35rem;
+    transition: border-color 120ms ease;
+  }
+
+  .field-bare:hover {
+    border-color: var(--ui-line);
+  }
+
+  /* Строка с чекбоксом целиком кликабельна. */
+  .check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+    border-radius: 0.6rem;
+    min-block-size: 2.25rem;
+    padding-inline: 0.4rem;
+    padding-block: 0.35rem;
+    transition: background-color 120ms ease;
+  }
+
+  .check-row:hover {
+    background-color: color-mix(in srgb, var(--color-p1) 10%, transparent);
+  }
+
+  .check-row input[type='checkbox'] {
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    margin-block-start: 0.1rem;
+  }
+
+  .check-row:has(input:disabled),
+  .check-row:has(input:disabled) * {
+    cursor: not-allowed;
+  }
+
+  /* ── Сообщения ──────────────────────────────────────────────────────────
+     Красный текст прямо на индиго давал 2:1. Плашка кладёт его на бумагу. */
+  .notice {
+    border: 4px solid var(--color-ink);
+    border-radius: 1rem;
+    background-color: var(--color-card);
+    color: var(--color-ink);
+    padding: 0.75rem 1rem;
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+
+  .notice-error {
+    border-color: var(--color-no);
+    color: #8f1d1d;
+    font-weight: 700;
+  }
+}

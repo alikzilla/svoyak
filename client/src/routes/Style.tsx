@@ -140,7 +140,7 @@ export default function Style() {
 
   return (
     <div
-      className={`paper-scene min-h-dvh ${calm ? 'calm' : ''}`}
+      className={`paper-scene isolate min-h-dvh ${calm ? 'calm' : ''}`}
       style={
         {
           '--scene-tone': tone.value,
@@ -560,7 +560,7 @@ export default function Style() {
           title="Ночная сцена"
           note="Финал уходит в тёмно-синий: дудлы начинают светиться, цвета игроков остаются теми же."
         >
-          <div className="night-scene relative overflow-hidden rounded-3xl border-4 border-ink p-8">
+          <div className="night-scene relative isolate overflow-hidden rounded-3xl border-4 border-ink p-8">
             <DoodleField density={calm ? 'off' : 'light'} night />
             <div className="relative grid gap-5">
               <h3 className="font-display text-5xl font-bold">Финал</h3>

@@ -21,6 +21,9 @@
   /* Сцена по умолчанию — индиго; карточки поверх остаются светлыми. */
   --color-scene: #4a3aa8;
   --color-card: #fff6e9;
+  /* Поле ввода поверх кремовой карточки: чуть светлее её, поэтому
+     читается как углубление, а не как часть фона. */
+  --color-paper: #fffdf7;
   --color-scene-ink: #f6f1ff;
   --color-ink: #1a1a1a;
   --color-ink-soft: #5b524b;
@@ -36,6 +39,12 @@
   --color-yes: #2ebd59;
   --color-no: #e23b3b;
   --color-gold: #f2a93b;
+
+  /* Те же акценты, но для текста поверх кремовой карточки: исходные p1 и no
+     дают на ней 4.07:1 и 3.98:1 — заливке этого хватает, тексту нет.
+     Затемнённые варианты дают 4.85:1 и 4.88:1. */
+  --color-p1-ink: #7a4aee;
+  --color-no-ink: #d12626;
 
   --color-night: #131c3f;
   --color-night-2: #22306b;
@@ -102,9 +111,43 @@ button {
   touch-action: manipulation;
 }
 
+/* Tailwind v4 больше не ставит кнопкам cursor: pointer, а preflight вдобавок
+   прописывает им appearance: button — курсор оставался стрелкой, и живые
+   кнопки выглядели неактивными. Возвращаем указатель и запрет для выключенных. */
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']),
+summary,
+label:has(> input[type='checkbox']),
+label:has(> input[type='radio']) {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+/* Курсор набора текста на полях — иначе поле не отличить от подписи. */
+input:not([type='checkbox'], [type='radio'], [type='file'], [type='range']),
+textarea {
+  cursor: text;
+}
+
+select {
+  cursor: pointer;
+}
+
+/* Кольцо фокуса должно быть видно и на индиго, и на кремовой карточке.
+   Золото на карточке даёт 1.9:1, чернила на индиго — 2:1, поэтому кольца два:
+   внутреннее чернильное и внешнее золотое. */
 :focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Внутри кремовой карточки золото теряется — там кольцо чернильное. */
+.on-paper :focus-visible {
+  outline-color: var(--color-ink);
 }
 
 /* Эквалайзер аудиовопроса: единственная анимация, которую нельзя выразить утилитами. */

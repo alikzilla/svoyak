@@ -59,7 +59,7 @@ export default function Games() {
   };
 
   return (
-    <div className="app-shell relative mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
+    <div className="app-shell on-scene relative isolate mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
       <DoodleField density="light" night />
       <header className="relative flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -67,9 +67,9 @@ export default function Games() {
             <button
               type="button"
               onClick={() => setEditing(null)}
-              className="font-body mb-1 block text-sm font-bold text-ink/60 underline underline-offset-4"
+              className="btn btn-quiet font-body mb-2 text-sm"
             >
-              ← игры
+              ← Игры
             </button>
           )}
           <h1
@@ -86,8 +86,7 @@ export default function Games() {
           <button
             type="button"
             onClick={add}
-            className="ink-border font-pop bg-p5 text-ink rounded-2xl px-4 py-2 font-black"
-            style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
+            className="btn font-pop bg-p5 rounded-2xl px-4 py-2 font-black"
           >
             + собрать игру
           </button>
@@ -95,7 +94,9 @@ export default function Games() {
       </header>
 
       {error && (
-        <p className="rounded-xl border border-no/50 bg-no/10 p-3 text-no">{error}</p>
+        <p role="alert" className="notice notice-error font-body">
+          {error}
+        </p>
       )}
 
       {editing ? (
@@ -109,28 +110,30 @@ export default function Games() {
           onClose={() => setEditing(null)}
         />
       ) : games === null ? (
-        <p className="text-ink/60">Загружаем…</p>
+        <p className="text-soft font-body font-bold">Загружаем…</p>
       ) : games.length === 0 ? (
-        <p className="text-ink/60">Игр пока нет. Соберите первую из своих паков.</p>
+        <p className="text-soft font-body font-bold">
+          Игр пока нет. Соберите первую из своих паков.
+        </p>
       ) : (
         <ul className="grid gap-3">
           {games.map((game) => (
             <li
               key={game.id}
-              className="ink-border bg-card text-ink flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
+              className="on-paper ink-border bg-card text-ink relative flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
               style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
             >
               <div className="min-w-0 flex-1">
                 <span className="font-pop block text-xl font-black">{game.title}</span>
-                <span className="block text-sm text-ink/60">
+                <span className="text-soft block text-sm">
                   {game.roundsCount} раунда · {game.themesCount} тем ·{' '}
                   {game.modifiersPerRound > 0
                     ? `модификаторов на раунд: ${game.modifiersPerRound}`
                     : 'без модификаторов'}
                 </span>
                 {!game.playable && (
-                  <span className="block text-sm font-bold text-no">
-                    потерялось тем: {game.missingRefs} — откройте и пересоберите состав
+                  <span className="text-no-ink block text-sm font-bold">
+                    Потерялось тем: {game.missingRefs} — откройте и пересоберите состав
                   </span>
                 )}
               </div>
@@ -139,14 +142,14 @@ export default function Games() {
                   <button
                     type="button"
                     onClick={() => destroy(game.id)}
-                    className="rounded-lg bg-no px-3 py-1.5 text-sm text-bg"
+                    className="btn btn-danger shrink-0 px-3 text-sm"
                   >
                     Удалить насовсем
                   </button>
                   <button
                     type="button"
                     onClick={() => setConfirmId(null)}
-                    className="ink-border rounded-lg px-3 py-1.5 text-sm text-ink/60"
+                    className="btn shrink-0 px-3 text-sm"
                   >
                     Отмена
                   </button>
@@ -156,14 +159,14 @@ export default function Games() {
                   <button
                     type="button"
                     onClick={() => open(game.id)}
-                    className="ink-border rounded-lg px-3 py-1.5 text-sm text-ink/60 hover:border-p1 hover:text-ink"
+                    className="btn bg-p4 shrink-0 px-3 text-sm"
                   >
-                    открыть
+                    Открыть
                   </button>
                   <button
                     type="button"
                     onClick={() => setConfirmId(game.id)}
-                    className="ink-border rounded-lg px-3 py-1.5 text-sm text-ink/60 hover:border-no hover:text-no"
+                    className="btn shrink-0 px-3 text-sm hover:border-no hover:text-no-ink"
                   >
                     Удалить
                   </button>
@@ -175,8 +178,11 @@ export default function Games() {
       )}
 
       {!editing && (
-        <Link to="/" className="text-sm text-ink/60 underline underline-offset-4">
-          на главную
+        <Link
+          to="/"
+          className="text-soft font-body w-fit text-sm font-bold underline underline-offset-4"
+        >
+          На главную
         </Link>
       )}
     </div>

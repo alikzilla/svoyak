@@ -13,8 +13,7 @@ const TYPE_LABELS: Record<QuestionType, string> = {
   auction: 'Аукцион',
 };
 
-const field =
-  'w-full ink-border rounded-xl bg-white/70 px-3 py-2 text-ink placeholder:text-ink/30 focus:border-p1';
+const field = 'field';
 
 export function QuestionForm({ packId, question, onChange }: QuestionFormProps) {
   const patch = (over: Partial<Question>): void => onChange({ ...question, ...over });
@@ -27,22 +26,22 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
   };
 
   return (
-    <div className="grid gap-3 rounded-2xl ink-border bg-card text-ink p-4">
+    <div className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <label className="flex items-center gap-2 text-xs text-ink/60">
+        <label className="text-soft font-body flex items-center gap-2 text-xs font-bold">
           Цена
           <input
-            className="w-24 ink-border rounded-xl bg-white/70 px-2 py-1.5 text-right tabular-nums focus:border-p1"
+            className="field w-24 text-right tabular-nums"
             value={question.price}
             inputMode="numeric"
             onChange={(event) => patch({ price: Number(event.target.value.replace(/\D/g, '')) || 0 })}
           />
         </label>
 
-        <label className="flex items-center gap-2 text-xs text-ink/60">
+        <label className="text-soft font-body flex items-center gap-2 text-xs font-bold">
           Тип
           <select
-            className="ink-border rounded-xl bg-white/70 px-2 py-1.5 text-ink focus:border-p1"
+            className="field w-auto"
             value={question.type}
             onChange={(event) => {
               const type = event.target.value as QuestionType;
@@ -63,10 +62,10 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
         </label>
       </div>
 
-      <label className="grid gap-1 text-xs text-ink/60">
+      <label className="text-soft font-body grid gap-1 text-xs font-bold">
         Вопрос
         <textarea
-          className={`${field} min-h-20 resize-y`}
+          className={`${field} min-h-24 resize-y`}
           value={question.text}
           placeholder="Текст, который прочитает ведущий"
           onChange={(event) => patch({ text: event.target.value })}
@@ -80,7 +79,7 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
         onChange={(media) => setMedia('media', media)}
       />
 
-      <label className="grid gap-1 text-xs text-ink/60">
+      <label className="text-soft font-body grid gap-1 text-xs font-bold">
         Ответ
         <input
           className={field}
@@ -90,7 +89,7 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
         />
       </label>
 
-      <label className="grid gap-1 text-xs text-ink/60">
+      <label className="text-soft font-body grid gap-1 text-xs font-bold">
         Ещё принимаются (через точку с запятой)
         <input
           className={field}
@@ -114,7 +113,7 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
         onChange={(media) => setMedia('answerMedia', media)}
       />
 
-      <label className="grid gap-1 text-xs text-ink/60">
+      <label className="text-soft font-body grid gap-1 text-xs font-bold">
         Комментарий ведущему (игроки не увидят)
         <input
           className={field}
@@ -129,9 +128,9 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
       </label>
 
       {question.type === 'cat' && question.cat && (
-        <fieldset className="grid gap-2 rounded-xl border border-gold/40 bg-p4/5 p-3">
-          <legend className="px-1 text-xs text-p1">Кот в мешке</legend>
-          <label className="grid gap-1 text-xs text-ink/60">
+        <fieldset className="border-gold bg-p4/10 grid gap-2 rounded-xl border-4 p-3">
+          <legend className="font-pop px-1 text-xs font-black">Кот в мешке</legend>
+          <label className="text-soft font-body grid gap-1 text-xs font-bold">
             Тема кота — её объявляют перед передачей
             <input
               className={field}
@@ -141,10 +140,10 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
               }
             />
           </label>
-          <label className="flex items-center gap-2 text-xs text-ink/60">
+          <label className="text-soft font-body flex items-center gap-2 text-xs font-bold">
             Стоимость
             <input
-              className="w-28 ink-border rounded-xl bg-white/70 px-2 py-1.5 text-right tabular-nums focus:border-p1"
+              className="field w-28 text-right tabular-nums"
               value={question.cat.price === 'nominal' ? '' : question.cat.price}
               placeholder="как клетка"
               inputMode="numeric"
@@ -155,9 +154,9 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
                 });
               }}
             />
-            <span className="text-ink/60">пусто — по номиналу клетки</span>
+            <span className="text-soft">пусто — по номиналу клетки</span>
           </label>
-          <label className="flex items-center gap-2 text-xs text-ink/60">
+          <label className="check-row font-body w-fit items-center text-xs font-bold">
             <input
               type="checkbox"
               checked={question.cat.canKeep}
@@ -165,7 +164,7 @@ export function QuestionForm({ packId, question, onChange }: QuestionFormProps) 
                 patch({ cat: { ...question.cat!, canKeep: event.target.checked } })
               }
             />
-            можно оставить себе
+            Можно оставить себе
           </label>
         </fieldset>
       )}

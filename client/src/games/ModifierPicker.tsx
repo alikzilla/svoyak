@@ -23,26 +23,32 @@ export function ModifierPicker({ plan, onChange }: ModifierPickerProps) {
     });
 
   return (
-    <section className="ink-border bg-card text-ink grid gap-3 rounded-2xl p-4">
-      <div className="flex items-center justify-between gap-3">
-        <span className="font-body text-sm font-bold">Модификаторов на раунд</span>
+    <section className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <span className="font-pop text-sm font-black">Модификаторов на раунд</span>
         <span className="flex items-center gap-2">
           <button
             type="button"
             aria-label="Модификаторов меньше"
+            disabled={plan.perRound <= MIN}
             onClick={() => setPerRound(plan.perRound - 1)}
-            className="ink-border size-8 rounded-lg font-black"
+            className="btn size-10 px-0 text-lg font-black"
           >
             −
           </button>
-          <span className="font-pop w-6 text-center text-xl font-black tabular-nums">
+          <span
+            role="status"
+            aria-live="polite"
+            className="font-pop w-8 text-center text-xl font-black tabular-nums"
+          >
             {plan.perRound}
           </span>
           <button
             type="button"
             aria-label="Модификаторов больше"
+            disabled={plan.perRound >= MAX}
             onClick={() => setPerRound(plan.perRound + 1)}
-            className="ink-border size-8 rounded-lg font-black"
+            className="btn size-10 px-0 text-lg font-black"
           >
             +
           </button>
@@ -52,16 +58,15 @@ export function ModifierPicker({ plan, onChange }: ModifierPickerProps) {
       {plan.perRound > 0 && (
         <div className="grid gap-2 sm:grid-cols-2">
           {MODIFIER_KINDS.map((kind) => (
-            <label key={kind} className="font-body flex items-start gap-2 text-sm font-bold">
+            <label key={kind} className="check-row font-body text-sm font-bold">
               <input
                 type="checkbox"
-                className="mt-1 size-4"
                 checked={plan.kinds.includes(kind)}
                 onChange={() => toggle(kind)}
               />
               <span>
                 {MODIFIER_TITLES[kind]}
-                <span className="block text-xs font-bold opacity-60">{MODIFIER_HINTS[kind]}</span>
+                <span className="text-soft block text-xs font-bold">{MODIFIER_HINTS[kind]}</span>
               </span>
             </label>
           ))}
@@ -69,7 +74,7 @@ export function ModifierPicker({ plan, onChange }: ModifierPickerProps) {
       )}
 
       {plan.perRound > 0 && plan.kinds.length === 0 && (
-        <p className="font-body text-no text-xs font-bold">
+        <p role="alert" className="font-body text-no-ink text-xs font-bold">
           Ни один вид не включён — модификаторов не будет
         </p>
       )}

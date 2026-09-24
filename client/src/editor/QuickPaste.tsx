@@ -16,20 +16,20 @@ export function QuickPaste({ onApply, onCancel }: QuickPasteProps) {
   const parsed = parseThemeText(text);
 
   return (
-    <div className="grid gap-3 rounded-2xl border border-gold/40 bg-card p-4">
-      <p className="text-sm text-ink/60">
+    <div className="on-paper border-gold bg-card text-ink relative grid gap-3 rounded-2xl border-4 p-4">
+      <p className="text-soft font-body text-sm font-bold">
         Одна строка — один вопрос: <code className="text-ink">цена | вопрос | ответ</code>, и
         необязательная четвёртая колонка с другими принимаемыми ответами через точку с запятой.
       </p>
       <textarea
-        className="min-h-40 w-full resize-y ink-border rounded-xl bg-white/70 px-3 py-2 font-mono text-sm text-ink placeholder:text-ink/30 focus:border-p1"
+        className="field min-h-40 resize-y font-mono text-sm"
         value={text}
         placeholder={EXAMPLE}
         onChange={(event) => setText(event.target.value)}
       />
 
       {parsed.errors.length > 0 && (
-        <ul className="grid gap-1 text-sm text-no">
+        <ul role="alert" className="text-no-ink grid gap-1 text-sm font-bold">
           {parsed.errors.map((message) => (
             <li key={message}>{message}</li>
           ))}
@@ -37,16 +37,16 @@ export function QuickPaste({ onApply, onCancel }: QuickPasteProps) {
       )}
 
       {parsed.rows.length > 0 && (
-        <div className="ink-border rounded-xl bg-white/70 p-3">
-          <p className="mb-2 text-xs text-ink/60">
+        <div className="ink-border bg-paper rounded-xl p-3">
+          <p className="text-soft mb-2 text-xs font-bold">
             Разобрано вопросов: <span className="tabular-nums text-ink">{parsed.rows.length}</span>
             {parsed.title && <> · тема «{parsed.title}»</>}
           </p>
           <ul className="grid gap-1 text-sm">
             {parsed.rows.map((row) => (
               <li key={`${row.price}-${row.text}`} className="truncate">
-                <span className="tabular-nums text-p1">{row.price}</span> — {row.text} →{' '}
-                <span className="text-ink/60">{row.answer}</span>
+                <span className="tabular-nums text-p1-ink">{row.price}</span> — {row.text} →{' '}
+                <span className="text-soft">{row.answer}</span>
               </li>
             ))}
           </ul>
@@ -58,14 +58,14 @@ export function QuickPaste({ onApply, onCancel }: QuickPasteProps) {
           type="button"
           disabled={parsed.rows.length === 0}
           onClick={() => onApply(parsed.title, parsed.rows)}
-          className="rounded-xl bg-p4 px-4 py-2 font-bold text-bg disabled:opacity-40"
+          className="btn bg-p4 font-body"
         >
           Добавить тему
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="ink-border rounded-xl px-4 py-2 text-ink/60 hover:border-p1 hover:text-ink"
+          className="btn font-body"
         >
           Отмена
         </button>

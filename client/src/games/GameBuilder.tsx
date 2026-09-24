@@ -137,32 +137,47 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
 
   return (
     <div className="grid gap-4">
-      <input
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-        placeholder="Название игры"
-        className="ink-border bg-card text-ink font-pop rounded-2xl px-4 py-3 text-xl font-black"
-      />
+      <label className="on-paper grid gap-1">
+        <span className="sr-only">Название игры</span>
+        <input
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          placeholder="Название игры"
+          className="field font-pop rounded-2xl px-4 py-3 text-xl font-black"
+        />
+      </label>
 
-      <section className="ink-border bg-card text-ink grid gap-2 rounded-2xl p-4">
-        <span className="font-body text-sm font-bold">Из каких паков</span>
-        <div className="grid gap-1 sm:grid-cols-2">
-          {packs.map((pack) => (
-            <label key={pack.id} className="font-body flex items-center gap-2 text-sm font-bold">
-              <input
-                type="checkbox"
-                className="size-4"
-                disabled={!pack.playable}
-                checked={selected.includes(pack.id)}
-                onChange={() => togglePack(pack.id)}
-              />
-              <span className={pack.playable ? '' : 'opacity-40'}>{pack.title}</span>
-            </label>
-          ))}
-        </div>
+      <section className="on-paper ink-border bg-card text-ink relative grid gap-2 rounded-2xl p-4">
+        <span className="font-pop text-sm font-black">Из каких паков</span>
+        {packs.length === 0 ? (
+          <p className="text-soft font-body text-sm font-bold">
+            Паков пока нет — соберите первый в редакторе.
+          </p>
+        ) : (
+          <div className="grid gap-1 sm:grid-cols-2">
+            {packs.map((pack) => (
+              <label
+                key={pack.id}
+                className="check-row font-body items-center text-sm font-bold"
+                title={pack.playable ? undefined : 'В паке есть ошибки — исправьте их в редакторе'}
+              >
+                <input
+                  type="checkbox"
+                  disabled={!pack.playable}
+                  checked={selected.includes(pack.id)}
+                  onChange={() => togglePack(pack.id)}
+                />
+                <span className={pack.playable ? '' : 'text-soft line-through'}>{pack.title}</span>
+                {!pack.playable && (
+                  <span className="text-no-ink ml-auto shrink-0 text-xs">с ошибками</span>
+                )}
+              </label>
+            ))}
+          </div>
+        )}
       </section>
 
-      <section className="ink-border bg-card text-ink grid gap-3 rounded-2xl p-4 sm:grid-cols-3">
+      <section className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4 sm:grid-cols-3">
         <label className="font-body grid gap-1 text-sm font-bold">
           <span>Раундов</span>
           <input
@@ -173,7 +188,7 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
             onChange={(event) =>
               setRounds(Math.min(ROUNDS_MAX, Math.max(ROUNDS_MIN, Number(event.target.value) || ROUNDS_MIN)))
             }
-            className="ink-border bg-paper rounded-xl px-3 py-2 tabular-nums"
+            className="field tabular-nums"
           />
         </label>
         <label className="font-body grid gap-1 text-sm font-bold">
@@ -188,7 +203,7 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
                 Math.min(THEMES_MAX, Math.max(THEMES_MIN, Number(event.target.value) || THEMES_MIN)),
               )
             }
-            className="ink-border bg-paper rounded-xl px-3 py-2 tabular-nums"
+            className="field tabular-nums"
           />
         </label>
         <label className="font-body grid gap-1 text-sm font-bold">
@@ -201,7 +216,7 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
             onChange={(event) =>
               setFinalThemes(Math.min(FINAL_MAX, Math.max(FINAL_MIN, Number(event.target.value) || FINAL_MIN)))
             }
-            className="ink-border bg-paper rounded-xl px-3 py-2 tabular-nums"
+            className="field tabular-nums"
           />
         </label>
       </section>
@@ -209,44 +224,53 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
       <ModifierPicker plan={modifiers} onChange={setModifiers} />
 
       {preview && (
-        <section className="ink-border bg-card text-ink grid gap-2 rounded-2xl p-4">
+        <section className="on-paper ink-border bg-card text-ink relative grid gap-2 rounded-2xl p-4">
+          <span className="font-pop text-sm font-black">Что выпало</span>
           {preview.rounds.map((round, index) => (
             <p key={index} className="font-body text-sm font-bold">
               Раунд {index + 1}: {round.map((theme) => theme?.title ?? '— тема недоступна —').join(', ')}
             </p>
           ))}
-          <p className="font-body text-sm font-bold opacity-70">
+          <p className="text-soft font-body text-sm font-bold">
             Финал: {preview.final.map((theme) => theme?.title ?? '— тема недоступна —').join(', ')}
           </p>
         </section>
       )}
 
-      {error && <p className="font-body text-no text-sm font-bold">{error}</p>}
+      {error && (
+        <p role="alert" className="notice notice-error font-body text-sm">
+          {error}
+        </p>
+      )}
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={compose}
-          disabled={busy}
-          className="ink-border bg-card text-ink font-body rounded-2xl px-4 py-2 text-sm font-bold"
+          disabled={busy || selected.length === 0}
+          title={selected.length === 0 ? 'Сначала выберите хотя бы один пак' : undefined}
+          className="btn bg-card font-body rounded-2xl text-sm"
         >
-          Пересобрать состав
+          {busy ? 'Собираем…' : 'Пересобрать состав'}
         </button>
         <button
           type="button"
           onClick={save}
           disabled={busy || recipe.rounds.length === 0}
-          className="ink-border bg-gold text-ink font-body rounded-2xl px-4 py-2 text-sm font-bold"
+          title={recipe.rounds.length === 0 ? 'Сначала соберите состав' : undefined}
+          className="btn bg-gold font-body rounded-2xl text-sm"
         >
           Сохранить игру
         </button>
-        <button
-          type="button"
-          onClick={onClose}
-          className="font-body text-sm font-bold underline underline-offset-4 opacity-70"
-        >
-          закрыть
+        <button type="button" onClick={onClose} className="btn btn-quiet font-body text-sm">
+          Закрыть
         </button>
+        {/* Кнопка выключена — экран объясняет почему, а не молчит. */}
+        {!busy && recipe.rounds.length === 0 && (
+          <span className="text-soft font-body text-sm font-bold">
+            Состав ещё не собран — нажмите «Пересобрать состав».
+          </span>
+        )}
       </div>
     </div>
   );

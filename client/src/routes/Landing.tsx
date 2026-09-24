@@ -14,7 +14,7 @@ const ROLES = [
 
 export default function Landing() {
   return (
-    <div className="app-shell relative flex flex-col items-center justify-center gap-8 overflow-y-auto p-6 select-none">
+    <div className="app-shell relative isolate flex flex-col items-center justify-center gap-8 overflow-y-auto p-6 select-none">
       <DoodleField density="full" night />
 
       <header className="relative grid justify-items-center gap-3">

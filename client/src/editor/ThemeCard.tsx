@@ -62,18 +62,19 @@ export function ThemeCard({
   };
 
   return (
-    <section className="grid gap-3 rounded-2xl ink-border bg-card text-ink p-4">
+    <section className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4">
       <header className="flex items-center gap-2">
         <button
           {...dragHandle}
           type="button"
-          className="cursor-grab rounded-lg px-2 py-1 text-ink/60 hover:text-ink"
+          className="btn btn-grip"
+          aria-label="Перетащить тему"
           title="Перетащить тему"
         >
           ⠿
         </button>
         <input
-          className="min-w-0 flex-1 rounded-xl border-4 border-transparent bg-transparent px-2 py-1.5 text-lg font-semibold hover:border-ink/30 focus:border-p1"
+          className="field-bare min-w-0 flex-1 text-lg font-bold"
           value={theme.title}
           placeholder="Название темы"
           onChange={(event) => onChange({ ...theme, title: event.target.value })}
@@ -81,7 +82,7 @@ export function ThemeCard({
         <button
           type="button"
           onClick={onDuplicate}
-          className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-p1 hover:text-ink"
+          className="btn shrink-0 px-2 text-sm"
         >
           Дублировать
         </button>
@@ -90,14 +91,14 @@ export function ThemeCard({
             <button
               type="button"
               onClick={onDelete}
-              className="rounded-lg bg-no px-2 py-1 text-sm text-bg"
+              className="btn btn-danger shrink-0 px-2 text-sm"
             >
               Удалить тему
             </button>
             <button
               type="button"
               onClick={() => setConfirmDelete(false)}
-              className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60"
+              className="btn shrink-0 px-2 text-sm"
             >
               Отмена
             </button>
@@ -106,7 +107,7 @@ export function ThemeCard({
           <button
             type="button"
             onClick={() => setConfirmDelete(true)}
-            className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-no hover:text-no"
+            className="btn shrink-0 px-2 text-sm hover:border-no hover:text-no-ink"
           >
             Удалить
           </button>
@@ -137,7 +138,8 @@ export function ThemeCard({
                         <button
                           {...handleProps}
                           type="button"
-                          className="cursor-grab rounded-lg px-1.5 py-1 text-ink/60 hover:text-ink"
+                          className="btn btn-grip"
+                          aria-label="Перетащить вопрос"
                           title="Перетащить вопрос"
                         >
                           ⠿
@@ -145,18 +147,23 @@ export function ThemeCard({
                         <button
                           type="button"
                           onClick={() => setOpenId(open ? null : question.id)}
-                          className={`flex min-w-0 flex-1 items-center gap-2 rounded-xl border px-3 py-2 text-left ${
-                            incomplete ? 'border-no/50' : 'border-ink'
-                          } bg-card hover:border-p1`}
+                          aria-expanded={open}
+                          className={`btn bg-paper min-w-0 flex-1 justify-start gap-2 text-left font-normal ${
+                            incomplete ? 'border-no' : ''
+                          }`}
                         >
-                          <span className="w-14 shrink-0 text-right font-bold tabular-nums text-p1">
+                          <span className="w-14 shrink-0 text-right font-bold tabular-nums text-p1-ink">
                             {question.price}
                           </span>
                           <TypeMark type={question.type} />
-                          <span className="min-w-0 flex-1 truncate">
-                            {question.text || 'пустой вопрос'}
+                          <span
+                            className={`min-w-0 flex-1 truncate ${question.text ? '' : 'text-soft italic'}`}
+                          >
+                            {question.text || 'Вопрос ещё не написан'}
                           </span>
-                          {incomplete && <span className="shrink-0 text-xs text-no">не заполнен</span>}
+                          {incomplete && (
+                            <span className="text-no-ink shrink-0 text-xs font-bold">не заполнен</span>
+                          )}
                         </button>
                         <button
                           type="button"
@@ -170,7 +177,8 @@ export function ThemeCard({
                               ],
                             })
                           }
-                          className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-p1 hover:text-ink"
+                          aria-label="Дублировать вопрос"
+                          className="btn shrink-0 px-2 text-sm"
                         >
                           ⧉
                         </button>
@@ -185,7 +193,8 @@ export function ThemeCard({
                               ),
                             })
                           }
-                          className="ink-border rounded-lg px-2 py-1 text-sm text-ink/60 hover:border-no hover:text-no"
+                          aria-label="Удалить вопрос"
+                          className="btn shrink-0 px-2 text-sm hover:border-no hover:text-no-ink"
                         >
                           ✕
                         </button>
@@ -205,7 +214,7 @@ export function ThemeCard({
       <button
         type="button"
         onClick={addQuestion}
-        className="justify-self-start rounded-xl border border-dashed border-ink px-3 py-2 text-sm text-ink/60 hover:border-p1 hover:text-ink"
+        className="btn btn-dashed justify-self-start text-sm"
       >
         + вопрос
       </button>

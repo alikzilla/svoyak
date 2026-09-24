@@ -78,7 +78,9 @@ export function DoodleField({ density = 'full', night = false }: DoodleFieldProp
   if (density === 'off') return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden>
+    // Фон уезжает под содержимое: без -z-10 фиксированный слой рисовался поверх
+    // карточек, и каракули ложились прямо на текст вопросов.
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden>
       {items.map((item, index) => (
         <motion.div
           key={index}
