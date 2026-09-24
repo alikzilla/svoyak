@@ -11,7 +11,7 @@ function readingState(): RoomState {
   let state = createRoomState({
     code: '1234',
     pack: demoClassicPack,
-    settings: DEFAULT_SETTINGS,
+    settings: { ...DEFAULT_SETTINGS, announceMs: 0 },
     hostToken: 'h',
     now: 1000,
   });

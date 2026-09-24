@@ -26,6 +26,7 @@ const WAIT_HINT: Partial<Record<string, string>> = {
   lobby: 'Ждём остальных',
   round_intro: 'Сейчас объявят темы',
   picking: 'Выбирают вопрос',
+  announce: 'Приготовьтесь — сейчас вопрос',
   reading: 'Слушайте вопрос',
   answering: 'Кто-то отвечает',
   answer_reveal: 'Раскрывают ответ',
@@ -182,12 +183,26 @@ export default function Play() {
           }`}
           contentClassName="text-ink px-4 py-3 text-center"
         >
-          <p className="font-body text-ink/60 text-xs font-bold">
-            {view.question.themeTitle} · <span className="tabular-nums">{view.question.price}</span>
-          </p>
-          <p className="font-body mt-1 text-lg leading-snug font-bold text-pretty">
-            {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
-          </p>
+          {view.phase === 'announce' ? (
+            // Пока объявляют, тема и цена — главное на экране, а не подпись.
+            <>
+              <p className="font-pop text-xl leading-tight font-black text-pretty">
+                {view.question.themeTitle}
+              </p>
+              <p className="font-pop text-p1 mt-1 text-4xl font-black tabular-nums">
+                {view.question.price}
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="font-body text-ink/60 text-xs font-bold">
+                {view.question.themeTitle} · <span className="tabular-nums">{view.question.price}</span>
+              </p>
+              <p className="font-body mt-1 text-lg leading-snug font-bold text-pretty">
+                {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
+              </p>
+            </>
+          )}
           {view.question.media && (
             <div className="mt-2">
               <QuestionMedia

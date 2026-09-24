@@ -8,7 +8,7 @@ function lobbyWithPlayers(): RoomState {
   let state = createRoomState({
     code: '1234',
     pack: demoClassicPack,
-    settings: DEFAULT_SETTINGS,
+    settings: { ...DEFAULT_SETTINGS, announceMs: 0 },
     hostToken: 'h',
     now: 1000,
   });
@@ -47,7 +47,7 @@ describe('старт игры', () => {
     const empty = createRoomState({
       code: '1234',
       pack: demoClassicPack,
-      settings: DEFAULT_SETTINGS,
+      settings: { ...DEFAULT_SETTINGS, announceMs: 0 },
       hostToken: 'h',
       now: 1000,
     });
@@ -72,7 +72,7 @@ describe('выбор вопроса', () => {
     const manual = createRoomState({
       code: '1234',
       pack: demoClassicPack,
-      settings: { ...DEFAULT_SETTINGS, autoOpenBuzzer: false },
+      settings: { ...DEFAULT_SETTINGS, announceMs: 0, autoOpenBuzzer: false },
       hostToken: 'h',
       now: 1000,
     });
@@ -158,7 +158,7 @@ describe('конец раунда', () => {
     let state = createRoomState({
       code: '1234',
       pack: demoClassicPack,
-      settings: DEFAULT_SETTINGS,
+      settings: { ...DEFAULT_SETTINGS, announceMs: 0 },
       hostToken: 'h',
       now: 1000,
       modifierCells: { 'r2-history-q1': 'jackpot' },

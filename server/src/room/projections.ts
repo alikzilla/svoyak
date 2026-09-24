@@ -81,9 +81,13 @@ function projectPublicQuestion(state: RoomState): PublicQuestionView | null {
   const question = activeQuestion(state);
   if (!active || !question) return null;
 
-  // Кота передают вслепую, а на аукционе торгуются по теме и цене:
-  // до конца этих фаз текст вопроса игрокам не показываем.
-  const hidden = state.phase === 'cat_transfer' || state.phase === 'auction_bidding';
+  // Кота передают вслепую, а на аукционе торгуются по теме и цене; пока
+  // объявляют тему и цену, текста тоже ещё нет: до конца этих фаз вопрос
+  // игрокам не показываем.
+  const hidden =
+    state.phase === 'cat_transfer' ||
+    state.phase === 'auction_bidding' ||
+    state.phase === 'announce';
 
   const view: PublicQuestionView = {
     themeTitle: active.themeTitle,

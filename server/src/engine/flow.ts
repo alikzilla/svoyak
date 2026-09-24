@@ -71,6 +71,7 @@ export function advanceRound(state: RoomState): RoomState {
 /** Фазы, в которых на столе есть открытый вопрос. */
 const QUESTION_PHASES = new Set<RoomState['phase']>([
   'modifier',
+  'announce',
   'reading',
   'buzzer_open',
   'answering',

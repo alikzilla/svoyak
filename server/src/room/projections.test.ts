@@ -104,6 +104,25 @@ describe('спецвопросы: текст до времени скрыт', ()
   });
 });
 
+describe('объявление темы и цены', () => {
+  const announcing = (): RoomState => ({ ...stateWithQuestion(), phase: 'announce' });
+
+  it('экран и телефоны видят тему и цену, но не текст вопроса', () => {
+    const board = projectForBoard(announcing(), JOIN_URL);
+    expect(board.question).toMatchObject({ themeTitle: 'Кино', price: 300, hidden: true, text: '' });
+    expect(JSON.stringify(board)).not.toContain('Крёстного отца');
+    expect(JSON.stringify(projectForPlayer(announcing(), 'p1'))).not.toContain('Крёстного отца');
+  });
+
+  it('ведущий уже видит текст, чтобы приготовиться читать', () => {
+    expect(projectForHost(announcing(), JOIN_URL).question?.text).toContain('Крёстного отца');
+  });
+
+  it('телефону нечего нажимать, пока объявляют', () => {
+    expect(projectForPlayer(announcing(), 'p1').prompt).toEqual({ kind: 'wait' });
+  });
+});
+
 describe('проекция ведущего', () => {
   it('содержит правильный ответ и альтернативы', () => {
     const view = projectForHost(stateWithQuestion(), JOIN_URL);

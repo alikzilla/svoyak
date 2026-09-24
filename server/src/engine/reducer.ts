@@ -323,27 +323,25 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         return { ...started, effects: [{ type: 'clearTimer' }, ...started.effects] };
       }
 
-      // Кнопку открывает ведущий, но если включён автостарт, движок делает это
-      // за него: пауза даётся на то, чтобы дочитать вопрос вслух.
-      if (phase === 'reading' && state.settings.autoOpenBuzzer) {
-        const pause = state.settings.readingMs;
-        if (pause <= 0) {
-          const started = openBuzzer(opened, action.at);
-          return { ...started, effects: [{ type: 'clearTimer' }, ...started.effects] };
-        }
+      // Обычный вопрос сначала объявляют: все видят, какую тему и цену
+      // выбрали, и только потом текст. Пауза на чтение начинается после.
+      if (phase === 'reading' && state.settings.announceMs > 0) {
+        const durationMs = state.settings.announceMs;
         return {
-          state: opened,
+          state: { ...opened, phase: 'announce' },
           effects: [
             {
               type: 'setTimer',
-              kind: 'reading',
-              durationMs: pause,
-              onExpire: { type: 'OPEN_BUZZER', at: action.at + pause },
+              kind: 'announce',
+              durationMs,
+              onExpire: { type: 'TIMER_EXPIRED', kind: 'announce', at: action.at + durationMs },
             },
             { type: 'persist' },
           ],
         };
       }
+
+      if (phase === 'reading') return startReading(opened, action.at);
 
       return {
         state: opened,
@@ -352,6 +350,10 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
     }
 
     case 'CONTINUE': {
+      // Ведущий не ждёт конца объявления и сразу открывает вопрос.
+      if (state.phase === 'announce') {
+        return startReading({ ...state, phase: 'reading' }, action.at);
+      }
       if (state.phase === 'modifier') {
         return {
           state: closeQuestion(state),
@@ -814,6 +816,11 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
         };
       }
 
+      if (action.kind === 'announce') {
+        if (state.phase !== 'announce') return { state, effects: [] };
+        return startReading({ ...state, phase: 'reading' }, action.at);
+      }
+
       if (action.kind === 'reveal') {
         if (state.phase !== 'answer_reveal') return { state, effects: [] };
         return {
@@ -833,6 +840,32 @@ export function reduce(state: RoomState, action: GameAction): ReduceResult {
       return { state, effects: [] };
     }
   }
+}
+
+/** Вопрос открыт в фазе 'reading': кнопку открывает ведущий, но если включён
+ *  автостарт, движок делает это за него — пауза даётся на то, чтобы дочитать
+ *  вопрос вслух. */
+function startReading(state: RoomState, at: number): ReduceResult {
+  if (state.settings.autoOpenBuzzer) {
+    const pause = state.settings.readingMs;
+    if (pause <= 0) {
+      const started = openBuzzer(state, at);
+      return { ...started, effects: [{ type: 'clearTimer' }, ...started.effects] };
+    }
+    return {
+      state,
+      effects: [
+        {
+          type: 'setTimer',
+          kind: 'reading',
+          durationMs: pause,
+          onExpire: { type: 'OPEN_BUZZER', at: at + pause },
+        },
+        { type: 'persist' },
+      ],
+    };
+  }
+  return { state, effects: [{ type: 'clearTimer' }, { type: 'persist' }] };
 }
 
 /** Отметить клетку сыгранной. Общее для вопросов и модификаторов. */

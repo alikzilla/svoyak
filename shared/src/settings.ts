@@ -20,6 +20,9 @@ export interface RoomSettings {
   finalRequiresPositive: boolean;
   /** Минимальный шаг повышения ставки на аукционе. */
   auctionStep: number;
+  /** Сколько показывать «тема · цена» перед вопросом, чтобы все увидели, что
+   *  выбрали. Ноль — вопрос открывается сразу. */
+  announceMs: number;
   /** Пауза после показа вопроса: ведущий читает вслух, кнопки заблокированы.
    *  Ноль — кнопка открывается сразу вместе с вопросом. */
   readingMs: number;
@@ -42,6 +45,7 @@ export const DEFAULT_SETTINGS: RoomSettings = {
   allowNegative: true,
   finalRequiresPositive: true,
   auctionStep: 100,
+  announceMs: 2500,
   readingMs: 5000,
   autoOpenBuzzer: true,
   modifierMs: 6000,

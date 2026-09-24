@@ -13,7 +13,7 @@ function reading(settings: Partial<RoomSettings> = {}): RoomState {
   let state = createRoomState({
     code: '1234',
     pack: demoClassicPack,
-    settings: { ...DEFAULT_SETTINGS, ...settings },
+    settings: { ...DEFAULT_SETTINGS, announceMs: 0, ...settings },
     hostToken: 'h',
     now: 1000,
   });

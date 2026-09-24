@@ -208,6 +208,11 @@ export function HostGame({ view }: HostGameProps) {
               )}
 
               <div className="flex flex-wrap gap-2">
+                {view.phase === 'announce' && (
+                  <DoodleButton tone="p5" onClick={() => send('host:continue')}>
+                    Сразу к вопросу
+                  </DoodleButton>
+                )}
                 {view.phase === 'reading' && (
                   <DoodleButton tone="p5" onClick={() => send('host:openBuzzer')}>
                     Открыть кнопку

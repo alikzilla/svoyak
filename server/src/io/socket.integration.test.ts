@@ -265,7 +265,7 @@ describe('сокет-слой', () => {
     const created = await emit<'room:create', { code: string; hostToken: string }>(
       host,
       'room:create',
-      { packId: 'demo-classic' },
+      { packId: 'demo-classic', settings: { announceMs: 0 } },
     );
     if (!created.ok) throw new Error('комната не создана');
     const { code } = created.data;
@@ -304,7 +304,7 @@ describe('сокет-слой', () => {
     const created = await emit<'room:create', { code: string; hostToken: string }>(
       host,
       'room:create',
-      { packId: 'demo-classic' },
+      { packId: 'demo-classic', settings: { announceMs: 0 } },
     );
     if (!created.ok) throw new Error('комната не создана');
     const { code } = created.data;
@@ -664,7 +664,7 @@ describe('пауза на чтение', () => {
     const created = await emit<'room:create', { code: string; hostToken: string }>(
       host,
       'room:create',
-      { packId: 'demo-classic', settings },
+      { packId: 'demo-classic', settings: { announceMs: 0, ...settings } },
     );
     if (!created.ok) throw new Error('комната не создалась');
     const player = await connect();
@@ -720,7 +720,7 @@ describe('фальстарт глазами игрока', () => {
     const created = await emit<'room:create', { code: string; hostToken: string }>(
       host,
       'room:create',
-      { packId: 'demo-classic', settings: { autoOpenBuzzer: true, readingMs: 700 } },
+      { packId: 'demo-classic', settings: { announceMs: 0, autoOpenBuzzer: true, readingMs: 700 } },
     );
     if (!created.ok) throw new Error('комната не создалась');
     const player = await connect();

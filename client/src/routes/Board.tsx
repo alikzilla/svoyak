@@ -13,6 +13,7 @@ import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { CatScene } from '../ui/scenes/CatScene.js';
 import { ModifierScene } from '../ui/scenes/ModifierScene.js';
 import { AuctionScene } from '../ui/scenes/AuctionScene.js';
+import { AnnounceScene } from '../ui/scenes/AnnounceScene.js';
 import { VictoryScene } from '../ui/scenes/VictoryScene.js';
 import { RoundIntro } from '../ui/scenes/RoundIntro.js';
 import { DoodleButton } from '../design/DoodleButton.js';
@@ -137,6 +138,14 @@ export default function Board() {
                   players={view.players}
                   nominal={view.question?.price ?? 0}
                 />
+              </motion.div>
+            ) : view.question && view.phase === 'announce' ? (
+              <motion.div
+                key={`announce:${view.question.themeTitle}:${view.question.price}`}
+                exit={{ scale: 1.15, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              >
+                <AnnounceScene themeTitle={view.question.themeTitle} price={view.question.price} />
               </motion.div>
             ) : view.question ? (
               <motion.div

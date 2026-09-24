@@ -165,6 +165,13 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
         <div className="ink-border bg-card text-ink grid gap-4 rounded-2xl p-4">
           <div className="grid gap-3 sm:grid-cols-3">
             <NumberField
+              label="Показ темы и цены, мс"
+              hint="0 — вопрос открывается сразу"
+              step={500}
+              value={settings.announceMs}
+              onChange={(announceMs) => onChange({ announceMs })}
+            />
+            <NumberField
               label="Пауза на чтение, мс"
               hint="0 — кнопка открывается сразу"
               step={500}
