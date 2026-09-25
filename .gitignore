@@ -1,6 +1,8 @@
 node_modules/
 dist/
-uploads/
+uploads/*
+# Картинки паков Коваля лежат в репозитории, иначе вопросы остаются без медиа.
+!uploads/koval-*/
 data/rooms/
 data/history/
 data/games/

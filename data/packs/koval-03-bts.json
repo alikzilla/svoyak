@@ -1,0 +1,1210 @@
+{
+  "id": "koval-03-bts",
+  "title": "Коваль #3 · Покажи участника BTS",
+  "author": "Дима Коваль (СВОЯК) — разбор выпуска",
+  "description": "Соленья в банках, вывески с перепутанными буквами, семь участников BTS, айфоны по количеству камер, динозавры и улыбки с упаковок.",
+  "createdAt": 1789372034159,
+  "updatedAt": 1789372034159,
+  "rounds": [
+    {
+      "id": "koval-03-bts-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "koval-03-bts-r1-t1",
+          "title": "Ждули по обману в 16",
+          "questions": [
+            {
+              "id": "koval-03-bts-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В каком из этих шоу женщины ждут своих возлюбленных из мест лишения свободы?",
+              "answer": "Ждули",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t1-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какое шоу — продолжение: героини уже родили и теперь растят детей?",
+              "answer": "Мама в 16",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t1-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В каком шоу героиня притворяется беременной, чтобы проверить реакцию родных и парня?",
+              "answer": "Беременна по обману",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-03-bts-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Из какого шоу выросло «Мама в 16»: там всё начинается с двух полосок на тесте?",
+              "answer": "Беременна в 16",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t1-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "В каком из четырёх шоу героиня совсем не обязательно ждёт ребёнка?",
+              "answer": "Ждули",
+              "altAnswers": [
+                "беременна по обману"
+              ],
+              "hostComment": "Засчитывай и «Беременна по обману»: там беременность ненастоящая."
+            }
+          ],
+          "comment": "Ответ — одно из четырёх шоу: «Ждули», «Мама в 16», «Беременна в 16» или «Беременна по обману»."
+        },
+        {
+          "id": "koval-03-bts-r1-t2",
+          "title": "Вот они",
+          "questions": [
+            {
+              "id": "koval-03-bts-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Лидер BTS, который, по его словам, выучил английский по сериалу «Друзья».",
+              "answer": "RM",
+              "altAnswers": [
+                "эр эм",
+                "рм",
+                "нам джун"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Самый старший участник BTS, называющий себя «Worldwide Handsome».",
+              "answer": "Джин",
+              "altAnswers": [
+                "jin",
+                "чин"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Участник BTS, придумавший слово «боракхэ» — «люблю тебя до фиолетового».",
+              "answer": "Ви",
+              "altAnswers": [
+                "v",
+                "тэхён"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Самый младший участник BTS, «золотой макнэ», спел на открытии чемпионата мира по футболу в Катаре.",
+              "answer": "Чонгук",
+              "altAnswers": [
+                "jungkook"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t2-q5",
+              "price": 500,
+              "type": "cat",
+              "text": "Какой участник BTS взял сценическое имя в честь надежды?",
+              "answer": "Джей-Хоуп",
+              "altAnswers": [
+                "j-hope",
+                "джей хоуп"
+              ],
+              "cat": {
+                "theme": "Вот они",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-500-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t2-q6",
+              "price": 600,
+              "type": "cat",
+              "text": "Рэпер BTS, который выпускает сольные работы под псевдонимом Agust D.",
+              "answer": "Шуга",
+              "altAnswers": [
+                "suga",
+                "сюга"
+              ],
+              "cat": {
+                "theme": "Вот они",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t2-q7",
+              "price": 700,
+              "type": "normal",
+              "text": "Участник BTS, чей сольный трек «Like Crazy» возглавил Billboard Hot 100 в 2023 году.",
+              "answer": "Чимин",
+              "altAnswers": [
+                "jimin"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-700-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите участника BTS по описанию."
+        },
+        {
+          "id": "koval-03-bts-r1-t3",
+          "title": "Разделение",
+          "questions": [
+            {
+              "id": "koval-03-bts-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Этот десерт с мороженым получил название из-за того, что банан в нём делят вдоль на две равные части. А) Банановый пудинг Б) Банановое суфле В) Банановый сплит Г) Банановое парфе",
+              "answer": "В) Банановый сплит",
+              "altAnswers": [
+                "банановый сплит",
+                "в"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Город Сплит разделяет залив и канал у подножия гор, его исторический центр — в списке ЮНЕСКО. В какой республике он находится? А) Словения Б) Хорватия В) Черногория Г) Сербия",
+              "answer": "Б) Хорватия",
+              "altAnswers": [
+                "хорватия",
+                "б"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как называется техника разделения экрана для совместного прохождения игры со своим другом? А) Сплит-скрин Б) Дуал-скрин В) Два-в-одном Г) Фуллскрин",
+              "answer": "А) Сплит-скрин",
+              "altAnswers": [
+                "сплит-скрин",
+                "сплит скрин",
+                "а"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "«Сегодня у меня сплит-тренировка». Что именно она делит? А) упражнения на разные группы мышц в разные дни Б) на несколько коротких подходов В) на силовую часть и кардио Г) на подход и отдых",
+              "answer": "А) Упражнения на разные группы мышц в разные дни",
+              "altAnswers": [
+                "а"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "В Counter-Strike команда делится на группы и заходит на одну точку с разных сторон. Как называется эта тактика? А) Раш Б) Холд В) Сплит Г) Эко-раунд",
+              "answer": "В) Сплит",
+              "altAnswers": [
+                "сплит",
+                "в"
+              ]
+            }
+          ],
+          "comment": "Всё про слово «сплит»."
+        },
+        {
+          "id": "koval-03-bts-r1-t4",
+          "title": "Что написано",
+          "questions": [
+            {
+              "id": "koval-03-bts-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Вывеска за 100: буквы перепутаны, первая на месте. Здесь отправляют деньги родственникам.",
+              "answer": "Денежные переводы",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/napis-100.svg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Вывеска за 200 с перепутанными буквами. Её клеят на контейнер во дворе.",
+              "answer": "Для бытового мусора",
+              "altAnswers": [
+                "бытовой мусор"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/napis-200.svg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Вывеска за 300 с перепутанными буквами: летний лагерь ищет сотрудников.",
+              "answer": "Горизонт: мы ищем вожатых!",
+              "altAnswers": [
+                "мы ищем вожатых"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/napis-300.svg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Вывеска за 400 с перепутанными буквами над дверью детского учреждения.",
+              "answer": "Ясли «Машенька»",
+              "altAnswers": [
+                "ясли машенька"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/napis-400.svg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Вывеска за 500 с перепутанными буквами: здесь печатают снимки на документы.",
+              "answer": "Фотосалон",
+              "altAnswers": [
+                "фотоателье"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/napis-500.svg"
+              }
+            }
+          ],
+          "comment": "Буквы в словах перепутаны, первая буква каждого слова стоит на месте."
+        },
+        {
+          "id": "koval-03-bts-r1-t5",
+          "title": "Соленья",
+          "questions": [
+            {
+              "id": "koval-03-bts-r1-t5-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Что законсервировано в этой банке? Это не овощ.",
+              "answer": "Яйца",
+              "altAnswers": [
+                "перепелиные яйца"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-100.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t5-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Что законсервировано в этих банках кружочками?",
+              "answer": "Кабачки",
+              "altAnswers": [
+                "кабачок",
+                "кабачковая икра"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t5-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Что законсервировано в банке? Их называют «синенькими».",
+              "answer": "Баклажаны",
+              "altAnswers": [
+                "синенькие"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-300.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t5-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Что за дикую зелень законсервировали в этих банках?",
+              "answer": "Черемша",
+              "altAnswers": [
+                "дикий чеснок",
+                "медвежий лук"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-400.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r1-t5-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Что за зелёные «копья» законсервированы в этой банке?",
+              "answer": "Спаржа",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-500.jpg"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koval-03-bts-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "koval-03-bts-r2-t1",
+          "title": "Кто под маской?",
+          "questions": [
+            {
+              "id": "koval-03-bts-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Назовите актёра, который скрыт под этой зелёной маской.",
+              "answer": "Джим Керри",
+              "altAnswers": [
+                "керри"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Кто носил эту маску в «Молчании ягнят»?",
+              "answer": "Энтони Хопкинс",
+              "altAnswers": [
+                "хопкинс"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-400.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t1-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Назовите актёра, который скрыт под маской Зорро.",
+              "answer": "Антонио Бандерас",
+              "altAnswers": [
+                "бандерас"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-600.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Кто скрыт под этой маской злодея из «Тёмного рыцаря»?",
+              "answer": "Том Харди",
+              "altAnswers": [
+                "харди"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-800.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Кто скрыт под этим гримом?",
+              "answer": "Хит Леджер",
+              "altAnswers": [
+                "леджер"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-1000.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-03-bts-r2-t2",
+          "title": "Назови как бабка",
+          "questions": [
+            {
+              "id": "koval-03-bts-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как этот предмет назовёт бабушка? Молодёжь зовёт его худи.",
+              "answer": "Кофта с капюшоном",
+              "altAnswers": [
+                "кофта"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как бабушка назовёт этот гаджет для пара?",
+              "answer": "Электронная сигарета",
+              "altAnswers": [
+                "сигарета"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-400.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как бабушка назовёт этот гаджет?",
+              "answer": "Телефон",
+              "altAnswers": [
+                "мобильник"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-600.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t2-q4",
+              "price": 800,
+              "type": "cat",
+              "text": "Как бабушка назовёт эту игрушку из 2017 года?",
+              "answer": "Вертушка",
+              "altAnswers": [
+                "вертолётик"
+              ],
+              "cat": {
+                "theme": "Назови как бабка",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-800.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Как бабушка назовёт эту тянучку?",
+              "answer": "Лизун",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-1000.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-03-bts-r2-t3",
+          "title": "Два по биологии",
+          "questions": [
+            {
+              "id": "koval-03-bts-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В 2008 году учёные из Осаки открыли белок, который молниеносно передаёт сигналы между ленточными синапсами фоторецепторов глаза и дендритами. Белок назвали в честь ЭТОГО ПОКЕМОНА.",
+              "answer": "Пикачу",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-03-bts-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Зоолог Антон Волынкин назвал новый вид бабочек Yeldosia anomala: у новых особей были гораздо более выраженные ОНИ.",
+              "answer": "Гениталии",
+              "altAnswers": [
+                "половые органы"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Подводные бактерии вызывают окисление железа, из-за чего появляются «ржавые сосульки». Бактерии названы в честь ЭТОГО КОРАБЛЯ.",
+              "answer": "Титаник",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-03-bts-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Этот сумчатый хищник умирает почти сразу после первого брачного сезона: он так выкладывается, что у него отказывает иммунитет.",
+              "answer": "Сумчатая мышь (антехинус)",
+              "altAnswers": [
+                "антехинус",
+                "сумчатая мышь"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-03-bts-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Пауки-вампиры предпочитают кровь позвоночных. Однако они никогда не кусают человека или животных, а просто предпочитают охотиться на НИХ.",
+              "answer": "Комары",
+              "altAnswers": [
+                "комаров"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "koval-03-bts-r2-t4",
+          "title": "Камеры",
+          "questions": [
+            {
+              "id": "koval-03-bts-r2-t4-q1",
+              "price": 200,
+              "type": "cat",
+              "text": "Сколько камер на задней панели у iPhone 11?",
+              "answer": "2",
+              "altAnswers": [
+                "две"
+              ],
+              "cat": {
+                "theme": "Камеры",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Сколько камер на задней панели у iPhone 7 Plus?",
+              "answer": "2",
+              "altAnswers": [
+                "две"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Сколько камер на задней панели у iPhone 13?",
+              "answer": "2",
+              "altAnswers": [
+                "две"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Сколько камер на задней панели у iPhone SE второго поколения (2020)?",
+              "answer": "1",
+              "altAnswers": [
+                "одна"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-800-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Сколько камер на задней панели у iPhone 15 Pro?",
+              "answer": "3",
+              "altAnswers": [
+                "три"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-1000-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r2-t4-q6",
+              "price": 1200,
+              "type": "normal",
+              "text": "Сколько камер на задней панели у iPhone 16e?",
+              "answer": "1",
+              "altAnswers": [
+                "одна"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-1200-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Сколько камер на задней панели у этого айфона?"
+        },
+        {
+          "id": "koval-03-bts-r2-t5",
+          "title": "Снежная",
+          "questions": [
+            {
+              "id": "koval-03-bts-r2-t5-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В этой сказке Андерсена осколок волшебного зеркала попадает мальчику в глаз и в сердце.",
+              "answer": "Снежная королева",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-03-bts-r2-t5-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Для необычного блюда используют снег, варёную сгущёнку и экстракт ванили. Пользователь обрадовался, что ТАКОЙ снег наконец-то можно будет есть.",
+              "answer": "Жёлтый",
+              "altAnswers": [
+                "желтый"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r2-t5-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "По легенде, бог одного сибирского народа создал оленя, зайца и лося, а ещё придумал снег, чтобы люди могли СДЕЛАТЬ ЭТО.",
+              "answer": "Выследить их во время охоты",
+              "altAnswers": [
+                "выследить",
+                "охотиться по следам"
+              ]
+            },
+            {
+              "id": "koval-03-bts-r2-t5-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Один писатель сравнил краснощёкого мальчика в валенках с ЭТОЙ ПТИЦЕЙ.",
+              "answer": "Снегирь",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-03-bts-r2-t5-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В одной песне упоминаются соль, сахар и снег. А какой танец также упоминается в этой песне?",
+              "answer": "Белый танец",
+              "altAnswers": [
+                "белый"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koval-03-bts-r3",
+      "title": "Третий раунд",
+      "themes": [
+        {
+          "id": "koval-03-bts-r3-t1",
+          "title": "Мыши и крысы",
+          "questions": [
+            {
+              "id": "koval-03-bts-r3-t1-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Самая известная мышь во всём мире?",
+              "answer": "Микки Маус",
+              "altAnswers": [
+                "микки"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t1-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Назовите имена мышки и толстого мыша из этой компании.",
+              "answer": "Гаечка и Рокфор",
+              "altAnswers": [
+                "гаечка",
+                "рокфор"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-600.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t1-q3",
+              "price": 900,
+              "type": "cat",
+              "text": "Как зовут этого персонажа?",
+              "answer": "Реми",
+              "altAnswers": [
+                "remy"
+              ],
+              "cat": {
+                "theme": "Мыши и крысы",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-900.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t1-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Как называется мультфильм с этими мышами?",
+              "answer": "Приключения кота Леопольда",
+              "altAnswers": [
+                "кот леопольд",
+                "леопольд"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t1-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Как звали крысу — главного антагониста в «Щелкунчике»?",
+              "answer": "Мышиный король",
+              "altAnswers": [
+                "крысиный король"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе.",
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-1500-otvet.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-03-bts-r3-t2",
+          "title": "Улыбки с упаковок",
+          "questions": [
+            {
+              "id": "koval-03-bts-r3-t2-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Улыбающийся малыш и надпись «без слёз» — на упаковке какого товара Johnson’s Baby?",
+              "answer": "Шампунь",
+              "altAnswers": [
+                "детский шампунь"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t2-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "С упаковки какого товара эта улыбка?",
+              "answer": "Шоколад Kinder",
+              "altAnswers": [
+                "киндер",
+                "kinder"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t2-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "С упаковки каких чипсов эта улыбка?",
+              "answer": "Чипсы Lay’s",
+              "altAnswers": [
+                "лейс",
+                "lays"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-900.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-900-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t2-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Широкая белоснежная улыбка — самая частая картинка на упаковке этого средства для утра и вечера.",
+              "answer": "Зубная паста",
+              "altAnswers": [
+                "паста"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-1200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t2-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "На упаковке ЭТОГО товара обычно улыбается бодрая пожилая пара — «теперь можно ничего не бояться».",
+              "answer": "Подгузники для взрослых",
+              "altAnswers": [
+                "подгузники"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-1500-otvet.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-03-bts-r3-t3",
+          "title": "Первые роли",
+          "questions": [
+            {
+              "id": "koval-03-bts-r3-t3-q1",
+              "price": 300,
+              "type": "cat",
+              "text": "Будущий Фродо мелькнул мальчиком у игрового автомата в «Назад в будущее 2». Кто это?",
+              "answer": "Элайджа Вуд",
+              "altAnswers": [
+                "вуд"
+              ],
+              "cat": {
+                "theme": "Первые роли",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-300.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t3-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Этот актёр в 11 лет сыграл сына героя Билли Кристала в «Городских пижонах».",
+              "answer": "Джейк Джилленхол",
+              "altAnswers": [
+                "джилленхол"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-600.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t3-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Одна из первых заметных ролей этой актрисы — Венера в «Приключениях барона Мюнхгаузена» Терри Гиллиама.",
+              "answer": "Ума Турман",
+              "altAnswers": [
+                "турман"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-900.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t3-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Будущий Капитан Америка прославился в «Недетском кино» — пародии 2001 года на подростковые комедии. Кто он?",
+              "answer": "Крис Эванс",
+              "altAnswers": [
+                "эванс"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t3-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Этот актёр начинал с фильма ужасов «Зубастики 3».",
+              "answer": "Леонардо ДиКаприо",
+              "altAnswers": [
+                "дикаприо"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите актёра по его первой роли."
+        },
+        {
+          "id": "koval-03-bts-r3-t4",
+          "title": "Твой любимый динозавр",
+          "questions": [
+            {
+              "id": "koval-03-bts-r3-t4-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Назовите динозавра — короля хищников.",
+              "answer": "Тираннозавр",
+              "altAnswers": [
+                "ти-рекс",
+                "тирекс"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-300.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t4-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Назовите этого летающего ящера.",
+              "answer": "Птеродактиль",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-600.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t4-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Назовите этого пернатого хищника из «Парка юрского периода».",
+              "answer": "Велоцираптор",
+              "altAnswers": [
+                "раптор"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-900.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t4-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Назовите динозавра с тремя рогами.",
+              "answer": "Трицератопс",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t4-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Назовите динозавра с пластинами на спине.",
+              "answer": "Стегозавр",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-1500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-03-bts-r3-t5",
+          "title": "Наряды на К",
+          "questions": [
+            {
+              "id": "koval-03-bts-r3-t5-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Назовите предмет одежды на «К»: японский и с широкими рукавами.",
+              "answer": "Кимоно",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-300.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t5-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Назовите этот предмет одежды на «К».",
+              "answer": "Кардиган",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-600.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t5-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Назовите предмет одежды на «К». У байкеров она — «косуха».",
+              "answer": "Куртка",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-900.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t5-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Назовите этот форменный пиджак на «К».",
+              "answer": "Китель",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-03-bts-r3-t5-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Назовите старинную одежду на «К».",
+              "answer": "Кафтан",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Предмет одежды на букву «К»."
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "koval-03-bts-f1",
+        "title": "Котики",
+        "question": {
+          "id": "koval-03-bts-f1-q",
+          "text": "Как зовут кота из произведения Михаила Булгакова «Мастер и Маргарита»?",
+          "answer": "Бегемот",
+          "altAnswers": []
+        }
+      },
+      {
+        "id": "koval-03-bts-f2",
+        "title": "Кинематограф",
+        "question": {
+          "id": "koval-03-bts-f2-q",
+          "text": "Какой фильм получил «Оскар» за лучший фильм, будучи снятым на корейском языке?",
+          "answer": "Паразиты",
+          "altAnswers": [
+            "parasite"
+          ]
+        }
+      },
+      {
+        "id": "koval-03-bts-f3",
+        "title": "География",
+        "question": {
+          "id": "koval-03-bts-f3-q",
+          "text": "Какое море не имеет берегов?",
+          "answer": "Саргассово",
+          "altAnswers": [
+            "саргассово море"
+          ]
+        }
+      }
+    ]
+  }
+}

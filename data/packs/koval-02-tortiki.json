@@ -1,0 +1,1179 @@
+{
+  "id": "koval-02-tortiki",
+  "title": "Коваль #2 · Тортики и бороды",
+  "author": "Дима Коваль (СВОЯК) — разбор выпуска",
+  "description": "Торты, спрятанные фрукты, чайные принцессы, самогонный ликбез, вывески без букв и вселенные в палитрах.",
+  "createdAt": 1789372034130,
+  "updatedAt": 1789372034130,
+  "rounds": [
+    {
+      "id": "koval-02-tortiki-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "koval-02-tortiki-r1-t1",
+          "title": "Тортики",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Торт за 100: кто на нём изображён?",
+              "answer": "Лабубу",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-100.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Торт за 200: что на нём изображено?",
+              "answer": "Бугатти",
+              "altAnswers": [
+                "bugatti",
+                "машина"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-200.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Торт за 300: что на нём изображено?",
+              "answer": "Луна с космонавтом",
+              "altAnswers": [
+                "луна",
+                "на луне"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-300.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Торт за 400: что изображено на этом торте?",
+              "answer": "Большой бант",
+              "altAnswers": [
+                "бант"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-400.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Торт за 500: что изображено на этом торте?",
+              "answer": "Домик принцессы",
+              "altAnswers": [
+                "замок",
+                "дворец"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-500.jpg"
+              }
+            }
+          ],
+          "comment": "Кондитеры сделали торт в виде предмета — назовите, что на нём."
+        },
+        {
+          "id": "koval-02-tortiki-r1-t2",
+          "title": "Ты клубника я клубника",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Название этого фрукта с голландского переводится как «китайское яблоко».",
+              "answer": "Апельсин",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая ягода — да, ботанически это ягода — растёт гроздьями и слегка радиоактивна из-за калия?",
+              "answer": "Банан",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "У этой «ягоды» семечки снаружи, а ботаники вообще не считают её ягодой.",
+              "answer": "Клубника",
+              "altAnswers": [
+                "земляника"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Варенье из этой ягоды — главное бабушкино лекарство от простуды.",
+              "answer": "Малина",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t2-q5",
+              "price": 500,
+              "type": "cat",
+              "text": "Какой фрукт художники рисовали запретным плодом в Эдеме, хотя в Библии он не назван?",
+              "answer": "Яблоко",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Ты клубника я клубника",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-500-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Какой фрукт или ягода?"
+        },
+        {
+          "id": "koval-02-tortiki-r1-t3",
+          "title": "Сашины прозвища",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Как зовут этого Александра? Подсказка: «Операция „Ы“».",
+              "answer": "Шурик",
+              "altAnswers": [
+                "александр демьяненко"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-100.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Злейший враг Супермена — Александр Джозеф Лютор. Как его зовут коротко?",
+              "answer": "Лекс",
+              "altAnswers": [
+                "лекс лютор"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-200.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Как зовут главного героя «Заводного апельсина», любителя Бетховена и «ультранасилия»?",
+              "answer": "Алекс",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-300.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Итальянский вариант имени Александр — так звали художника Боттичелли.",
+              "answer": "Сандро",
+              "altAnswers": [
+                "алессандро"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-400.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Какое прозвище было у Александра Пушкина в Царскосельском лицее за отличный французский?",
+              "answer": "Француз",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-500.jpg"
+              }
+            }
+          ],
+          "comment": "Все эти люди и персонажи — Александры."
+        },
+        {
+          "id": "koval-02-tortiki-r1-t4",
+          "title": "Мультяшная еда",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Розовый пончик с посыпкой — главная слабость Гомера. Из какого мультсериала?",
+              "answer": "Симпсоны",
+              "altAnswers": [
+                "the simpsons"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-100.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Крыса-повар подаёт суровому критику Антону Эго овощное блюдо из детства. Как называется мультфильм?",
+              "answer": "Рататуй",
+              "altAnswers": [
+                "ratatouille"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-200.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В каком мультфильме зелёный великан ест суп из болотной тины и пьёт коктейль с глазным яблоком?",
+              "answer": "Шрек",
+              "altAnswers": [
+                "shrek"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-300.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Секретная формула крабсбургеров — главная тайна подводного города Бикини Боттом. Какой это мультсериал?",
+              "answer": "Губка Боб",
+              "altAnswers": [
+                "спанч боб",
+                "spongebob"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-400.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "В каком мультфильме Диснея две собаки едят одну тарелку спагетти и случайно целуются?",
+              "answer": "Леди и Бродяга",
+              "altAnswers": [
+                "lady and the tramp"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-02-tortiki-r1-t5",
+          "title": "Один из четырёх",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r1-t5-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Этот «битл» старше всех остальных участников группы.",
+              "answer": "Ринго Старр",
+              "altAnswers": [
+                "ринго"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r1-t5-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Этому черепашке-ниндзя авторы вручили оборонительное оружие ближнего боя, которое помогает сдерживать агрессию и мыслить стратегически.",
+              "answer": "Рафаэль",
+              "altAnswers": [
+                "рафаэль"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r1-t5-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Слоган этого факультета Хогвартса: «Ума палата дороже злата».",
+              "answer": "Когтевран",
+              "altAnswers": [
+                "рейвенкло",
+                "ravenclaw"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r1-t5-q4",
+              "price": 400,
+              "type": "cat",
+              "text": "Зефир — это название ветра, который у римлян ассоциировался с мягким и ласковым дуновением. Зефир обычно приходил ОТТУДА.",
+              "answer": "С запада",
+              "altAnswers": [
+                "запад"
+              ],
+              "cat": {
+                "theme": "Один из четырёх",
+                "price": "nominal",
+                "canKeep": false
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r1-t5-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Термидор — это название месяца французского революционного календаря, который относится к ЭТОМУ ВРЕМЕНИ ГОДА.",
+              "answer": "Лето",
+              "altAnswers": []
+            }
+          ],
+          "comment": "Ответ всегда один из четырёх: сезонов, сторон света и т.д."
+        }
+      ]
+    },
+    {
+      "id": "koval-02-tortiki-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "koval-02-tortiki-r2-t1",
+          "title": "Вывески",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Прочитайте вывеску, с которой отвалились буквы. Такое пишут на окне квартиры.",
+              "answer": "Продаётся",
+              "altAnswers": [
+                "продается"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/vyveska-200.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Прочитайте вывеску магазина, с которой отвалились буквы. Обещают, что всё подешевело.",
+              "answer": "Глобальное падение цен",
+              "altAnswers": [
+                "падение цен"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/vyveska-400.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t1-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Прочитайте табличку у кнопки в подъезде: букв на ней осталось совсем мало.",
+              "answer": "Вызов консьержа",
+              "altAnswers": [
+                "консьерж"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/vyveska-600.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Прочитайте вывеску кофейни, с которой отвалились буквы. Кофе здесь дают навынос.",
+              "answer": "Бери с собой",
+              "altAnswers": [
+                "с собой"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/vyveska-800.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t1-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Прочитайте вывеску строительного магазина. Там целый список товаров, и почти половины букв нет.",
+              "answer": "Нержавейка, цепи, тросы, инструмент, латунь, цинк",
+              "altAnswers": [
+                "нержавейка цепи тросы"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/vyveska-1000.svg"
+              }
+            }
+          ],
+          "comment": "С вывески отвалились буквы — прочитайте, что там было."
+        },
+        {
+          "id": "koval-02-tortiki-r2-t2",
+          "title": "Гриб или болезнь",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Гебелома — это гриб или болезнь?",
+              "answer": "Гриб",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-02-tortiki-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Потница — это гриб или болезнь?",
+              "answer": "Болезнь",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-02-tortiki-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Баттаррея — это гриб или болезнь?",
+              "answer": "Гриб",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-02-tortiki-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Вульводиния — это гриб или болезнь?",
+              "answer": "Болезнь",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-02-tortiki-r2-t2-q5",
+              "price": 1000,
+              "type": "cat",
+              "text": "Цистодерма — это гриб или болезнь?",
+              "answer": "Гриб",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Гриб или болезнь",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-02-tortiki-r2-t3",
+          "title": "Самогон",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как в профессиональной среде называется начальный этап перегонки, при котором отбираются самые вредные, легкокипящие фракции (в народе — «первак»)? А) Отбор хвостов Б) Отбор голов В) Отбор тела Г) Отбор сердца",
+              "answer": "Б) Отбор голов",
+              "altAnswers": [
+                "отбор голов",
+                "б"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В какой стране традиционный местный самогон законодательно защищён и называется «Потин» (Poitín)? А) Шотландия Б) Болгария В) Мексика Г) Ирландия",
+              "answer": "Г) Ирландия",
+              "altAnswers": [
+                "ирландия",
+                "г"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Для чего самогонщики используют сухопарник? А) Для измерения крепости Б) Для конденсации и сбора браги В) Для первичной очистки пара от сивушных масел и ароматизации Г) Для охлаждения",
+              "answer": "В) Для первичной очистки пара от сивушных масел",
+              "altAnswers": [
+                "в",
+                "очистка пара"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Какой напиток, также известный как «белый пёс», является невыдержанным американским кукурузным самогоном? А) Граппа Б) Бурбон В) Ром Г) Шнапс",
+              "answer": "Б) Бурбон",
+              "altAnswers": [
+                "бурбон",
+                "б"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "При какой температуре при нормальном атмосферном давлении начинает кипеть чистый этиловый спирт? А) 100 °C Б) 78,4 °C В) 64,7 °C Г) 56,2 °C",
+              "answer": "Б) 78,4 °C",
+              "altAnswers": [
+                "78,4",
+                "78.4",
+                "б"
+              ]
+            }
+          ],
+          "comment": "Вопросы с четырьмя вариантами."
+        },
+        {
+          "id": "koval-02-tortiki-r2-t4",
+          "title": "Найди яблоко",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Какая компания выбрала своим логотипом надкушенный фрукт?",
+              "answer": "Apple",
+              "altAnswers": [
+                "эппл"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой город называют «Большим яблоком»?",
+              "answer": "Нью-Йорк",
+              "altAnswers": [
+                "new york",
+                "нью йорк"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как по-другому называют кадык — выступ на шее у мужчин?",
+              "answer": "Адамово яблоко",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-02-tortiki-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Из-за золотого яблока с надписью «Прекраснейшей» поссорились три богини, а потом началась Троянская война. Как называют это яблоко?",
+              "answer": "Яблоко раздора",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-02-tortiki-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Название какого казахстанского города связывают с яблоками, а местный апорт знают по всему бывшему Союзу?",
+              "answer": "Алматы",
+              "altAnswers": [
+                "алма-ата",
+                "алма ата"
+              ]
+            }
+          ],
+          "comment": "В каждом ответе где-то спрятано яблоко."
+        },
+        {
+          "id": "koval-02-tortiki-r2-t5",
+          "title": "Чайные принцессы",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r2-t5-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Нури, Канди, Гита или Ява? Пачка за 200.",
+              "answer": "Канди",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t5-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Нури, Канди, Гита или Ява? Пачка за 400.",
+              "answer": "Гита",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-400.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t5-q3",
+              "price": 600,
+              "type": "cat",
+              "text": "Кот в мешке: Нури, Канди, Гита или Ява?",
+              "answer": "Ява",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Чайные принцессы",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t5-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Нури, Канди, Гита или Ява? Пачка за 800.",
+              "answer": "Нури",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-800.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-800-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r2-t5-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Нури, Канди, Гита или Ява? Последняя пачка.",
+              "answer": "Ява",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-1000.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-1000-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Название на пачке закрыто: Нури, Канди, Гита или Ява?"
+        }
+      ]
+    },
+    {
+      "id": "koval-02-tortiki-r3",
+      "title": "Третий раунд",
+      "themes": [
+        {
+          "id": "koval-02-tortiki-r3-t1",
+          "title": "Памятники",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r3-t1-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Кому этот памятник? Ему назначают свидания в центре Москвы.",
+              "answer": "Пушкину",
+              "altAnswers": [
+                "пушкин"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-300.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t1-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Кому этот титановый памятник на Ленинском проспекте?",
+              "answer": "Гагарину",
+              "altAnswers": [
+                "юрий гагарин"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-600.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t1-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Кому этот памятник? Их в СССР было больше всего.",
+              "answer": "Ленину",
+              "altAnswers": [
+                "владимир ленин"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-900.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t1-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Кому этот бронзовый бюст? Он стоит в аэропорту Мадейры.",
+              "answer": "Криштиану Роналду",
+              "altAnswers": [
+                "роналду"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-1200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t1-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Кому эта восьмиметровая статуя?",
+              "answer": "Мэрилин Монро",
+              "altAnswers": [
+                "монро"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-1500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-02-tortiki-r3-t2",
+          "title": "Режиссёры",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r3-t2-q1",
+              "price": 300,
+              "type": "cat",
+              "text": "Кто этот режиссёр? Он снял «Лабиринт Фавна» и «Форму воды».",
+              "answer": "Гильермо дель Торо",
+              "altAnswers": [
+                "дель торо"
+              ],
+              "cat": {
+                "theme": "Режиссёры",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t2-300.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t2-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Кто снял «Криминальное чтиво» и «Однажды в… Голливуде»?",
+              "answer": "Квентин Тарантино",
+              "altAnswers": [
+                "тарантино"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r3-t2-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Кто этот греческий режиссёр? Он снял «Бедные-несчастные».",
+              "answer": "Йоргос Лантимос",
+              "altAnswers": [
+                "лантимос"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t2-900.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t2-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Кто снял «Брата» и «Брата 2»?",
+              "answer": "Алексей Балабанов",
+              "altAnswers": [
+                "балабанов"
+              ]
+            },
+            {
+              "id": "koval-02-tortiki-r3-t2-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Кто этот режиссёр? Он снял «Сияние» и «Заводной апельсин».",
+              "answer": "Стэнли Кубрик",
+              "altAnswers": [
+                "кубрик"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t2-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите режиссёра по фильмам."
+        },
+        {
+          "id": "koval-02-tortiki-r3-t3",
+          "title": "Породы бороды",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r3-t3-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Чья это борода? Её хозяин — лесничий.",
+              "answer": "Хагрид",
+              "altAnswers": [
+                "рубеус хагрид"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-300.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t3-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Чья это борода? Её хозяин — герой мемов про кулаки.",
+              "answer": "Чак Норрис",
+              "altAnswers": [
+                "норрис"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t3-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Чья это борода? Её хозяин знает ответ на любой вопрос.",
+              "answer": "Анатолий Вассерман",
+              "altAnswers": [
+                "вассерман"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-900.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-900-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t3-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Чья это борода? Её хозяин — бог войны.",
+              "answer": "Кратос",
+              "altAnswers": [
+                "kratos",
+                "god of war"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t3-q5",
+              "price": 1500,
+              "type": "cat",
+              "text": "Чья это борода? Её хозяин — комик, сыгравший доктора Роботника.",
+              "answer": "Джим Керри",
+              "altAnswers": [
+                "керри"
+              ],
+              "cat": {
+                "theme": "Породы бороды",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1500.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1500-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Сначала показываем только бороду, с ответом — всё фото."
+        },
+        {
+          "id": "koval-02-tortiki-r3-t4",
+          "title": "По шарам",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r3-t4-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Назовите вид спорта по мячу. Мяч мажут клеем-смолой.",
+              "answer": "Гандбол",
+              "altAnswers": [
+                "ручной мяч"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-300.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t4-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Назовите вид спорта по этому мячу.",
+              "answer": "Волейбол",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-600.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t4-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Назовите вид спорта по этому тяжёлому шару.",
+              "answer": "Боулинг",
+              "altAnswers": [
+                "кегли"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-900.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t4-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Назовите вид спорта по мячу со 108 стежками.",
+              "answer": "Бейсбол",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t4-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Назовите вид спорта по мячу с 26 дырочками.",
+              "answer": "Флорбол",
+              "altAnswers": [
+                "юнихоккей"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите вид спорта по мячу."
+        },
+        {
+          "id": "koval-02-tortiki-r3-t5",
+          "title": "На минималках",
+          "questions": [
+            {
+              "id": "koval-02-tortiki-r3-t5-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Палитра за 300: жёлтая кожа, синие волосы — что за вселенная?",
+              "answer": "Симпсоны",
+              "altAnswers": [
+                "the simpsons"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/minimalki-300.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t5-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Палитра за 600: четыре пары цветов, как у четырёх факультетов. Какая вселенная?",
+              "answer": "Гарри Поттер",
+              "altAnswers": [
+                "хогвартс",
+                "harry potter"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/minimalki-600.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t5-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Палитра за 900: рыжий курьер, фиолетовая одноглазая капитанша и серый робот. Что за мультсериал?",
+              "answer": "Футурама",
+              "altAnswers": [
+                "futurama"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/minimalki-900.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t5-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Палитра за 1200: песочный, чёрный, синий и красный световые мечи, золотой дроид. Какая сага?",
+              "answer": "Звёздные войны",
+              "altAnswers": [
+                "star wars",
+                "звездные войны"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/minimalki-1200.svg"
+              }
+            },
+            {
+              "id": "koval-02-tortiki-r3-t5-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Палитра за 1500: золотой, синий и красный — цвета форменных рубашек экипажа звездолёта. Какая вселенная?",
+              "answer": "Стартрек",
+              "altAnswers": [
+                "star trek",
+                "звёздный путь"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/minimalki-1500.svg"
+              }
+            }
+          ],
+          "comment": "Цвета главных героев в полосках — назовите вселенную."
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "koval-02-tortiki-f1",
+        "title": "Спортивная тема",
+        "question": {
+          "id": "koval-02-tortiki-f1-q",
+          "text": "Какой футболист получил прозвище «Блоха» за рост 169 см и умение прыгать выше защитников?",
+          "answer": "Лионель Месси",
+          "altAnswers": [
+            "месси"
+          ]
+        }
+      },
+      {
+        "id": "koval-02-tortiki-f2",
+        "title": "Сладости",
+        "question": {
+          "id": "koval-02-tortiki-f2-q",
+          "text": "Как называется десерт из яичных белков и сахара, который запекают при низкой температуре до хруста снаружи и мягкости внутри?",
+          "answer": "Меренга",
+          "altAnswers": [
+            "безе"
+          ]
+        }
+      },
+      {
+        "id": "koval-02-tortiki-f3",
+        "title": "Исчезнувшие флаги",
+        "question": {
+          "id": "koval-02-tortiki-f3-q",
+          "text": "Флаг какого государства представлял собой красное полотнище с серпом, молотом и звездой?",
+          "answer": "СССР",
+          "altAnswers": [
+            "советский союз"
+          ]
+        }
+      }
+    ]
+  }
+}

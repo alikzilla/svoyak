@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="250" viewBox="0 0 1200 250">
+  <rect width="1200" height="250" fill="#2e2e2e"/>
+  <rect x="24" y="24" width="1152" height="202" rx="10" fill="#212121" stroke="#7a7a7a" stroke-width="6"/>
+  <text x="600" y="131" text-anchor="middle" dominant-baseline="central" font-family="'DejaVu Sans','Segoe UI','Helvetica Neue',Arial,sans-serif" font-weight="bold" font-size="96" fill="#ffeb3b">ФЛОАОСОНТ</text>
+</svg>

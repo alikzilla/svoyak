@@ -1,0 +1,1166 @@
+{
+  "id": "koval-04-forsazh",
+  "title": "Коваль #4 · Как всё начиналось",
+  "author": "Дима Коваль (СВОЯК) — разбор выпуска",
+  "description": "Первые леди и их мужья, части «Форсажа», происхождение супергероев, торты, «покажи на теле» и лапы, которые надо опознать.",
+  "createdAt": 1789372034189,
+  "updatedAt": 1789925382860,
+  "rounds": [
+    {
+      "id": "koval-04-forsazh-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "koval-04-forsazh-r1-t1",
+          "title": "В молодости",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Прежде чем стать Терминатором, он был чемпионом мира по бодибилдингу.",
+              "answer": "Арнольд Шварценеггер",
+              "altAnswers": [
+                "шварценеггер",
+                "арни"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-100.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Этот британский певец родился на Занзибаре, а при рождении его звали Фаррух Булсара.",
+              "answer": "Фредди Меркьюри",
+              "altAnswers": [
+                "меркьюри",
+                "freddie mercury"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В молодости он играл в КВН за сочинскую команду «Утомлённые солнцем», а прославился в «Нашей Russia».",
+              "answer": "Михаил Галустян",
+              "altAnswers": [
+                "галустян"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Как зовут ведущего ютуб-шоу «СВОЯК», по выпускам которого собраны эти паки?",
+              "answer": "Дима Коваль",
+              "altAnswers": [
+                "коваль"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Внук Эдиты Пьехи, который в 2000-х прославился на «Фабрике звёзд».",
+              "answer": "Стас Пьеха",
+              "altAnswers": [
+                "пьеха"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-500.jpg"
+              }
+            }
+          ],
+          "comment": "Кто это был в молодости?"
+        },
+        {
+          "id": "koval-04-forsazh-r1-t2",
+          "title": "Первые леди",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Чья это первая леди? Назовите её мужа.",
+              "answer": "Барак Обама",
+              "altAnswers": [
+                "обама"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-100.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Это реконструкция по черепу. Чья это жена? Назовите мужа.",
+              "answer": "Иван Грозный",
+              "altAnswers": [
+                "иван iv",
+                "грозный"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Чья это первая леди? Она сама потом баллотировалась в президенты.",
+              "answer": "Билл Клинтон",
+              "altAnswers": [
+                "клинтон"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-300.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Чья это первая леди? Когда-то она была его школьной учительницей.",
+              "answer": "Эмманюэль Макрон",
+              "altAnswers": [
+                "макрон"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-400.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t2-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Чья это первая леди? Икона стиля 60-х.",
+              "answer": "Джон Кеннеди",
+              "altAnswers": [
+                "кеннеди",
+                "джон ф кеннеди"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-500.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t2-q6",
+              "price": 600,
+              "type": "normal",
+              "text": "Чья это первая леди? Бывшая модель из Словении.",
+              "answer": "Дональд Трамп",
+              "altAnswers": [
+                "трамп"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-600.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите мужа первой леди."
+        },
+        {
+          "id": "koval-04-forsazh-r1-t3",
+          "title": "Как всё начиналось",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "С чего всё началось: школьника укусил радиоактивный паук. Кто это?",
+              "answer": "Человек-паук",
+              "altAnswers": [
+                "спайдермен",
+                "питер паркер"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "С чего всё началось: ему в скелет залили адамантий в программе «Оружие Икс». Кто это?",
+              "answer": "Росомаха",
+              "altAnswers": [
+                "логан",
+                "wolverine"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "С чего всё началось: учёный Брюс Беннер попал под гамма-излучение. Кто это?",
+              "answer": "Халк",
+              "altAnswers": [
+                "hulk"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "С чего всё началось: младенца с погибшей планеты Криптон нашли в Канзасе фермеры Кенты. Кто это?",
+              "answer": "Супермен",
+              "altAnswers": [
+                "кларк кент"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "С чего всё началось: принц Ваканды выпил отвар из «сердцевидной травы». Кто это?",
+              "answer": "Чёрная пантера",
+              "altAnswers": [
+                "черная пантера",
+                "т’чалла"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-500-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите героя по истории его происхождения."
+        },
+        {
+          "id": "koval-04-forsazh-r1-t4",
+          "title": "Форсаж",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В какой части «Форсажа» американский школьник учится дрифту в Японии?",
+              "answer": "Тройной форсаж: Токийский дрифт",
+              "altAnswers": [
+                "токийский дрифт",
+                "третья",
+                "3"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "В какой части коп под прикрытием Брайан О’Коннер впервые знакомится с Домиником Торетто?",
+              "answer": "Форсаж (первая часть)",
+              "altAnswers": [
+                "первая",
+                "1",
+                "форсаж"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В какой части Летти погибает — как потом окажется, не насовсем?",
+              "answer": "Форсаж 4",
+              "altAnswers": [
+                "четвёртая",
+                "4"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t4-q4",
+              "price": 400,
+              "type": "cat",
+              "text": "В какой части герои тащат по улицам Рио огромный сейф на двух машинах?",
+              "answer": "Форсаж 5",
+              "altAnswers": [
+                "пятая",
+                "5"
+              ],
+              "cat": {
+                "theme": "Форсаж",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Единственная часть без Вина Дизеля в главной роли: Брайан гоняет по Майами с Роумэном.",
+              "answer": "Двойной форсаж",
+              "altAnswers": [
+                "вторая",
+                "2"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-500-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Какая это часть «Форсажа»?"
+        },
+        {
+          "id": "koval-04-forsazh-r1-t5",
+          "title": "Кто есть кто",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r1-t5-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "У одного из бурундуков-спасателей нос чёрный, у другого — красный. Как зовут того, что с красным носом?",
+              "answer": "Дейл",
+              "altAnswers": [
+                "дэйл"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-100.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t5-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Сурикат и бородавочник из «Короля Льва». Как зовут бородавочника?",
+              "answer": "Пумба",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t5-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Бивис или Баттхед: кто из них блондин с огромным чубом?",
+              "answer": "Бивис",
+              "altAnswers": [
+                "beavis"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-300.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t5-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В «Людях в чёрном» Томми Ли Джонс и Уилл Смит — агенты Кей и Джей. Кого играет Уилл Смит?",
+              "answer": "Агента Джей",
+              "altAnswers": [
+                "джей",
+                "j"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-400.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r1-t5-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Как зовут героя Сэмюэла Л. Джексона в «Криминальном чтиве», который цитирует Иезекииля?",
+              "answer": "Джулс",
+              "altAnswers": [
+                "джулс уиннфилд"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-500.jpg"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koval-04-forsazh-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "koval-04-forsazh-r2-t1",
+          "title": "Рандом вопрос",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Сколько игроков находятся одновременно на баскетбольной площадке?",
+              "answer": "10",
+              "altAnswers": [
+                "десять"
+              ]
+            },
+            {
+              "id": "koval-04-forsazh-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какой герой Тома Хэнкса сравнивал жизнь с коробкой шоколадных конфет?",
+              "answer": "Форрест Гамп",
+              "altAnswers": [
+                "гамп"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t1-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t1-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Как называется самая длинная река в мире?",
+              "answer": "Нил",
+              "altAnswers": [
+                "амазонка"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-04-forsazh-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В фантастическом романе Дугласа Адамса «Автостопом по галактике» утверждается, что ничто не движется быстрее этого. Исключением являются лишь плохие новости, которые подчиняются своим собственным законам. Назовите абсолютный предел скорости во Вселенной по версии физиков.",
+              "answer": "Скорость света",
+              "altAnswers": [
+                "свет"
+              ]
+            },
+            {
+              "id": "koval-04-forsazh-r2-t1-q5",
+              "price": 1000,
+              "type": "cat",
+              "text": "Назовите столицу Венесуэлы.",
+              "answer": "Каракас",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Рандом вопрос",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-04-forsazh-r2-t2",
+          "title": "Фабрика звёзд",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Назовите эту группу из первой «Фабрики звёзд».",
+              "answer": "Фабрика",
+              "altAnswers": [
+                "группа фабрика"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Какая телеведущая вела с 1 по 9 сезон «Фабрику звёзд»?",
+              "answer": "Яна Чурикова",
+              "altAnswers": [
+                "чурикова"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Какая группа победила в 1 сезоне «Фабрики звёзд»?",
+              "answer": "Корни",
+              "altAnswers": [
+                "группа корни"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Назовите этот дуэт с седьмой «Фабрики звёзд».",
+              "answer": "БиС",
+              "altAnswers": [
+                "бис"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-800.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t2-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Этот рэпер прославился на четвёртой «Фабрике звёзд», а потом основал лейбл Black Star.",
+              "answer": "Тимати",
+              "altAnswers": [
+                "timati"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-1000.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-04-forsazh-r2-t3",
+          "title": "Торты",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Шоколадно-вишнёвый торт, названный в честь немецкого горного леса.",
+              "answer": "Шварцвальд",
+              "altAnswers": [
+                "чёрный лес",
+                "шварцвальдский"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Бисквит, пропитанный «тремя молоками», — любимый торт Латинской Америки.",
+              "answer": "Трес лечес",
+              "altAnswers": [
+                "tres leches",
+                "три молока"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-400-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Итальянский десерт с савоярди, маскарпоне и кофе; название переводится как «подними меня».",
+              "answer": "Тирамису",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Советский торт из суфле в шоколадной глазури. Название — это то, чего у птиц не бывает.",
+              "answer": "Птичье молоко",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-800-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Французский торт-башня из профитролей, склеенных карамелью, — его подают на свадьбах.",
+              "answer": "Крокембуш",
+              "altAnswers": [
+                "croquembouche"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-1000-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите торт или десерт по описанию."
+        },
+        {
+          "id": "koval-04-forsazh-r2-t4",
+          "title": "Покажи на теле",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Одному музыканту хейтер посоветовал отрезать ЕГО, раз уж оно так сильно пострадало от животного.",
+              "answer": "Ухо",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-04-forsazh-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В статье «Как соблазнить женщину» говорится, что в начале отношений брюки должны быть застёгнуты, а ОН — полностью гол.",
+              "answer": "Безымянный палец",
+              "altAnswers": [
+                "палец"
+              ]
+            },
+            {
+              "id": "koval-04-forsazh-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "ИХ у человека 206, и четверть из них — в стопах и кистях.",
+              "answer": "Кости",
+              "altAnswers": [],
+              "hostComment": "В эфире на этой клетке был модификатор."
+            },
+            {
+              "id": "koval-04-forsazh-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "В одном стихе говорится о сестрицах, которые положили в лукошко шприцы и пошли по… Покажите, чем заканчивается строчка.",
+              "answer": "Ягодицы",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-04-forsazh-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Жизнерадостный герой романа, объясняя ИХ цвет, говорит, что они просто выгорели на солнце.",
+              "answer": "Зубы",
+              "altAnswers": []
+            }
+          ],
+          "comment": "Ответ нужно не назвать, а показать на себе."
+        },
+        {
+          "id": "koval-04-forsazh-r2-t5",
+          "title": "Цирк",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r2-t5-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Как называется артист, который работает под куполом цирка на трапеции?",
+              "answer": "Воздушный гимнаст",
+              "altAnswers": [
+                "гимнаст"
+              ],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-04-forsazh-r2-t5-q2",
+              "price": 400,
+              "type": "cat",
+              "text": "ЕЁ диаметр — 13 метров. Такой размер позволяет центробежной силе уравновешивать центростремительную, что помогает, например, в трюках с лошадьми.",
+              "answer": "Арена цирка",
+              "altAnswers": [
+                "арена",
+                "манеж"
+              ],
+              "cat": {
+                "theme": "Цирк",
+                "price": "nominal",
+                "canKeep": false
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r2-t5-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "ТАК называется элемент фигурного катания, когда спортсмен одним коньком упирается в лёд, а другим описывает окружность.",
+              "answer": "Циркуль",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-04-forsazh-r2-t5-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Девочка, которая всю жизнь провела в цирке, увидела новую машину и подумала, что в той приехала танцовщица со змеями. А кто приехал на самом деле?",
+              "answer": "Врач",
+              "altAnswers": [
+                "скорая помощь",
+                "скорая"
+              ]
+            },
+            {
+              "id": "koval-04-forsazh-r2-t5-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Согласно шутке, когда ОН прибыл на место, то его встретили обрадованные люди с криками: «Цирк приехал!». Но согласно Библии, ОН никого встретить не мог.",
+              "answer": "Ной",
+              "altAnswers": [
+                "ноев ковчег"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koval-04-forsazh-r3",
+      "title": "Третий раунд",
+      "themes": [
+        {
+          "id": "koval-04-forsazh-r3-t1",
+          "title": "Лапы убрал",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r3-t1-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Чья это лапа? Подушечки в интернете называют «бобами».",
+              "answer": "Кошка",
+              "altAnswers": [
+                "кот"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-300.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t1-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Чьи это лапы-лопаты?",
+              "answer": "Крот",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-600.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t1-q3",
+              "price": 900,
+              "type": "cat",
+              "text": "Чья это лапа с огромными когтями?",
+              "answer": "Муравьед",
+              "altAnswers": [],
+              "cat": {
+                "theme": "Лапы убрал",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-900.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t1-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Чья это перепончатая лапа?",
+              "answer": "Крокодил",
+              "altAnswers": [
+                "аллигатор"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t1-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Чьи это раздвоенные копыта? Это самый крупный олень.",
+              "answer": "Лось",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-1500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-04-forsazh-r3-t2",
+          "title": "Аббревиатуры",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r3-t2-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Последнюю букву в ЭТОЙ АББРЕВИАТУРЕ иногда расшифровывают как «корабль», но чаще используются «дУши».",
+              "answer": "SOS",
+              "altAnswers": [
+                "сос"
+              ]
+            },
+            {
+              "id": "koval-04-forsazh-r3-t2-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Согласно шутке, две последние буквы в ЭТОЙ АББРЕВИАТУРЕ расшифровываются как «вау, голубь».",
+              "answer": "WWW",
+              "altAnswers": [
+                "три дабл-ю"
+              ]
+            },
+            {
+              "id": "koval-04-forsazh-r3-t2-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Согласно шутке, огурцы в российских магазинах на 80% состоят из воды, а на 20% из ЭТОГО.",
+              "answer": "НДС",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-04-forsazh-r3-t2-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "В ЭТОЙ АББРЕВИАТУРЕ первая буква обозначает «объединённые», а всего букв три.",
+              "answer": "ООН",
+              "altAnswers": [],
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+            },
+            {
+              "id": "koval-04-forsazh-r3-t2-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Согласно шутке, когда одна англичанка узнала, что муж ничего не оставил ей в наследство, она велела добавить к ЭТОЙ АББРЕВИАТУРЕ слова «пока я не приду».",
+              "answer": "RIP",
+              "altAnswers": [
+                "рип"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "koval-04-forsazh-r3-t3",
+          "title": "Страна по блюду",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r3-t3-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Из какой страны это слоёное блюдо?",
+              "answer": "Италия",
+              "altAnswers": [
+                "лазанья"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-300.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t3-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Из какой страны этот суп с лапшой?",
+              "answer": "Вьетнам",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-600.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t3-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Из какой страны это блюдо в кукурузных лепёшках?",
+              "answer": "Мексика",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-900.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t3-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Из какой страны это блюдо? Его заворачивают в блинчики.",
+              "answer": "Китай",
+              "altAnswers": [
+                "утка по-пекински"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t3-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Из какой страны это блюдо с рисом и морепродуктами?",
+              "answer": "Испания",
+              "altAnswers": [
+                "паэлья"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-1500.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "koval-04-forsazh-r3-t4",
+          "title": "Верхняя одежда на П",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r3-t4-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Назовите предмет верхней одежды на «П» — от дождя.",
+              "answer": "Плащ",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-300.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t4-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Назовите этот предмет верхней одежды на «П».",
+              "answer": "Пальто",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-600.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t4-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Назовите зимнюю верхнюю одежду на «П».",
+              "answer": "Пуховик",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-900.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t4-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Назовите верхнюю одежду на «П» с дыркой для головы.",
+              "answer": "Пончо",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-1200.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t4-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Назовите куртку на «П» с мехом на капюшоне.",
+              "answer": "Парка",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Предмет верхней одежды на букву «П»."
+        },
+        {
+          "id": "koval-04-forsazh-r3-t5",
+          "title": "Что в руке",
+          "questions": [
+            {
+              "id": "koval-04-forsazh-r3-t5-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Что в поднятой руке у этой статуи? Часть закрыта красным квадратом.",
+              "answer": "Факел",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-300.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t5-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Что сжимает в руке Ленин на многих памятниках, когда не указывает в будущее?",
+              "answer": "Кепку",
+              "altAnswers": [
+                "кепка"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-600-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t5-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Что, кроме факела, держит статуя Свободы? На этом предмете написана дата Декларации независимости.",
+              "answer": "Скрижаль",
+              "altAnswers": [
+                "табличку",
+                "книгу",
+                "книга"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-900-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t5-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Что в руке у этой статуи, кроме меча? Часть закрыта красным квадратом.",
+              "answer": "Весы",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-1200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-04-forsazh-r3-t5-q5",
+              "price": 1500,
+              "type": "cat",
+              "text": "Что в руках у этой статуи?",
+              "answer": "Ничего",
+              "altAnswers": [
+                "у неё нет рук"
+              ],
+              "cat": {
+                "theme": "Что в руке",
+                "price": "nominal",
+                "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-1500.jpg"
+              }
+            }
+          ],
+          "comment": "Часть статуи закрыта красным квадратом."
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "koval-04-forsazh-f1",
+        "title": "Музыка",
+        "question": {
+          "id": "koval-04-forsazh-f1-q",
+          "text": "Назовите музыкальную группу, которую основали братья Каулитц в 2001 году.",
+          "answer": "Tokio Hotel",
+          "altAnswers": [
+            "токио отель"
+          ]
+        }
+      },
+      {
+        "id": "koval-04-forsazh-f2",
+        "title": "Кинематограф",
+        "question": {
+          "id": "koval-04-forsazh-f2-q",
+          "text": "Какой актёр сыграл и Джокера в «Тёмном рыцаре», и Эннниса в «Горбатой горе»?",
+          "answer": "Хит Леджер",
+          "altAnswers": [
+            "леджер"
+          ]
+        }
+      },
+      {
+        "id": "koval-04-forsazh-f3",
+        "title": "Технологии",
+        "question": {
+          "id": "koval-04-forsazh-f3-q",
+          "text": "Как называется протокол, который превращает доменное имя в IP-адрес?",
+          "answer": "DNS",
+          "altAnswers": [
+            "днс"
+          ]
+        }
+      }
+    ]
+  }
+}
