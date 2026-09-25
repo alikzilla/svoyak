@@ -23,7 +23,11 @@
               "altAnswers": [
                 "шварценеггер",
                 "арни"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-100.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t1-q2",
@@ -34,7 +38,11 @@
               "altAnswers": [
                 "меркьюри",
                 "freddie mercury"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t1-q3",
@@ -44,7 +52,11 @@
               "answer": "Михаил Галустян",
               "altAnswers": [
                 "галустян"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t1-q4",
@@ -54,7 +66,11 @@
               "answer": "Дима Коваль",
               "altAnswers": [
                 "коваль"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t1-q5",
@@ -64,7 +80,11 @@
               "answer": "Стас Пьеха",
               "altAnswers": [
                 "пьеха"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t1-500.jpg"
+              }
             }
           ],
           "comment": "Кто это был в молодости?"
@@ -77,63 +97,87 @@
               "id": "koval-04-forsazh-r1-t2-q1",
               "price": 100,
               "type": "normal",
-              "text": "Мишель — первая леди при каком президенте?",
+              "text": "Чья это первая леди? Назовите её мужа.",
               "answer": "Барак Обама",
               "altAnswers": [
                 "обама"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-100.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t2-q2",
               "price": 200,
               "type": "normal",
-              "text": "Анастасия Романовна — первая жена какого царя?",
+              "text": "Это реконструкция по черепу. Чья это жена? Назовите мужа.",
               "answer": "Иван Грозный",
               "altAnswers": [
                 "иван iv",
                 "грозный"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t2-q3",
               "price": 300,
               "type": "normal",
-              "text": "Хиллари сама баллотировалась в президенты в 2016 году. А чьей первой леди она была?",
+              "text": "Чья это первая леди? Она сама потом баллотировалась в президенты.",
               "answer": "Билл Клинтон",
               "altAnswers": [
                 "клинтон"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-300.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t2-q4",
               "price": 400,
               "type": "normal",
-              "text": "Брижит была школьной учительницей своего будущего мужа-президента. Кто он?",
+              "text": "Чья это первая леди? Когда-то она была его школьной учительницей.",
               "answer": "Эмманюэль Макрон",
               "altAnswers": [
                 "макрон"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-400.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t2-q5",
               "price": 500,
               "type": "normal",
-              "text": "Жаклин, икона стиля в розовом костюме, — первая леди при каком президенте?",
+              "text": "Чья это первая леди? Икона стиля 60-х.",
               "answer": "Джон Кеннеди",
               "altAnswers": [
                 "кеннеди",
                 "джон ф кеннеди"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-500.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t2-q6",
               "price": 600,
               "type": "normal",
-              "text": "Мелания, бывшая модель из Словении, — чья первая леди?",
+              "text": "Чья это первая леди? Бывшая модель из Словении.",
               "answer": "Дональд Трамп",
               "altAnswers": [
                 "трамп"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t2-600.jpg"
+              }
             }
           ],
           "comment": "Назовите мужа первой леди."
@@ -151,7 +195,11 @@
               "altAnswers": [
                 "спайдермен",
                 "питер паркер"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-100-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t3-q2",
@@ -162,7 +210,11 @@
               "altAnswers": [
                 "логан",
                 "wolverine"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t3-q3",
@@ -172,7 +224,11 @@
               "answer": "Халк",
               "altAnswers": [
                 "hulk"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t3-q4",
@@ -182,7 +238,11 @@
               "answer": "Супермен",
               "altAnswers": [
                 "кларк кент"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t3-q5",
@@ -193,7 +253,11 @@
               "altAnswers": [
                 "черная пантера",
                 "т’чалла"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t3-500-otvet.jpg"
+              }
             }
           ],
           "comment": "Назовите героя по истории его происхождения."
@@ -212,7 +276,11 @@
                 "токийский дрифт",
                 "третья",
                 "3"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-100-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t4-q2",
@@ -224,7 +292,11 @@
                 "первая",
                 "1",
                 "форсаж"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t4-q3",
@@ -235,7 +307,11 @@
               "altAnswers": [
                 "четвёртая",
                 "4"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t4-q4",
@@ -251,6 +327,10 @@
                 "theme": "Форсаж",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-400-otvet.jpg"
               }
             },
             {
@@ -262,7 +342,11 @@
               "altAnswers": [
                 "вторая",
                 "2"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t4-500-otvet.jpg"
+              }
             }
           ],
           "comment": "Какая это часть «Форсажа»?"
@@ -279,7 +363,11 @@
               "answer": "Дейл",
               "altAnswers": [
                 "дэйл"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-100.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t5-q2",
@@ -287,7 +375,11 @@
               "type": "normal",
               "text": "Сурикат и бородавочник из «Короля Льва». Как зовут бородавочника?",
               "answer": "Пумба",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t5-q3",
@@ -297,7 +389,11 @@
               "answer": "Бивис",
               "altAnswers": [
                 "beavis"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-300.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t5-q4",
@@ -308,7 +404,11 @@
               "altAnswers": [
                 "джей",
                 "j"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-400.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r1-t5-q5",
@@ -318,7 +418,11 @@
               "answer": "Джулс",
               "altAnswers": [
                 "джулс уиннфилд"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r1-t5-500.jpg"
+              }
             }
           ]
         }
@@ -350,7 +454,11 @@
               "answer": "Форрест Гамп",
               "altAnswers": [
                 "гамп"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t1-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t1-q3",
@@ -396,11 +504,15 @@
               "id": "koval-04-forsazh-r2-t2-q1",
               "price": 200,
               "type": "normal",
-              "text": "Женское трио из первой «Фабрики звёзд» с хитом «Про любовь».",
+              "text": "Назовите эту группу из первой «Фабрики звёзд».",
               "answer": "Фабрика",
               "altAnswers": [
                 "группа фабрика"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t2-q2",
@@ -410,7 +522,11 @@
               "answer": "Яна Чурикова",
               "altAnswers": [
                 "чурикова"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t2-q3",
@@ -420,17 +536,25 @@
               "answer": "Корни",
               "altAnswers": [
                 "группа корни"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t2-q4",
               "price": 800,
               "type": "normal",
-              "text": "Дуэт Влада Соколовского и Димы Бикбаева с седьмой «Фабрики звёзд».",
+              "text": "Назовите этот дуэт с седьмой «Фабрики звёзд».",
               "answer": "БиС",
               "altAnswers": [
                 "бис"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-800.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t2-q5",
@@ -440,7 +564,11 @@
               "answer": "Тимати",
               "altAnswers": [
                 "timati"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t2-1000.jpg"
+              }
             }
           ]
         },
@@ -457,7 +585,11 @@
               "altAnswers": [
                 "чёрный лес",
                 "шварцвальдский"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t3-q2",
@@ -468,7 +600,11 @@
               "altAnswers": [
                 "tres leches",
                 "три молока"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t3-q3",
@@ -476,7 +612,11 @@
               "type": "normal",
               "text": "Итальянский десерт с савоярди, маскарпоне и кофе; название переводится как «подними меня».",
               "answer": "Тирамису",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t3-q4",
@@ -484,7 +624,11 @@
               "type": "normal",
               "text": "Советский торт из суфле в шоколадной глазури. Название — это то, чего у птиц не бывает.",
               "answer": "Птичье молоко",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-800-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r2-t3-q5",
@@ -494,7 +638,11 @@
               "answer": "Крокембуш",
               "altAnswers": [
                 "croquembouche"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r2-t3-1000-otvet.jpg"
+              }
             }
           ],
           "comment": "Назовите торт или десерт по описанию."
@@ -625,50 +773,70 @@
               "id": "koval-04-forsazh-r3-t1-q1",
               "price": 300,
               "type": "normal",
-              "text": "Чьи лапы с втягивающимися когтями бесшумно ступают по подоконнику, а подушечки в интернете зовут «бобами»?",
+              "text": "Чья это лапа? Подушечки в интернете называют «бобами».",
               "answer": "Кошка",
               "altAnswers": [
                 "кот"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-300.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t1-q2",
               "price": 600,
               "type": "normal",
-              "text": "Чьи передние лапы похожи на лопаты, развёрнутые наружу?",
+              "text": "Чьи это лапы-лопаты?",
               "answer": "Крот",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-600.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t1-q3",
               "price": 900,
               "type": "cat",
-              "text": "У этого зверя такие длинные когти на передних лапах, что он ходит, подгибая их, на костяшках.",
+              "text": "Чья это лапа с огромными когтями?",
               "answer": "Муравьед",
               "altAnswers": [],
               "cat": {
                 "theme": "Лапы убрал",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-900.jpg"
               }
             },
             {
               "id": "koval-04-forsazh-r3-t1-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Чьи короткие перепончатые лапы торчат по бокам туловища, а хвост в разы мощнее их?",
+              "text": "Чья это перепончатая лапа?",
               "answer": "Крокодил",
               "altAnswers": [
                 "аллигатор"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-1200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t1-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Чья длинная нога с широким раздвоенным копытом не вязнет в болоте? Это самый крупный олень.",
+              "text": "Чьи это раздвоенные копыта? Это самый крупный олень.",
               "answer": "Лось",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t1-1500.jpg"
+              }
             }
           ]
         },
@@ -733,47 +901,67 @@
               "id": "koval-04-forsazh-r3-t3-q1",
               "price": 300,
               "type": "normal",
-              "text": "Слоёная запеканка из листов теста, соуса болоньезе и бешамеля. Из какой она страны?",
+              "text": "Из какой страны это слоёное блюдо?",
               "answer": "Италия",
               "altAnswers": [
                 "лазанья"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-300.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t3-q2",
               "price": 600,
               "type": "normal",
-              "text": "Суп фо бо с рисовой лапшой — из какой страны?",
+              "text": "Из какой страны этот суп с лапшой?",
               "answer": "Вьетнам",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-600.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t3-q3",
               "price": 900,
               "type": "normal",
-              "text": "Такос — кукурузные лепёшки с начинкой. Из какой страны это блюдо?",
+              "text": "Из какой страны это блюдо в кукурузных лепёшках?",
               "answer": "Мексика",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-900.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t3-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Утка с хрустящей корочкой, которую заворачивают в блинчики с соусом хойсин. Из какой страны?",
+              "text": "Из какой страны это блюдо? Его заворачивают в блинчики.",
               "answer": "Китай",
               "altAnswers": [
                 "утка по-пекински"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-1200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t3-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Рис с шафраном и морепродуктами в широкой сковороде, родом из Валенсии. Из какой страны?",
+              "text": "Из какой страны это блюдо с рисом и морепродуктами?",
               "answer": "Испания",
               "altAnswers": [
                 "паэлья"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t3-1500.jpg"
+              }
             }
           ]
         },
@@ -785,41 +973,61 @@
               "id": "koval-04-forsazh-r3-t4-q1",
               "price": 300,
               "type": "normal",
-              "text": "Длинная непромокаемая одежда от дождя — у детективов в кино воротник всегда поднят.",
+              "text": "Назовите предмет верхней одежды на «П» — от дождя.",
               "answer": "Плащ",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-300.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t4-q2",
               "price": 600,
               "type": "normal",
-              "text": "Длинная шерстяная верхняя одежда на пуговицах: у Гоголя была «Шинель», а это её гражданский родственник.",
+              "text": "Назовите этот предмет верхней одежды на «П».",
               "answer": "Пальто",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-600.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t4-q3",
               "price": 900,
               "type": "normal",
-              "text": "Зимняя куртка, набитая пухом, — без неё в Астане минус тридцать не пережить.",
+              "text": "Назовите зимнюю верхнюю одежду на «П».",
               "answer": "Пуховик",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-900.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t4-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Кусок ткани с дыркой для головы — традиционная одежда индейцев Анд.",
+              "text": "Назовите верхнюю одежду на «П» с дыркой для головы.",
               "answer": "Пончо",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-1200.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t4-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Удлинённая куртка с капюшоном, отороченным мехом. Слово пришло от народов Севера.",
+              "text": "Назовите куртку на «П» с мехом на капюшоне.",
               "answer": "Парка",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t4-1500.jpg"
+              }
             }
           ],
           "comment": "Предмет верхней одежды на букву «П»."
@@ -832,9 +1040,17 @@
               "id": "koval-04-forsazh-r3-t5-q1",
               "price": 300,
               "type": "normal",
-              "text": "Что держит в поднятой руке статуя Свободы?",
+              "text": "Что в поднятой руке у этой статуи? Часть закрыта красным квадратом.",
               "answer": "Факел",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-300.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t5-q2",
@@ -844,7 +1060,11 @@
               "answer": "Кепку",
               "altAnswers": [
                 "кепка"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t5-q3",
@@ -856,21 +1076,33 @@
                 "табличку",
                 "книгу",
                 "книга"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-900-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t5-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Что, кроме меча, держит в руке Фемида?",
+              "text": "Что в руке у этой статуи, кроме меча? Часть закрыта красным квадратом.",
               "answer": "Весы",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-1200-otvet.jpg"
+              }
             },
             {
               "id": "koval-04-forsazh-r3-t5-q5",
               "price": 1500,
               "type": "cat",
-              "text": "Что держит в руках Венера Милосская?",
+              "text": "Что в руках у этой статуи?",
               "answer": "Ничего",
               "altAnswers": [
                 "у неё нет рук"
@@ -879,10 +1111,14 @@
                 "theme": "Что в руке",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-04-forsazh/r3-t5-1500.jpg"
               }
             }
           ],
-          "comment": "Что держит в руке знаменитая статуя?"
+          "comment": "Часть статуи закрыта красным квадратом."
         }
       ]
     }

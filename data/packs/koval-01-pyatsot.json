@@ -101,59 +101,79 @@
               "id": "koval-01-pyatsot-r1-t2-q1",
               "price": 100,
               "type": "normal",
-              "text": "Эти кроссовки adidas с замшевым верхом и тремя полосками названы в честь африканской антилопы.",
+              "text": "Что за кроссовки нарисовали? Назовите модель или хотя бы бренд.",
               "answer": "adidas Gazelle",
               "altAnswers": [
                 "адидас газель",
                 "Gazelle",
                 "газели"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t2-100.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t2-q2",
               "price": 200,
               "type": "normal",
-              "text": "Модель Nike 1985 года для студенческих баскетбольных команд, которая в 2020-х стала главной кроссовкой ресейла, особенно в расцветке «панда».",
+              "text": "Эти нарисованные кроссовки — какая модель? Можно назвать хотя бы бренд.",
               "answer": "Nike Dunk",
               "altAnswers": [
                 "найк данк",
                 "Dunk",
                 "данки"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t2-200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t2-q3",
               "price": 300,
               "type": "normal",
-              "text": "Какой американский бренд выпускает «папины» кроссовки с большой буквой N на боку — например, модели 530 и 550?",
+              "text": "Узнайте кроссовки по рисунку: модель или хотя бы бренд.",
               "answer": "New Balance",
               "altAnswers": [
                 "нью бэланс",
                 "нью баланс",
                 "NB"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t2-300.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t2-q4",
               "price": 400,
               "type": "normal",
-              "text": "Какой немецкий спортивный бренд основал Рудольф Дасслер — родной брат основателя adidas?",
+              "text": "Чьи кроссовки нарисовали? Хватит и бренда.",
               "answer": "PUMA",
               "altAnswers": [
                 "пума"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t2-400.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t2-q5",
               "price": 500,
               "type": "normal",
-              "text": "Калифорнийский бренд скейтерских кед с «шашечкой» и изогнутой полоской на боку.",
+              "text": "Последний рисунок: что это за кеды? Бренд тоже засчитывается.",
               "answer": "Vans",
               "altAnswers": [
                 "вэнсы",
                 "ванс",
                 "вансы"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t2-500.jpg"
+              }
             }
           ],
           "comment": "Засчитывается и один бренд, если модель не назвали."
@@ -172,7 +192,11 @@
                 "давай по новой миша",
                 "давай по новой"
               ],
-              "hostComment": "Ругательство можно не договаривать — засчитывай по смыслу."
+              "hostComment": "Ругательство можно не договаривать — засчитывай по смыслу.",
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t3-100.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t3-q2",
@@ -182,7 +206,11 @@
               "answer": "Полностью",
               "altAnswers": [
                 "ломай меня полностью"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t3-200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t3-q3",
@@ -192,7 +220,11 @@
               "answer": "Домой",
               "altAnswers": [
                 "русские идут домой"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t3-300.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t3-q4",
@@ -203,7 +235,11 @@
               "altAnswers": [
                 "да я люблю тебя",
                 "я люблю тебя"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t3-400.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t3-q5",
@@ -215,7 +251,11 @@
                 "why are you gay",
                 "гей",
                 "вай ар ю гей"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t3-500.jpg"
+              }
             }
           ],
           "comment": "Надо закончить фразу из известного мема."
@@ -283,12 +323,16 @@
               "id": "koval-01-pyatsot-r1-t5-q2",
               "price": 200,
               "type": "normal",
-              "text": "Машина с двумя «вилами» впереди, которая поднимает паллеты на складе.",
+              "text": "Что это за машина? Помните: в ответе есть «пог».",
               "answer": "Погрузчик",
               "altAnswers": [
                 "автопогрузчик",
                 "вилочный погрузчик"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r1-t5-200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r1-t5-q3",
@@ -339,7 +383,11 @@
               "answer": "Язык",
               "altAnswers": [
                 "языка"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t1-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t1-q2",
@@ -351,7 +399,11 @@
                 "камеру",
                 "камера",
                 "фотоаппарата"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t1-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t1-q3",
@@ -363,7 +415,11 @@
                 "пол-лица",
                 "половина лица",
                 "правую половину лица"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t1-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t1-q4",
@@ -376,7 +432,11 @@
                 "на луне",
                 "месяц",
                 "полумесяц"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t1-800-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t1-q5",
@@ -402,7 +462,11 @@
               "type": "normal",
               "text": "Григорий Лепс и Аврора Киба — всё ещё мутят или разбежались?",
               "answer": "Разбежались",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t2-200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t2-q2",
@@ -410,7 +474,11 @@
               "type": "normal",
               "text": "Тимоти Шаламе и Кайли Дженнер — всё ещё мутят или разбежались?",
               "answer": "Мутят",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t2-400.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t2-q3",
@@ -418,7 +486,11 @@
               "type": "normal",
               "text": "Лана Дель Рей и охотник на крокодилов — всё ещё мутят или разбежались?",
               "answer": "Мутят",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t2-600.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t2-q4",
@@ -426,7 +498,11 @@
               "type": "normal",
               "text": "Егор Крид и Нюша — всё ещё мутят или разбежались?",
               "answer": "Разбежались",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t2-800.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t2-q5",
@@ -434,7 +510,11 @@
               "type": "normal",
               "text": "Тим Бёртон и Моника Беллуччи — всё ещё мутят или разбежались?",
               "answer": "Разбежались",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t2-1000.jpg"
+              }
             }
           ],
           "comment": "Пара знаменитостей — мутят или разбежались?"
@@ -521,7 +601,11 @@
                 "б",
                 "30 миллионов",
                 "30 млн"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t4-200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t4-q2",
@@ -533,7 +617,11 @@
                 "б",
                 "17,8 млн",
                 "18 млн"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t4-400.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t4-q3",
@@ -544,7 +632,11 @@
               "altAnswers": [
                 "28 миллионов долларов"
               ],
-              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе.",
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t4-600.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t4-q4",
@@ -556,7 +648,11 @@
                 "б",
                 "10 тысяч",
                 "10 000"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t4-800.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t4-q5",
@@ -568,7 +664,11 @@
                 "б",
                 "437 тысяч",
                 "почти полмиллиона"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t4-1000.jpg"
+              }
             }
           ],
           "comment": "Три варианта ответа. Порядок цифр — вот что важно угадать."
@@ -587,7 +687,11 @@
                 "апероль",
                 "шприц",
                 "aperol spritz"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t5-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t5-q2",
@@ -597,7 +701,11 @@
               "answer": "Белый русский",
               "altAnswers": [
                 "white russian"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t5-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t5-q3",
@@ -608,7 +716,11 @@
               "altAnswers": [
                 "cuba libre",
                 "куба либра"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t5-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t5-q4",
@@ -619,7 +731,11 @@
               "altAnswers": [
                 "bloody mary",
                 "кровавая мери"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t5-800-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t5-q5",
@@ -630,7 +746,11 @@
               "altAnswers": [
                 "cosmopolitan",
                 "космо"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t5-1000-otvet.jpg"
+              }
             }
           ],
           "comment": "Коктейль по описанию и эмодзи-подсказке."
@@ -648,27 +768,39 @@
               "altAnswers": [
                 "иван царевич",
                 "иван"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t6-200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t6-q2",
               "price": 400,
               "type": "normal",
-              "text": "Герой этой сказки ездит на печи и говорит «По щучьему велению». Как его зовут?",
+              "text": "Из какой сказки эта иллюстрация? Назовите главного героя.",
               "answer": "Емеля",
               "altAnswers": [
                 "по щучьему велению"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t6-400.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t6-q3",
               "price": 600,
               "type": "normal",
-              "text": "В какой сказке мать поёт «Козлятушки, ребятушки, отопритеся», а хищник перековывает себе горло, чтобы петь тоньше?",
+              "text": "Из какой сказки данная иллюстрация?",
               "answer": "Волк и семеро козлят",
               "altAnswers": [
                 "семеро козлят"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t6-600.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r2-t6-q4",
@@ -681,6 +813,10 @@
                 "theme": "Русские сказки",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t6-800-otvet.jpg"
               }
             },
             {
@@ -691,7 +827,11 @@
               "answer": "Мышка-норушка",
               "altAnswers": [
                 "мышка"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r2-t6-1000-otvet.jpg"
+              }
             }
           ]
         }
@@ -764,56 +904,76 @@
               "id": "koval-01-pyatsot-r3-t2-q1",
               "price": 300,
               "type": "normal",
-              "text": "Носит белый халат, слушает стетоскопом и пишет так, что прочитать может только аптекарь.",
+              "text": "Профессия за 300: кем он работает на этом фото?",
               "answer": "Врач",
               "altAnswers": [
                 "доктор"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t2-300.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t2-q2",
               "price": 600,
               "type": "normal",
-              "text": "Человек в погонах, который вместо «да» говорит «так точно».",
+              "text": "Тот же человек, другая работа. Кто он здесь?",
               "answer": "Военный",
               "altAnswers": [
                 "солдат",
                 "офицер"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t2-600.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t2-q3",
               "price": 900,
               "type": "normal",
-              "text": "Эти люди съезжают по шесту, а их машина — красная, с лестницей на крыше.",
+              "text": "И снова он. Какая у него профессия на этот раз?",
               "answer": "Пожарный",
               "altAnswers": [
                 "пожарник"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t2-900.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t2-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Он служит литургию, носит рясу и кадит ладаном.",
+              "text": "Он опять сменил работу. Кем он работает теперь?",
               "answer": "Священник",
               "altAnswers": [
                 "поп",
                 "батюшка"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t2-1200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t2-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Представители этой профессии перед работой по традиции смотрят «Белое солнце пустыни».",
+              "text": "Последнее место работы нашего героя. Что это за профессия?",
               "answer": "Космонавт",
               "altAnswers": [
                 "астронавт"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t2-1500.jpg"
+              }
             }
           ],
-          "comment": "Назовите профессию по описанию."
+          "comment": "На всех фото один и тот же человек. Вопрос — кем он работает."
         },
         {
           "id": "koval-01-pyatsot-r3-t3",
@@ -823,39 +983,63 @@
               "id": "koval-01-pyatsot-r3-t3-q1",
               "price": 300,
               "type": "normal",
-              "text": "Культовый вкус Lay’s: розовая пачка с морским жителем на ней.",
+              "text": "Что за вкус у этих чипсов? Вкус замазан.",
               "answer": "Краб",
               "altAnswers": [
                 "крабовые"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-300.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t3-q2",
               "price": 600,
               "type": "normal",
-              "text": "Какой вкус у Pringles в зелёной тубе?",
+              "text": "Что за вкус у этой тубы Pringles?",
               "answer": "Сметана и лук",
               "altAnswers": [
                 "лук со сметаной",
                 "сметана"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t3-q3",
               "price": 900,
               "type": "normal",
-              "text": "Какой вкус у классических «Читос» — оранжевых кукурузных палочек, после которых пальцы тоже оранжевые?",
+              "text": "Какой вкус замазали на пачке «Читос»?",
               "answer": "Сыр",
               "altAnswers": [
                 "сырный",
                 "сырные"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-900.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-900-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t3-q4",
               "price": 1200,
               "type": "cat",
-              "text": "Самый простой вкус чипсов, с которого всё начиналось: внутри только картошка, масло и…",
+              "text": "Что за вкус у этой жёлтой пачки Lay’s?",
               "answer": "Соль",
               "altAnswers": [
                 "с солью",
@@ -865,20 +1049,36 @@
                 "theme": "Че за вкус",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-1200-otvet.jpg"
               }
             },
             {
               "id": "koval-01-pyatsot-r3-t3-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Этот «праздничный» вкус чипсов Lay’s повторяет бутерброд с новогоднего стола.",
+              "text": "Что за вкус у этой праздничной пачки Lay’s?",
               "answer": "Красная икра",
               "altAnswers": [
                 "икра"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-1500.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t3-1500-otvet.jpg"
+              }
             }
           ],
-          "comment": "Назовите вкус чипсов по описанию."
+          "comment": "С пачки замазали вкус — назовите его."
         },
         {
           "id": "koval-01-pyatsot-r3-t4",
@@ -893,7 +1093,11 @@
               "altAnswers": [
                 "вк",
                 "vk"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t4-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t4-q2",
@@ -904,7 +1108,11 @@
               "altAnswers": [
                 "юниверсал",
                 "universal"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t4-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t4-q3",
@@ -914,7 +1122,11 @@
               "answer": "Pixar",
               "altAnswers": [
                 "пиксар"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t4-900-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t4-q4",
@@ -924,7 +1136,11 @@
               "answer": "HBO",
               "altAnswers": [
                 "эйчбио"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t4-1200-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t4-q5",
@@ -934,7 +1150,11 @@
               "answer": "YouTube",
               "altAnswers": [
                 "ютуб"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t4-1500-otvet.jpg"
+              }
             }
           ],
           "comment": "Назовите бренд по его заставке или логотипу."
@@ -1009,43 +1229,59 @@
                 "владимир",
                 "владимир красное солнышко",
                 "владимир святой"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t6-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t6-q2",
               "price": 600,
               "type": "normal",
-              "text": "Автор песен «Кони привередливые» и «Охота на волков», сыгравший Глеба Жеглова.",
+              "text": "Назовите артиста по фото. Подсказка: он сыграл Глеба Жеглова.",
               "answer": "Владимир Высоцкий",
               "altAnswers": [
                 "высоцкий"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t6-600.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t6-q3",
               "price": 900,
               "type": "normal",
-              "text": "Этот политик баллотировался на пост президента России шесть раз.",
+              "text": "Назовите политика по фото. Он баллотировался в президенты шесть раз.",
               "answer": "Владимир Жириновский",
               "altAnswers": [
                 "жириновский"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t6-900.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t6-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Этот актёр сыграл Анатолия Тарасова в «Легенде № 17» и тренера Гаранжина в «Движении вверх».",
+              "text": "Назовите актёра по фото.",
               "answer": "Владимир Машков",
               "altAnswers": [
                 "машков"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t6-1200.jpg"
+              }
             },
             {
               "id": "koval-01-pyatsot-r3-t6-q5",
               "price": 1500,
               "type": "cat",
-              "text": "Режиссёр фильма «Москва слезам не верит», получившего «Оскар».",
+              "text": "Назовите этого актёра и режиссёра по фото.",
               "answer": "Владимир Меньшов",
               "altAnswers": [
                 "меньшов"
@@ -1054,6 +1290,10 @@
                 "theme": "Владимир",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-01-pyatsot/r3-t6-1500.jpg"
               }
             }
           ],

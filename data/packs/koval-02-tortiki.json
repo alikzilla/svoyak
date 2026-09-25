@@ -18,57 +18,75 @@
               "id": "koval-02-tortiki-r1-t1-q1",
               "price": 100,
               "type": "normal",
-              "text": "Торт из слоёных коржей с заварным кремом, названный в честь французского императора.",
-              "answer": "Наполеон",
-              "altAnswers": [
-                "торт наполеон"
-              ]
+              "text": "Торт за 100: кто на нём изображён?",
+              "answer": "Лабубу",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-100.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t1-q2",
               "price": 200,
               "type": "normal",
-              "text": "Шоколадный торт с абрикосовым джемом из венского отеля. Назовите его по фамилии кондитера.",
-              "answer": "Захер",
+              "text": "Торт за 200: что на нём изображено?",
+              "answer": "Бугатти",
               "altAnswers": [
-                "захер",
-                "sacher",
-                "захерторте"
-              ]
+                "bugatti",
+                "машина"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-200.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t1-q3",
               "price": 300,
               "type": "normal",
-              "text": "Торт из безе с орехами, названный в честь столицы Украины.",
-              "answer": "Киевский",
+              "text": "Торт за 300: что на нём изображено?",
+              "answer": "Луна с космонавтом",
               "altAnswers": [
-                "киевский торт"
-              ]
+                "луна",
+                "на луне"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-300.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t1-q4",
               "price": 400,
               "type": "normal",
-              "text": "Американский торт ярко-красного цвета с кремом из сливочного сыра.",
-              "answer": "Красный бархат",
+              "text": "Торт за 400: что изображено на этом торте?",
+              "answer": "Большой бант",
               "altAnswers": [
-                "red velvet",
-                "ред вельвет"
-              ]
+                "бант"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-400.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t1-q5",
               "price": 500,
               "type": "normal",
-              "text": "Торт из тонких медовых коржей со сметанным кремом. По легенде его придумали для жены Александра I, которая не любила мёд.",
-              "answer": "Медовик",
+              "text": "Торт за 500: что изображено на этом торте?",
+              "answer": "Домик принцессы",
               "altAnswers": [
-                "рыжик"
-              ]
+                "замок",
+                "дворец"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t1-500.jpg"
+              }
             }
           ],
-          "comment": "Назовите торт по описанию."
+          "comment": "Кондитеры сделали торт в виде предмета — назовите, что на нём."
         },
         {
           "id": "koval-02-tortiki-r1-t2",
@@ -80,7 +98,11 @@
               "type": "normal",
               "text": "Название этого фрукта с голландского переводится как «китайское яблоко».",
               "answer": "Апельсин",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-100-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t2-q2",
@@ -88,7 +110,11 @@
               "type": "normal",
               "text": "Какая ягода — да, ботанически это ягода — растёт гроздьями и слегка радиоактивна из-за калия?",
               "answer": "Банан",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t2-q3",
@@ -98,7 +124,11 @@
               "answer": "Клубника",
               "altAnswers": [
                 "земляника"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t2-q4",
@@ -106,7 +136,11 @@
               "type": "normal",
               "text": "Варенье из этой ягоды — главное бабушкино лекарство от простуды.",
               "answer": "Малина",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t2-q5",
@@ -119,6 +153,10 @@
                 "theme": "Ты клубника я клубника",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t2-500-otvet.jpg"
               }
             }
           ],
@@ -132,11 +170,15 @@
               "id": "koval-02-tortiki-r1-t3-q1",
               "price": 100,
               "type": "normal",
-              "text": "Под каким именем студент Александр ходит в «Операции „Ы“» и «Кавказской пленнице»?",
+              "text": "Как зовут этого Александра? Подсказка: «Операция „Ы“».",
               "answer": "Шурик",
               "altAnswers": [
                 "александр демьяненко"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-100.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t3-q2",
@@ -146,7 +188,11 @@
               "answer": "Лекс",
               "altAnswers": [
                 "лекс лютор"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-200.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t3-q3",
@@ -154,7 +200,11 @@
               "type": "normal",
               "text": "Как зовут главного героя «Заводного апельсина», любителя Бетховена и «ультранасилия»?",
               "answer": "Алекс",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-300.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t3-q4",
@@ -164,7 +214,11 @@
               "answer": "Сандро",
               "altAnswers": [
                 "алессандро"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-400.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t3-q5",
@@ -172,7 +226,11 @@
               "type": "normal",
               "text": "Какое прозвище было у Александра Пушкина в Царскосельском лицее за отличный французский?",
               "answer": "Француз",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t3-500.jpg"
+              }
             }
           ],
           "comment": "Все эти люди и персонажи — Александры."
@@ -189,7 +247,11 @@
               "answer": "Симпсоны",
               "altAnswers": [
                 "the simpsons"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-100.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t4-q2",
@@ -199,7 +261,11 @@
               "answer": "Рататуй",
               "altAnswers": [
                 "ratatouille"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-200.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t4-q3",
@@ -209,7 +275,11 @@
               "answer": "Шрек",
               "altAnswers": [
                 "shrek"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-300.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t4-q4",
@@ -220,7 +290,11 @@
               "altAnswers": [
                 "спанч боб",
                 "spongebob"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-400.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r1-t4-q5",
@@ -230,7 +304,11 @@
               "answer": "Леди и Бродяга",
               "altAnswers": [
                 "lady and the tramp"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r1-t4-500.jpg"
+              }
             }
           ]
         },
@@ -555,51 +633,89 @@
               "id": "koval-02-tortiki-r2-t5-q1",
               "price": 200,
               "type": "normal",
-              "text": "Эта «принцесса» носит имя города на Шри-Ланке — последней столицы сингальских королей.",
+              "text": "Нури, Канди, Гита или Ява? Пачка за 200.",
               "answer": "Канди",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r2-t5-q2",
               "price": 400,
               "type": "normal",
-              "text": "Эта «принцесса» тёзка священной индийской книги «Бхагавад-…».",
+              "text": "Нури, Канди, Гита или Ява? Пачка за 400.",
               "answer": "Гита",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-400.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r2-t5-q3",
               "price": 600,
               "type": "cat",
-              "text": "Эта «принцесса» носит имя индонезийского острова, на котором стоит Джакарта.",
+              "text": "Кот в мешке: Нури, Канди, Гита или Ява?",
               "answer": "Ява",
               "altAnswers": [],
               "cat": {
                 "theme": "Чайные принцессы",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-600-otvet.jpg"
               }
             },
             {
               "id": "koval-02-tortiki-r2-t5-q4",
               "price": 800,
               "type": "normal",
-              "text": "Канди, Гита и Ява уже названы. Какая «принцесса» осталась?",
+              "text": "Нури, Канди, Гита или Ява? Пачка за 800.",
               "answer": "Нури",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-800.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-800-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r2-t5-q5",
               "price": 1000,
               "type": "normal",
-              "text": "Эта «принцесса» делит имя с языком программирования, у которого логотип — чашка кофе.",
+              "text": "Нури, Канди, Гита или Ява? Последняя пачка.",
               "answer": "Ява",
-              "altAnswers": [
-                "java"
-              ]
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-1000.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r2-t5-1000-otvet.jpg"
+              }
             }
           ],
-          "comment": "Чай «Принцесса …»: Нури, Канди, Гита или Ява?"
+          "comment": "Название на пачке закрыто: Нури, Канди, Гита или Ява?"
         }
       ]
     },
@@ -615,51 +731,75 @@
               "id": "koval-02-tortiki-r3-t1-q1",
               "price": 300,
               "type": "normal",
-              "text": "Кому стоит памятник на Пушкинской площади в Москве, у которого москвичи десятилетиями назначают свидания?",
+              "text": "Кому этот памятник? Ему назначают свидания в центре Москвы.",
               "answer": "Пушкину",
               "altAnswers": [
                 "пушкин"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-300.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t1-q2",
               "price": 600,
               "type": "normal",
-              "text": "Кому в Москве на Ленинском проспекте стоит памятник высотой больше 40 метров из титана?",
+              "text": "Кому этот титановый памятник на Ленинском проспекте?",
               "answer": "Гагарину",
               "altAnswers": [
                 "юрий гагарин"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-600.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t1-q3",
               "price": 900,
               "type": "normal",
-              "text": "Памятников ЕМУ в СССР поставили больше, чем кому-либо, и многие из них указывают рукой в светлое будущее.",
+              "text": "Кому этот памятник? Их в СССР было больше всего.",
               "answer": "Ленину",
               "altAnswers": [
                 "владимир ленин"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-900.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t1-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Бронзовый бюст ЭТОГО футболиста в аэропорту Мадейры стал мемом из-за кривой улыбки.",
+              "text": "Кому этот бронзовый бюст? Он стоит в аэропорту Мадейры.",
               "answer": "Криштиану Роналду",
               "altAnswers": [
                 "роналду"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-1200-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t1-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Восьмиметровая статуя «Forever Marilyn» изображает ЕЁ в развевающемся белом платье.",
+              "text": "Кому эта восьмиметровая статуя?",
               "answer": "Мэрилин Монро",
               "altAnswers": [
                 "монро"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t1-1500.jpg"
+              }
             }
           ]
         },
@@ -671,7 +811,7 @@
               "id": "koval-02-tortiki-r3-t2-q1",
               "price": 300,
               "type": "cat",
-              "text": "Кто снял «Лабиринт Фавна» и «Форму воды»?",
+              "text": "Кто этот режиссёр? Он снял «Лабиринт Фавна» и «Форму воды».",
               "answer": "Гильермо дель Торо",
               "altAnswers": [
                 "дель торо"
@@ -680,6 +820,10 @@
                 "theme": "Режиссёры",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t2-300.jpg"
               }
             },
             {
@@ -696,11 +840,15 @@
               "id": "koval-02-tortiki-r3-t2-q3",
               "price": 900,
               "type": "normal",
-              "text": "Какой греческий режиссёр снял «Бедные-несчастные» с Эммой Стоун?",
+              "text": "Кто этот греческий режиссёр? Он снял «Бедные-несчастные».",
               "answer": "Йоргос Лантимос",
               "altAnswers": [
                 "лантимос"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t2-900.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t2-q4",
@@ -716,11 +864,15 @@
               "id": "koval-02-tortiki-r3-t2-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Кто снял «Сияние», «Заводной апельсин» и «Космическую одиссею 2001 года»?",
+              "text": "Кто этот режиссёр? Он снял «Сияние» и «Заводной апельсин».",
               "answer": "Стэнли Кубрик",
               "altAnswers": [
                 "кубрик"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t2-1500.jpg"
+              }
             }
           ],
           "comment": "Назовите режиссёра по фильмам."
@@ -733,48 +885,80 @@
               "id": "koval-02-tortiki-r3-t3-q1",
               "price": 300,
               "type": "normal",
-              "text": "Чья лохматая борода прячет доброе сердце лесничего Хогвартса?",
+              "text": "Чья это борода? Её хозяин — лесничий.",
               "answer": "Хагрид",
               "altAnswers": [
                 "рубеус хагрид"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-300.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t3-q2",
               "price": 600,
               "type": "normal",
-              "text": "По мемам, под бородой ЭТОГО актёра нет подбородка — там ещё один кулак.",
+              "text": "Чья это борода? Её хозяин — герой мемов про кулаки.",
               "answer": "Чак Норрис",
               "altAnswers": [
                 "норрис"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t3-q3",
               "price": 900,
               "type": "normal",
-              "text": "Бородатый знаток в жилете с кучей карманов — главный «энциклопедист» российского телевидения.",
+              "text": "Чья это борода? Её хозяин знает ответ на любой вопрос.",
               "answer": "Анатолий Вассерман",
               "altAnswers": [
                 "вассерман"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-900.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-900-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t3-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Бог войны из игры, который отрастил рыжую бороду в частях 2018 и 2022 годов и воспитывает сына Атрея.",
+              "text": "Чья это борода? Её хозяин — бог войны.",
               "answer": "Кратос",
               "altAnswers": [
                 "kratos",
                 "god of war"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1200-otvet.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t3-q5",
               "price": 1500,
               "type": "cat",
-              "text": "Этот комик в 2010-х отрастил густую бороду, а потом сыграл доктора Роботника в «Сонике».",
+              "text": "Чья это борода? Её хозяин — комик, сыгравший доктора Роботника.",
               "answer": "Джим Керри",
               "altAnswers": [
                 "керри"
@@ -783,9 +967,18 @@
                 "theme": "Породы бороды",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1500.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t3-1500-otvet.jpg"
               }
             }
-          ]
+          ],
+          "comment": "Сначала показываем только бороду, с ответом — всё фото."
         },
         {
           "id": "koval-02-tortiki-r3-t4",
@@ -795,47 +988,67 @@
               "id": "koval-02-tortiki-r3-t4-q1",
               "price": 300,
               "type": "normal",
-              "text": "В каком виде спорта мяч мажут клеем-смолой, чтобы он не выскальзывал из руки при броске?",
+              "text": "Назовите вид спорта по мячу. Мяч мажут клеем-смолой.",
               "answer": "Гандбол",
               "altAnswers": [
                 "ручной мяч"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-300.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t4-q2",
               "price": 600,
               "type": "normal",
-              "text": "Мяч для этой игры весит около 270 граммов, и его нельзя ловить — только отбивать.",
+              "text": "Назовите вид спорта по этому мячу.",
               "answer": "Волейбол",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-600.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t4-q3",
               "price": 900,
               "type": "normal",
-              "text": "У этого тяжёлого шара три отверстия для пальцев.",
+              "text": "Назовите вид спорта по этому тяжёлому шару.",
               "answer": "Боулинг",
               "altAnswers": [
                 "кегли"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-900.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t4-q4",
               "price": 1200,
               "type": "normal",
-              "text": "У этого мяча 108 двойных стежков красной нитью.",
+              "text": "Назовите вид спорта по мячу со 108 стежками.",
               "answer": "Бейсбол",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-1200.jpg"
+              }
             },
             {
               "id": "koval-02-tortiki-r3-t4-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Лёгкий пластиковый мяч с 26 дырочками, по которому бьют клюшкой в зале.",
+              "text": "Назовите вид спорта по мячу с 26 дырочками.",
               "answer": "Флорбол",
               "altAnswers": [
                 "юнихоккей"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-02-tortiki/r3-t4-1500.jpg"
+              }
             }
           ],
           "comment": "Назовите вид спорта по мячу."

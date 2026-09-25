@@ -18,46 +18,86 @@
               "id": "koval-05-shlakoblokun-r1-t1-q1",
               "price": 100,
               "type": "normal",
-              "text": "Большое красное пятно — это многовековой шторм. Где он: Венера, Юпитер, Москва или Питер?",
+              "text": "Венера, Юпитер, Москва или Питер? Фрагмент за 100.",
               "answer": "Юпитер",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-100.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-100-otvet.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t1-q2",
               "price": 200,
               "type": "normal",
-              "text": "Где давление у поверхности примерно в 90 раз выше земного, а сутки длиннее года: Венера, Юпитер, Москва или Питер?",
+              "text": "Венера, Юпитер, Москва или Питер? Фрагмент за 200.",
               "answer": "Венера",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-200.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t1-q3",
               "price": 300,
               "type": "normal",
-              "text": "Где стоит Дом Зингера со стеклянным глобусом на куполе: Венера, Юпитер, Москва или Питер?",
+              "text": "Венера, Юпитер, Москва или Питер? Фрагмент за 300.",
               "answer": "Питер",
               "altAnswers": [
                 "санкт-петербург"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-300.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t1-q4",
               "price": 400,
               "type": "normal",
-              "text": "Где на ВДНХ стоит золотой фонтан «Дружба народов»: Венера, Юпитер, Москва или Питер?",
+              "text": "Венера, Юпитер, Москва или Питер? Фрагмент за 400.",
               "answer": "Москва",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-400.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t1-q5",
               "price": 500,
               "type": "normal",
-              "text": "Вокруг чего вращается Ганимед — крупнейший спутник в Солнечной системе: Венера, Юпитер, Москва или Питер?",
+              "text": "Венера, Юпитер, Москва или Питер? Фрагмент за 500.",
               "answer": "Юпитер",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-500.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t1-500-otvet.jpg"
+              }
             }
           ],
-          "comment": "Ответ — Венера, Юпитер, Москва или Питер."
+          "comment": "Сильно увеличенный фрагмент: планета или город? С ответом — всё фото."
         },
         {
           "id": "koval-05-shlakoblokun-r1-t2",
@@ -67,43 +107,63 @@
               "id": "koval-05-shlakoblokun-r1-t2-q1",
               "price": 100,
               "type": "normal",
-              "text": "Сок из фрукта, который, по легенде, упал на голову Ньютону.",
+              "text": "Какой это сок? Самый простой вариант.",
               "answer": "Яблочный",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t2-100.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t2-q2",
               "price": 200,
               "type": "normal",
-              "text": "Этот сок в самолётах заказывают заметно чаще, чем на земле: на высоте его вкус кажется лучше.",
+              "text": "Какой это красный сок?",
               "answer": "Томатный",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t2-200.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t2-q3",
               "price": 300,
               "type": "normal",
-              "text": "Тёмно-красный сок из ягоды с косточкой, в честь сада из которой назвал пьесу Чехов.",
+              "text": "Какой это тёмно-красный сок?",
               "answer": "Вишнёвый",
               "altAnswers": [
                 "вишневый"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t2-300.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t2-q4",
               "price": 400,
               "type": "normal",
-              "text": "Оранжевый сок, который бабушки велят пить «для глаз».",
+              "text": "Какой это оранжевый сок?",
               "answer": "Морковный",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t2-400.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t2-q5",
               "price": 500,
               "type": "normal",
-              "text": "Жёлтый тропический сок из плода, который растёт не на пальме, а на невысоком кусте прямо у земли.",
+              "text": "Какой это тропический сок?",
               "answer": "Ананасовый",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t2-500.jpg"
+              }
             }
           ],
           "comment": "Какой это сок?"
@@ -172,48 +232,68 @@
               "id": "koval-05-shlakoblokun-r1-t4-q1",
               "price": 100,
               "type": "normal",
-              "text": "Турбощётка, мешок для пыли и длинный шланг — детали какого прибора?",
+              "text": "Частью какого устройства является эта деталь? Она ездит по полу.",
               "answer": "Пылесос",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t4-100.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t4-q2",
               "price": 200,
               "type": "normal",
-              "text": "Картридж и лоток для бумаги — части какого устройства?",
+              "text": "Частью какого устройства являются эти детали?",
               "answer": "Принтер",
               "altAnswers": [
                 "мфу"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t4-200.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t4-q3",
               "price": 300,
               "type": "normal",
-              "text": "Скобы и пружина — канцелярский прибор, который скрепляет листы.",
+              "text": "В какое устройство заряжают эти скобы?",
               "answer": "Степлер",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t4-300.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t4-q4",
               "price": 400,
               "type": "normal",
-              "text": "Холдер, темпер и капучинатор — детали какого аппарата?",
+              "text": "Частью какого аппарата является эта деталь с ручкой?",
               "answer": "Кофемашина",
               "altAnswers": [
                 "кофеварка"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t4-400.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r1-t4-q5",
               "price": 500,
               "type": "normal",
-              "text": "Вращающийся барабан с видеоголовками и отсек для кассеты VHS.",
+              "text": "Частью какого устройства является этот барабан с головками?",
               "answer": "Видеомагнитофон",
               "altAnswers": [
                 "видак",
                 "vhs"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r1-t4-500.jpg"
+              }
             }
           ],
           "comment": "Частью какого устройства являются эти детали?"
@@ -410,37 +490,53 @@
               "id": "koval-05-shlakoblokun-r2-t3-q1",
               "price": 200,
               "type": "normal",
-              "text": "Какой душ в фильмах — место, где нельзя ронять мыло?",
+              "text": "Что это за душ с рядом леек на стене?",
               "answer": "Тюремный",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r2-t3-200.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r2-t3-q2",
               "price": 400,
               "type": "normal",
-              "text": "Маленькая лейка рядом с унитазом — что это за душ?",
+              "text": "Что это за душ? Он висит рядом с унитазом.",
               "answer": "Гигиенический",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r2-t3-400.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r2-t3-q3",
               "price": 600,
               "type": "normal",
-              "text": "Широкая лейка под потолком, из которой льёт, как ливень. Что это за душ?",
+              "text": "Что это за душ под потолком?",
               "answer": "Тропический",
               "altAnswers": [
                 "верхний"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r2-t3-600.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r2-t3-q4",
               "price": 800,
               "type": "normal",
-              "text": "Лечебный душ, где пациента поливают мощной струёй из шланга с нескольких метров. Назван в честь французского врача.",
+              "text": "Что это за лечебный душ?",
               "answer": "Шарко",
               "altAnswers": [
                 "душ шарко"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r2-t3-800.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r2-t3-q5",
@@ -601,12 +697,15 @@
               "id": "koval-05-shlakoblokun-r3-t1-q2",
               "price": 600,
               "type": "normal",
-              "text": "На ежегодном чемпионате во французской деревне люди соревнуются, кто лучше изобразит голос ЭТОГО животного.",
-              "answer": "Свинья",
+              "text": "В чём заключается данный конкурс во французской деревне Трие-сюр-Баиз?",
+              "answer": "Имитация хрюканья свиньи",
               "altAnswers": [
-                "хрюканье",
-                "имитация хрюканья свиньи"
-              ]
+                "хрюканье"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t1-600.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t1-q3",
@@ -622,22 +721,31 @@
               "id": "koval-05-shlakoblokun-r3-t1-q4",
               "price": 1200,
               "type": "normal",
-              "text": "На английской ярмарке участники просовывают голову в конский хомут и соревнуются в ЭТОМ.",
-              "answer": "Гримасы",
+              "text": "Что за конкурс на английской ярмарке: голова просунута в конский хомут?",
+              "answer": "Конкурс по кривляньям (гримасам)",
               "altAnswers": [
-                "кривляния",
-                "корчить рожи"
-              ]
+                "гримасы",
+                "кривляния"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t1-1200.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t1-q5",
               "price": 1500,
               "type": "normal",
-              "text": "В Англии люди кубарем бегут с крутого холма за катящейся головкой ЭТОГО продукта.",
-              "answer": "Сыр",
+              "text": "Что происходит здесь, на крутом холме в Англии?",
+              "answer": "Сырные гонки",
               "altAnswers": [
-                "сырные гонки"
-              ]
+                "гонки за сыром",
+                "сыр"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t1-1500.jpg"
+              }
             }
           ]
         },
@@ -659,9 +767,13 @@
               "id": "koval-05-shlakoblokun-r3-t2-q2",
               "price": 600,
               "type": "normal",
-              "text": "🏊 + 🐑 Склейте «пловец» и «овца».",
+              "text": "🏊 + 🐑 Кто это? Склейте «пловец» и «овца».",
               "answer": "Пловца",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t2-600.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t2-q3",
@@ -810,21 +922,29 @@
               "id": "koval-05-shlakoblokun-r3-t5-q1",
               "price": 300,
               "type": "normal",
-              "text": "Какой звук издаёт закипевший чайник со свистком?",
+              "text": "Какой звук издаёт этот предмет, когда вода закипела?",
               "answer": "Свист",
               "altAnswers": [
                 "свист чайника"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t5-300.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t5-q2",
               "price": 600,
               "type": "normal",
-              "text": "Что за звук: «гррру-гррру» на подоконнике и хлопанье крыльев?",
+              "text": "Кто издаёт «гррру-гррру» и хлопает крыльями на подоконнике?",
               "answer": "Голуби",
               "altAnswers": [
                 "воркование"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t5-600.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t5-q3",
@@ -835,7 +955,11 @@
               "altAnswers": [
                 "кот",
                 "тошнит"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t5-900.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t5-q4",
@@ -845,7 +969,11 @@
               "answer": "Скрип",
               "altAnswers": [
                 "скрип двери"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t5-1200.jpg"
+              }
             },
             {
               "id": "koval-05-shlakoblokun-r3-t5-q5",
@@ -856,7 +984,11 @@
               "altAnswers": [
                 "модем",
                 "диалап"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-05-shlakoblokun/r3-t5-1500.jpg"
+              }
             }
           ],
           "comment": "Что это за звук?"

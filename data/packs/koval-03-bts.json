@@ -20,7 +20,11 @@
               "type": "normal",
               "text": "В каком из этих шоу женщины ждут своих возлюбленных из мест лишения свободы?",
               "answer": "Ждули",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t1-100-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t1-q2",
@@ -28,7 +32,11 @@
               "type": "normal",
               "text": "Какое шоу — продолжение: героини уже родили и теперь растят детей?",
               "answer": "Мама в 16",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t1-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t1-q3",
@@ -44,7 +52,11 @@
               "type": "normal",
               "text": "Из какого шоу выросло «Мама в 16»: там всё начинается с двух полосок на тесте?",
               "answer": "Беременна в 16",
-              "altAnswers": []
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t1-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t1-q5",
@@ -74,7 +86,11 @@
                 "эр эм",
                 "рм",
                 "нам джун"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-100-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t2-q2",
@@ -85,7 +101,11 @@
               "altAnswers": [
                 "jin",
                 "чин"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-200-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t2-q3",
@@ -96,7 +116,11 @@
               "altAnswers": [
                 "v",
                 "тэхён"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t2-q4",
@@ -106,7 +130,11 @@
               "answer": "Чонгук",
               "altAnswers": [
                 "jungkook"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t2-q5",
@@ -122,6 +150,10 @@
                 "theme": "Вот они",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-500-otvet.jpg"
               }
             },
             {
@@ -138,6 +170,10 @@
                 "theme": "Вот они",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-600-otvet.jpg"
               }
             },
             {
@@ -148,7 +184,11 @@
               "answer": "Чимин",
               "altAnswers": [
                 "jimin"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t2-700-otvet.jpg"
+              }
             }
           ],
           "comment": "Назовите участника BTS по описанию."
@@ -298,51 +338,71 @@
               "id": "koval-03-bts-r1-t5-q1",
               "price": 100,
               "type": "normal",
-              "text": "Что законсервировано в банке, если в американских барах это закуска к пиву — белые «шарики» в рассоле?",
+              "text": "Что законсервировано в этой банке? Это не овощ.",
               "answer": "Яйца",
               "altAnswers": [
                 "перепелиные яйца"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-100.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t5-q2",
               "price": 200,
               "type": "normal",
-              "text": "Из этого овоща на зиму крутят «икру», которая в СССР стояла в каждом гастрономе.",
+              "text": "Что законсервировано в этих банках кружочками?",
               "answer": "Кабачки",
               "altAnswers": [
                 "кабачок",
                 "кабачковая икра"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t5-q3",
               "price": 300,
               "type": "normal",
-              "text": "Какие «синенькие» маринуют с чесноком — так их зовут на юге России?",
+              "text": "Что законсервировано в банке? Их называют «синенькими».",
               "answer": "Баклажаны",
               "altAnswers": [
                 "синенькие"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-300.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t5-q4",
               "price": 400,
               "type": "normal",
-              "text": "Какой дикий «лесной чеснок» маринуют на Урале и в Сибири?",
+              "text": "Что за дикую зелень законсервировали в этих банках?",
               "answer": "Черемша",
               "altAnswers": [
                 "дикий чеснок",
                 "медвежий лук"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-400.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r1-t5-q5",
               "price": 500,
               "type": "normal",
-              "text": "Зелёные «копья» в высокой узкой банке — овощ, который в Европе ждут каждую весну.",
+              "text": "Что за зелёные «копья» законсервированы в этой банке?",
               "answer": "Спаржа",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r1-t5-500.jpg"
+              }
             }
           ]
         }
@@ -360,51 +420,71 @@
               "id": "koval-03-bts-r2-t1-q1",
               "price": 200,
               "type": "normal",
-              "text": "Какой актёр сыграл банковского клерка, который надел зелёную деревянную маску и стал неуязвимым шутником?",
+              "text": "Назовите актёра, который скрыт под этой зелёной маской.",
               "answer": "Джим Керри",
               "altAnswers": [
                 "керри"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t1-q2",
               "price": 400,
               "type": "normal",
-              "text": "Кто носил маску-намордник в роли Ганнибала Лектера в «Молчании ягнят»?",
+              "text": "Кто носил эту маску в «Молчании ягнят»?",
               "answer": "Энтони Хопкинс",
               "altAnswers": [
                 "хопкинс"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-400.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t1-q3",
               "price": 600,
               "type": "normal",
-              "text": "Кто надел чёрную маску в фильме «Маска Зорро» 1998 года?",
+              "text": "Назовите актёра, который скрыт под маской Зорро.",
               "answer": "Антонио Бандерас",
               "altAnswers": [
                 "бандерас"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-600.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t1-q4",
               "price": 800,
               "type": "normal",
-              "text": "Кто скрыт под маской Бэйна в фильме «Тёмный рыцарь: Возрождение легенды»?",
+              "text": "Кто скрыт под этой маской злодея из «Тёмного рыцаря»?",
               "answer": "Том Харди",
               "altAnswers": [
                 "харди"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-800.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t1-q5",
               "price": 1000,
               "type": "normal",
-              "text": "Кто скрыт под гримом Джокера в «Тёмном рыцаре» — за эту роль он посмертно получил «Оскар»?",
+              "text": "Кто скрыт под этим гримом?",
               "answer": "Хит Леджер",
               "altAnswers": [
                 "леджер"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t1-1000.jpg"
+              }
             }
           ]
         },
@@ -416,37 +496,49 @@
               "id": "koval-03-bts-r2-t2-q1",
               "price": 200,
               "type": "normal",
-              "text": "Как бабушка назовёт худи?",
+              "text": "Как этот предмет назовёт бабушка? Молодёжь зовёт его худи.",
               "answer": "Кофта с капюшоном",
               "altAnswers": [
                 "кофта"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t2-q2",
               "price": 400,
               "type": "normal",
-              "text": "Как бабушка назовёт вейп?",
+              "text": "Как бабушка назовёт этот гаджет для пара?",
               "answer": "Электронная сигарета",
               "altAnswers": [
                 "сигарета"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-400.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t2-q3",
               "price": 600,
               "type": "normal",
-              "text": "Как бабушка назовёт смартфон?",
+              "text": "Как бабушка назовёт этот гаджет?",
               "answer": "Телефон",
               "altAnswers": [
                 "мобильник"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-600.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t2-q4",
               "price": 800,
               "type": "cat",
-              "text": "Как бабушка назовёт спиннер?",
+              "text": "Как бабушка назовёт эту игрушку из 2017 года?",
               "answer": "Вертушка",
               "altAnswers": [
                 "вертолётик"
@@ -455,15 +547,23 @@
                 "theme": "Назови как бабка",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-800.jpg"
               }
             },
             {
               "id": "koval-03-bts-r2-t2-q5",
               "price": 1000,
               "type": "normal",
-              "text": "Как бабушка назовёт слайм?",
+              "text": "Как бабушка назовёт эту тянучку?",
               "answer": "Лизун",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t2-1000.jpg"
+              }
             }
           ]
         },
@@ -538,6 +638,10 @@
                 "theme": "Камеры",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-200-otvet.jpg"
               }
             },
             {
@@ -548,7 +652,11 @@
               "answer": "2",
               "altAnswers": [
                 "две"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-400-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t4-q3",
@@ -558,7 +666,11 @@
               "answer": "2",
               "altAnswers": [
                 "две"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t4-q4",
@@ -568,7 +680,11 @@
               "answer": "1",
               "altAnswers": [
                 "одна"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-800-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t4-q5",
@@ -578,7 +694,11 @@
               "answer": "3",
               "altAnswers": [
                 "три"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-1000-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r2-t4-q6",
@@ -588,7 +708,11 @@
               "answer": "1",
               "altAnswers": [
                 "одна"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r2-t4-1200-otvet.jpg"
+              }
             }
           ],
           "comment": "Сколько камер на задней панели у этого айфона?"
@@ -664,24 +788,32 @@
               "answer": "Микки Маус",
               "altAnswers": [
                 "микки"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t1-q2",
               "price": 600,
               "type": "normal",
-              "text": "Как зовут мышку-изобретательницу и толстого любителя сыра из «Чипа и Дейла»?",
+              "text": "Назовите имена мышки и толстого мыша из этой компании.",
               "answer": "Гаечка и Рокфор",
               "altAnswers": [
                 "гаечка",
                 "рокфор"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-600.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t1-q3",
               "price": 900,
               "type": "cat",
-              "text": "Как зовут крысу-повара из «Рататуя»?",
+              "text": "Как зовут этого персонажа?",
               "answer": "Реми",
               "altAnswers": [
                 "remy"
@@ -690,18 +822,26 @@
                 "theme": "Мыши и крысы",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-900.jpg"
               }
             },
             {
               "id": "koval-03-bts-r3-t1-q4",
               "price": 1200,
               "type": "normal",
-              "text": "В каком мультфильме двое мышей-хулиганов пакостят коту, а он повторяет «Ребята, давайте жить дружно»?",
+              "text": "Как называется мультфильм с этими мышами?",
               "answer": "Приключения кота Леопольда",
               "altAnswers": [
                 "кот леопольд",
                 "леопольд"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-1200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t1-q5",
@@ -712,7 +852,11 @@
               "altAnswers": [
                 "крысиный король"
               ],
-              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе."
+              "hostComment": "В эфире на этой клетке был модификатор — вопрос дописан в том же духе.",
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t1-1500-otvet.jpg"
+              }
             }
           ]
         },
@@ -728,29 +872,49 @@
               "answer": "Шампунь",
               "altAnswers": [
                 "детский шампунь"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-300-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t2-q2",
               "price": 600,
               "type": "normal",
-              "text": "Улыбающийся мальчик на обёртке этого шоколада был одним и тем же с 1973 года, пока в 2005-м его не сменил другой ребёнок.",
+              "text": "С упаковки какого товара эта улыбка?",
               "answer": "Шоколад Kinder",
               "altAnswers": [
                 "киндер",
                 "kinder"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-600.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-600-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t2-q3",
               "price": 900,
               "type": "normal",
-              "text": "Эти чипсы печатали на пачках улыбки-эмодзи в благотворительной кампании Smiles.",
+              "text": "С упаковки каких чипсов эта улыбка?",
               "answer": "Чипсы Lay’s",
               "altAnswers": [
                 "лейс",
                 "lays"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-900.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-900-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t2-q4",
@@ -760,7 +924,11 @@
               "answer": "Зубная паста",
               "altAnswers": [
                 "паста"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-1200-otvet.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t2-q5",
@@ -770,7 +938,11 @@
               "answer": "Подгузники для взрослых",
               "altAnswers": [
                 "подгузники"
-              ]
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t2-1500-otvet.jpg"
+              }
             }
           ]
         },
@@ -791,6 +963,10 @@
                 "theme": "Первые роли",
                 "price": "nominal",
                 "canKeep": false
+              },
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-300.jpg"
               }
             },
             {
@@ -801,7 +977,11 @@
               "answer": "Джейк Джилленхол",
               "altAnswers": [
                 "джилленхол"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-600.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t3-q3",
@@ -811,7 +991,11 @@
               "answer": "Ума Турман",
               "altAnswers": [
                 "турман"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-900.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t3-q4",
@@ -821,7 +1005,11 @@
               "answer": "Крис Эванс",
               "altAnswers": [
                 "эванс"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-1200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t3-q5",
@@ -831,7 +1019,11 @@
               "answer": "Леонардо ДиКаприо",
               "altAnswers": [
                 "дикаприо"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t3-1500.jpg"
+              }
             }
           ],
           "comment": "Назовите актёра по его первой роли."
@@ -844,46 +1036,66 @@
               "id": "koval-03-bts-r3-t4-q1",
               "price": 300,
               "type": "normal",
-              "text": "Король хищных ящеров с огромной пастью и крошечными передними лапками.",
+              "text": "Назовите динозавра — короля хищников.",
               "answer": "Тираннозавр",
               "altAnswers": [
                 "ти-рекс",
                 "тирекс"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-300.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t4-q2",
               "price": 600,
               "type": "normal",
-              "text": "Летающий ящер, чьё имя означает «крылопалый». Строго говоря, он вообще не динозавр.",
+              "text": "Назовите этого летающего ящера.",
               "answer": "Птеродактиль",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-600.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t4-q3",
               "price": 900,
               "type": "normal",
-              "text": "Хищники из «Парка юрского периода», которые умеют открывать двери. Настоящие были размером с индюка.",
+              "text": "Назовите этого пернатого хищника из «Парка юрского периода».",
               "answer": "Велоцираптор",
               "altAnswers": [
                 "раптор"
-              ]
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-900.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t4-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Травоядный динозавр с тремя рогами и костяным «воротником».",
+              "text": "Назовите динозавра с тремя рогами.",
               "answer": "Трицератопс",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-1200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t4-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Травоядный динозавр с пластинами вдоль спины и шипами на хвосте.",
+              "text": "Назовите динозавра с пластинами на спине.",
               "answer": "Стегозавр",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t4-1500.jpg"
+              }
             }
           ]
         },
@@ -895,41 +1107,61 @@
               "id": "koval-03-bts-r3-t5-q1",
               "price": 300,
               "type": "normal",
-              "text": "Японский халат с широкими рукавами, который запахивают левой полой поверх правой.",
+              "text": "Назовите предмет одежды на «К»: японский и с широкими рукавами.",
               "answer": "Кимоно",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-300.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t5-q2",
               "price": 600,
               "type": "normal",
-              "text": "Вязаная кофта на пуговицах, названная в честь британского графа.",
+              "text": "Назовите этот предмет одежды на «К».",
               "answer": "Кардиган",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-600.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t5-q3",
               "price": 900,
               "type": "normal",
-              "text": "Короткая верхняя одежда: бывает кожаная, джинсовая, а у байкеров — «косуха».",
+              "text": "Назовите предмет одежды на «К». У байкеров она — «косуха».",
               "answer": "Куртка",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-900.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t5-q4",
               "price": 1200,
               "type": "normal",
-              "text": "Форменный пиджак со стоячим воротником — его носят военные и железнодорожники.",
+              "text": "Назовите этот форменный пиджак на «К».",
               "answer": "Китель",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-1200.jpg"
+              }
             },
             {
               "id": "koval-03-bts-r3-t5-q5",
               "price": 1500,
               "type": "normal",
-              "text": "Старинная длиннополая мужская одежда; у Тришки её пришлось чинить, обрезая рукава.",
+              "text": "Назовите старинную одежду на «К».",
               "answer": "Кафтан",
-              "altAnswers": []
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-03-bts/r3-t5-1500.jpg"
+              }
             }
           ],
           "comment": "Предмет одежды на букву «К»."
