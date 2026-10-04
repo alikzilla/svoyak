@@ -8,3 +8,4 @@ export * from './parseTheme.js';
 export * from './modifiers.js';
 export * from './game.js';
 export * from './answerMatch.js';
+export * from './timer.js';

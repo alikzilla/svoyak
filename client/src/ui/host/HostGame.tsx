@@ -11,7 +11,7 @@ import { FinalHost } from './FinalHost.js';
 import { CheatSheet } from './CheatSheet.js';
 import { Avatar, colorForIndex } from '../../design/Avatar.js';
 import { DoodleButton } from '../../design/DoodleButton.js';
-import { DoodleTimer } from '../../design/DoodleTimer.js';
+import { LiveTimer } from '../Timer.js';
 import { RoughFrame } from '../../design/rough.js';
 import { Stamp } from '../../design/Stamp.js';
 import { Standings } from '../Standings.js';
@@ -103,16 +103,7 @@ export function HostGame({ view }: HostGameProps) {
       {/* Слева управление, справа табло: ведущий всегда видит поле целиком. */}
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(24rem,5fr)_minmax(0,6fr)]">
         <div className="grid gap-4">
-          {view.timer && <DoodleTimer
-            progress={
-              view.timer.remainingMs !== null
-                ? view.timer.remainingMs / view.timer.totalMs
-                : Math.max(0, view.timer.endsAt - Date.now()) / view.timer.totalMs
-            }
-            seconds={Math.ceil(
-              (view.timer.remainingMs ?? Math.max(0, view.timer.endsAt - Date.now())) / 1000,
-            )}
-          />}
+          {view.timer && <LiveTimer timer={view.timer} />}
 
           {inFinal ? (
             <FinalHost
