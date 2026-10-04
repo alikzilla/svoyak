@@ -5,11 +5,13 @@ interface PriceCellProps {
   price: number;
   played?: boolean;
   tilt?: number;
+  /** Растянуться на высоту строки табло, а не держать свою: так табло влезает в телевизор. */
+  stretch?: boolean;
   onOpen?: () => void;
 }
 
 /** Клетка табло: при наведении подпрыгивает, сыгранная — перечёркнута от руки. */
-export function PriceCell({ price, played = false, tilt = 0, onOpen }: PriceCellProps) {
+export function PriceCell({ price, played = false, tilt = 0, stretch = false, onOpen }: PriceCellProps) {
   return (
     <motion.button
       type="button"
@@ -20,16 +22,18 @@ export function PriceCell({ price, played = false, tilt = 0, onOpen }: PriceCell
       whileHover={played ? undefined : { scale: 1.09, y: -8, rotate: tilt + 1.5 }}
       whileTap={played ? undefined : { scale: 0.95, y: 2 }}
       transition={{ type: 'spring', stiffness: 460, damping: 17 }}
-      className="relative"
+      className={stretch ? 'relative h-full min-h-0' : 'relative'}
     >
       <RoughFrame
         seed={price}
         fill={played ? '#d8cdb8' : 'var(--color-card)'}
-        className="h-20 w-full sm:h-24"
+        className={stretch ? 'h-full min-h-10 w-full' : 'h-20 w-full sm:h-24'}
         contentClassName="grid place-items-center"
       >
         <span
-          className={`font-pop text-3xl font-black tabular-nums sm:text-4xl ${
+          className={`font-pop font-black tabular-nums ${
+            stretch ? 'text-[clamp(1.25rem,min(3.2vw,5.5dvh),3rem)]' : 'text-3xl sm:text-4xl'
+          } ${
             played ? 'text-ink/20' : 'text-p1'
           }`}
         >

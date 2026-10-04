@@ -97,7 +97,7 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
 
   return (
     <div className="grid gap-3">
-      <div className="grid gap-2 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         {PRESETS.map((preset) => {
           const active = activePreset?.id === preset.id;
           return (
@@ -163,7 +163,7 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
 
       {expanded && (
         <div className="ink-border bg-card text-ink grid gap-4 rounded-2xl p-4">
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <NumberField
               label="Показ темы и цены, мс"
               hint="0 — вопрос открывается сразу"

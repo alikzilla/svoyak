@@ -73,9 +73,15 @@ export function PlayerLedger({
               <span className="font-pop min-w-0 flex-1 truncate text-lg font-black">
                 {player.name}
                 {control && <span className="font-body ml-2 text-xs">ход</span>}
-                {player.isAnswering && <span className="font-body text-yes ml-2 text-xs">отвечает</span>}
+                {player.isAnswering && (
+                  <span className="font-body bg-yes text-ink ml-2 rounded-md px-1.5 py-0.5 text-xs font-bold">
+                    отвечает
+                  </span>
+                )}
                 {player.lockedUntil !== null && (
-                  <span className="font-body text-no ml-2 text-xs">фальстарт</span>
+                  <span className="font-body bg-no ml-2 rounded-md px-1.5 py-0.5 text-xs font-bold text-white">
+                    фальстарт
+                  </span>
                 )}
                 {!player.connected && <span className="font-body ml-2 text-xs opacity-50">не в сети</span>}
               </span>

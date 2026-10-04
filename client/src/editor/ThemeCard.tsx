@@ -63,7 +63,7 @@ export function ThemeCard({
 
   return (
     <section className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4">
-      <header className="flex items-center gap-2">
+      <header className="flex flex-wrap items-center gap-2">
         <button
           {...dragHandle}
           type="button"
@@ -74,7 +74,8 @@ export function ThemeCard({
           ⠿
         </button>
         <input
-          className="field-bare min-w-0 flex-1 text-lg font-bold"
+          // На телефоне название не сжимается в три буквы: кнопки уходят строкой ниже.
+          className="field-bare min-w-40 flex-1 text-lg font-bold"
           value={theme.title}
           placeholder="Название темы"
           onChange={(event) => onChange({ ...theme, title: event.target.value })}

@@ -80,6 +80,13 @@ export default function Join() {
               onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
               inputMode="numeric"
               enterKeyHint="next"
+              onKeyDown={(event) => {
+                // «Далее» на клавиатуре ведёт к имени, а не отправляет полупустую форму.
+                if (event.key === 'Enter' && name.trim() === '') {
+                  event.preventDefault();
+                  nameField.current?.focus();
+                }
+              }}
               autoComplete="off"
               autoFocus={code.length === 0}
               placeholder="1234"
@@ -144,7 +151,7 @@ export default function Join() {
           idle={ready && !busy}
           disabled={!ready || busy}
           className="w-full"
-          onClick={() => nameField.current?.form?.requestSubmit()}
+          type="submit"
         >
           {busy ? 'заходим…' : 'Играть'}
         </DoodleButton>

@@ -110,7 +110,7 @@ export function PackEditor({ pack, issues, onChange }: PackEditorProps) {
         <section key={round.id} className="grid gap-3">
           <header className="flex flex-wrap items-center gap-2">
             <input
-              className="field-bare font-pop min-w-0 flex-1 text-xl font-black"
+              className="field-bare font-pop min-w-48 flex-1 text-xl font-black"
               value={round.title}
               onChange={(event) =>
                 patchRound(round.id, (current) => ({ ...current, title: event.target.value }))

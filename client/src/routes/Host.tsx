@@ -63,7 +63,7 @@ export default function Host() {
 
   if (!view) {
     return (
-      <div className="app-shell relative isolate mx-auto flex w-full max-w-5xl flex-col gap-6 overflow-y-auto p-6">
+      <div className="app-shell relative isolate mx-auto flex w-full max-w-5xl flex-col gap-6 p-6">
         <DoodleField density="light" night />
 
         <header className="relative">
@@ -78,7 +78,13 @@ export default function Host() {
           </p>
         </header>
 
-        {closed && <Alert>{closed}</Alert>}
+        {/* Прошлая комната закрылась — это не ошибка того, кто сейчас открыл
+            страницу, поэтому без красного: просто сообщаем и зовём дальше. */}
+        {closed && (
+          <p className="notice font-body relative font-bold">
+            Прошлая комната уже закрыта. Соберите новую игру ниже — код будет другой.
+          </p>
+        )}
         {error && <Alert>{error}</Alert>}
 
         {packs.length === 0 ? (
@@ -128,7 +134,9 @@ export default function Host() {
               />
             </section>
 
-            <footer className="relative flex flex-wrap items-center gap-3">
+            {/* Главное действие экрана не прячем под два экрана настроек:
+                подвал прилипает к низу, пока до него не долистали. */}
+            <footer className="bg-scene sticky bottom-0 z-10 -mx-6 -mb-6 flex flex-wrap items-center gap-3 border-t-4 border-ink/40 px-6 py-4">
               <DoodleButton
                 tone="p5"
                 size="lg"
@@ -246,7 +254,7 @@ export default function Host() {
         </DoodleButton>
         <button
           onClick={() => {
-            clearSession();
+            clearSession('host');
             location.reload();
           }}
           className="font-body ml-auto text-sm font-bold underline underline-offset-4 opacity-70"

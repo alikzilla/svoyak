@@ -89,7 +89,8 @@ export default function Board() {
 
   return (
     <motion.div
-      className="app-shell relative isolate flex flex-col gap-6 overflow-hidden p-8"
+      // Ровно экран телевизора: счёт внизу виден всегда, прокручивать табло некому.
+      className="screen-lock relative isolate flex flex-col gap-6 p-8"
       onPointerDown={unlockAudio}
       // Финал и результаты уходят в глубокую ночь: сцена сама подсказывает, что игра к развязке.
       animate={{
@@ -110,7 +111,7 @@ export default function Board() {
       ) : view.final ? (
         <FinalScene view={view} />
       ) : (
-        <section className="relative flex flex-1 flex-col justify-center gap-6">
+        <section className="relative flex min-h-0 flex-1 flex-col justify-center gap-6">
           <AnimatePresence mode="wait">
             {view.modifier && view.phase === 'modifier' ? (
               <motion.div key="modifier" initial={{ scale: 0.92 }} animate={{ scale: 1 }}>
@@ -167,7 +168,7 @@ export default function Board() {
                     {view.question.themeTitle} ·{' '}
                     <span className="font-pop text-p1 tabular-nums">{view.question.price}</span>
                   </p>
-                  <p className="font-body text-[clamp(1.8rem,4vw,3.5rem)] leading-tight font-bold text-pretty">
+                  <p className="font-body text-[clamp(1.5rem,min(4vw,6.5dvh),3.5rem)] leading-tight font-bold text-pretty">
                     {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
                   </p>
                   {view.question.media && (
@@ -182,7 +183,10 @@ export default function Board() {
                       initial={{ scale: 0.6, rotate: -6, opacity: 0 }}
                       animate={{ scale: 1, rotate: -2, opacity: 1 }}
                       transition={{ type: 'spring', stiffness: 380, damping: 14 }}
-                      className="font-pop text-yes text-[clamp(1.6rem,3vw,2.8rem)] font-black"
+                      // Ответ — кульминация вопроса: штамп с заливкой читается
+                      // с дивана, а зелёный текст на кремовом — нет.
+                      className="ink-border bg-yes text-ink font-pop justify-self-center rounded-2xl px-6 py-2 text-[clamp(1.6rem,3vw,2.8rem)] font-black"
+                      style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
                     >
                       {view.question.revealedAnswer}
                     </motion.p>
@@ -198,8 +202,8 @@ export default function Board() {
               </motion.div>
             ) : (
               // Доска — фон, а не событие: она не проявляется, а просто есть.
-              <div key="board">
-                <BoardGrid board={view.board} />
+              <div key="board" className="min-h-0 flex-1">
+                <BoardGrid board={view.board} tv />
               </div>
             )}
           </AnimatePresence>
@@ -313,8 +317,8 @@ function FinalScene({ view }: { view: BoardView }) {
                 animate={{ rotateX: 0, opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 18 }}
                 className={`ink-border font-pop flex items-center gap-3 rounded-2xl px-5 py-3 text-2xl font-black ${
-                  entry.correct ? 'bg-yes' : 'bg-no'
-                } text-white`}
+                  entry.correct ? 'bg-yes text-ink' : 'bg-no text-white'
+                }`}
                 style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
               >
                 <span className="flex-1 text-left">

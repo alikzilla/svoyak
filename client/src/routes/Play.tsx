@@ -61,7 +61,7 @@ export default function Play() {
   const clock = useClock();
 
   useEffect(() => {
-    if (!loadSession()) void navigate('/join');
+    if (!loadSession('player')) void navigate('/join');
   }, [navigate]);
 
   const myIndex = useMemo(
@@ -205,7 +205,7 @@ export default function Play() {
             </div>
           )}
           {view.question.revealedAnswer && (
-            <p className="font-pop text-yes mt-2 text-xl font-black">{view.question.revealedAnswer}</p>
+            <p className="font-pop text-yes-ink mt-2 text-xl font-black">{view.question.revealedAnswer}</p>
           )}
         </RoughFrame>
       )}
@@ -299,11 +299,15 @@ export default function Play() {
 
 function WaitScreen({ view, answering }: { view: PlayerView; answering: PlayerPublic | null }) {
   const myTurn = view.prompt.kind === 'your_turn';
+  // Нажавший первым видит себя не в третьем лице: ему нужно знать, что пора говорить.
+  const iAnswer = answering?.id === view.meId;
   const hint = myTurn
     ? 'Ваш ход'
-    : answering
-      ? `отвечает ${answering.name}`
-      : (WAIT_HINT[view.phase] ?? 'идёт игра');
+    : iAnswer
+      ? 'Вы отвечаете!'
+      : answering
+        ? `отвечает ${answering.name}`
+        : (WAIT_HINT[view.phase] ?? 'идёт игра');
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
@@ -311,12 +315,22 @@ function WaitScreen({ view, answering }: { view: PlayerView; answering: PlayerPu
         animate={{ y: [0, -14, 0], rotate: [-3, 3, -3] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <Avatar seed={view.code} color={myTurn ? '#93d93a' : '#ffc53d'} size={96} />
+        <Avatar
+          seed={view.code}
+          color={myTurn || iAnswer ? '#93d93a' : '#ffc53d'}
+          size={96}
+          mood={iAnswer ? 'answering' : 'idle'}
+        />
       </motion.div>
       <p className="font-pop text-3xl font-black text-pretty">{hint}</p>
       {myTurn && (
         <p className="font-body max-w-xs text-lg font-bold text-pretty">
           Назовите ведущему тему и цену вслух
+        </p>
+      )}
+      {iAnswer && (
+        <p className="font-body max-w-xs text-lg font-bold text-pretty">
+          Говорите ответ вслух — ведущий слушает
         </p>
       )}
     </div>

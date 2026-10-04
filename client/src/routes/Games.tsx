@@ -123,8 +123,10 @@ export default function Games() {
               className="on-paper ink-border bg-card text-ink relative flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
               style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
             >
-              <div className="min-w-0 flex-1">
-                <span className="font-pop block text-xl font-black">{game.title}</span>
+              <div className="min-w-48 flex-1">
+                <span className="font-pop block text-xl font-black break-words hyphens-auto">
+                  {game.title}
+                </span>
                 <span className="text-soft block text-sm">
                   {game.roundsCount} раунда · {game.themesCount} тем ·{' '}
                   {game.modifiersPerRound > 0

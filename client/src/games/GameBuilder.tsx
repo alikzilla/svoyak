@@ -154,7 +154,7 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
             Паков пока нет — соберите первый в редакторе.
           </p>
         ) : (
-          <div className="grid gap-1 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
             {packs.map((pack) => (
               <label
                 key={pack.id}

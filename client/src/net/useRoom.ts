@@ -34,22 +34,22 @@ function useRoomView<V extends AnyView>(role: Role): RoomConnection<V> {
       setToast({ ...payload, at: Date.now() });
     };
     const onClosed = (payload: { reason: string }): void => {
-      clearSession();
+      clearSession(role);
       setClosed(payload.reason);
       setView(null);
     };
 
     const rejoin = async (): Promise<void> => {
       setConnected(true);
-      const session = loadSession();
-      if (!session || session.role !== role) return;
+      const session = loadSession(role);
+      if (!session) return;
       const result = await ask<{ playerId: string | null }>('room:rejoin', {
         code: session.code,
         token: session.token,
         role: session.role,
       });
       if (!result.ok) {
-        clearSession();
+        clearSession(role);
         setClosed(result.error);
       }
     };

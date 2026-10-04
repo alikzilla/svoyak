@@ -25,24 +25,14 @@ const send = (event: Parameters<typeof ask>[0], payload?: unknown): void => {
   void ask(event, payload);
 };
 
-/** Текст вопроса проявляется по словам: ведущий читает вслух в том же темпе. */
-function TypedQuestion({ text }: { text: string }) {
-  const words = text.split(' ');
-  return (
-    <p className="font-body text-2xl leading-snug font-bold text-pretty">
-      {words.map((word, index) => (
-        <motion.span
-          key={`${word}-${index}`}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.045, duration: 0.25 }}
-          className="inline-block"
-        >
-          {word}&nbsp;
-        </motion.span>
-      ))}
-    </p>
-  );
+/**
+ * Текст вопроса для ведущего: виден целиком и сразу, без анимации. Раньше слова
+ * проявлялись по одному — быстрее, чем их читают вслух, то есть ради эффекта, —
+ * а в фоновом или перекрытом окне браузер ставит анимации на паузу, и ведущий
+ * оставался с двумя словами из двадцати.
+ */
+function QuestionText({ text }: { text: string }) {
+  return <p className="font-body text-2xl leading-snug font-bold text-pretty">{text}</p>;
 }
 
 export function HostGame({ view }: HostGameProps) {
@@ -159,7 +149,7 @@ export function HostGame({ view }: HostGameProps) {
               <p className="font-body text-sm font-bold opacity-70">
                 {question.themeTitle} · <span className="tabular-nums">{question.price}</span>
               </p>
-              <TypedQuestion text={question.text} />
+              <QuestionText text={question.text} />
               {question.media && (
                 <QuestionMedia media={question.media} variant="host" alt={question.text} />
               )}

@@ -1,0 +1,618 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T17:07:47.410337+00:00",
+  "title": "Design System: Свояк",
+  "extensions": {
+    "colorMeta": {
+      "scene-indigo": {
+        "role": "primary",
+        "displayName": "Scene Indigo",
+        "canonical": "#4a3aa8",
+        "tonalRamp": [
+          "#0b002e",
+          "#230168",
+          "#3b2593",
+          "#5648b7",
+          "#736adc",
+          "#938ff9",
+          "#bcbdfd",
+          "#ecedfe"
+        ]
+      },
+      "scene-ink": {
+        "role": "neutral",
+        "displayName": "Scene Lilac",
+        "canonical": "#f6f1ff",
+        "tonalRamp": [
+          "#0d0912",
+          "#26222c",
+          "#413d48",
+          "#5f5b67",
+          "#7f7b87",
+          "#a09ca9",
+          "#c6c1cf",
+          "#f1ecfa"
+        ]
+      },
+      "final-night": {
+        "role": "neutral",
+        "displayName": "Final Night",
+        "canonical": "#1a1140",
+        "tonalRamp": [
+          "#0c002c",
+          "#221b4a",
+          "#3d386a",
+          "#5a568b",
+          "#7976ae",
+          "#9a97d1",
+          "#bfbdf9",
+          "#ededfe"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night",
+        "canonical": "#131c3f",
+        "tonalRamp": [
+          "#030627",
+          "#172144",
+          "#323d64",
+          "#4e5c84",
+          "#6d7ca6",
+          "#8e9dc9",
+          "#b3c3f1",
+          "#e8eeff"
+        ]
+      },
+      "night-glow": {
+        "role": "neutral",
+        "displayName": "Night Glow",
+        "canonical": "#2b3a7d",
+        "tonalRamp": [
+          "#030131",
+          "#12195a",
+          "#2a397b",
+          "#45589e",
+          "#6378c1",
+          "#839ae6",
+          "#afc2fb",
+          "#e8eeff"
+        ]
+      },
+      "card-cream": {
+        "role": "neutral",
+        "displayName": "Card Cream",
+        "canonical": "#fff6e9",
+        "tonalRamp": [
+          "#100a03",
+          "#292319",
+          "#463f34",
+          "#645c51",
+          "#847c70",
+          "#a59d91",
+          "#cbc3b6",
+          "#f6ede0"
+        ]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#fffdf7",
+        "tonalRamp": [
+          "#0c0b07",
+          "#252420",
+          "#41403b",
+          "#5f5d58",
+          "#7f7d78",
+          "#a09e99",
+          "#c6c4be",
+          "#f0eee8"
+        ]
+      },
+      "played-kraft": {
+        "role": "neutral",
+        "displayName": "Played Kraft",
+        "canonical": "#d8cdb8",
+        "tonalRamp": [
+          "#110a00",
+          "#2b2312",
+          "#483f2d",
+          "#665c4a",
+          "#867c69",
+          "#a89d89",
+          "#cec3ae",
+          "#f9edd8"
+        ]
+      },
+      "marker-ink": {
+        "role": "neutral",
+        "displayName": "Marker Ink",
+        "canonical": "#1a1a1a",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      },
+      "pencil-brown": {
+        "role": "neutral",
+        "displayName": "Pencil Brown",
+        "canonical": "#5b524b",
+        "tonalRamp": [
+          "#100a05",
+          "#2a221c",
+          "#463e37",
+          "#655c55",
+          "#857b74",
+          "#a69c94",
+          "#ccc2ba",
+          "#f7ece4"
+        ]
+      },
+      "grape": {
+        "role": "primary",
+        "displayName": "Grape",
+        "canonical": "#8b5cff",
+        "tonalRamp": [
+          "#0e0129",
+          "#29075e",
+          "#4901a0",
+          "#672cd1",
+          "#8554f7",
+          "#a188fd",
+          "#c4bafa",
+          "#eeecff"
+        ]
+      },
+      "grape-ink": {
+        "role": "primary",
+        "displayName": "Grape Ink",
+        "canonical": "#7a4aee",
+        "tonalRamp": [
+          "#0d0129",
+          "#28075f",
+          "#4801a2",
+          "#652cd2",
+          "#8355f9",
+          "#9f88fe",
+          "#c3bbfb",
+          "#eeecff"
+        ]
+      },
+      "coral": {
+        "role": "tertiary",
+        "displayName": "Coral",
+        "canonical": "#ff6b57",
+        "tonalRamp": [
+          "#1e0100",
+          "#490602",
+          "#77140b",
+          "#ae170a",
+          "#d54333",
+          "#fc6854",
+          "#fdac9e",
+          "#ffe9e5"
+        ]
+      },
+      "teal": {
+        "role": "tertiary",
+        "displayName": "Teal",
+        "canonical": "#12beb0",
+        "tonalRamp": [
+          "#000f0d",
+          "#032b27",
+          "#0d4a44",
+          "#0a6c64",
+          "#109086",
+          "#2fb5a8",
+          "#4bdecf",
+          "#bcfef5"
+        ]
+      },
+      "sticky-yellow": {
+        "role": "secondary",
+        "displayName": "Sticky Yellow",
+        "canonical": "#ffc53d",
+        "tonalRamp": [
+          "#110a00",
+          "#2f2203",
+          "#523c01",
+          "#76580e",
+          "#9d7616",
+          "#c7950c",
+          "#f4ba2d",
+          "#feedca"
+        ]
+      },
+      "lime": {
+        "role": "secondary",
+        "displayName": "Lime",
+        "canonical": "#93d93a",
+        "tonalRamp": [
+          "#060e00",
+          "#182a01",
+          "#2e4908",
+          "#436b03",
+          "#5b8f03",
+          "#76b324",
+          "#96dc3e",
+          "#d6feb3"
+        ]
+      },
+      "bubblegum": {
+        "role": "tertiary",
+        "displayName": "Bubblegum",
+        "canonical": "#ff5fa2",
+        "tonalRamp": [
+          "#1c010b",
+          "#450524",
+          "#760340",
+          "#a6165e",
+          "#d3347d",
+          "#fb5b9f",
+          "#fda7c4",
+          "#fde8ee"
+        ]
+      },
+      "verdict-green": {
+        "role": "tertiary",
+        "displayName": "Verdict Green",
+        "canonical": "#2ebd59",
+        "tonalRamp": [
+          "#001003",
+          "#022d0e",
+          "#0c4d20",
+          "#07712e",
+          "#0b973f",
+          "#2dbc58",
+          "#5ee47e",
+          "#cbfed2"
+        ]
+      },
+      "verdict-green-ink": {
+        "role": "tertiary",
+        "displayName": "Verdict Green Ink",
+        "canonical": "#16793a",
+        "tonalRamp": [
+          "#001003",
+          "#022d10",
+          "#0a4d23",
+          "#047132",
+          "#379252",
+          "#5cb572",
+          "#82dc97",
+          "#cafed4"
+        ]
+      },
+      "verdict-red": {
+        "role": "tertiary",
+        "displayName": "Verdict Red",
+        "canonical": "#e23b3b",
+        "tonalRamp": [
+          "#1e0101",
+          "#490508",
+          "#7c020e",
+          "#ae151e",
+          "#dc3536",
+          "#fc6760",
+          "#fdaca3",
+          "#ffe9e6"
+        ]
+      },
+      "verdict-red-ink": {
+        "role": "tertiary",
+        "displayName": "Verdict Red Ink",
+        "canonical": "#d12626",
+        "tonalRamp": [
+          "#1e0101",
+          "#490506",
+          "#7c0209",
+          "#ae1518",
+          "#dd3431",
+          "#fc675c",
+          "#feaca2",
+          "#fde9e6"
+        ]
+      },
+      "stamp-red": {
+        "role": "tertiary",
+        "displayName": "Stamp Red",
+        "canonical": "#c2493c",
+        "tonalRamp": [
+          "#1f0000",
+          "#4a0201",
+          "#7a0c08",
+          "#a42c22",
+          "#ca5043",
+          "#f07363",
+          "#fbada1",
+          "#fee9e5"
+        ]
+      },
+      "medal-gold": {
+        "role": "tertiary",
+        "displayName": "Medal Gold",
+        "canonical": "#f2a93b",
+        "tonalRamp": [
+          "#130900",
+          "#331f03",
+          "#583801",
+          "#7e540e",
+          "#a77015",
+          "#d58d0b",
+          "#fdb448",
+          "#feebd4"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Logotype, room codes, scene titles; cream with ink stroke on the scene."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles and price numbers."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card, pack, player and theme names."
+      },
+      "question": {
+        "displayName": "Question",
+        "purpose": "Question text on the TV; scales with height and width."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Bold Nunito for every full sentence."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Captions, meta lines, chips; lowercase."
+      },
+      "hand": {
+        "displayName": "Hand",
+        "purpose": "DoodleButton labels and verdict stamps only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pinned",
+        "value": "3px 3px 0 #1a1a1a",
+        "purpose": "Small chips, inactive tiles."
+      },
+      {
+        "name": "stuck",
+        "value": "5px 5px 0 #1a1a1a",
+        "purpose": "Standard cards, inputs, tool buttons (4–5px)."
+      },
+      {
+        "name": "lifted",
+        "value": "6px 6px 0 #1a1a1a",
+        "purpose": "Primary buttons, role cards, TV player cards."
+      },
+      {
+        "name": "raised",
+        "value": "8px 8px 0 #1a1a1a",
+        "purpose": "QR card, big lobby frames."
+      },
+      {
+        "name": "pressed",
+        "value": "0 0 0 #1a1a1a",
+        "purpose": "Button sunk into its shadow (translate by the offset)."
+      },
+      {
+        "name": "ghost",
+        "value": "8px 8px 0 rgb(26 26 26 / 25%)",
+        "purpose": "Verdict stamp."
+      },
+      {
+        "name": "soft-on-scene",
+        "value": "3px 3px 0 rgb(0 0 0 / 28%)",
+        "purpose": "Quiet buttons placed directly on indigo."
+      }
+    ],
+    "motion": [
+      {
+        "name": "press",
+        "value": "transform 120ms ease, box-shadow 120ms ease",
+        "purpose": "Tool button hover and press."
+      },
+      {
+        "name": "spring-press",
+        "value": "spring(stiffness 600, damping 20, mass 0.6)",
+        "purpose": "DoodleButton press and hover."
+      },
+      {
+        "name": "spring-cell",
+        "value": "spring(stiffness 460, damping 17)",
+        "purpose": "Price-cell hop on hover."
+      },
+      {
+        "name": "spring-stamp",
+        "value": "spring(stiffness 520, damping 15)",
+        "purpose": "Verdict stamp slap (scale 2.2 to 1, rotate -20 to -8deg)."
+      },
+      {
+        "name": "idle-sway",
+        "value": "rotate tilt to tilt+1.8deg, 2.6s ease-in-out infinite",
+        "purpose": "The screen's enabled main button only."
+      },
+      {
+        "name": "calm",
+        "value": "animation 0.01ms; transition 120ms",
+        "purpose": "prefers-reduced-motion and .calm mode: fades only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Doodle Button",
+      "kind": "button",
+      "refersTo": "button-doodle-primary",
+      "description": "The screen's one main action: hand-lettered, chunky, sinks into its shadow on press.",
+      "html": "<button class=\"ds-doodle\">Играть</button>",
+      "css": ".ds-doodle{display:inline-block;transform:rotate(-1.2deg);background:#93d93a;color:#1a1a1a;font-family:'Caveat Variable','Comic Sans MS',cursive;font-weight:700;font-size:1.875rem;line-height:1.1;padding:1rem 2rem;border:4px solid #1a1a1a;border-radius:1.5rem;box-shadow:6px 6px 0 #1a1a1a;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}.ds-doodle:hover{transform:rotate(-1.2deg) translate(0,-4px) scale(1.05);box-shadow:9px 10px 0 #1a1a1a}.ds-doodle:active{transform:rotate(-1.2deg) translate(5px,6px) scale(.97);box-shadow:0 0 0 #1a1a1a}.ds-doodle:focus-visible{outline:3px solid #f2a93b;outline-offset:3px}"
+    },
+    {
+      "name": "Verdict Buttons",
+      "kind": "button",
+      "refersTo": "button-doodle-confirm",
+      "description": "Host judging pair: green with ink label, red with white label.",
+      "html": "<div class=\"ds-verdicts\"><button class=\"ds-v ds-v-yes\">Верно</button><button class=\"ds-v ds-v-no\">Неверно</button></div>",
+      "css": ".ds-verdicts{display:flex;gap:.75rem}.ds-v{font-family:'Caveat Variable',cursive;font-weight:700;font-size:1.5rem;padding:.75rem 1.5rem;border:4px solid #1a1a1a;border-radius:1rem;box-shadow:6px 6px 0 #1a1a1a;cursor:pointer;transition:transform .12s,box-shadow .12s}.ds-v-yes{background:#2ebd59;color:#1a1a1a;transform:rotate(-1.2deg)}.ds-v-no{background:#e23b3b;color:#fff;transform:rotate(1deg)}.ds-v:hover{box-shadow:9px 10px 0 #1a1a1a}.ds-v:active{box-shadow:0 0 0 #1a1a1a;translate:5px 6px}.ds-v:focus-visible{outline:3px solid #f2a93b;outline-offset:3px}"
+    },
+    {
+      "name": "Tool Button",
+      "kind": "button",
+      "refersTo": "button-tool",
+      "description": "Dense editor/list button (.btn) with quiet, dashed and danger variants.",
+      "html": "<div class=\"ds-row\"><button class=\"ds-btn\">Открыть</button><button class=\"ds-btn ds-btn-danger\">Удалить насовсем</button><button class=\"ds-btn ds-btn-dashed\">+ вопрос</button></div>",
+      "css": ".ds-row{display:flex;gap:.5rem;flex-wrap:wrap;padding:1rem;background:#fff6e9}.ds-btn{display:inline-flex;align-items:center;min-height:2.5rem;padding:.4rem .85rem;font-family:'Nunito Variable',system-ui,sans-serif;font-weight:700;font-size:.875rem;color:#1a1a1a;background:#ffc53d;border:4px solid #1a1a1a;border-radius:.875rem;box-shadow:4px 4px 0 #1a1a1a;cursor:pointer;transition:transform .12s,box-shadow .12s}.ds-btn:hover{transform:translate(-1px,-2px);box-shadow:6px 7px 0 #1a1a1a}.ds-btn:active{transform:translate(4px,4px);box-shadow:0 0 0 #1a1a1a}.ds-btn:focus-visible{outline:3px solid #1a1a1a;outline-offset:3px}.ds-btn-danger{background:#e23b3b;color:#fff6e9}.ds-btn-dashed{background:transparent;border:3px dashed rgb(26 26 26/45%);color:#5b524b;box-shadow:none}.ds-btn-dashed:hover{border-color:#8b5cff;color:#1a1a1a;box-shadow:none;transform:none}"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Paper-white recess with an ink outline; grape outline on hover.",
+      "html": "<label class=\"ds-label\">как вас звать<input class=\"ds-field\" placeholder=\"Вася\"></label>",
+      "css": ".ds-label{display:grid;gap:.375rem;font-family:'Nunito Variable',system-ui,sans-serif;font-weight:700;font-size:.875rem;color:#f6f1ff;background:#4a3aa8;padding:1rem}.ds-field{min-height:2.5rem;padding:.45rem .75rem;background:#fffdf7;color:#1a1a1a;border:4px solid #1a1a1a;border-radius:.75rem;font:inherit;font-size:1rem;box-shadow:5px 5px 0 #1a1a1a;transition:border-color .12s}.ds-field::placeholder{color:rgb(26 26 26/42%)}.ds-field:hover{border-color:#8b5cff}.ds-field:focus-visible{outline:3px solid #f2a93b;outline-offset:3px}"
+    },
+    {
+      "name": "Paper Card",
+      "kind": "card",
+      "refersTo": "card-paper",
+      "description": "Cream list row on the indigo scene: title, meta line, actions that wrap below on phones.",
+      "html": "<div class=\"ds-scene\"><article class=\"ds-card\"><div class=\"ds-card-text\"><strong>Коваль #5 · Шлакоблокунь</strong><span>3 раунда · 75 вопросов · финал из 3 тем</span></div><button class=\"ds-card-btn\">Открыть</button></article></div>",
+      "css": ".ds-scene{background:#4a3aa8;padding:1.5rem}.ds-card{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#fff6e9;color:#1a1a1a;border:4px solid #1a1a1a;border-radius:1.5rem;box-shadow:5px 5px 0 #1a1a1a}.ds-card-text{flex:1;min-width:12rem;display:grid;gap:.125rem}.ds-card-text strong{font-family:'Unbounded Variable',system-ui,sans-serif;font-weight:900;font-size:1.25rem}.ds-card-text span{font-family:'Nunito Variable',system-ui,sans-serif;font-size:.875rem;color:#5b524b}.ds-card-btn{min-height:2.5rem;padding:.4rem .85rem;background:#ffc53d;border:4px solid #1a1a1a;border-radius:.875rem;box-shadow:4px 4px 0 #1a1a1a;font-weight:700;cursor:pointer}.ds-card-btn:hover{transform:translate(-1px,-2px);box-shadow:6px 7px 0 #1a1a1a}.ds-card-btn:focus-visible{outline:3px solid #1a1a1a;outline-offset:3px}"
+    },
+    {
+      "name": "Board Row",
+      "kind": "custom",
+      "refersTo": "price-cell",
+      "description": "Grape theme header pinned to column one, tilted cream price cells; a played cell is kraft with a red cross.",
+      "html": "<div class=\"ds-board\"><div class=\"ds-theme\">Районы и улицы</div><button class=\"ds-cell ds-played\">100</button><button class=\"ds-cell\">200</button><button class=\"ds-cell\">300</button></div>",
+      "css": ".ds-board{display:grid;grid-template-columns:minmax(8rem,1.3fr) repeat(3,minmax(0,1fr));gap:.5rem;padding:1.5rem;background:#4a3aa8}.ds-theme{display:flex;align-items:center;padding:.5rem .75rem;background:#8b5cff;color:#fff;font-family:'Unbounded Variable',system-ui,sans-serif;font-weight:900;font-size:.875rem;border:4px solid #1a1a1a;border-radius:1rem;box-shadow:4px 4px 0 #1a1a1a}.ds-cell{height:6rem;background:#fff6e9;color:#8b5cff;font-family:'Unbounded Variable',system-ui,sans-serif;font-weight:900;font-size:2.25rem;border:3px solid #1a1a1a;border-radius:.375rem;cursor:pointer;transform:rotate(-1.1deg);transition:transform .15s}.ds-cell:nth-child(odd){transform:rotate(1.1deg)}.ds-cell:hover{transform:translateY(-8px) scale(1.09) rotate(.4deg)}.ds-cell:focus-visible{outline:3px solid #f2a93b;outline-offset:3px}.ds-played{background:#d8cdb8 linear-gradient(to top right,transparent 47%,#c2493c 47% 53%,transparent 53%);color:rgb(26 26 26/20%);cursor:not-allowed}.ds-played:hover{transform:rotate(1.1deg)}"
+    },
+    {
+      "name": "Revealed Answer",
+      "kind": "custom",
+      "refersTo": "button-doodle-confirm",
+      "description": "TV answer slab: filled verdict green with ink Unbounded text, never green text on cream.",
+      "html": "<div class=\"ds-answer\">Жибек Жолы</div>",
+      "css": ".ds-answer{display:inline-block;transform:rotate(-2deg);padding:.5rem 1.5rem;background:#2ebd59;color:#1a1a1a;font-family:'Unbounded Variable',system-ui,sans-serif;font-weight:900;font-size:2rem;border:4px solid #1a1a1a;border-radius:1rem;box-shadow:5px 5px 0 #1a1a1a}"
+    },
+    {
+      "name": "Verdict Stamp",
+      "kind": "custom",
+      "refersTo": "button-doodle-confirm",
+      "description": "Hand-lettered verdict slapped on over the host screen.",
+      "html": "<div class=\"ds-stamp\">ВЕРНО!</div>",
+      "css": ".ds-stamp{display:inline-block;transform:rotate(-8deg);padding:.75rem 2rem;background:rgb(255 246 233/90%);color:#2ebd59;border:7px solid #2ebd59;border-radius:1rem;font-family:'Caveat Variable',cursive;font-weight:700;font-size:3.75rem;box-shadow:8px 8px 0 rgb(26 26 26/25%)}"
+    },
+    {
+      "name": "Status Chips",
+      "kind": "chip",
+      "refersTo": "card-paper",
+      "description": "Host-ledger state tags: filled, readable at 12px.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip ds-chip-yes\">отвечает</span><span class=\"ds-chip ds-chip-no\">фальстарт</span></div>",
+      "css": ".ds-chips{display:flex;gap:.5rem;padding:.75rem;background:#ffc53d}.ds-chip{font-family:'Nunito Variable',system-ui,sans-serif;font-weight:700;font-size:.75rem;padding:.125rem .375rem;border-radius:.375rem}.ds-chip-yes{background:#2ebd59;color:#1a1a1a}.ds-chip-no{background:#e23b3b;color:#fff}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Marker on the fridge",
+    "overview": "**Creative North Star: \"Marker on the fridge\"**\n\nСвояк looks like a game board someone drew for tonight: a thick black marker on cream paper cut-outs, stuck to a deep indigo wall with sticky-note colours. Every surface carries the same handmade signal. Outlines are heavy and slightly wobbly (Rough.js frames), and shadows are hard ink offsets, never soft blur. The cast of characters is generated from players' names. It is homemade on purpose, made by a friend for friends, and it should never read as a polished SaaS product or a slick TV studio.\n\nThe volume follows the evening. Most of the time the interface is a calm stack of legible paper cards: the host managing the board, players waiting, the editor at work. The noise is saved for the peaks: the buzzer, the verdict stamp slapping onto the screen, the round intro, confetti at victory. Quiet screens earn the loud moments.\n\nEvery control is a toy you can press. Buttons are chunky, outlined in ink, and sit on a hard shadow they physically sink into when pressed. One system covers three viewing distances: a phone held close and used in a hurry, a host laptop at arm's length, and a TV read from the sofa.",
+    "keyCharacteristics": [
+      "Deep indigo scene with faint speckle and drifting outline doodles; light paper cards on top.",
+      "4px ink outlines and hard offset ink shadows (3–10px, zero blur) on everything that matters.",
+      "Hand-drawn Rough.js frames and crosses for the board and big moments.",
+      "Unbounded Black for anything you read at a glance; Nunito Bold for anything you read in full; Caveat for the hand-lettered buttons and stamps.",
+      "Six player colours that follow each person across every screen.",
+      "Motion is springy and physical, and it lives at the peaks."
+    ],
+    "rules": [
+      {
+        "name": "The Ink-Variant Rule",
+        "body": "Fill colours are for fills. Text in a player or verdict colour on cream must use its `-ink` variant: grape-ink (4.85:1), verdict-red-ink (4.88:1), verdict-green-ink (5.1:1). Plain green on cream is 2.3:1 and unreadable from a sofa.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink-on-Green Rule",
+        "body": "Labels on Verdict Green are Marker Ink, never white. White on green is 2.6:1; ink is about 8:1.",
+        "section": "colors"
+      },
+      {
+        "name": "The Surface-Decides-Text Rule",
+        "body": "Secondary text gets its colour from the surface it sits on, never from a hard-coded `ink/60`. Wrap screens in `.on-scene` and cards in `.on-paper`, then use `.text-soft`. Ink at 60% on indigo was 1.6:1.",
+        "section": "colors"
+      },
+      {
+        "name": "The Follow-the-Player Rule",
+        "body": "A player's colour is assigned once by join order (`colorForIndex`) and used for their avatar, score, frame and confetti on every screen. Never recolour a player for decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Voices Rule",
+        "body": "Unbounded is for what you glance at, Nunito for what you read. Never set a full sentence or a question in Unbounded, and never set a score or room code in Nunito.",
+        "section": "typography"
+      },
+      {
+        "name": "The Stroke-on-Scene Rule",
+        "body": "Large display text placed directly on the indigo scene is cream with an ink stroke. Display text inside a cream card is ink or a player colour, with no cream fill.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Scroll Screens Rule",
+        "body": "Phones and the TV never scroll. If content doesn't fit, it shrinks (clamp with `dvh`) or moves to another step; it never scrolls away.",
+        "section": "layout"
+      },
+      {
+        "name": "The Zero-Blur Rule",
+        "body": "No shadow in Свояк has a blur radius. A soft `0 4px 24px` glow breaks the paper illusion immediately.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Sink-on-Press Rule",
+        "body": "Hover lifts (translate about −1px/−4px, shadow grows). Press translates by the full shadow offset and the shadow drops to zero, so the button lands in its own shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** wrap every screen in `.on-scene` and every card in `.on-paper`, and use `.text-soft` for secondary text.",
+      "**Do** give every important surface a 4px Marker Ink outline and a hard ink shadow from the Shadow Vocabulary.",
+      "**Do** use the `-ink` colour variants for coloured text on cream, and Marker Ink for labels on Verdict Green.",
+      "**Do** keep phones and the TV viewport-locked, and size TV text with `clamp(…, min(vw, dvh), …)`.",
+      "**Do** start mobile grids at `grid-cols-1` and give flexible titles a minimum width so buttons wrap below them.",
+      "**Do** save springs, stamps, confetti and idle sway for peak moments (buzz, verdict, round intro, victory) and for the screen's one main button.",
+      "**Do** honour `prefers-reduced-motion` and the `.calm` mode, which keep only fades."
+    ],
+    "donts": [
+      "**Don't** use blurred shadows, gradients on cards, glassmorphism or thin 1px borders. They break the paper-and-marker illusion.",
+      "**Don't** put Marker Ink text directly on Scene Indigo, or the old dark-theme tokens (`bg-surface`, `bg-surface-2`, `border-line`, `text-muted`, `bg-good`, `bg-bad`, `text-bg`) anywhere. They are leftovers from before the hand-drawn theme. `--color-ink` now resolves to near-black, so `text-ink` on `bg-surface` is about 1.2:1.",
+      "**Don't** write unlayered global element rules (`button { … }`). They override every Tailwind utility. Global rules go in `@layer base` with `:where()`.",
+      "**Don't** animate text the host has to read aloud. A question must be fully visible the moment it opens.",
+      "**Don't** pull fonts, icons or sounds from a CDN. Everything ships locally.",
+      "**Don't** use a stock icon set. Icons and doodles are hand-drawn SVG paths in `design/Doodles.tsx`.",
+      "**Don't** set sentences in Unbounded or numbers in Nunito."
+    ]
+  }
+}

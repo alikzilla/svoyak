@@ -60,7 +60,7 @@ function PackListScreen() {
           </h1>
           <p className="font-body font-bold opacity-80">Свои вопросы — без запущенной игры</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() =>
@@ -179,8 +179,10 @@ function PackListScreen() {
               className="on-paper ink-border bg-card text-ink relative flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
               style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
             >
-              <Link to={`/editor/${pack.id}`} className="min-w-0 flex-1">
-                <span className="font-pop block text-xl font-black">{pack.title}</span>
+              <Link to={`/editor/${pack.id}`} className="min-w-48 flex-1">
+                <span className="font-pop block text-xl font-black break-words hyphens-auto">
+                  {pack.title}
+                </span>
                 <span className="text-soft block text-sm">
                   {pack.roundsCount} раунда · {pack.questionsCount} вопросов · финал из{' '}
                   {pack.finalThemesCount} тем
@@ -209,13 +211,19 @@ function PackListScreen() {
                   </button>
                 </>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => setConfirmId(pack.id)}
-                  className="btn px-3 text-sm hover:border-no hover:text-no-ink"
-                >
-                  Удалить
-                </button>
+                <>
+                  {/* Как в списке игр: явная кнопка, а не догадка, что название — ссылка. */}
+                  <Link to={`/editor/${pack.id}`} className="btn bg-p4 shrink-0 px-3 text-sm">
+                    Открыть
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmId(pack.id)}
+                    className="btn shrink-0 px-3 text-sm hover:border-no hover:text-no-ink"
+                  >
+                    Удалить
+                  </button>
+                </>
               )}
             </li>
           ))}
@@ -274,7 +282,7 @@ function PackScreen({ packId }: { packId: string }) {
           ← Паки
         </Link>
         <input
-          className="field-bare font-pop min-w-0 flex-1 text-2xl font-black"
+          className="field-bare font-pop min-w-48 flex-1 text-2xl font-black"
           style={{ WebkitTextStroke: '3px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
           value={pack.title}
           placeholder="Название пака"

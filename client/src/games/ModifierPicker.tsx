@@ -56,7 +56,7 @@ export function ModifierPicker({ plan, onChange }: ModifierPickerProps) {
       </div>
 
       {plan.perRound > 0 && (
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {MODIFIER_KINDS.map((kind) => (
             <label key={kind} className="check-row font-body text-sm font-bold">
               <input

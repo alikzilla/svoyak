@@ -137,10 +137,10 @@ export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
     .reduce((sum, pack) => sum + pack.questionsCount / 5, 0);
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <section className="grid gap-2">
         <h3 className="font-pop text-lg font-black">Паки</h3>
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {packs.map((pack) => {
             const active = selected.includes(pack.id);
             return (
@@ -170,7 +170,7 @@ export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
         </p>
       </section>
 
-      <section className="grid gap-2 sm:grid-cols-3">
+      <section className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         <Stepper label="Раундов" value={rounds} bounds={LIMITS.rounds} onChange={setRounds} />
         <Stepper
           label="Тем в раунде"
@@ -211,7 +211,7 @@ export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
               <p className="font-body text-sm font-bold opacity-70">
                 Раунд {roundIndex + 1} · цены {100 * (roundIndex + 1)}–{500 * (roundIndex + 1)}
               </p>
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
                 {round.map((theme, themeIndex) => (
                   <ThemeChip
                     key={`${theme.packId}-${theme.themeId}`}

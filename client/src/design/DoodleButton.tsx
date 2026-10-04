@@ -12,6 +12,8 @@ interface DoodleButtonProps {
   disabled?: boolean;
   tilt?: number;
   className?: string;
+  /** submit — чтобы Enter и «Готово» на клавиатуре телефона отправляли форму. */
+  type?: 'button' | 'submit';
   onClick?: () => void;
 }
 
@@ -22,7 +24,8 @@ const TONES: Record<ButtonTone, string> = {
   p4: 'bg-p4 text-ink',
   p5: 'bg-p5 text-ink',
   p6: 'bg-p6 text-ink',
-  yes: 'bg-yes text-white',
+  // Белый по зелёному — 2.6:1; чернила — 8:1.
+  yes: 'bg-yes text-ink',
   no: 'bg-no text-white',
   gold: 'bg-gold text-ink',
   paper: 'bg-card text-ink',
@@ -44,6 +47,7 @@ export function DoodleButton({
   disabled = false,
   tilt = -1.2,
   className = '',
+  type = 'button',
   onClick,
 }: DoodleButtonProps) {
   const press = {
@@ -67,7 +71,7 @@ export function DoodleButton({
       }
     >
       <motion.button
-        type="button"
+        type={type}
         disabled={disabled}
         onClick={onClick}
         variants={press}

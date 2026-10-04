@@ -45,6 +45,9 @@
      Затемнённые варианты дают 4.85:1 и 4.88:1. */
   --color-p1-ink: #7a4aee;
   --color-no-ink: #d12626;
+  /* Зелёный «верно» на карточке давал 2.3:1 — раскрытый ответ на табло
+     читался бледным пятном. Этот даёт 5.1:1. */
+  --color-yes-ink: #16793a;
 
   --color-night: #131c3f;
   --color-night-2: #22306b;
@@ -106,48 +109,50 @@ body {
   }
 }
 
-button {
-  font: inherit;
-  touch-action: manipulation;
-}
+/* Глобальные правила для элементов — только в слое base и через :where().
+   Вне слоя они перебивали любые утилиты Tailwind (те живут в @layer utilities):
+   `button { font: inherit }` молча отменял font-hand, text-3xl и font-black
+   на каждой кнопке приложения, а курсор-указатель — cursor: grab у ручек. */
+@layer base {
+  :where(button) {
+    touch-action: manipulation;
+  }
 
-/* Tailwind v4 больше не ставит кнопкам cursor: pointer, а preflight вдобавок
-   прописывает им appearance: button — курсор оставался стрелкой, и живые
-   кнопки выглядели неактивными. Возвращаем указатель и запрет для выключенных. */
-button:not(:disabled),
-[role='button']:not([aria-disabled='true']),
-summary,
-label:has(> input[type='checkbox']),
-label:has(> input[type='radio']) {
-  cursor: pointer;
-}
+  /* Tailwind v4 больше не ставит кнопкам cursor: pointer, а preflight вдобавок
+     прописывает им appearance: button — курсор оставался стрелкой, и живые
+     кнопки выглядели неактивными. Возвращаем указатель и запрет для выключенных. */
+  :where(
+      button:not(:disabled),
+      [role='button']:not([aria-disabled='true']),
+      summary,
+      label:has(> input[type='checkbox']),
+      label:has(> input[type='radio']),
+      select
+    ) {
+    cursor: pointer;
+  }
 
-button:disabled,
-[aria-disabled='true'] {
-  cursor: not-allowed;
-}
+  :where(button:disabled, [aria-disabled='true']) {
+    cursor: not-allowed;
+  }
 
-/* Курсор набора текста на полях — иначе поле не отличить от подписи. */
-input:not([type='checkbox'], [type='radio'], [type='file'], [type='range']),
-textarea {
-  cursor: text;
-}
+  /* Курсор набора текста на полях — иначе поле не отличить от подписи. */
+  :where(input:not([type='checkbox'], [type='radio'], [type='file'], [type='range']), textarea) {
+    cursor: text;
+  }
 
-select {
-  cursor: pointer;
-}
+  /* Кольцо фокуса должно быть видно и на индиго, и на кремовой карточке.
+     Золото на карточке даёт 1.9:1, чернила на индиго — 2:1, поэтому кольца два:
+     внутреннее чернильное и внешнее золотое. */
+  :focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+  }
 
-/* Кольцо фокуса должно быть видно и на индиго, и на кремовой карточке.
-   Золото на карточке даёт 1.9:1, чернила на индиго — 2:1, поэтому кольца два:
-   внутреннее чернильное и внешнее золотое. */
-:focus-visible {
-  outline: 3px solid var(--color-gold);
-  outline-offset: 3px;
-}
-
-/* Внутри кремовой карточки золото теряется — там кольцо чернильное. */
-.on-paper :focus-visible {
-  outline-color: var(--color-ink);
+  /* Внутри кремовой карточки золото теряется — там кольцо чернильное. */
+  .on-paper :focus-visible {
+    outline-color: var(--color-ink);
+  }
 }
 
 /* Эквалайзер аудиовопроса: единственная анимация, которую нельзя выразить утилитами. */

@@ -8,24 +8,28 @@ export interface Session {
   name?: string;
 }
 
-const KEY = 'svoyak:session';
+// Своя запись на каждую роль. Ведущий с ноутбука часто открывает тут же общий
+// экран или заходит игроком проверить — с одним ключом вход игроком затирал
+// сессию ведущего, а закрытие комнаты на табло стирало её совсем, и после
+// перезагрузки ведущий терял управление.
+const keyFor = (role: Role): string => `svoyak:session:${role}`;
 
 export function saveSession(session: Session): void {
   try {
-    localStorage.setItem(KEY, JSON.stringify(session));
+    localStorage.setItem(keyFor(session.role), JSON.stringify(session));
   } catch {
     // приватный режим браузера — переживём, просто не переподключимся автоматически
   }
 }
 
-export function loadSession(): Session | null {
+export function loadSession(role: Role): Session | null {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(keyFor(role));
     if (!raw) return null;
     const parsed: unknown = JSON.parse(raw);
     if (typeof parsed !== 'object' || parsed === null) return null;
     const session = parsed as Partial<Session>;
-    if (!session.role || !session.code || !session.token) return null;
+    if (session.role !== role || !session.code || !session.token) return null;
     return {
       role: session.role,
       code: session.code,
@@ -38,9 +42,9 @@ export function loadSession(): Session | null {
   }
 }
 
-export function clearSession(): void {
+export function clearSession(role: Role): void {
   try {
-    localStorage.removeItem(KEY);
+    localStorage.removeItem(keyFor(role));
   } catch {
     // нечего чистить
   }
