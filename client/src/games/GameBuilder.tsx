@@ -159,7 +159,7 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
               <label
                 key={pack.id}
                 className="check-row font-body items-center text-sm font-bold"
-                title={pack.playable ? undefined : 'В паке есть ошибки — исправьте их в редакторе'}
+                title={pack.playable ? undefined : 'Пак не дозаполнен — допишите его в редакторе'}
               >
                 <input
                   type="checkbox"

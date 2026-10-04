@@ -288,6 +288,9 @@ A hand-drawn face generated from the player's name (head shape, eyes, mouth, hai
 ### Big Buzzer (signature)
 The phone's buzzer fills the space below the question: one huge rounded slab whose colour is the state: Verdict Green when open («ЖМИ»), Verdict Red during a false-start lock, the player's own colour when they're answering, and muted lavender (`#6a5fb8`) while closed, with a countdown to opening. Its label is cream Unbounded with an ink stroke. It stays pressable while closed, because an early press is a false start for the server to judge.
 
+### Rules Deck (signature)
+«Как играть», opened from the TV lobby. Eight slides authored on a fixed 1920×1080 stage that scales as a whole and letterboxes on any screen, so slide type is set in stage pixels (112px titles, 48px leads), deliberately outside the app's type ramp. It reuses the game's own pieces (Rough.js cards, avatars, doodles, verdict lettering). Content is visible from the first frame: motion only slides elements into place and never fades them in from nothing. Host controls (close, back, page count, next) sit outside the stage.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -311,4 +314,4 @@ The phone's buzzer fills the space below the question: one huge rounded slab who
 ### Known drift (to fix)
 - `ui/host/FinalHost.tsx` (the host's final-round panel) is still built on the old dark tokens. Its ink text on `bg-surface` is unreadable and needs rebuilding as a cream `.on-paper` card.
 - `ui/Standings.tsx` (used by HostGame and Board) mixes `bg-surface`, `border-line` and `text-muted`.
-- `ui/Buzzer.tsx`, `ui/Timer.tsx` and `ui/Screen.tsx` are no longer imported anywhere and can be deleted, along with the dark-theme block in `index.css` once nothing else depends on it.
+- `ui/Buzzer.tsx` and `ui/Screen.tsx` are no longer imported anywhere and can be deleted, along with the dark-theme block in `index.css` once nothing else depends on it.

@@ -20,6 +20,7 @@ import { DoodleButton } from '../design/DoodleButton.js';
 import { DoodleField } from '../design/Doodles.js';
 import { RoughFrame } from '../design/rough.js';
 import { ReactionLayer } from '../ui/ReactionLayer.js';
+import { RulesDeck } from '../ui/RulesDeck.js';
 
 export default function Board() {
   const [params, setParams] = useSearchParams();
@@ -227,6 +228,9 @@ export default function Board() {
 }
 
 function Lobby({ view }: { view: BoardView }) {
+  // Пока гости сходятся, ведущий может пролистать правила прямо на телевизоре.
+  const [rules, setRules] = useState(false);
+
   return (
     <section className="relative flex flex-1 flex-col items-center justify-center gap-8">
       <p className="font-body text-xl font-bold opacity-80">{view.packTitle}</p>
@@ -255,6 +259,12 @@ function Lobby({ view }: { view: BoardView }) {
       <p className="font-pop text-2xl font-black">
         {view.players.length === 0 ? 'наведите камеру на код' : 'ждём ведущего'}
       </p>
+
+      <DoodleButton tone="paper" size="md" tilt={1} onClick={() => setRules(true)}>
+        Как играть
+      </DoodleButton>
+
+      {rules && <RulesDeck onClose={() => setRules(false)} />}
     </section>
   );
 }

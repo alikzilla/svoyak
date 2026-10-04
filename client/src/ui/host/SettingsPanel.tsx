@@ -36,6 +36,7 @@ function NumberField({
   value,
   step = 1,
   min = 0,
+  ms = false,
   onChange,
 }: {
   label: string;
@@ -43,20 +44,24 @@ function NumberField({
   value: number;
   step?: number;
   min?: number;
+  /** Значение хранится в миллисекундах, а ведущий видит и вводит секунды. */
+  ms?: boolean;
   onChange: (value: number) => void;
 }) {
+  const scale = ms ? 1000 : 1;
   return (
     <label className="font-body grid gap-1 text-sm font-bold">
       <span>{label}</span>
       <input
         type="number"
+        inputMode="decimal"
         className="ink-border bg-card text-ink w-full rounded-xl px-3 py-2 tabular-nums"
-        value={value}
-        step={step}
-        min={min}
+        value={value / scale}
+        step={step / scale}
+        min={min / scale}
         onChange={(event) => {
           const next = Number(event.target.value);
-          if (Number.isFinite(next)) onChange(Math.max(min, next));
+          if (Number.isFinite(next)) onChange(Math.max(min, Math.round(next * scale)));
         }}
       />
       {hint && <span className="text-xs font-bold opacity-60">{hint}</span>}
@@ -165,47 +170,54 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
         <div className="ink-border bg-card text-ink grid gap-4 rounded-2xl p-4">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <NumberField
-              label="Показ темы и цены, мс"
+              label="Показ темы и цены, с"
+              ms
               hint="0 — вопрос открывается сразу"
               step={500}
               value={settings.announceMs}
               onChange={(announceMs) => onChange({ announceMs })}
             />
             <NumberField
-              label="Пауза на чтение, мс"
+              label="Пауза на чтение, с"
+              ms
               hint="0 — кнопка открывается сразу"
               step={500}
               value={settings.readingMs}
               onChange={(readingMs) => onChange({ readingMs })}
             />
             <NumberField
-              label="Окно на нажатие, мс"
+              label="Окно на нажатие, с"
+              ms
               step={500}
               value={settings.buzzOpenMs}
               onChange={(buzzOpenMs) => onChange({ buzzOpenMs })}
             />
             <NumberField
-              label="Показ ответа, мс"
+              label="Показ ответа, с"
+              ms
               hint="0 — сцену закрывает ведущий"
               step={1000}
               value={settings.answerRevealMs}
               onChange={(answerRevealMs) => onChange({ answerRevealMs })}
             />
             <NumberField
-              label="Сцена модификатора, мс"
+              label="Сцена модификатора, с"
+              ms
               hint="0 — закрывает ведущий"
               step={1000}
               value={settings.modifierMs}
               onChange={(modifierMs) => onChange({ modifierMs })}
             />
             <NumberField
-              label="Блокировка за фальстарт, мс"
+              label="Блокировка за фальстарт, с"
+              ms
               step={500}
               value={settings.falseStartLockMs}
               onChange={(falseStartLockMs) => onChange({ falseStartLockMs })}
             />
             <NumberField
-              label="Добавка после чужой ошибки, мс"
+              label="Добавка после чужой ошибки, с"
+              ms
               step={500}
               value={settings.buzzReopenMinMs}
               onChange={(buzzReopenMinMs) => onChange({ buzzReopenMinMs })}
@@ -218,13 +230,15 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
               onChange={(auctionStep) => onChange({ auctionStep })}
             />
             <NumberField
-              label="Время на ставку в финале, мс"
+              label="Время на ставку в финале, с"
+              ms
               step={5000}
               value={settings.finalBetTimeMs}
               onChange={(finalBetTimeMs) => onChange({ finalBetTimeMs })}
             />
             <NumberField
-              label="Время на ответ в финале, мс"
+              label="Время на ответ в финале, с"
+              ms
               step={5000}
               value={settings.finalAnswerTimeMs}
               onChange={(finalAnswerTimeMs) => onChange({ finalAnswerTimeMs })}

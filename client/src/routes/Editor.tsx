@@ -234,7 +234,7 @@ function PackListScreen() {
         to="/"
         className="text-soft font-body w-fit text-sm font-bold underline underline-offset-4"
       >
-        На главную
+        на главную
       </Link>
     </div>
   );

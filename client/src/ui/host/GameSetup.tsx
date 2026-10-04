@@ -148,7 +148,7 @@ export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
                 key={pack.id}
                 type="button"
                 disabled={!pack.playable}
-                title={pack.playable ? pack.title : 'Пак не дозаполнен — его нельзя взять в игру'}
+                title={pack.playable ? pack.title : 'Пак не дозаполнен — допишите его в редакторе'}
                 onClick={() => togglePack(pack.id)}
                 style={{ boxShadow: active ? '5px 5px 0 #1a1a1a' : '3px 3px 0 #1a1a1a' }}
                 className={`ink-border text-ink rounded-2xl px-3 py-2 text-left ${
