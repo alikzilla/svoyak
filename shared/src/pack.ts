@@ -73,6 +73,9 @@ export interface PackMeta {
   title: string;
   author?: string;
   description?: string;
+  /** Откуда пак: `siq` — импорт из SIGame. Такие паки держатся на картинках и
+   *  видео, поэтому авторские правила для текста к ним не применяются. */
+  source?: 'siq';
   createdAt: number;
   updatedAt: number;
 }

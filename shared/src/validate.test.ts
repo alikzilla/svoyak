@@ -117,8 +117,10 @@ describe('validatePack', () => {
     expect(errors(broken).join(' ')).toContain('Кот в мешке');
   });
 
-  it('финал без тем — ошибка', () => {
-    expect(errors(pack({ final: { themes: [] } })).join(' ')).toContain('Финал');
+  it('финал без тем — не ошибка: после последнего раунда игра сразу покажет итоги', () => {
+    const noFinal = pack({ final: { themes: [] } });
+    expect(errors(noFinal)).toEqual([]);
+    expect(warnings(noFinal).join(' ')).toContain('Финала нет');
   });
 
   it('пак без раундов — ошибка', () => {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import type { ClockPong } from '@svoyak/shared';
 import { socket } from './socket.js';
 
@@ -33,13 +33,15 @@ export function useClock(): { read: () => ClockReading } {
     return () => clearInterval(timer);
   }, []);
 
-  const read = (): ClockReading => {
+  // Стабильная ссылка: общий экран читает часы из цикла анимации, и новая
+  // функция на каждый рендер перезапускала бы этот цикл.
+  const read = useCallback((): ClockReading => {
     const best = samples.current.reduce<{ offset: number; rtt: number } | null>(
       (acc, sample) => (acc === null || sample.rtt < acc.rtt ? sample : acc),
       null,
     );
     return { offset: best?.offset ?? 0, minRtt: best?.rtt ?? 0 };
-  };
+  }, []);
 
   return { read };
 }

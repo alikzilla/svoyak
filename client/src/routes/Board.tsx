@@ -5,6 +5,7 @@ import type { BoardView, PlayerPublic } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
 import { useBoardRoom } from '../net/useRoom.js';
 import { unlockAudio } from '../net/sounds.js';
+import { useClock } from '../net/useClock.js';
 import { QrCode } from '../ui/QrCode.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 import { QuestionMedia } from '../ui/QuestionMedia.js';
@@ -21,11 +22,14 @@ import { DoodleField } from '../design/Doodles.js';
 import { RoughFrame } from '../design/rough.js';
 import { ReactionLayer } from '../ui/ReactionLayer.js';
 import { RulesDeck } from '../ui/RulesDeck.js';
+import { BuzzCountdown } from '../ui/BuzzCountdown.js';
 
 export default function Board() {
   const [params, setParams] = useSearchParams();
   const code = params.get('code') ?? '';
   const { view, connected } = useBoardRoom();
+  // Конец таймера кнопки приходит в серверном времени, а часы телевизора могут врать.
+  const clock = useClock();
   const [draft, setDraft] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -160,46 +164,50 @@ export default function Board() {
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 20 }}
               >
-                <RoughFrame
-                  fill="var(--color-card)"
-                  seed={17}
-                  contentClassName="text-ink grid gap-5 px-10 py-10 text-center"
-                >
-                  <p className="font-body text-2xl font-bold opacity-70">
-                    {view.question.themeTitle} ·{' '}
-                    <span className="font-pop text-p1 tabular-nums">{view.question.price}</span>
-                  </p>
-                  <p className="font-body text-[clamp(1.5rem,min(4vw,6.5dvh),3.5rem)] leading-tight font-bold text-pretty">
-                    {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
-                  </p>
-                  {view.question.media && (
-                    <QuestionMedia
-                      media={view.question.media}
-                      variant="board"
-                      alt={view.question.text}
-                    />
-                  )}
-                  {view.question.revealedAnswer && (
-                    <motion.p
-                      initial={{ scale: 0.6, rotate: -6, opacity: 0 }}
-                      animate={{ scale: 1, rotate: -2, opacity: 1 }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 14 }}
-                      // Ответ — кульминация вопроса: штамп с заливкой читается
-                      // с дивана, а зелёный текст на кремовом — нет.
-                      className="ink-border bg-yes text-ink font-pop justify-self-center rounded-2xl px-6 py-2 text-[clamp(1.6rem,3vw,2.8rem)] font-black"
-                      style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
-                    >
-                      {view.question.revealedAnswer}
-                    </motion.p>
-                  )}
-                  {view.question.revealedAnswerMedia && (
-                    <QuestionMedia
-                      media={view.question.revealedAnswerMedia}
-                      variant="board"
-                      alt={view.question.revealedAnswer ?? ''}
-                    />
-                  )}
-                </RoughFrame>
+                <BuzzCountdown timer={view.timer} readClock={clock.read}>
+                  <RoughFrame
+                    fill="var(--color-card)"
+                    seed={17}
+                    contentClassName="text-ink grid gap-5 px-10 py-10 text-center"
+                  >
+                    <p className="font-body text-2xl font-bold opacity-70">
+                      {view.question.themeTitle} ·{' '}
+                      <span className="font-pop text-p1 tabular-nums">{view.question.price}</span>
+                    </p>
+                    <p className="font-body text-[clamp(1.5rem,min(4vw,6.5dvh),3.5rem)] leading-tight font-bold text-pretty">
+                      {view.question.hidden ? 'вопрос ещё не читали' : view.question.text}
+                    </p>
+                    {/* Два медиа разом на экран не влезают: когда раскрыли
+                        медиа-ответ, медиа вопроса уступает ему место. */}
+                    {view.question.media && !view.question.revealedAnswerMedia && (
+                      <QuestionMedia
+                        media={view.question.media}
+                        variant="board"
+                        alt={view.question.text}
+                      />
+                    )}
+                    {view.question.revealedAnswer && (
+                      <motion.p
+                        initial={{ scale: 0.6, rotate: -6, opacity: 0 }}
+                        animate={{ scale: 1, rotate: -2, opacity: 1 }}
+                        transition={{ type: 'spring', stiffness: 380, damping: 14 }}
+                        // Ответ — кульминация вопроса: штамп с заливкой читается
+                        // с дивана, а зелёный текст на кремовом — нет.
+                        className="ink-border bg-yes text-ink font-pop justify-self-center rounded-2xl px-6 py-2 text-[clamp(1.6rem,3vw,2.8rem)] font-black"
+                        style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
+                      >
+                        {view.question.revealedAnswer}
+                      </motion.p>
+                    )}
+                    {view.question.revealedAnswerMedia && (
+                      <QuestionMedia
+                        media={view.question.revealedAnswerMedia}
+                        variant="board"
+                        alt={view.question.revealedAnswer ?? ''}
+                      />
+                    )}
+                  </RoughFrame>
+                </BuzzCountdown>
               </motion.div>
             ) : (
               // Доска — фон, а не событие: она не проявляется, а просто есть.

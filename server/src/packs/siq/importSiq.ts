@@ -34,6 +34,10 @@ function* eachMedia(pack: Pack): Generator<{ get: () => Media | undefined; set: 
   }
   for (const theme of pack.final.themes) {
     yield { get: () => theme.question.media, set: (media) => (theme.question.media = media) };
+    yield {
+      get: () => theme.question.answerMedia,
+      set: (media) => (theme.question.answerMedia = media),
+    };
   }
 }
 

@@ -67,8 +67,10 @@ export function validatePack(pack: Pack): PackIssue[] {
     }
   }
 
+  // Движок без финальных тем сразу переходит к итогам, так что играть можно —
+  // многие паки SIGame финала не имеют вовсе.
   if (pack.final.themes.length === 0) {
-    add('error', 'Финал без тем: добавьте хотя бы одну');
+    add('warning', 'Финала нет: после последнего раунда игра сразу покажет итоги');
   }
   for (const theme of pack.final.themes) {
     const path = { themeId: theme.id, questionId: theme.question.id };

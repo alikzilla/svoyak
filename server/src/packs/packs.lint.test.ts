@@ -49,6 +49,10 @@ const POINTS_AT_SOMETHING = [
 ];
 
 const packs = load();
+/** Паки, написанные вручную. Импорт из SIGame держится на картинках и видео:
+ *  «Что на картинке?» там повторяется законно, а ведущий вопрос не зачитывает,
+ *  а показывает. Для них остаются общие проверки — играется ли и есть ли файлы. */
+const authored = packs.filter((entry) => entry.pack.source !== 'siq');
 /** Паки-заготовки для тестов собираются из кода (`npm run build:packs`) и живут
  *  по своим правилам: у них другая сетка и другое число финальных тем. */
 const content = packs.filter((entry) => entry.file.startsWith('pack-'));
@@ -62,7 +66,7 @@ describe('паки на диске', () => {
     expect(hasErrors(validatePack(pack))).toBe(false);
   });
 
-  it.each(packs)('$file: ни один вопрос не повторяет текст соседа', ({ pack }) => {
+  it.each(authored)('$file: ни один вопрос не повторяет текст соседа', ({ pack }) => {
     const seen = new Map<string, number>();
     for (const question of allQuestions(pack)) {
       const key = question.text.trim().toLowerCase();
@@ -83,7 +87,7 @@ describe('паки на диске', () => {
     expect(broken).toEqual([]);
   });
 
-  it.each(packs)('$file: у каждого вопроса есть текст и ответ', ({ pack }) => {
+  it.each(authored)('$file: у каждого вопроса есть текст и ответ', ({ pack }) => {
     const empty = allQuestions(pack)
       .filter((question) => question.text.trim().length < 15 || question.answer.trim() === '')
       .map((question) => question.text);

@@ -79,6 +79,13 @@ describe('вход в финал', () => {
     expect(state.phase).toBe('results');
   });
 
+  it('если в паке нет финала, после последнего раунда сразу результаты', () => {
+    const ready = beforeFinal();
+    const state = enterFinal({ ...ready, pack: { ...ready.pack, final: { themes: [] } } });
+    expect(state.phase).toBe('results');
+    expect(state.final).toBeNull();
+  });
+
   it('первым убирает тему игрок с меньшим счётом', () => {
     const state = enterFinal();
     expect(state.final?.removalTurnPlayerId).toBe('p1');

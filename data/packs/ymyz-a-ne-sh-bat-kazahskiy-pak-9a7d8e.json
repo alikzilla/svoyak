@@ -1,0 +1,1340 @@
+{
+  "id": "ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e",
+  "title": "ҚЫМЫЗ, а не ШҰБАТ (Казахский пак)",
+  "createdAt": 1793550436605,
+  "updatedAt": 1793550436605,
+  "rounds": [
+    {
+      "id": "r-0-5f922p",
+      "title": "Батыр вкуса и ритма",
+      "themes": [
+        {
+          "id": "t-0-e6sne5",
+          "title": "МЕМЫ",
+          "questions": [
+            {
+              "id": "q-0-clb0kg",
+              "price": 100,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "ШАМПУНЬ ЖУМАЙСЫНБА",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/7105d750-8d4f-4ae1-8d1b-3c2ae111d114.mp4"
+              },
+              "answerMedia": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/17369a78-f97c-4e69-97cd-04c92a9e5d3e.mp4"
+              }
+            },
+            {
+              "id": "q-1-vc4jah",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Николас Кейдж в шапане",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/bcd4653e-3d96-47a9-acd9-fce46e78b129.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a7b5e1ac-e711-45ec-8bb3-11506bdd3e87.jpg"
+              }
+            },
+            {
+              "id": "q-2-mz931o",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "ФРИСТАЙЛО",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/ad106984-5a2d-450c-a739-07489f1dabbb.mp4"
+              },
+              "answerMedia": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/58fc1e5e-dbc7-46fd-bef7-1fb339584b9b.mp4"
+              }
+            },
+            {
+              "id": "q-3-iseai3",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "МЫ НАЕБЩИКИ",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/2144563a-7907-463f-83ee-9ef4b1424dce.mp4"
+              },
+              "answerMedia": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/71c9f6f0-cf9e-4e17-bef5-f8bbd050089b.mp4"
+              }
+            },
+            {
+              "id": "q-4-d0lbg7",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "ахуелсынба? я ахуелмын",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/8b002973-a4ce-4acd-a891-e2b7e899af22.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/0988b803-705c-4420-8c31-232b5781b0d0.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-1-2exixk",
+          "title": "МЕСТА",
+          "questions": [
+            {
+              "id": "q-100-0xw4zo",
+              "price": 100,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Медео (Алматы)",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/c8be98fc-ff4a-4a01-8715-ad9a94cd56ce.jpg"
+              }
+            },
+            {
+              "id": "q-101-g4xxzr",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Байконур",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f9c8cb4b-d25d-40b1-8233-3ca114677242.jpg"
+              }
+            },
+            {
+              "id": "q-102-nyceab",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Байтерек  (Астана/Нур-Султан)",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/4dac411b-b057-4ff6-a499-792f18287972.jpg"
+              }
+            },
+            {
+              "id": "q-103-dfgwem",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Шымбулак (Алматы)",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/8ad42452-6e10-442d-87b7-1f9aa5159285.jpg"
+              }
+            },
+            {
+              "id": "q-104-05ehad",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Экспо (Астана/Нур-Султан)",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/2cf311f2-1825-4e4b-ac90-67307b1f991a.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-2-783dft",
+          "title": "ГОРОД",
+          "questions": [
+            {
+              "id": "q-200-zvwkee",
+              "price": 100,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Алматы/Алма-ата",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/33f1e87d-d401-450c-a17f-1a564abc95cf.jpg"
+              }
+            },
+            {
+              "id": "q-201-18j7h5",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Астана/Нур-Султан",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/28356dba-e323-407b-8b11-6dc775ffbc40.jpg"
+              }
+            },
+            {
+              "id": "q-202-hjqaxd",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Актау",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/fef3a874-4086-4c32-8508-b08ff103f25d.jpg"
+              }
+            },
+            {
+              "id": "q-203-p7gn7w",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Щучинск/Боровое",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/1f1f7d33-072f-4bde-8f1e-a5221fad69ca.jpg"
+              }
+            },
+            {
+              "id": "q-204-rkt00r",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Караганда",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b7f9441a-d322-4ca7-bdae-a5b131d882d7.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-3-2q9dfd",
+          "title": "МУЗЫКА",
+          "questions": [
+            {
+              "id": "q-300-fabgqk",
+              "price": 100,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "Скриптонит,Jillzay ft. KolyaOlya – Бар - Две лесбухи",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/0b4ca870-48d6-4ef8-92f6-66df64d0df2e.mp4"
+              },
+              "answerMedia": {
+                "kind": "audio",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f1f6a12b-adec-40cc-832c-68adcdf7077a.mp3"
+              }
+            },
+            {
+              "id": "q-301-uqa5zl",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "Jah Khalib - Лейла",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/6990ea57-9319-4c2e-83e7-6d447f505608.mp4"
+              },
+              "answerMedia": {
+                "kind": "audio",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/420c6a24-8c75-411a-ac86-81d3b0d97a1b.mp3"
+              }
+            },
+            {
+              "id": "q-302-u7pw0x",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "ИРИНА КАЙРАТОВНА - АЙДАХАР (БЕКА)",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/fb965ced-8f16-4b10-8686-3f89d083cd59.mp4"
+              },
+              "answerMedia": {
+                "kind": "audio",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/dbeabd4b-6901-4db8-b988-1b9ade165378.mp3"
+              }
+            },
+            {
+              "id": "q-303-ej2ggt",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "Raim & Artur & Adil - Симпа",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/3db5d356-4459-4710-9be9-821694b5152d.mp4"
+              },
+              "answerMedia": {
+                "kind": "audio",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/17cc5862-b294-439b-a739-450db4b10ea6.mp3"
+              }
+            },
+            {
+              "id": "q-304-j4ith7",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на видео?",
+              "answer": "SAINt JHN - Roses (Imanbek Remix)",
+              "altAnswers": [],
+              "media": {
+                "kind": "video",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/433babed-db63-487d-a1cc-319fb54bf369.mp4"
+              },
+              "answerMedia": {
+                "kind": "audio",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/2657e304-d749-4704-bf92-5d95ca4f996e.mp3"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-4-wt244f",
+          "title": "ЛИЧНОСТИ",
+          "questions": [
+            {
+              "id": "q-400-rf5ums",
+              "price": 100,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Азамат Мусагалиев,Нурлан Сабуров,Галым Калиакбаров",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/27cd7c30-1d15-4abd-968b-27960a8dae0a.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/7d0794b4-6bea-4abc-b9da-faf0099303ac.jpg"
+              }
+            },
+            {
+              "id": "q-401-xwib2s",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Динмухамед Кунаев,Нурсултан Назарбаев, Касым Жомарт Токаев",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/84a858d7-d97e-414a-9640-6de8cd48df1a.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a64c8607-02e3-4cdf-86ab-e2f7376e3d70.jpg"
+              }
+            },
+            {
+              "id": "q-402-q5fjfb",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Батырхан Шукенов,Димаш Кудайберген,Кайрат Нуртас",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/2880cd88-4127-4ef9-af6d-4c583bc0b094.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/5e62c945-11ec-4e94-aed0-98e42147e907.jpg"
+              }
+            },
+            {
+              "id": "q-403-tnb41a",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Даурен Сергазин (Пракурор/Алдар Косе), Нышанбек Жубанаев (Шекер/Саке),Шарип Серик (Шекер/Пацанские истории,Районы)",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/527dd920-a08e-405d-af3a-07bed372e9b5.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/4f905231-9d8b-417a-bd6d-71429c32098d.jpg"
+              }
+            },
+            {
+              "id": "q-404-l3hod8",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Маншук Мамбетова,Алия Молдагулова,Бауыржан Момышулы",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f3602be0-79be-4843-a400-73a4d2ebc2a4.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/c2bbe93e-4550-4991-81f4-84ed887624ce.jpg"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "r-1-8n52z4",
+      "title": "Уәзір хаоса",
+      "themes": [
+        {
+          "id": "t-100-ainm2s",
+          "title": "ПЕРЕВОДЫ",
+          "questions": [
+            {
+              "id": "q-10000-11h1by",
+              "price": 200,
+              "type": "normal",
+              "text": "Сәлем,Сәлеметсізбе?",
+              "answer": "Привет,Здравствуйте",
+              "altAnswers": []
+            },
+            {
+              "id": "q-10001-s0u5fc",
+              "price": 300,
+              "type": "normal",
+              "text": "Ет",
+              "answer": "Мясо",
+              "altAnswers": []
+            },
+            {
+              "id": "q-10002-88bixo",
+              "price": 400,
+              "type": "normal",
+              "text": "Рақмет",
+              "answer": "Спасибо/Благодарю",
+              "altAnswers": []
+            },
+            {
+              "id": "q-10003-z1in00",
+              "price": 500,
+              "type": "normal",
+              "text": "Ойбай",
+              "answer": "Ой!, Ай!, Вот это да!, Ох!",
+              "altAnswers": []
+            },
+            {
+              "id": "q-10004-d9lzuz",
+              "price": 600,
+              "type": "normal",
+              "text": "Бәрекелді",
+              "answer": "Браво,Здорово,Отлично",
+              "altAnswers": []
+            }
+          ]
+        },
+        {
+          "id": "t-101-jjl9za",
+          "title": "ДЕНЬГИ",
+          "questions": [
+            {
+              "id": "q-10100-n6xbde",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "500",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/20aab812-15bd-4c9f-8229-fa71aff21597.png"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f413145a-197e-4343-8ea2-efbd485f1c7b.png"
+              }
+            },
+            {
+              "id": "q-10101-m2kljd",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "2000",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/eeec935b-d0e8-44d7-878b-b8f807d79b4a.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f50bb2e7-99a6-49a0-b3dd-f5872e71bc61.jpg"
+              }
+            },
+            {
+              "id": "q-10102-j73hxm",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "1000",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/4a438240-fd78-40b5-9b69-747c2f95e8a3.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f1a90b37-c1f8-4565-8d9c-ee366754ed4f.jpg"
+              }
+            },
+            {
+              "id": "q-10103-j1irre",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "5000",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/ee195ce6-b10f-4e3a-beca-37b6fbe4a326.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/ea2095de-a13f-4097-9863-d242f6121760.jpg"
+              }
+            },
+            {
+              "id": "q-10104-larbb8",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "10000",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/50c31524-cdf4-4d01-bb06-5c61b5a45401.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/8106faca-8afc-468b-9b8a-e3037278ed3c.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-102-xfcs1p",
+          "title": "ДЛЯ ЧЕГО ЭТО?",
+          "questions": [
+            {
+              "id": "q-10200-e92duv",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Киіз үй - (Юрта) традиционное переносное жилище кочевников, так же казахов",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b225fcdb-9511-4231-8807-0da60ba8e066.jpg"
+              }
+            },
+            {
+              "id": "q-10201-2dja11",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Торсык - сосуд для кумыса",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/944e5017-93b7-4c68-bf4b-0472265f5201.jpeg"
+              }
+            },
+            {
+              "id": "q-10202-az4zfj",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Келі-Келсап - деревянная ступа для шелушения зерна",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/e15ac499-07f0-46b8-8f8b-1fc9a410a3ac.jpg"
+              }
+            },
+            {
+              "id": "q-10203-wtl0hx",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Бесік -Традиционная колыбель для укачивания ребёнка",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/fe73ee8e-d555-4bbf-a60f-e396b9ee3096.jpg"
+              }
+            },
+            {
+              "id": "q-10204-czob0d",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Коржын - Корзина которая используется для подарков во время праздников и обрядов (тойбастар) а также может обозначать переходную форму жилища кочевника, бывает разные варианты, там положили продукты, и нужные вещи",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/7dcce9ef-af33-4dfd-a924-26404e81e15c.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-103-4uh3lr",
+          "title": "ФИЛЬМЫ/СЕРИАЛЫ",
+          "questions": [
+            {
+              "id": "q-10300-4c9z66",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "ИГЛА",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/683a0c2a-db1e-493c-b45c-82e1a0f75852.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/cfc4e612-7500-4c1b-ad6f-e6850c2cea71.jpg"
+              }
+            },
+            {
+              "id": "q-10301-l70ym8",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "РЭКЕТИР",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/cf18b875-20ff-4529-b4c4-545d6592fa4c.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/4468bf43-db33-4472-b72a-a430a65c0d9b.jpg"
+              }
+            },
+            {
+              "id": "q-10302-k2xbbq",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "ШЕКЕР",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a7c7ee98-b2e4-4250-9784-8225257bf588.png"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/3c4368f8-8ac2-4b4e-be9f-c656c764f750.png"
+              }
+            },
+            {
+              "id": "q-10303-7btvvs",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "СЕРЖАН БРАТАН",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/59ea97b9-c732-4124-a464-68d6ebe92920.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/2d46d3d7-c2f5-4e42-9ed9-a8defa2eb8cf.jpg"
+              }
+            },
+            {
+              "id": "q-10304-szdgmc",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "БИЗНЕС ПО КАЗАХСКИЙ",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/e7a51644-bf04-4dbc-9615-71304ee6a2d2.jpg"
+              },
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/ce777acf-7452-4ced-b00c-e90b0800b24e.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-104-0knt91",
+          "title": "ИГРЫ",
+          "questions": [
+            {
+              "id": "q-10400-7c7p6e",
+              "price": 200,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Қол күресу (армрестлинг) — это казахская национальная силовая игра, известная у кочевых народов задолго до появления современного спорта. Её смысл — проверить силу руки и характер мужчины, часто как часть народных состязаний (ас, той, праздники).",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/9cf5c951-7fc0-4465-9dad-f2c20d8cc0a7.jpg"
+              }
+            },
+            {
+              "id": "q-10401-wbwoi9",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Аударыспақ (конная борьба) — казахская национальная конная борьба, в которой два всадника пытаются, не сходя с лошадей, силой стащить соперника из седла.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/2addcbf8-ddb4-4681-a306-19bcf8a5f9e1.jpg"
+              }
+            },
+            {
+              "id": "q-10402-89ezq4",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Асык ату-(Костяшки) традиционная казахская игра, в которой участники метко выбивают асыки (косточки) соперников своим асыком, развивая точность, ловкость и глазомер.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/55e09539-ba2b-49a5-97fd-3187e167fa3b.jpg"
+              }
+            },
+            {
+              "id": "q-10403-une0gk",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Теңге ілу (Зацепить монету)— казахская национальная конная игра: всадник на полном ходу наклоняется и поднимает с земли монету или предмет, не останавливая лошадь.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a6bb61c1-b177-4822-ae88-032d9bb58b81.jpg"
+              }
+            },
+            {
+              "id": "q-10404-vscs4x",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Қыз қуу (Догони девушку) — традиционная казахская конная игра, где юноша догоняет девушку на лошади: если успевает — считается победителем, если нет — девушка на обратном пути может хлестнуть его плетью. Игра символизирует ловкость, скорость и смелость.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/87513bbd-b90c-4490-9997-8547cab40646.jpg"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "r-2-i4g5rd",
+      "title": "Понтовой Мырза",
+      "themes": [
+        {
+          "id": "t-200-yzo1qb",
+          "title": "ОДЕЖДЫ",
+          "questions": [
+            {
+              "id": "q-20000-z9969b",
+              "price": 400,
+              "type": "normal",
+              "text": "Выберите вариант: A, B, C, D, E",
+              "answer": "A",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/15d4f20f-507d-4239-b69b-ce81839ec028.jpg"
+              }
+            },
+            {
+              "id": "q-20001-605uyf",
+              "price": 500,
+              "type": "normal",
+              "text": "Выберите вариант: A, B, C, D, E",
+              "answer": "C",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b971d97d-a267-4ee5-9185-987d52c11528.jpg"
+              }
+            },
+            {
+              "id": "q-20002-42tp34",
+              "price": 600,
+              "type": "normal",
+              "text": "Выберите вариант: A, B, C, D, E",
+              "answer": "D",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/e91a1aee-f413-4584-b8d2-1bc4bc0f933e.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-201-9bjtep",
+          "title": "ИСТОРИЯ",
+          "questions": [
+            {
+              "id": "q-20100-xmr7ek",
+              "price": 300,
+              "type": "cat",
+              "text": "С древних времен казахи чаще всего ели мясо какого животного? Варианты: A — Верблюды; B — Лошади; C — Курицы; D — Коровы",
+              "answer": "Лошади",
+              "altAnswers": [
+                "B"
+              ],
+              "cat": {
+                "theme": "ИСТОРИЯ",
+                "price": "nominal",
+                "canKeep": false
+              }
+            },
+            {
+              "id": "q-20101-amovv2",
+              "price": 400,
+              "type": "normal",
+              "text": "Как казахи традиционно называли блюдо, которое сегодня называют «бешбармак»? Варианты: A — АС (Блюдо); B — Тамақ (Еда); C — Ет (мясо); D — Нан (Хлеб)",
+              "answer": "Ет (мясо)",
+              "altAnswers": [
+                "C"
+              ]
+            },
+            {
+              "id": "q-20102-168yho",
+              "price": 500,
+              "type": "normal",
+              "text": "До прихода ислама казахи исповедовали какую языческую религию? Варианты: A — Не было религии; B — Зороастризм; C — Тенгрианство; D — Тендераизм",
+              "answer": "Тенгрианство",
+              "altAnswers": [
+                "C"
+              ]
+            },
+            {
+              "id": "q-20103-glg1qu",
+              "price": 600,
+              "type": "normal",
+              "text": "Казахские батыры кормили своих лошадей не только сеном. Что из этого они давали лошадям в качестве лакомства? Варианты: A — Кусочек сахара; B — Высушенные ягоды; C — Кумыс; D — Сухофрукты",
+              "answer": "Кусочек сахара",
+              "altAnswers": [
+                "A"
+              ]
+            },
+            {
+              "id": "q-20104-kto9lp",
+              "price": 700,
+              "type": "normal",
+              "text": "Все казахи знают этот факт: у лошади нет какого органа? Варианты: A — Поджелудочная; B — Желчный пузырь; C — Селезёнка; D — Печень",
+              "answer": "Желчный пузырь",
+              "altAnswers": [
+                "B"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "t-202-kg4r3f",
+          "title": "СИМВОЛЫ",
+          "questions": [
+            {
+              "id": "q-20200-2ktlmt",
+              "price": 300,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Знаменосец",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/f5bb22ee-9f8f-402f-bc60-ec1ea39ba6e8.jpg"
+              }
+            },
+            {
+              "id": "q-20201-nvim6b",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Петух у стеллы/Петух",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/4963b65f-f956-461b-8d5a-2dd8121fb5e7.jpg"
+              }
+            },
+            {
+              "id": "q-20202-hidsej",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Маска",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/9d4a9451-caba-4735-9c7f-705307524ec0.jpg"
+              }
+            },
+            {
+              "id": "q-20203-0i850c",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Боевые колесницы",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b42a48e9-6317-4d72-a11e-423bdd36969a.jpg"
+              }
+            },
+            {
+              "id": "q-20204-sk82bp",
+              "price": 700,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Солярное божество на быке,Солнечный божество на быке",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/43ce3147-b8b7-4e80-af80-9f37772b4fe5.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-203-g1ba9o",
+          "title": "ФЛАГИ",
+          "questions": [
+            {
+              "id": "q-20300-yy22v6",
+              "price": 300,
+              "type": "normal",
+              "text": "Варианты: A — Современный флаг Республики Казахстана; B — Будущий флаг Республики Казахстана; C — Первый флаг Республики Казахстана; D — Флаг Казак ели; E — Флаг Казахского ханство",
+              "answer": "Первый флаг Республики Казахстана",
+              "altAnswers": [
+                "C"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/6d1bde8c-ff57-49cf-be5e-ae31ddfde23a.webp"
+              }
+            },
+            {
+              "id": "q-20301-vanrtb",
+              "price": 400,
+              "type": "normal",
+              "text": "Варианты: A — Флаг Республики Казахстана; B — Флаг Казахская Советская Социалистическая Республики; C — Флаг Казахстанская Советская Социалистическая Республики; D — Флаг Алаш Орды; E — Флаг Казахская Советская Ханская Республики",
+              "answer": "Флаг Казахская Советская Социалистическая Республики",
+              "altAnswers": [
+                "B"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/e6bbca2d-e644-4cb0-8e95-073dc62f2804.jpg"
+              }
+            },
+            {
+              "id": "q-20302-m4awxb",
+              "price": 500,
+              "type": "normal",
+              "text": "Варианты: A — Флаг Юрты; B — Флаг Казахов; C — Флаг Алаш орды (другой вариант); D — Флаг Казахских Батыров",
+              "answer": "Флаг Алаш орды (другой вариант)",
+              "altAnswers": [
+                "C"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/1bdfc619-0068-4de7-b7ea-9f3b90ced6c6.png"
+              }
+            },
+            {
+              "id": "q-20303-8sj66k",
+              "price": 600,
+              "type": "normal",
+              "text": "Варианты: A — Флаг Независимого казахов; B — Флаг Казак ели; C — Флаг Казахского ханство; D — Другой флаг Республики Казахстана",
+              "answer": "Флаг Казахского ханство",
+              "altAnswers": [
+                "C"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/c589afa2-8794-4e47-9b5f-da2024b91cc0.jpg"
+              }
+            },
+            {
+              "id": "q-20304-qd2cw8",
+              "price": 700,
+              "type": "normal",
+              "text": "Варианты: A — Флаг Ауф Брат!; B — Флаг Тюркский Каганата; C — Флаг Тюркских Народов; D — Флаг Тюркских собрании; E — Флаг Казак Ели",
+              "answer": "Флаг Тюркский Каганата",
+              "altAnswers": [
+                "B"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b38310d9-a44e-4714-b5a3-89a2db48f8f6.png"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "r-3-4uyher",
+      "title": "НАРОДНЫЕ",
+      "themes": [
+        {
+          "id": "t-300-90w03m",
+          "title": "ЕДА",
+          "questions": [
+            {
+              "id": "q-30000-fmnida",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Бешбармак/Беш/Ет",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/ede025f1-fbf7-4f12-919c-35c853f43565.jpg"
+              }
+            },
+            {
+              "id": "q-30001-fg3x6j",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Манты",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/8271cb0c-e6dc-4805-ae35-e528d85e508c.webp"
+              }
+            },
+            {
+              "id": "q-30002-xva0uc",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Казы/Конская колбаса",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/cd985210-7d55-48e8-86f4-01efa34a625d.jpg"
+              }
+            },
+            {
+              "id": "q-30003-9ptbav",
+              "price": 700,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Баурсак/Казахские хлебушки",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/dd8bae43-4174-47c1-b2a2-8e89cf41a511.jpg"
+              }
+            },
+            {
+              "id": "q-30004-10ovde",
+              "price": 800,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Куырдак",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/955b9af1-220b-49fb-95f8-2f6a76c4fdfd.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-301-q6rp4u",
+          "title": "НАПИТКИ",
+          "questions": [
+            {
+              "id": "q-30100-hort8f",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Қымыз/Кумыс",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/440840e9-9e42-494f-87d1-c555290275e0.png"
+              }
+            },
+            {
+              "id": "q-30101-9fpbuq",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Шай/Чай",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a1a4fb38-388e-4464-970e-5acbe8279d28.jpg"
+              }
+            },
+            {
+              "id": "q-30102-1ginlw",
+              "price": 700,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Сорпа/Cуп",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/82edddb9-52b1-433b-92e0-e3696d9305d5.jpg"
+              }
+            },
+            {
+              "id": "q-30103-zwbwkt",
+              "price": 800,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Наурыз Көже/ Казахский Праздничный суп",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b68ae0b8-cb40-4b8c-a648-0dffda1f166f.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-302-tm7y4z",
+          "title": "ДЕЛИКАТЕСЫ",
+          "questions": [
+            {
+              "id": "q-30200-9ns7yt",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Құрт/Курт - Кисло-молочные шарики из творога",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b45a1d2f-72fc-4de0-bdce-dce847993122.jpg"
+              }
+            },
+            {
+              "id": "q-30201-bitdoo",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "ІрІмшІк/Иримшик/Cыр -Традиционный казахский сладкий сыр из молока",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/d22e9810-bbc7-4555-84fb-ffdda0febd62.jpg"
+              }
+            },
+            {
+              "id": "q-30202-04t3n8",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Жент-Традиционное казахское сладкое блюдо из толчёного пшено с маслом и сахаром и изюмом.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/d01e95bd-223e-48ae-862e-c4068557422c.jpg"
+              }
+            },
+            {
+              "id": "q-30203-vj16nc",
+              "price": 700,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Шербет/Щербет-вёрдая сладость из сахара (или карамели) с орехами, иногда с молоком или маслом.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/3d2604a7-c28a-421a-b1e3-502faecbb999.jpg"
+              }
+            },
+            {
+              "id": "q-30204-51fzz3",
+              "price": 800,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Сары секер/Желтый сахар-это варёная карамельная сладость из сахара (часто с молоком/маслом), которую затем остужают до твёрдого состояния.",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a658a553-f6a4-46c4-ba37-c41d61dcac81.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-303-svlaro",
+          "title": "МУЗЫКАЛЬНЫЕ ИНСТРУМЕНТЫ",
+          "questions": [
+            {
+              "id": "q-30300-s6gpbc",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Домбра/Домбыра",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/b00b7e29-7cdf-4d32-94e4-e2611e14f14c.jpg"
+              }
+            },
+            {
+              "id": "q-30301-0o10jo",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Шаңқобыз/Казахский варган",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/1d488197-682c-405f-9220-12039c85ccf6.png"
+              }
+            },
+            {
+              "id": "q-30302-6to83r",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Қобыз",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/a21f59bf-d456-488e-9127-43e7ecb72d40.jpg"
+              }
+            },
+            {
+              "id": "q-30303-qkanr2",
+              "price": 700,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Жетіген",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/071f12a7-d56a-4c46-a29f-73144dcfdcd3.png"
+              }
+            },
+            {
+              "id": "q-30304-ngtbx8",
+              "price": 800,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Сазсырнай",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/057220db-37a5-45bd-951a-83a50d867581.jpg"
+              }
+            }
+          ]
+        },
+        {
+          "id": "t-304-nk1a0g",
+          "title": "СТРАШИЛКИ",
+          "questions": [
+            {
+              "id": "q-30400-50fge7",
+              "price": 400,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Жезтырнақ (медные когти) — красивая демоница с острыми когтями, заманивает людей",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/0a4510f9-d1ed-43e2-8bae-3a7086b65f3c.jpg"
+              }
+            },
+            {
+              "id": "q-30401-wzqey4",
+              "price": 500,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Жалмауыз кемпір (пожирающая старуха) — злая старуха-людоед из сказок",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/7b3f63fd-19d9-4a82-8c99-806450789a34.webp"
+              }
+            },
+            {
+              "id": "q-30402-bwu4rl",
+              "price": 600,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Айдахар (дракон) — огромное змееподобное чудовище",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/6cbd463f-1622-4190-abfe-d02f10e5f96f.jpg"
+              }
+            },
+            {
+              "id": "q-30403-endgg0",
+              "price": 700,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Шайтан (дьявол, бес) — дух зла и искушения",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/900d5c5d-bc95-4c76-ac58-fbec748f6b85.jpg"
+              }
+            },
+            {
+              "id": "q-30404-v44upj",
+              "price": 800,
+              "type": "normal",
+              "text": "Что на картинке?",
+              "answer": "Албасты (злой дух) — опасный дух, вредящий людям",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/7dcb17b2-1c91-4718-b872-429db0fd148a.jpg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": []
+  },
+  "source": "siq",
+  "author": "Фейженжуа"
+}

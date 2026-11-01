@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { Router } from 'express';
+import { Router, type RequestHandler } from 'express';
 import multer from 'multer';
 import type { Media, MediaKind } from '@svoyak/shared';
 import { UPLOADS_DIR } from '../config.js';
@@ -9,6 +9,8 @@ import { importSiq } from '../packs/siq/importSiq.js';
 import { getPack, savePack } from '../storage/packsRepo.js';
 
 const MAX_SIZE_BYTES = 50 * 1024 * 1024;
+/** Паки SIGame с видео легко весят сотню мегабайт: архив целиком, а не один файл. */
+const MAX_SIQ_BYTES = 512 * 1024 * 1024;
 
 const EXTENSIONS: Record<string, string> = {
   'image/jpeg': '.jpg',
@@ -30,15 +32,36 @@ function kindOf(mimetype: string): MediaKind | null {
   return null;
 }
 
+const megabytes = (bytes: number): number => Math.round(bytes / 1024 / 1024);
+
+/** Приём одного файла. Ошибку multer отдаём JSON-ом: иначе Express вернёт HTML,
+ *  и редактор покажет вместо причины «Unexpected token '<'». */
+function singleFile(maxBytes: number): RequestHandler {
+  const handle = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: maxBytes, files: 1 },
+  }).single('file');
+
+  return (req, res, next) => {
+    handle(req, res, (error: unknown) => {
+      if (!error) {
+        next();
+        return;
+      }
+      if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
+        res.status(413).json({ error: `Файл больше ${megabytes(maxBytes)} МБ` });
+        return;
+      }
+      res.status(400).json({ error: error instanceof Error ? error.message : 'Файл не принят' });
+    });
+  };
+}
+
 /** Загрузка медиа для вопроса. Файл кладём рядом с паком, имя генерируем сами. */
 export function mediaRouter(): Router {
   const router = Router();
-  const upload = multer({
-    storage: multer.memoryStorage(),
-    limits: { fileSize: MAX_SIZE_BYTES, files: 1 },
-  });
 
-  router.post('/packs/:id/media', upload.single('file'), (req, res) => {
+  router.post('/packs/:id/media', singleFile(MAX_SIZE_BYTES), (req, res) => {
     const packId = typeof req.params.id === 'string' ? req.params.id : '';
     const pack = getPack(packId);
     if (!pack) {
@@ -69,7 +92,7 @@ export function mediaRouter(): Router {
     res.status(201).json({ media });
   });
 
-  router.post('/packs/import-siq', upload.single('file'), (req, res) => {
+  router.post('/packs/import-siq', singleFile(MAX_SIQ_BYTES), (req, res) => {
     const file = req.file;
     if (!file) {
       res.status(400).json({ error: 'Файл не получен' });
