@@ -1,0 +1,1020 @@
+{
+  "id": "koval-06-che-sluchilos",
+  "title": "Коваль #6 · Че случилось",
+  "author": "Дима Коваль (СВОЯК) — по мотивам выпусков",
+  "description": "По мотивам выпусков с Даней Кашиным и Yanix, Данилой Гориллой и Максом 100500, Русланом Усачёвым: «Че случилось», камушки, магшоты, флаги, каверы и питерские словечки.",
+  "createdAt": 1793000000000,
+  "updatedAt": 1793000000000,
+  "rounds": [
+    {
+      "id": "koval-06-che-sluchilos-r1",
+      "title": "Первый раунд",
+      "themes": [
+        {
+          "id": "koval-06-che-sluchilos-r1-t1",
+          "title": "Че случилось",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r1-t1-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "В марте 2021 года контейнеровоз Ever Given встал поперёк и почти на неделю перекрыл главный короткий путь из Европы в Азию. Где он застрял?",
+              "answer": "В Суэцком канале",
+              "altAnswers": [
+                "Суэцкий канал",
+                "Суэц"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t1-100-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t1-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "На церемонии «Оскар» 2022 года этот актёр вышел на сцену и дал пощёчину ведущему Крису Року. Кто он?",
+              "answer": "Уилл Смит",
+              "altAnswers": [
+                "Смит"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t1-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "В 2016 году в зоопарке Цинциннати застрелили гориллу, к которой в вольер упал мальчик, — и она стала мемом на годы вперёд. Как её звали?",
+              "answer": "Харамбе",
+              "altAnswers": [
+                "Harambe"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t1-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "В мае 2010 года программист Ласло Ханеч заплатил 10 000 биткоинов за первую покупку в криптовалюте. Что он купил?",
+              "answer": "Две пиццы",
+              "altAnswers": [
+                "Пиццу",
+                "Пицца"
+              ],
+              "hostComment": "Сейчас этот день отмечают как Bitcoin Pizza Day."
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t1-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "На пресс-конференции Евро-2020 Криштиану Роналду демонстративно отодвинул две бутылки спонсорского напитка и поднял воду. Что за напиток?",
+              "answer": "Кока-кола",
+              "altAnswers": [
+                "Coca-Cola",
+                "Кола"
+              ]
+            }
+          ],
+          "comment": "Громкие истории из новостей — назовите, что или где случилось."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r1-t2",
+          "title": "Камушки",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r1-t2-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Камушек за 100: эта окаменевшая смола деревьев иногда хранит внутри насекомое, застывшее миллионы лет назад.",
+              "answer": "Янтарь",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t2-100.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t2-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Камушек за 200: зелёный драгоценный камень, по которому назван город из «Волшебника страны Оз».",
+              "answer": "Изумруд",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t2-200.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t2-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Камушек за 300: зелёный камень с полосками, как срез дерева; им отделаны колонны Исаакиевского собора, а Бажов писал про его Хозяйку горы.",
+              "answer": "Малахит",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t2-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Камушек за 400: фиолетовая разновидность кварца, которую в древности считали защитой от опьянения.",
+              "answer": "Аметист",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t2-400.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t2-q5",
+              "price": 500,
+              "type": "cat",
+              "text": "Камушек за 500: синий камень с золотистыми искорками пирита; его толкли в краску ультрамарин, а главные копи — в Афганистане.",
+              "answer": "Лазурит",
+              "altAnswers": [
+                "Ляпис-лазурь",
+                "Лазурь"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t2-500.jpg"
+              },
+              "cat": {
+                "theme": "Камушки",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Камень или минерал — назовите его."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r1-t3",
+          "title": "Тише едешь",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r1-t3-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Даня Кашин мог бы сделать её девизом: «Тише едешь — …»",
+              "answer": "Дальше будешь",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t3-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "«Без труда не вытащишь и …»",
+              "answer": "Рыбку из пруда",
+              "altAnswers": [
+                "Рыбку"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t3-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "«Не имей сто рублей, а …»",
+              "answer": "Имей сто друзей",
+              "altAnswers": [
+                "Сто друзей"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t3-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "«Любишь кататься — …»",
+              "answer": "Люби и саночки возить",
+              "altAnswers": [
+                "Саночки возить"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t3-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "«Старый конь борозды не испортит, …» — у этой поговорки есть не самое лестное продолжение.",
+              "answer": "Но и глубоко не вспашет",
+              "altAnswers": [
+                "Глубоко не вспашет"
+              ]
+            }
+          ],
+          "comment": "Продолжите поговорку."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r1-t4",
+          "title": "Рыбы",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r1-t4-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "Рыба за 100: её ловит старик у Пушкина, и она исполняет три желания.",
+              "answer": "Золотая рыбка",
+              "altAnswers": [
+                "Золотая рыба"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t4-100.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t4-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "Рыба за 200: в опасности раздувается шаром, а в Японии её подают только повара с лицензией — неправильно разделанная, она смертельно ядовита.",
+              "answer": "Фугу",
+              "altAnswers": [
+                "Рыба-фугу",
+                "Иглобрюх",
+                "Рыба-шар"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t4-200.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t4-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "Рыба за 300: крупная пресноводная рыба без чешуи, с широкой пастью и длинными усами.",
+              "answer": "Сом",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t4-300.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t4-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "Рыба за 400: самая тяжёлая костистая рыба в мире, плоская и круглая, будто у неё отрезали хвост.",
+              "answer": "Рыба-луна",
+              "altAnswers": [
+                "Луна-рыба",
+                "Мола"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t4-400.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t4-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "Рыба за 500: глубоководная рыба, которую в 2013 году выбрали самым уродливым животным планеты; вытащенная на поверхность, она похожа на грустное желе.",
+              "answer": "Рыба-капля",
+              "altAnswers": [
+                "Психролютес"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r1-t4-500-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Назовите рыбу."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r1-t5",
+          "title": "Песня в переводе",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r1-t5-q1",
+              "price": 100,
+              "type": "normal",
+              "text": "«Королева танцев», шведская группа, 1976 год.",
+              "answer": "Dancing Queen",
+              "altAnswers": [],
+              "hostComment": "ABBA."
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t5-q2",
+              "price": 200,
+              "type": "normal",
+              "text": "«Плохой парень», Билли Айлиш, 2019 год.",
+              "answer": "Bad Guy",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t5-q3",
+              "price": 300,
+              "type": "normal",
+              "text": "«Ослепляющие огни», The Weeknd, 2019 год — тот самый трек с ретро-синтезатором.",
+              "answer": "Blinding Lights",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t5-q4",
+              "price": 400,
+              "type": "normal",
+              "text": "«Твоя фигура», Эд Ширан, 2017 год.",
+              "answer": "Shape of You",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r1-t5-q5",
+              "price": 500,
+              "type": "normal",
+              "text": "«Я знаю, чего ты хочешь», Басто Раймс и Мэрайя Кэри, 2003 год.",
+              "answer": "I Know What You Want",
+              "altAnswers": [],
+              "hostComment": "Из-за этой песни спорили в выпуске с Яниксом."
+            }
+          ],
+          "comment": "Ведущий читает название хита по-русски — назовите оригинал."
+        }
+      ]
+    },
+    {
+      "id": "koval-06-che-sluchilos-r2",
+      "title": "Второй раунд",
+      "themes": [
+        {
+          "id": "koval-06-che-sluchilos-r2-t1",
+          "title": "Деревья",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r2-t1-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Дерево за 200: белая кора с чёрными чёрточками, весной из него собирают сок.",
+              "answer": "Берёза",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t1-200.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t1-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Дерево за 400: толстенный ствол-бочка, в котором дерево запасает воду на засуху; растёт в Африке и на Мадагаскаре.",
+              "answer": "Баобаб",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t1-400.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t1-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Дерево за 600: самое высокое дерево на Земле — Гиперион в Калифорнии — выше 115 метров. Что это за порода?",
+              "answer": "Секвойя",
+              "altAnswers": [
+                "Секвойя вечнозелёная",
+                "Красное дерево"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t1-600-otvet.jpg"
+              },
+              "hostComment": "В выпуске с Пушным и Шальновым был вопрос про самое высокое дерево."
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t1-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Дерево за 800: кривое пустынное дерево Казахстана и Средней Азии; древесина у него такая тяжёлая, что тонет в воде, а горит жарче угля.",
+              "answer": "Саксаул",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t1-800.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t1-q5",
+              "price": 1000,
+              "type": "cat",
+              "text": "Дерево за 1000: зонтиком растёт на острове Сокотра, а его красную смолу называют «кровью дракона».",
+              "answer": "Драконово дерево",
+              "altAnswers": [
+                "Драцена",
+                "Драконовое дерево"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t1-1000.jpg"
+              },
+              "cat": {
+                "theme": "Деревья",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Назовите дерево."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r2-t2",
+          "title": "Валюты",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r2-t2-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Валюта Японии — страны суши и аниме.",
+              "answer": "Иена",
+              "altAnswers": [
+                "Йена"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t2-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Валюта Польши — та самая, что «золотая».",
+              "answer": "Злотый",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t2-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Валюта Бразилии — с тем же названием, что у мадридского футбольного клуба.",
+              "answer": "Реал",
+              "altAnswers": [
+                "Бразильский реал"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t2-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Валюта Вьетнама: чтобы стать миллионером, хватит примерно 40 долларов.",
+              "answer": "Донг",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t2-q5",
+              "price": 1000,
+              "type": "auction",
+              "text": "Валюта ЮАР; на монете в одну её единицу скачет антилопа спрингбок.",
+              "answer": "Рэнд",
+              "altAnswers": [
+                "Ранд"
+              ]
+            }
+          ],
+          "comment": "Сколько валют знаешь? Назовите валюту страны."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r2-t3",
+          "title": "Животные-рекордсмены",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r2-t3-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Самое быстрое наземное животное: разгоняется больше чем до 100 км/ч.",
+              "answer": "Гепард",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t3-200-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t3-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "У этого животного язык длиной до 60 сантиметров — им оно слизывает муравьёв и термитов.",
+              "answer": "Гигантский муравьед",
+              "altAnswers": [
+                "Муравьед"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t3-400-otvet.jpg"
+              },
+              "hostComment": "Зрители выпуска с Пушным спорили с Ковалём именно про длину этого языка."
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t3-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Самое крупное животное, которое когда-либо жило на Земле, — больше любого динозавра.",
+              "answer": "Синий кит",
+              "altAnswers": [
+                "Голубой кит",
+                "Кит"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t3-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Этот австралийский зверь спит до 20 часов в сутки: эвкалипт почти не даёт энергии.",
+              "answer": "Коала",
+              "altAnswers": [],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t3-800-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t3-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "Ярко-жёлтая колумбийская лягушка, яда которой хватит, чтобы убить десяток человек.",
+              "answer": "Ужасный листолаз",
+              "altAnswers": [
+                "Листолаз",
+                "Древолаз",
+                "Золотистый листолаз"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t3-1000-otvet.jpg"
+              }
+            }
+          ],
+          "comment": "Галилео-тема: кто самый-самый?"
+        },
+        {
+          "id": "koval-06-che-sluchilos-r2-t4",
+          "title": "Как говорят за границей",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r2-t4-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "В Англии это животное говорит «вуф-вуф».",
+              "answer": "Собака",
+              "altAnswers": [
+                "Пёс"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t4-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "В Японии это животное говорит «ня».",
+              "answer": "Кошка",
+              "altAnswers": [
+                "Кот"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t4-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "В Англии эта птица кричит «кок-э-дудл-ду».",
+              "answer": "Петух",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t4-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Во Франции эта птица говорит «куан-куан».",
+              "answer": "Утка",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t4-q5",
+              "price": 1000,
+              "type": "normal",
+              "text": "В Германии это животное говорит «грунц-грунц».",
+              "answer": "Свинья",
+              "altAnswers": [
+                "Хрюшка",
+                "Поросёнок"
+              ]
+            }
+          ],
+          "comment": "Звуки животных на других языках — назовите животное."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r2-t5",
+          "title": "Флаги",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r2-t5-q1",
+              "price": 200,
+              "type": "normal",
+              "text": "Флаг за 200: белый квадрат между двумя красными полосами и кленовый лист.",
+              "answer": "Канада",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t5-200.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t5-q2",
+              "price": 400,
+              "type": "normal",
+              "text": "Флаг за 400: зелёное поле, жёлтый ромб и звёздное небо с надписью «Порядок и прогресс».",
+              "answer": "Бразилия",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t5-400.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t5-q3",
+              "price": 600,
+              "type": "normal",
+              "text": "Флаг за 600: единственный национальный флаг не прямоугольной формы — два треугольника, один над другим.",
+              "answer": "Непал",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t5-600.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t5-q4",
+              "price": 800,
+              "type": "normal",
+              "text": "Флаг за 800: единственный в мире флаг, на котором есть современное оружие — автомат Калашникова.",
+              "answer": "Мозамбик",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t5-800.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r2-t5-q5",
+              "price": 1000,
+              "type": "cat",
+              "text": "Флаг за 1000: жёлто-оранжевое полотнище, по диагонали — белый дракон Друк.",
+              "answer": "Бутан",
+              "altAnswers": [],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r2-t5-1000.jpg"
+              },
+              "cat": {
+                "theme": "Флаги",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Назовите страну по флагу."
+        }
+      ]
+    },
+    {
+      "id": "koval-06-che-sluchilos-r3",
+      "title": "Третий раунд",
+      "themes": [
+        {
+          "id": "koval-06-che-sluchilos-r3-t1",
+          "title": "Слово с ОРО",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r3-t1-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Рогатая, мычит и даёт молоко.",
+              "answer": "Корова",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t1-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Чёрно-серая птица, которая каркает.",
+              "answer": "Ворона",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t1-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Растёт у мужчин на подбородке.",
+              "answer": "Борода",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t1-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Охраняет склад или школу ночью.",
+              "answer": "Сторож",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t1-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Бобовое растение, из которого варят жёлтый суп; в сказке его ел царь.",
+              "answer": "Горох",
+              "altAnswers": []
+            }
+          ],
+          "comment": "В каждом ответе есть сочетание букв «оро»."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r3-t2",
+          "title": "Каверы",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r3-t2-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "«I Will Always Love You» прославила Уитни Хьюстон в «Телохранителе», но написала и первой спела её в 1974 году кантри-звезда.",
+              "answer": "Долли Партон",
+              "altAnswers": [
+                "Партон"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t2-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "«Hurt» Джонни Кэш перепел в 2002 году, а оригинал 1994 года — у индастриал-группы Трента Резнора.",
+              "answer": "Nine Inch Nails",
+              "altAnswers": [
+                "NIN"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t2-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "«Tainted Love» в 1981-м сделали хитом Soft Cell, но первой её спела в 1964-м американская соул-певица.",
+              "answer": "Глория Джонс",
+              "altAnswers": [
+                "Gloria Jones"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t2-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "«I Was Made for Lovin' You» — диско-хит 1979 года от рок-группы, которая выступала в гриме.",
+              "answer": "Kiss",
+              "altAnswers": [
+                "Кисс"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t2-q5",
+              "price": 1500,
+              "type": "cat",
+              "text": "«Hallelujah» многие знают по версии Джеффа Бакли, но написал и первым спел её канадский поэт в 1984 году.",
+              "answer": "Леонард Коэн",
+              "altAnswers": [
+                "Коэн",
+                "Leonard Cohen"
+              ],
+              "cat": {
+                "theme": "Каверы",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Песню прославил кавер. Кто исполнял её первым?"
+        },
+        {
+          "id": "koval-06-che-sluchilos-r3-t3",
+          "title": "Шрифты и дизайн",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r3-t3-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Шрифт, который в шутку ненавидят дизайнеры: его нарисовали в 1994 году для мультяшного помощника Microsoft.",
+              "answer": "Comic Sans",
+              "altAnswers": [
+                "Комик санс"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t3-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Как называется цветовая модель для печати из четырёх красок: голубой, пурпурный, жёлтый и чёрный?",
+              "answer": "CMYK",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t3-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Шрифт с засечками, который стоял в Word по умолчанию до 2007 года.",
+              "answer": "Times New Roman",
+              "altAnswers": [
+                "Таймс"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t3-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Швейцарский шрифт 1957 года, его название по-латински значит «швейцарский».",
+              "answer": "Helvetica",
+              "altAnswers": [
+                "Гельветика",
+                "Хельветика"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t3-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Какой латинской «рыбой» дизайнеры заполняют макет, пока нет настоящего текста?",
+              "answer": "Lorem ipsum",
+              "altAnswers": [
+                "Лорем ипсум"
+              ]
+            }
+          ],
+          "comment": "Для Артемия Лебедева."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r3-t4",
+          "title": "Питер",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r3-t4-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Самое высокое здание Европы — 462 метра — стоит в Петербурге. Как оно называется?",
+              "answer": "Лахта-центр",
+              "altAnswers": [
+                "Лахта"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r3-t4-300-otvet.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t4-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Москвич говорит «бордюр». А как говорит петербуржец?",
+              "answer": "Поребрик",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t4-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Москвич говорит «подъезд». А как говорит петербуржец?",
+              "answer": "Парадная",
+              "altAnswers": [
+                "Парадное"
+              ]
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t4-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Москвич ест шаурму. А что ест петербуржец?",
+              "answer": "Шаверма",
+              "altAnswers": []
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t4-q5",
+              "price": 1500,
+              "type": "normal",
+              "text": "Москвич покупает курицу. А что покупает петербуржец?",
+              "answer": "Кура",
+              "altAnswers": [],
+              "hostComment": "Ещё говорят «гречá» вместо «гречки»."
+            }
+          ],
+          "comment": "Для Жени из Петербурга."
+        },
+        {
+          "id": "koval-06-che-sluchilos-r3-t5",
+          "title": "Магшоты",
+          "questions": [
+            {
+              "id": "koval-06-che-sluchilos-r3-t5-q1",
+              "price": 300,
+              "type": "normal",
+              "text": "Магшот за 300: первое в истории фото экс-президента США из тюрьмы округа Фултон, август 2023 года.",
+              "answer": "Дональд Трамп",
+              "altAnswers": [
+                "Трамп"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r3-t5-300.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t5-q2",
+              "price": 600,
+              "type": "normal",
+              "text": "Магшот за 600: самый известный гангстер Чикаго; посадить его смогли только за неуплату налогов.",
+              "answer": "Аль Капоне",
+              "altAnswers": [
+                "Капоне"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r3-t5-600.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t5-q3",
+              "price": 900,
+              "type": "normal",
+              "text": "Магшот за 900: Монтгомери, февраль 1956 года. У этой женщины снимают отпечатки пальцев во время автобусного бойкота, который начался из-за неё: она отказалась уступить место в автобусе белому пассажиру.",
+              "answer": "Роза Паркс",
+              "altAnswers": [
+                "Паркс"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r3-t5-900.jpg"
+              }
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t5-q4",
+              "price": 1200,
+              "type": "normal",
+              "text": "Магшот за 1200: плакат «Разыскивается» 1962 года. Джон Англин вместе с братом и Фрэнком Моррисом сбежал из самой знаменитой тюрьмы США — на острове в заливе Сан-Франциско. Что это за тюрьма?",
+              "answer": "Алькатрас",
+              "altAnswers": [
+                "Alcatraz"
+              ],
+              "media": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r3-t5-1200.jpg"
+              },
+              "hostComment": "По этой истории снят «Побег из Алькатраса» с Клинтом Иствудом."
+            },
+            {
+              "id": "koval-06-che-sluchilos-r3-t5-q5",
+              "price": 1500,
+              "type": "cat",
+              "text": "Магшот за 1500: французский полицейский XIX века, который придумал снимать задержанных анфас и в профиль, — и сфотографировал так самого себя.",
+              "answer": "Альфонс Бертильон",
+              "altAnswers": [
+                "Бертильон"
+              ],
+              "answerMedia": {
+                "kind": "image",
+                "src": "/uploads/koval-06-che-sluchilos/r3-t5-1500-otvet.jpg"
+              },
+              "cat": {
+                "theme": "Магшоты",
+                "price": "nominal",
+                "canKeep": false
+              }
+            }
+          ],
+          "comment": "Снимки из полицейских участков — назовите, кто или что."
+        }
+      ]
+    }
+  ],
+  "final": {
+    "themes": [
+      {
+        "id": "koval-06-che-sluchilos-f1",
+        "title": "География",
+        "question": {
+          "id": "koval-06-che-sluchilos-f1-q",
+          "text": "Самая высокая точка Казахстана — пик на границе с Кыргызстаном, высотой около 7000 метров. Как он называется?",
+          "answer": "Хан-Тенгри",
+          "altAnswers": [
+            "Хан Тенгри"
+          ]
+        }
+      },
+      {
+        "id": "koval-06-che-sluchilos-f2",
+        "title": "Кино",
+        "question": {
+          "id": "koval-06-che-sluchilos-f2-q",
+          "text": "Фильм Кристофера Нолана 2023 года о создателе атомной бомбы, получивший «Оскар» как лучший фильм.",
+          "answer": "Оппенгеймер",
+          "altAnswers": [
+            "Oppenheimer"
+          ]
+        }
+      },
+      {
+        "id": "koval-06-che-sluchilos-f3",
+        "title": "Музыка",
+        "question": {
+          "id": "koval-06-che-sluchilos-f3-q",
+          "text": "Какой стадионный гимн Queen начинается с двух ударов ногой и хлопка, а припев подхватывают трибуны: «We will, we will…»?",
+          "answer": "We Will Rock You",
+          "altAnswers": []
+        }
+      }
+    ]
+  }
+}
