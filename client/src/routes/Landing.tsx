@@ -60,6 +60,13 @@ export default function Landing() {
         ))}
       </nav>
 
+      <Link
+        to="/history"
+        className="font-body relative text-base font-bold underline decoration-2 underline-offset-4 opacity-85 hover:opacity-100"
+      >
+        Зал славы — кто сколько раз побеждал
+      </Link>
+
       <div className="relative">
         <ServerStatus />
       </div>

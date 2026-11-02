@@ -21,6 +21,7 @@ import { getLanAddress } from './net/lan.js';
 import { packsRouter } from './http/packsApi.js';
 import { gamesRouter } from './http/gamesApi.js';
 import { mediaRouter } from './http/mediaApi.js';
+import { historyRouter } from './http/historyApi.js';
 import { serveClient } from './http/clientStatic.js';
 import { tunnelGuard } from './http/tunnelGuard.js';
 import { RoomManager } from './room/RoomManager.js';
@@ -40,6 +41,7 @@ app.use('/api', tunnelGuard());
 app.use('/api', packsRouter());
 app.use('/api', gamesRouter());
 app.use('/api', mediaRouter());
+app.use('/api', historyRouter());
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
 });

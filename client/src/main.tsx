@@ -15,6 +15,7 @@ const Board = lazy(() => import('./routes/Board.js'));
 const Editor = lazy(() => import('./routes/Editor.js'));
 const Games = lazy(() => import('./routes/Games.js'));
 const Style = lazy(() => import('./routes/Style.js'));
+const History = lazy(() => import('./routes/History.js'));
 
 /** Пока чанк экрана грузится, виден фон страницы — без мигающих заглушек. */
 const page = (screen: ReactNode): ReactNode => <Suspense fallback={null}>{screen}</Suspense>;
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: '/editor/:packId', element: page(<Editor />) },
       { path: '/games', element: page(<Games />) },
       { path: '/style', element: page(<Style />) },
+      { path: '/history', element: page(<History />) },
     ],
   },
 ]);
