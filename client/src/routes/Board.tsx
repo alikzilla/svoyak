@@ -10,7 +10,6 @@ import { useClock } from '../net/useClock.js';
 import { QrCode } from '../ui/QrCode.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 import { QuestionMedia } from '../ui/QuestionMedia.js';
-import { Standings } from '../ui/Standings.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { CatScene } from '../ui/scenes/CatScene.js';
 import { ModifierScene } from '../ui/scenes/ModifierScene.js';

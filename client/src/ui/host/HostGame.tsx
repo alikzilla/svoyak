@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import type { HostView } from '@svoyak/shared';
 import { MODIFIER_HINTS, MODIFIER_TITLES, modifierApplies } from '@svoyak/shared';

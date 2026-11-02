@@ -77,7 +77,8 @@ export class RoomManager {
 
   /** Сбрасывает отложенные сохранения — вызывается при остановке процесса. */
   flushAll(): void {
-    for (const code of [...this.pending.keys()]) this.flush(code);
+    // flush удаляет запись из pending; удалять из Map по ходу обхода безопасно.
+    for (const code of this.pending.keys()) this.flush(code);
   }
 
   private attach(state: RoomState): RoomRuntime {

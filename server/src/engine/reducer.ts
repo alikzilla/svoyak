@@ -8,7 +8,7 @@ import { applyModifier } from './modifiers.js';
 import { activeQuestion, findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
 import { minRaise, nextBidder } from './auction.js';
-import { MIN_BET, byScoreAscending, maxBet, nextRemovalTurn, remainingThemes } from './final.js';
+import { MIN_BET, byScoreAscending, maxBet, nextRemovalTurn } from './final.js';
 import { applyDelta } from './players.js';
 
 export interface ReduceResult {

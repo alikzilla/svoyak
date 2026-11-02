@@ -343,8 +343,10 @@ node client/scripts/makeSounds.mjs   # пересобрать сэмплы в cl
 ## Полезные команды
 
 ```bash
-npm test          # тесты игровой логики
+npm test          # тесты: движок, сервер, клиент
 npm run typecheck
+npm run lint      # oxlint
+npm run lint:packs  # паки в data/packs и их медиа
 npm run build:packs
 node client/scripts/makeSounds.mjs
 ```
