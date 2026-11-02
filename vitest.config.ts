@@ -11,7 +11,7 @@ export default defineConfig({
     alias: { '@svoyak/shared': path.resolve(import.meta.dirname, 'shared/src/index.ts') },
   },
   test: {
-    include: ['server/src/**/*.test.ts', 'shared/src/**/*.test.ts'],
+    include: ['server/src/**/*.test.ts', 'shared/src/**/*.test.ts', 'client/src/**/*.test.ts'],
     exclude: [...configDefaults.exclude, PACKS_LINT],
     environment: 'node',
   },
