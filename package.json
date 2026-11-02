@@ -14,6 +14,7 @@
     "typecheck": "npm run typecheck -w shared && npm run typecheck -w server && npm run typecheck -w client",
     "test": "vitest run",
     "test:watch": "vitest",
+    "lint:packs": "vitest run --config vitest.packs.config.ts",
     "build:packs": "npm run build:packs -w server"
   },
   "devDependencies": {
