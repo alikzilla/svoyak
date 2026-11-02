@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import type { PlayerPublic, PlayerView } from '@svoyak/shared';
 import { usePlayerRoom } from '../net/useRoom.js';
+import { useWakeLock } from '../net/wakeLock.js';
 import { useClock } from '../net/useClock.js';
 import { loadSession } from '../net/session.js';
 import { ask } from '../net/socket.js';
@@ -57,6 +58,8 @@ function sceneColor(view: PlayerView, myColor: string): string {
 export default function Play() {
   const navigate = useNavigate();
   const { view, connected, closed, toast } = usePlayerRoom();
+  // Пока отвечают другие, телефон лежит без дела — экран не должен гаснуть.
+  useWakeLock();
   const clock = useClock();
 
   useEffect(() => {
