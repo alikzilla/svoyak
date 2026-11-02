@@ -15,6 +15,10 @@ import { VictoryScene } from '../ui/scenes/VictoryScene.js';
 import { RoundIntro } from '../ui/scenes/RoundIntro.js';
 import { playSound, unlockAudio } from '../net/sounds.js';
 
+// Rubik нужен только для сравнения пар здесь: в самой игре его нет, и
+// грузится он вместе с этой страницей, а не со всеми экранами.
+import '@fontsource-variable/rubik';
+
 /** Три пары шрифтов на выбор: сравнивать их надо на одном экране и на кириллице. */
 const FONT_PAIRS = {
   notebook: {

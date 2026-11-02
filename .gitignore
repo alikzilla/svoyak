@@ -1,8 +1,13 @@
 node_modules/
 dist/
 uploads/*
-# Картинки паков Коваля лежат в репозитории, иначе вопросы остаются без медиа.
+# Медиа паков, которые лежат в репозитории, тоже в репозитории: иначе после
+# клонирования их вопросы остаются без картинок и звука.
 !uploads/koval-*/
+!uploads/bananovaya-solyanka-23-768764/
+!uploads/memy-e712e6/
+!uploads/ymyz-a-ne-sh-bat-kazahskiy-pak-9a7d8e/
+!uploads/zhestkaya-solyanochka-850efa/
 data/rooms/
 data/history/
 data/games/

@@ -38,7 +38,7 @@ Run a home quiz evening in the «Своя игра» format, with the host in ch
 ## Capabilities and Constraints
 
 - **Russian-only UI.** All copy is in Russian; no i18n is planned.
-- **Guests' own phones.** It must work on any phone the guests bring, including older Android phones and iPhones, joined by QR with no install. iOS Safari has no `navigator.vibrate`, so sound covers for haptics there.
+- **Guests' own phones.** It must work on any phone the guests bring, including older Android phones and iPhones, joined by QR with no install. Most guests play on iPhones, and iOS Safari has no `navigator.vibrate`, so the game has no vibration: sound carries every event.
 - **TV across the room.** The board screen fits the TV viewport with no scrolling, and its text must read from a sofa.
 - **Host screen is semi-public.** Anything shown on `/host` may be seen by players. Secrets (answers, the cheat sheet) are hidden by default or clearly marked as host-only.
 - **Server is authoritative.** Each role receives a projection of the game state, so answers and other players' bets never reach a player's data.

@@ -4,12 +4,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import type { BoardView, PlayerPublic } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
 import { useBoardRoom } from '../net/useRoom.js';
+import { useWakeLock } from '../net/wakeLock.js';
 import { unlockAudio } from '../net/sounds.js';
 import { useClock } from '../net/useClock.js';
 import { QrCode } from '../ui/QrCode.js';
 import { BoardGrid } from '../ui/BoardGrid.js';
 import { QuestionMedia } from '../ui/QuestionMedia.js';
-import { Standings } from '../ui/Standings.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { CatScene } from '../ui/scenes/CatScene.js';
 import { ModifierScene } from '../ui/scenes/ModifierScene.js';
@@ -28,6 +28,8 @@ export default function Board() {
   const [params, setParams] = useSearchParams();
   const code = params.get('code') ?? '';
   const { view, connected } = useBoardRoom();
+  // Телевизор или ноутбук с табло не должен уходить в сон посреди вечера.
+  useWakeLock();
   // Конец таймера кнопки приходит в серверном времени, а часы телевизора могут врать.
   const clock = useClock();
   const [draft, setDraft] = useState('');

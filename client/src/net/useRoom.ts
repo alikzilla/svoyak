@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { AnyView, BoardView, HostView, PlayerView, Result, Role } from '@svoyak/shared';
 import type { SoundId } from '@svoyak/shared';
 import { ask, socket } from './socket.js';
+import { listen, type Listenable } from './listen.js';
 import { playSound } from './sounds.js';
 import { clearSession, loadSession, type Session } from './session.js';
 
@@ -56,23 +57,18 @@ function useRoomView<V extends AnyView>(role: Role): RoomConnection<V> {
 
     const onSound = (sound: SoundId): void => playSound(sound);
 
-    socket.on('state:sync', onSync);
-    socket.on('sound:play', onSound);
-    socket.on('toast', onToast);
-    socket.on('room:closed', onClosed);
-    socket.on('connect', () => void rejoin());
-    socket.on('disconnect', () => setConnected(false));
+    const stop = listen(socket as unknown as Listenable, {
+      'state:sync': onSync,
+      'sound:play': onSound,
+      toast: onToast,
+      'room:closed': onClosed,
+      connect: () => void rejoin(),
+      disconnect: () => setConnected(false),
+    });
 
     if (socket.connected) void rejoin();
 
-    return () => {
-      socket.off('state:sync', onSync);
-      socket.off('sound:play', onSound);
-      socket.off('toast', onToast);
-      socket.off('room:closed', onClosed);
-      socket.off('connect');
-      socket.off('disconnect');
-    };
+    return stop;
   }, [role]);
 
   return { view, connected, toast, closed };

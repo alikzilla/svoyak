@@ -11,14 +11,19 @@
     "dev": "concurrently -n server,client -c cyan,magenta \"npm:dev:server\" \"npm:dev:client\"",
     "dev:server": "npm run dev -w server",
     "dev:client": "npm run dev -w client",
+    "build": "npm run build -w client",
+    "start": "npm run build && NODE_ENV=production npm run start -w server",
     "typecheck": "npm run typecheck -w shared && npm run typecheck -w server && npm run typecheck -w client",
+    "lint": "oxlint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "lint:packs": "vitest run --config vitest.packs.config.ts",
     "build:packs": "npm run build:packs -w server"
   },
   "devDependencies": {
     "@types/node": "^26.5.0",
     "concurrently": "^10.0.5",
+    "oxlint": "^1.90.0",
     "typescript": "^7.0.2",
     "vitest": "^5.0.0"
   }

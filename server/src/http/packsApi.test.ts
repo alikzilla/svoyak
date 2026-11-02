@@ -132,6 +132,55 @@ describe('REST редактора', () => {
     const read = await fetch(`${base}/api/packs/${pack.id}`);
     expect(read.status).toBe(404);
   });
+
+  it('вместе с паком удаляет и его медиа', async () => {
+    const pack = await createPack();
+    const mediaDir = path.join(tempDir, 'uploads', pack.id);
+    fs.mkdirSync(mediaDir, { recursive: true });
+    fs.writeFileSync(path.join(mediaDir, 'picture.png'), 'png');
+
+    await fetch(`${base}/api/packs/${pack.id}`, { method: 'DELETE' });
+    expect(fs.existsSync(mediaDir)).toBe(false);
+  });
+
+  it('медиа, на которое ссылается копия пака, остаётся', async () => {
+    // Импорт JSON создаёт новый пак, но ссылки на медиа ведут в папку оригинала.
+    const original = await createPack('Оригинал');
+    const mediaDir = path.join(tempDir, 'uploads', original.id);
+    fs.mkdirSync(mediaDir, { recursive: true });
+    fs.writeFileSync(path.join(mediaDir, 'shared.png'), 'png');
+    fs.writeFileSync(path.join(mediaDir, 'only-original.png'), 'png');
+
+    const copy = await createPack('Копия');
+    const firstQuestion = copy.rounds[0]?.themes[0]?.questions[0];
+    if (!firstQuestion) throw new Error('в заготовке нет вопроса');
+    firstQuestion.media = { kind: 'image', src: `/uploads/${original.id}/shared.png` };
+    await fetch(`${base}/api/packs/${copy.id}`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ pack: copy }),
+    });
+
+    await fetch(`${base}/api/packs/${original.id}`, { method: 'DELETE' });
+    expect(fs.existsSync(path.join(mediaDir, 'shared.png'))).toBe(true);
+    expect(fs.existsSync(path.join(mediaDir, 'only-original.png'))).toBe(false);
+  });
+
+  it('медиа, которое показывает идущая комната, остаётся', async () => {
+    const pack = await createPack('Играют прямо сейчас');
+    const mediaDir = path.join(tempDir, 'uploads', pack.id);
+    fs.mkdirSync(mediaDir, { recursive: true });
+    fs.writeFileSync(path.join(mediaDir, 'on-tv.png'), 'png');
+    // Комната хранит копию пака целиком — в том числе ссылки на медиа.
+    fs.mkdirSync(path.join(tempDir, 'rooms'), { recursive: true });
+    fs.writeFileSync(
+      path.join(tempDir, 'rooms', '4321.json'),
+      JSON.stringify({ code: '4321', pack: { media: { src: `/uploads/${pack.id}/on-tv.png` } } }),
+    );
+
+    await fetch(`${base}/api/packs/${pack.id}`, { method: 'DELETE' });
+    expect(fs.existsSync(path.join(mediaDir, 'on-tv.png'))).toBe(true);
+  });
 });
 
 /** Наполняет пак темами: сборке игры нужно из чего выбирать. */

@@ -785,3 +785,97 @@ describe('фальстарт глазами игрока', () => {
     player.disconnect();
   }, 10_000);
 });
+
+describe('кривые запросы не роняют сервер', () => {
+  /** Сырая отправка мимо типов: так шлёт сломанный или чужой клиент. */
+  const raw = (socket: Client): ((event: string, ...args: unknown[]) => void) =>
+    socket.emit.bind(socket) as unknown as (event: string, ...args: unknown[]) => void;
+
+  /** Сервер жив, если отвечает на пинг часов. */
+  const alive = (socket: Client): Promise<boolean> =>
+    new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(false), 1000);
+      socket.emit('clock:ping', { t0: 1 }, () => {
+        clearTimeout(timer);
+        resolve(true);
+      });
+    });
+
+  async function roomWithHost(): Promise<{ host: Client; code: string }> {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    return { host, code: created.data.code };
+  }
+
+  it('имя не строкой — отказ, а не падение', async () => {
+    const { host, code } = await roomWithHost();
+    const player = await connect();
+    const result = await new Promise<Result<unknown>>((resolve) =>
+      raw(player)('room:join', { code, name: 42 }, resolve),
+    );
+    expect(result.ok).toBe(false);
+    expect(await alive(host)).toBe(true);
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('запрос без колбэка подтверждения не роняет сервер', async () => {
+    const { host, code } = await roomWithHost();
+    const player = await connect();
+    raw(player)('room:join', { code, name: 'Без колбэка' });
+    raw(player)('room:leave');
+    expect(await alive(host)).toBe(true);
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('нажатие с меткой не числом отклоняется', async () => {
+    const { host, code } = await roomWithHost();
+    const player = await connect();
+    await emit(player, 'room:join', { code, name: 'Тимур' });
+    const result = await new Promise<Result<unknown>>((resolve) =>
+      raw(player)('player:buzz', { clientTime: 'сейчас', clockOffset: 0, minRtt: 0 }, resolve),
+    );
+    expect(result.ok).toBe(false);
+    expect(await alive(host)).toBe(true);
+    host.disconnect();
+    player.disconnect();
+  });
+
+  it('настройки с чужим ключом или не тем типом не принимаются', async () => {
+    const host = await connect();
+    const created = await new Promise<Result<unknown>>((resolve) =>
+      raw(host)('room:create', { packId: 'demo-classic', settings: { buzzOpenMs: 'долго' } }, resolve),
+    );
+    expect(created.ok).toBe(false);
+
+    const { host: owner } = await roomWithHost();
+    const patched = await new Promise<Result<unknown>>((resolve) =>
+      raw(owner)('host:updateSettings', { buzzOpenMs: -5 }, resolve),
+    );
+    expect(patched.ok).toBe(false);
+    const unknownKey = await new Promise<Result<unknown>>((resolve) =>
+      raw(owner)('host:updateSettings', { hostToken: 'взлом' }, resolve),
+    );
+    expect(unknownKey.ok).toBe(false);
+    host.disconnect();
+    owner.disconnect();
+  });
+
+  it('вместо объекта — null, и сервер всё равно жив', async () => {
+    const { host } = await roomWithHost();
+    const stranger = await connect();
+    const result = await new Promise<Result<unknown>>((resolve) =>
+      raw(stranger)('room:join', null, resolve),
+    );
+    expect(result.ok).toBe(false);
+    expect(await alive(host)).toBe(true);
+    host.disconnect();
+    stranger.disconnect();
+  });
+});

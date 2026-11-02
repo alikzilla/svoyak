@@ -4,6 +4,8 @@ import { randomUUID } from 'node:crypto';
 import type { Effect } from '../engine/actions.js';
 import { createRoomState } from '../engine/createRoom.js';
 import { deleteRoom, loadRooms, saveRoom } from '../storage/roomsRepo.js';
+import { saveResult } from '../storage/historyRepo.js';
+import { resultOf } from '../engine/history.js';
 import { RoomRuntime } from './RoomRuntime.js';
 import { generateRoomCode } from './roomCode.js';
 
@@ -77,7 +79,8 @@ export class RoomManager {
 
   /** Сбрасывает отложенные сохранения — вызывается при остановке процесса. */
   flushAll(): void {
-    for (const code of [...this.pending.keys()]) this.flush(code);
+    // flush удаляет запись из pending; удалять из Map по ходу обхода безопасно.
+    for (const code of this.pending.keys()) this.flush(code);
   }
 
   private attach(state: RoomState): RoomRuntime {
@@ -85,6 +88,12 @@ export class RoomManager {
       persist: (next) => this.schedulePersist(next),
       joinUrlFor: (code) => this.joinUrl(code),
       emit: (effect: Effect) => this.emitter?.(state.code, effect),
+    });
+    // Дошедшая до итогов игра попадает в «Зал славы». Запись идемпотентна:
+    // повторный приход к итогам обновит её, а не продублирует.
+    room.onChange(() => {
+      const result = resultOf(room.state, Date.now());
+      if (result) saveResult(result);
     });
     this.rooms.set(state.code, room);
     return room;

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { haptic } from '../net/haptics.js';
 
 export type BuzzerState = 'closed' | 'open' | 'locked' | 'taken' | 'mine';
 
@@ -72,8 +71,6 @@ export function BigBuzzer({
 
   const press = (): void => {
     if (disabled) return;
-    // Вибрация — единственный отклик, когда игрок смотрит на ведущего, а не в телефон.
-    haptic('buzz');
     onBuzz();
   };
 

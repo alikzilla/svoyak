@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Ack, GameRecipe, ModifierPlan, Pack, RoomSettings } from '@svoyak/shared';
+import type { Ack, ClientToServerEvents, GameRecipe, ModifierPlan, Pack, RoomSettings } from '@svoyak/shared';
 import { EMPTY_MODIFIER_PLAN, REACTIONS, validatePack } from '@svoyak/shared';
 import type { Effect, GameAction } from '../engine/actions.js';
 import type { RoomManager } from '../room/RoomManager.js';
@@ -9,6 +9,7 @@ import { planModifierCells } from '../engine/modifiers.js';
 import { buildPackFromRecipe } from '../packs/compose.js';
 import { getPack } from '../storage/packsRepo.js';
 import { getGame, summarizeGame } from '../storage/gamesRepo.js';
+import { checkPacket } from './payloads.js';
 import type { AppServer, AppSocket } from './types.js';
 
 const MAX_NAME_LENGTH = 20;
@@ -153,11 +154,42 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
   io.on('connection', (socket: AppSocket) => {
     socket.data = { role: null, code: null, playerId: null };
 
-    socket.on('clock:ping', ({ t0 }, ack) => {
+    // Каждый пакет проверяется до обработчика: кривой отбрасывается с отказом,
+    // а колбэк подтверждения после проверки есть всегда.
+    socket.use((packet, next) => {
+      const [event, ...args] = packet;
+      const checked = checkPacket(event, args);
+      if (!checked.ok) {
+        checked.ack?.({ ok: false, error: 'Сервер не понял запрос' });
+        return;
+      }
+      packet.splice(1, packet.length - 1, ...checked.args);
+      next();
+    });
+
+    /** Подписка под защитой: исключение в обработчике — отказ этому клиенту,
+     *  а не падение процесса, на котором держится весь вечер. */
+    const on = <E extends keyof ClientToServerEvents>(
+      event: E,
+      handler: ClientToServerEvents[E],
+    ): void => {
+      const run = handler as (...args: unknown[]) => void;
+      socket.on(event, ((...args: unknown[]) => {
+        try {
+          run(...args);
+        } catch (cause) {
+          console.error(`[socket] ${event}:`, cause);
+          const ack = args.at(-1);
+          if (typeof ack === 'function') ack({ ok: false, error: 'Сервер не смог выполнить запрос' });
+        }
+      }) as never);
+    };
+
+    on('clock:ping', ({ t0 }, ack) => {
       ack({ t0, tServer: Date.now() });
     });
 
-    socket.on('room:create', ({ packId, recipe, gameId, settings }, ack) => {
+    on('room:create', ({ packId, recipe, gameId, settings }, ack) => {
       const setup = resolveGameSetup({ packId, recipe, gameId });
       if (typeof setup === 'string') {
         ack({ ok: false, error: setup });
@@ -174,7 +206,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       broadcast(room.state.code);
     });
 
-    socket.on('room:join', ({ code, name }, ack) => {
+    on('room:join', ({ code, name }, ack) => {
       const room = rooms.get(code);
       if (!room) {
         ack({ ok: false, error: 'Комната с таким кодом не найдена' });
@@ -201,7 +233,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       broadcast(code);
     });
 
-    socket.on('room:rejoin', ({ code, token, role }, ack) => {
+    on('room:rejoin', ({ code, token, role }, ack) => {
       const room = rooms.get(code);
       if (!room) {
         ack({ ok: false, error: 'Комната больше не существует' });
@@ -251,7 +283,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       broadcast(code);
     });
 
-    socket.on('room:watch', ({ code }, ack) => {
+    on('room:watch', ({ code }, ack) => {
       const room = rooms.get(code);
       if (!room) {
         ack({ ok: false, error: 'Комната не найдена' });
@@ -263,7 +295,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       broadcast(code);
     });
 
-    socket.on('room:leave', (ack) => {
+    on('room:leave', (ack) => {
       const code = socket.data.code;
       if (code) void socket.leave(`room:${code}`);
       socket.data = { role: null, code: null, playerId: null };
@@ -276,7 +308,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
         | 'host:extendTime' | 'host:continue' | 'host:nextRound',
       makeAction: () => GameAction,
     ): void => {
-      socket.on(event, (ack) => {
+      on(event, (ack) => {
         const room = requireHost(socket, ack);
         if (!room) return;
         const result = room.dispatch(makeAction());
@@ -292,35 +324,35 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
     hostAction('host:continue', () => ({ type: 'CONTINUE', at: Date.now() }));
     hostAction('host:nextRound', () => ({ type: 'NEXT_ROUND', at: Date.now() }));
 
-    socket.on('host:pickQuestion', ({ themeId, questionId }, ack) => {
+    on('host:pickQuestion', ({ themeId, questionId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'PICK_QUESTION', themeId, questionId, at: Date.now() });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:judge', ({ verdict }, ack) => {
+    on('host:judge', ({ verdict }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'JUDGE', verdict, at: Date.now() });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:setControl', ({ playerId }, ack) => {
+    on('host:setControl', ({ playerId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'SET_CONTROL', playerId });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:pause', ({ paused }, ack) => {
+    on('host:pause', ({ paused }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'PAUSE', paused });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:catTransfer', ({ toPlayerId }, ack) => {
+    on('player:catTransfer', ({ toPlayerId }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -335,7 +367,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:modifierTarget', ({ targetPlayerId }, ack) => {
+    on('player:modifierTarget', ({ targetPlayerId }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -350,7 +382,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:bid', ({ amount }, ack) => {
+    on('player:bid', ({ amount }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -361,7 +393,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:finalRemoveTheme', ({ themeId }, ack) => {
+    on('player:finalRemoveTheme', ({ themeId }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -372,7 +404,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:finalBet', ({ bet }, ack) => {
+    on('player:finalBet', ({ bet }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -383,7 +415,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:finalAnswer', ({ answer }, ack) => {
+    on('player:finalAnswer', ({ answer }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -394,14 +426,14 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:finalJudge', ({ correct }, ack) => {
+    on('host:finalJudge', ({ correct }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'FINAL_JUDGE', correct, at: Date.now() });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:buzz', ({ clientTime, clockOffset, minRtt }, ack) => {
+    on('player:buzz', ({ clientTime, clockOffset, minRtt }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -415,7 +447,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('player:react', ({ emoji }, ack) => {
+    on('player:react', ({ emoji }, ack) => {
       const room = requireRoom(socket);
       const playerId = socket.data.playerId;
       if (!room || socket.data.role !== 'player' || !playerId) {
@@ -437,21 +469,21 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack({ ok: true, data: null });
     });
 
-    socket.on('host:adjustScore', ({ playerId, score }, ack) => {
+    on('host:adjustScore', ({ playerId, score }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'SET_SCORE', playerId, score });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:giveHint', ({ playerId }, ack) => {
+    on('host:giveHint', ({ playerId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'GIVE_HINT', playerId, at: Date.now() });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:kick', ({ playerId }, ack) => {
+    on('host:kick', ({ playerId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'PLAYER_KICK', playerId });
@@ -466,14 +498,14 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:updateSettings', (settings: Partial<RoomSettings>, ack) => {
+    on('host:updateSettings', (settings: Partial<RoomSettings>, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const result = room.dispatch({ type: 'SET_SETTINGS', settings });
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:setRecipe', ({ recipe }, ack) => {
+    on('host:setRecipe', ({ recipe }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const pack = resolvePack({ recipe });
@@ -490,7 +522,7 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
       ack(result.ok ? { ok: true, data: null } : { ok: false, error: result.error ?? 'Ошибка' });
     });
 
-    socket.on('host:undo', (ack) => {
+    on('host:undo', (ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;
       const undone = room.undo();

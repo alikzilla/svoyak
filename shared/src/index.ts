@@ -9,3 +9,4 @@ export * from './modifiers.js';
 export * from './game.js';
 export * from './answerMatch.js';
 export * from './timer.js';
+export * from './history.js';

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { REACTIONS, type Reaction } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
-import { haptic } from '../net/haptics.js';
 
 /** Ряд реакций на телефоне. Сервер всё равно режет частые нажатия,
  *  а здесь кнопка просто коротко подпрыгивает, чтобы нажатие ощущалось. */
@@ -10,7 +9,6 @@ export function ReactionBar() {
   const [last, setLast] = useState<{ emoji: Reaction; at: number } | null>(null);
 
   const react = (emoji: Reaction): void => {
-    haptic('tap');
     setLast({ emoji, at: Date.now() });
     void ask('player:react', { emoji });
   };
