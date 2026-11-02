@@ -8,7 +8,6 @@ import { useClock } from '../net/useClock.js';
 import { loadSession } from '../net/session.js';
 import { ask } from '../net/socket.js';
 import { unlockAudio } from '../net/sounds.js';
-import { usePlayerHaptics } from '../net/haptics.js';
 import { Avatar, colorForIndex } from '../design/Avatar.js';
 import { BigBuzzer, type BuzzerState } from '../design/BigBuzzer.js';
 import { DoodleButton } from '../design/DoodleButton.js';
@@ -69,9 +68,6 @@ export default function Play() {
     [view],
   );
   const myColor = colorForIndex(Math.max(0, myIndex));
-
-  // Телефон лежит экраном вниз или в кармане — о своих событиях игрок узнаёт вибрацией.
-  usePlayerHaptics(view);
 
   const myScore = view?.myScore ?? 0;
   const previousScore = useRef<number | null>(null);

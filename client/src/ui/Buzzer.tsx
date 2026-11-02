@@ -23,8 +23,6 @@ export function Buzzer({ open, lockedUntil, answeringName, onBuzz }: BuzzerProps
 
   const press = (): void => {
     if (locked) return;
-    // Вибрация — единственный отклик, когда игрок смотрит на ведущего, а не в телефон.
-    navigator.vibrate?.(30);
     onBuzz();
   };
 
