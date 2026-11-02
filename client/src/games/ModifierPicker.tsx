@@ -1,5 +1,6 @@
 import type { ModifierPlan } from '@svoyak/shared';
 import { GAME_LIMITS, MODIFIER_HINTS, MODIFIER_KINDS, MODIFIER_TITLES } from '@svoyak/shared';
+import { Notice, Stepper } from '../workspace/ui.js';
 
 interface ModifierPickerProps {
   plan: ModifierPlan;
@@ -11,73 +12,52 @@ const [MIN, MAX] = GAME_LIMITS.modifiersPerRound;
 /** Сколько клеток-модификаторов в раунде и какие виды могут выпасть.
  *  Под такой клеткой нет вопроса, поэтому она съедает вопрос из раунда. */
 export function ModifierPicker({ plan, onChange }: ModifierPickerProps) {
-  const setPerRound = (next: number): void =>
-    onChange({ ...plan, perRound: Math.min(MAX, Math.max(MIN, next)) });
-
   const toggle = (kind: (typeof MODIFIER_KINDS)[number]): void =>
     onChange({
       ...plan,
-      kinds: plan.kinds.includes(kind)
-        ? plan.kinds.filter((item) => item !== kind)
-        : [...plan.kinds, kind],
+      kinds: plan.kinds.includes(kind) ? plan.kinds.filter((item) => item !== kind) : [...plan.kinds, kind],
     });
 
   return (
-    <section className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="font-pop text-sm font-black">Модификаторов на раунд</span>
-        <span className="flex items-center gap-2">
-          <button
-            type="button"
-            aria-label="Модификаторов меньше"
-            disabled={plan.perRound <= MIN}
-            onClick={() => setPerRound(plan.perRound - 1)}
-            className="btn size-10 px-0 text-lg font-black"
-          >
-            −
-          </button>
-          <span
-            role="status"
-            aria-live="polite"
-            className="font-pop w-8 text-center text-xl font-black tabular-nums"
-          >
-            {plan.perRound}
-          </span>
-          <button
-            type="button"
-            aria-label="Модификаторов больше"
-            disabled={plan.perRound >= MAX}
-            onClick={() => setPerRound(plan.perRound + 1)}
-            className="btn size-10 px-0 text-lg font-black"
-          >
-            +
-          </button>
-        </span>
+    <div className="grid gap-4">
+      <div className="max-w-56">
+        <Stepper
+          label="Модификаторов на раунд"
+          value={plan.perRound}
+          min={MIN}
+          max={MAX}
+          onChange={(perRound) => onChange({ ...plan, perRound })}
+          hint={plan.perRound === 0 ? 'без модификаторов' : 'каждый заменяет один вопрос'}
+        />
       </div>
 
       {plan.perRound > 0 && (
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {MODIFIER_KINDS.map((kind) => (
-            <label key={kind} className="check-row font-body text-sm font-bold">
-              <input
-                type="checkbox"
-                checked={plan.kinds.includes(kind)}
-                onChange={() => toggle(kind)}
-              />
-              <span>
-                {MODIFIER_TITLES[kind]}
-                <span className="text-soft block text-xs font-bold">{MODIFIER_HINTS[kind]}</span>
-              </span>
-            </label>
-          ))}
+        <div className="grid gap-2">
+          <span className="ws-label">Какие могут выпасть</span>
+          <ul className="-mx-3 grid grid-cols-1 gap-0.5 sm:grid-cols-2">
+            {MODIFIER_KINDS.map((kind) => (
+              <li key={kind}>
+                <label className="ws-option">
+                  <input
+                    type="checkbox"
+                    className="ws-check"
+                    checked={plan.kinds.includes(kind)}
+                    onChange={() => toggle(kind)}
+                  />
+                  <span className="grid gap-0.5">
+                    <span className="text-[0.9375rem] font-medium">{MODIFIER_TITLES[kind]}</span>
+                    <span className="text-ws-faint text-[0.8125rem]">{MODIFIER_HINTS[kind]}</span>
+                  </span>
+                </label>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
       {plan.perRound > 0 && plan.kinds.length === 0 && (
-        <p role="alert" className="font-body text-no-ink text-xs font-bold">
-          Ни один вид не включён — модификаторов не будет
-        </p>
+        <Notice tone="warn">Ни один вид не отмечен — модификаторов не будет.</Notice>
       )}
-    </section>
+    </div>
   );
 }

@@ -12,7 +12,10 @@ interface QuestionMediaProps {
   alt?: string;
 }
 
-const FRAME = 'ink-border overflow-hidden rounded-2xl bg-black/20';
+const GAME_FRAME = 'ink-border overflow-hidden rounded-2xl bg-black/20';
+/** У ведущего — рабочее место, а не игра: тонкая рамка вместо маркерной. */
+const HOST_FRAME = 'w-fit max-w-full overflow-hidden rounded-lg border border-ws-line bg-ws-sunken';
+const frame = (variant: Variant): string => (variant === 'host' ? HOST_FRAME : GAME_FRAME);
 
 export function QuestionMedia({ media, variant, alt = '' }: QuestionMediaProps) {
   if (media.kind === 'image') return <ImageMedia media={media} variant={variant} alt={alt} />;
@@ -22,7 +25,7 @@ export function QuestionMedia({ media, variant, alt = '' }: QuestionMediaProps) 
 
 function ImageMedia({ media, variant, alt }: Required<QuestionMediaProps>) {
   return (
-    <div className={`${FRAME} mx-auto grid place-items-center`}>
+    <div className={`${frame(variant)} mx-auto grid place-items-center`}>
       <img src={media.src} alt={alt} className={`${sizing(variant)} object-contain`} />
     </div>
   );
@@ -42,7 +45,7 @@ function VideoMedia({ media, variant }: Omit<QuestionMediaProps, 'alt'>) {
   const blocked = useAutoplay(ref, media.src, muted);
 
   return (
-    <div className={`${FRAME} relative mx-auto grid place-items-center`}>
+    <div className={`${frame(variant)} relative mx-auto grid place-items-center`}>
       <video
         ref={ref}
         src={media.src}
@@ -63,20 +66,26 @@ function AudioMedia({ media, variant }: Omit<QuestionMediaProps, 'alt'>) {
   const silent = variant !== 'board';
   const blocked = useAutoplay(ref, media.src, silent);
 
+  if (variant === 'host') {
+    return (
+      <div className="border-ws-line bg-ws-sunken flex flex-wrap items-center gap-3 rounded-lg border px-4 py-3">
+        <span className="text-ws-soft text-sm">Аудиовопрос — звучит на общем экране</span>
+        <audio src={media.src} controls className="ml-auto h-9 max-w-full" />
+      </div>
+    );
+  }
+
   if (silent) {
     return (
       <div className="ink-border bg-card/60 text-ink flex items-center gap-3 rounded-2xl px-4 py-3">
         <Equalizer animated={false} />
-        <span className="font-body text-sm font-bold opacity-70">
-          {variant === 'host' ? 'аудиовопрос — звучит на общем экране' : 'слушайте общий экран'}
-        </span>
-        {variant === 'host' && <audio src={media.src} controls className="ml-auto max-w-[50%]" />}
+        <span className="font-body text-sm font-bold opacity-70">слушайте общий экран</span>
       </div>
     );
   }
 
   return (
-    <div className={`${FRAME} relative mx-auto grid place-items-center bg-black/30 px-10 py-8`}>
+    <div className={`${GAME_FRAME} relative mx-auto grid place-items-center bg-black/30 px-10 py-8`}>
       <audio ref={ref} src={media.src} loop />
       <Equalizer animated={!blocked} />
       {blocked && <SoundGate onUnlock={() => void unmuteAndPlay(ref.current)} />}

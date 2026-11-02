@@ -1,349 +1,548 @@
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import confetti from 'canvas-confetti';
-import type { HostView } from '@svoyak/shared';
+import type { ReactNode } from 'react';
+import {
+  ArrowRight,
+  Check,
+  Clock,
+  Eye,
+  Keyboard,
+  Pause,
+  Play,
+  SkipForward,
+  Undo2,
+  X,
+} from 'lucide-react';
+import type { HostView, PlayerPublic } from '@svoyak/shared';
 import { MODIFIER_HINTS, MODIFIER_TITLES, modifierApplies } from '@svoyak/shared';
 import { ask } from '../../net/socket.js';
-import { BoardGrid } from '../BoardGrid.js';
+import { clearSession } from '../../net/session.js';
 import { PlayerLedger } from '../PlayerLedger.js';
-import { SoundToggle } from '../SoundToggle.js';
-import { FinalHost } from './FinalHost.js';
-import { CheatSheet } from './CheatSheet.js';
-import { Avatar, colorForIndex } from '../../design/Avatar.js';
-import { DoodleButton } from '../../design/DoodleButton.js';
-import { LiveTimer } from '../Timer.js';
-import { RoughFrame } from '../../design/rough.js';
-import { Stamp } from '../../design/Stamp.js';
 import { Standings } from '../Standings.js';
-import { QuestionMedia } from '../QuestionMedia.js';
+import { LiveTimer } from '../Timer.js';
+import { Avatar, colorForIndex } from '../../design/Avatar.js';
+import { Shell } from '../../workspace/Shell.js';
+import { ConnectionStatus, Kbd, Notice, SoundButton } from '../../workspace/ui.js';
+import { CheatSheet } from './CheatSheet.js';
+import { FinalHost } from './FinalHost.js';
+import { HostBoard } from './HostBoard.js';
+import { Ticket } from './Ticket.js';
 import { useHostHotkeys } from './hotkeys.js';
 
 interface HostGameProps {
   view: HostView;
+  connected: boolean;
 }
 
 const send = (event: Parameters<typeof ask>[0], payload?: unknown): void => {
   void ask(event, payload);
 };
 
-/**
- * Текст вопроса для ведущего: виден целиком и сразу, без анимации. Раньше слова
- * проявлялись по одному — быстрее, чем их читают вслух, то есть ради эффекта, —
- * а в фоновом или перекрытом окне браузер ставит анимации на паузу, и ведущий
- * оставался с двумя словами из двадцати.
- */
-function QuestionText({ text }: { text: string }) {
-  return <p className="font-body text-2xl leading-snug font-bold text-pretty">{text}</p>;
-}
+const nameOf = (view: HostView, id: string | null): string =>
+  view.players.find((player) => player.id === id)?.name ?? '—';
 
-export function HostGame({ view }: HostGameProps) {
-  const answering = view.players.find((player) => player.isAnswering);
-  const control = view.players.find((player) => player.isControl);
-  const question = view.question;
-  const canPick = view.phase === 'picking' || view.phase === 'round_intro';
-  const inFinal = view.final !== null && view.phase !== 'results';
+/**
+ * Стол ведущего во время игры. Слева — что происходит сейчас и одно
+ * следующее действие с его клавишей, ниже игроки. Справа — табло.
+ */
+export function HostGame({ view, connected }: HostGameProps) {
   useHostHotkeys(view, send);
 
-  const [verdict, setVerdict] = useState<'yes' | 'no' | null>(null);
-  const scores = useRef<Record<string, number>>({});
-
-  // Вердикт ловим по изменению счёта: сервер не присылает «верно» отдельным событием.
-  useEffect(() => {
-    let changed: { id: string; delta: number } | null = null;
-    for (const player of view.players) {
-      const previous = scores.current[player.id];
-      if (previous !== undefined && previous !== player.score) {
-        changed = { id: player.id, delta: player.score - previous };
-      }
-      scores.current[player.id] = player.score;
-    }
-    if (!changed) return;
-
-    setVerdict(changed.delta > 0 ? 'yes' : 'no');
-    if (changed.delta > 0) {
-      const index = view.players.findIndex((player) => player.id === changed.id);
-      void confetti({
-        particleCount: 110,
-        spread: 80,
-        origin: { y: 0.65 },
-        colors: [colorForIndex(index), '#fff6e9', '#1a1a1a'],
-      });
-    }
-    const timer = window.setTimeout(() => setVerdict(null), 1500);
-    return () => clearTimeout(timer);
-  }, [view.players]);
+  const canPick = view.phase === 'picking' || view.phase === 'round_intro';
+  const inFinal = view.final !== null && view.phase !== 'results';
 
   return (
-    <div className="relative mx-auto flex w-full max-w-[110rem] flex-col gap-4 px-4 pt-6 pb-8">
-      <AnimatePresence>
-        {verdict && (
-          <div className="pointer-events-none fixed inset-0 z-50 grid place-items-center">
-            <Stamp shown tone={verdict} text={verdict === 'yes' ? 'ВЕРНО!' : 'МИМО!'} />
-          </div>
-        )}
-      </AnimatePresence>
-
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-pop text-2xl font-black">{view.roundTitle}</h1>
-          <p className="font-body text-sm font-bold opacity-75">
-            {control ? `ход: ${control.name}` : 'право хода не назначено'} · комната{' '}
-            <span className="tabular-nums">{view.code}</span>
-          </p>
+    <Shell
+      bar={<GameBar view={view} />}
+      aside={
+        <>
+          <ConnectionStatus connected={connected} />
+          <button
+            type="button"
+            disabled={!view.canUndo}
+            onClick={() => send('host:undo')}
+            className="ws-btn ws-btn-ghost ws-btn-sm"
+            title="Отменить последнее действие (⌘Z)"
+          >
+            <Undo2 aria-hidden />
+            <span className="hidden md:inline">Отменить</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => send('host:pause', { paused: !view.paused })}
+            aria-pressed={view.paused}
+            className="ws-btn ws-btn-sm"
+            title={view.paused ? 'Продолжить игру (P)' : 'Поставить на паузу (P)'}
+          >
+            {view.paused ? <Play aria-hidden /> : <Pause aria-hidden />}
+            <span className="hidden md:inline">{view.paused ? 'Продолжить' : 'Пауза'}</span>
+          </button>
+          <SoundButton />
+          <KeysHelp />
+        </>
+      }
+    >
+      {view.paused && (
+        <div className="mb-5">
+          <Notice
+            tone="warn"
+            action={
+              <button
+                type="button"
+                onClick={() => send('host:pause', { paused: false })}
+                className="ws-btn ws-btn-sm"
+              >
+                <Play aria-hidden />
+                Продолжить
+              </button>
+            }
+          >
+            <strong className="font-semibold">Пауза.</strong> Таймеры стоят, кнопки у игроков не
+            работают.
+          </Notice>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <SoundToggle />
-          <DoodleButton size="sm" tone="paper" tilt={0.6} onClick={() => send('host:pause', { paused: !view.paused })}>
-            {view.paused ? 'Продолжить' : 'Пауза'}
-          </DoodleButton>
-          <DoodleButton size="sm" tone="paper" tilt={-0.6} disabled={!view.canUndo} onClick={() => send('host:undo')}>
-            Отменить
-          </DoodleButton>
-        </div>
-      </header>
-      {/* На планшете клавиатуры нет — подсказка только там, где она пригодится. */}
-      <p className="font-body -mt-2 hidden text-xs font-bold opacity-60 lg:block">
-        клавиши: пробел — дальше · <span className="font-pop">+</span> верно ·{' '}
-        <span className="font-pop">−</span> неверно · P — пауза · ⌘Z — отменить
-      </p>
+      )}
 
-      {/* Слева управление, справа табло: ведущий всегда видит поле целиком. */}
-      <div className="grid items-start gap-4 xl:grid-cols-[minmax(24rem,5fr)_minmax(0,6fr)]">
-        <div className="grid gap-4">
-          {view.timer && <LiveTimer timer={view.timer} />}
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(26rem,5fr)_minmax(0,6fr)]">
+        <div className="grid min-w-0 gap-6">
+          <Stage view={view} />
 
-          {inFinal ? (
-            <FinalHost
-              view={view}
-              onJudge={(correct) => send('host:finalJudge', { correct })}
-              onForce={() => send('host:continue')}
+          <section className="ws-card">
+            <header className="ws-card-head">
+              <h2 className="ws-card-title">Игроки</h2>
+              <span className="text-ws-faint text-[0.8125rem]">счёт можно поправить вручную</span>
+            </header>
+            <PlayerLedger
+              players={view.players}
+              highlightId={view.controlPlayerId}
+              onScoreChange={(playerId, score) => send('host:adjustScore', { playerId, score })}
+              onKick={(playerId) => send('host:kick', { playerId })}
+              onSetControl={(playerId) => send('host:setControl', { playerId })}
+              onGiveHint={(playerId) => send('host:giveHint', { playerId })}
             />
-          ) : view.phase === 'modifier' && view.modifier ? (
-            <RoughFrame fill="var(--color-card)" seed={13} contentClassName="text-ink grid gap-3 p-6 text-center">
-              <p className="font-body text-ink/60 text-sm font-bold">вместо вопроса выпало</p>
-              <p className="font-pop text-3xl font-black">{MODIFIER_TITLES[view.modifier.kind]}</p>
-              <p className="font-body text-sm font-bold opacity-70">
-                {modifierApplies(view.modifier.kind, view.players.length)
-                  ? MODIFIER_HINTS[view.modifier.kind]
-                  : 'не сработало — в комнате больше никого нет'}{' '}
-                —{' '}
-                {view.players.find((player) => player.id === view.modifier?.playerId)?.name ?? '—'}
-              </p>
-              {view.modifier.kind === 'swap' &&
-                view.modifier.targetPlayerId === null &&
-                modifierApplies(view.modifier.kind, view.players.length) && (
-                  <p className="font-body text-sm font-bold opacity-70">ждём выбора игрока на телефоне</p>
-                )}
-              <DoodleButton tone="p1" className="justify-self-center" onClick={() => send('host:continue')}>
-                Дальше
-              </DoodleButton>
-            </RoughFrame>
-          ) : question ? (
-            <RoughFrame
-              fill="var(--color-card)"
-              seed={7}
-              contentClassName="text-ink grid gap-3 p-5"
-            >
-              <p className="font-body text-sm font-bold opacity-70">
-                {question.themeTitle} · <span className="tabular-nums">{question.price}</span>
-              </p>
-              <QuestionText text={question.text} />
-              {question.media && (
-                <QuestionMedia media={question.media} variant="host" alt={question.text} />
-              )}
-
-              <div className="ink-border bg-p4 rounded-2xl px-4 py-3">
-                <p className="font-body text-xs font-bold opacity-70">ответ — видите только вы</p>
-                <p className="font-pop text-xl font-black">{question.answer}</p>
-                {question.altAnswers.length > 0 && (
-                  <p className="font-body text-sm font-bold opacity-70">
-                    также принимается: {question.altAnswers.join(', ')}
-                  </p>
-                )}
-                {question.answerMedia && (
-                  <div className="mt-2">
-                    <QuestionMedia
-                      media={question.answerMedia}
-                      variant="host"
-                      alt={question.answer}
-                    />
-                  </div>
-                )}
-                {question.hostComment && (
-                  <p className="font-body mt-1 text-sm font-bold opacity-70 text-pretty">
-                    {question.hostComment}
-                  </p>
-                )}
-              </div>
-
-              {view.cat && <SpecialNote view={view} kind="cat" />}
-              {view.auction && <SpecialNote view={view} kind="auction" />}
-
-              {answering && (
-                <div className="flex items-center gap-3">
-                  <Avatar
-                    seed={answering.name}
-                    color={colorForIndex(view.players.findIndex((p) => p.id === answering.id))}
-                    size={48}
-                    mood="answering"
-                  />
-                  <p className="font-pop text-xl font-black">
-                    отвечает {answering.name}
-                    <span className="font-body block text-xs font-bold opacity-70">
-                      времени столько, сколько нужно
-                    </span>
-                  </p>
-                </div>
-              )}
-
-              <div className="flex flex-wrap gap-2">
-                {view.phase === 'announce' && (
-                  <DoodleButton tone="p5" onClick={() => send('host:continue')}>
-                    Сразу к вопросу
-                  </DoodleButton>
-                )}
-                {view.phase === 'reading' && (
-                  <DoodleButton tone="p5" onClick={() => send('host:openBuzzer')}>
-                    Открыть кнопку
-                  </DoodleButton>
-                )}
-                {(view.phase === 'answering' ||
-                  view.phase === 'cat_answer' ||
-                  view.phase === 'auction_answer') && (
-                  <>
-                    <DoodleButton tone="yes" onClick={() => send('host:judge', { verdict: 'correct' })}>
-                      Верно
-                    </DoodleButton>
-                    <DoodleButton tone="no" tilt={1} onClick={() => send('host:judge', { verdict: 'wrong' })}>
-                      Неверно
-                    </DoodleButton>
-                  </>
-                )}
-                {view.phase === 'buzzer_open' && (
-                  <DoodleButton size="sm" tone="paper" onClick={() => send('host:extendTime')}>
-                    Ещё время
-                  </DoodleButton>
-                )}
-                {view.phase === 'answer_reveal' ? (
-                  <DoodleButton tone="p1" onClick={() => send('host:continue')}>
-                    Дальше
-                  </DoodleButton>
-                ) : (
-                  <>
-                    <DoodleButton size="sm" tone="paper" tilt={0.6} onClick={() => send('host:revealAnswer')}>
-                      Показать ответ
-                    </DoodleButton>
-                    <DoodleButton size="sm" tone="paper" tilt={-0.6} onClick={() => send('host:skipQuestion')}>
-                      Снять вопрос
-                    </DoodleButton>
-                  </>
-                )}
-              </div>
-            </RoughFrame>
-          ) : view.phase === 'round_end' || view.phase === 'results' ? (
-            <RoughFrame fill="var(--color-card)" seed={9} contentClassName="text-ink grid gap-4 p-6 text-center">
-              <h2 className="font-pop text-3xl font-black">
-                {view.phase === 'results' ? 'Игра окончена' : 'Раунд сыгран'}
-              </h2>
-              {view.phase === 'round_end' && (
-                <DoodleButton tone="p5" className="justify-self-center" onClick={() => send('host:nextRound')}>
-                  Следующий раунд
-                </DoodleButton>
-              )}
-            </RoughFrame>
-          ) : (
-            <RoughFrame fill="var(--color-card)" seed={13} contentClassName="text-ink p-5">
-              <p className="font-body text-lg font-bold text-pretty">
-                {control ? <span className="font-pop">{control.name}</span> : 'Игрок'} называет тему и
-                цену — откройте её на табло справа.
-              </p>
-            </RoughFrame>
-          )}
-
-          <PlayerLedger
-            players={view.players}
-            highlightId={view.controlPlayerId}
-            onScoreChange={(playerId, score) => send('host:adjustScore', { playerId, score })}
-            onKick={(playerId) => send('host:kick', { playerId })}
-            onSetControl={(playerId) => send('host:setControl', { playerId })}
-            onGiveHint={(playerId) => send('host:giveHint', { playerId })}
-          />
+          </section>
         </div>
 
-        <section className="xl:sticky xl:top-4">
+        <div className="grid min-w-0 gap-6 xl:sticky xl:top-20">
           {view.phase === 'results' ? (
-            <div className="grid gap-3">
-              <h2 className="font-pop text-center text-3xl font-black">Итог</h2>
+            <section className="ws-card">
+              <header className="ws-card-head">
+                <h2 className="ws-card-title">Итог</h2>
+              </header>
               <Standings players={view.players} />
-            </div>
+            </section>
           ) : inFinal ? (
-            <div className="grid gap-2">
-              <h2 className="font-pop text-xl font-black">Темы финала</h2>
-              <ul className="grid gap-2">
+            <section className="ws-card">
+              <header className="ws-card-head">
+                <h2 className="ws-card-title">Темы финала</h2>
+              </header>
+              <ul className="divide-ws-line grid divide-y">
                 {view.final?.themes.map((theme) => (
-                  <li
-                    key={theme.id}
-                    className={`ink-border font-pop rounded-2xl px-4 py-3 text-lg font-black ${
-                      theme.removedByPlayerId
-                        ? 'bg-card/40 text-ink/40 line-through'
-                        : 'bg-card text-ink'
-                    }`}
-                  >
-                    {theme.title}
+                  <li key={theme.id} className="flex items-center gap-3 px-5 py-3">
+                    <span
+                      className={`min-w-0 flex-1 font-medium ${
+                        theme.removedByPlayerId ? 'text-ws-faint line-through' : ''
+                      }`}
+                    >
+                      {theme.title}
+                    </span>
+                    {theme.removedByPlayerId && (
+                      <span className="text-ws-faint text-[0.8125rem]">
+                        убрал(а) {nameOf(view, theme.removedByPlayerId)}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           ) : (
             <>
-              <BoardGrid
-                board={view.board}
-                {...(canPick
-                  ? {
-                      onPick: (themeId: string, questionId: string) =>
-                        send('host:pickQuestion', { themeId, questionId }),
-                    }
-                  : {})}
-              />
-              {!canPick && (
-                <p className="font-body mt-3 text-center text-sm font-bold opacity-70">
-                  идёт вопрос — закончите его, чтобы открыть следующий
-                </p>
-              )}
+              <section className="ws-card">
+                <header className="ws-card-head">
+                  <h2 className="ws-card-title">Табло</h2>
+                  <span className="text-ws-faint ml-auto text-[0.8125rem]">
+                    {canPick ? 'нажмите цену, которую назвал игрок' : 'идёт вопрос — закончите его'}
+                  </span>
+                </header>
+                <div className="overflow-x-auto p-4 sm:p-5">
+                  <HostBoard
+                    board={view.board}
+                    currentId={view.question?.questionId ?? null}
+                    {...(canPick
+                      ? {
+                          onPick: (themeId: string, questionId: string) =>
+                            send('host:pickQuestion', { themeId, questionId }),
+                        }
+                      : {})}
+                  />
+                </div>
+              </section>
               <CheatSheet themes={view.cheatSheet} />
             </>
           )}
-        </section>
+        </div>
       </div>
+    </Shell>
+  );
+}
+
+function GameBar({ view }: { view: HostView }) {
+  const final = view.final !== null;
+  return (
+    <div className="flex min-w-0 items-center gap-3 text-sm">
+      <span className="text-ws-line hidden sm:inline" aria-hidden>
+        /
+      </span>
+      <span className="truncate font-medium">{final ? 'Финал' : view.roundTitle}</span>
+      {!final && view.roundsTotal > 0 && (
+        <span className="text-ws-faint num hidden shrink-0 sm:inline">
+          раунд {view.roundIndex + 1} из {view.roundsTotal}
+        </span>
+      )}
+      <span className="ws-badge num shrink-0" title="Код комнаты для входа">
+        {view.code}
+      </span>
     </div>
   );
 }
 
-function SpecialNote({ view, kind }: { view: HostView; kind: 'cat' | 'auction' }) {
-  const nameOf = (id: string | null): string =>
-    view.players.find((player) => player.id === id)?.name ?? '—';
+/** Шпаргалка по клавишам: открывается поверх, закрывается кликом мимо или Esc. */
+function KeysHelp() {
+  const rows: Array<[ReactNode, string]> = [
+    [<Kbd key="space">Пробел</Kbd>, 'Дальше: открыть кнопку, следующий шаг'],
+    [<Kbd key="plus">+</Kbd>, 'Верно'],
+    [<Kbd key="minus">−</Kbd>, 'Неверно'],
+    [<Kbd key="p">P</Kbd>, 'Пауза / продолжить'],
+    [
+      <span key="undo" className="flex gap-1">
+        <Kbd>⌘</Kbd>
+        <Kbd>Z</Kbd>
+      </span>,
+      'Отменить последнее действие',
+    ],
+  ];
+  return (
+    <>
+      <button
+        type="button"
+        popoverTarget="host-keys"
+        className="ws-btn ws-btn-ghost ws-btn-sm ws-btn-icon hidden lg:inline-flex"
+        title="Горячие клавиши"
+        aria-label="Горячие клавиши"
+      >
+        <Keyboard aria-hidden />
+      </button>
+      <div id="host-keys" popover="auto" className="ws-popover w-[22rem] max-w-[calc(100vw-2rem)]">
+        <div className="border-ws-line border-b px-5 py-3.5">
+          <h2 className="font-semibold">Горячие клавиши</h2>
+          <p className="text-ws-soft text-sm">Работают в любой раскладке, пока курсор не в поле ввода.</p>
+        </div>
+        <dl className="grid gap-2.5 px-5 py-4">
+          {rows.map(([keys, label]) => (
+            <div key={label} className="flex items-center justify-between gap-4 text-sm">
+              <dt className="text-ws-soft">{label}</dt>
+              <dd className="shrink-0">{keys}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </>
+  );
+}
 
+/** Что происходит сейчас — в зависимости от фазы. */
+function Stage({ view }: { view: HostView }) {
+  const control = view.players.find((player) => player.isControl) ?? null;
+  const question = view.question;
+
+  if (view.final !== null && view.phase !== 'results') {
+    return (
+      <FinalHost
+        view={view}
+        onJudge={(correct) => send('host:finalJudge', { correct })}
+        onForce={() => send('host:continue')}
+      />
+    );
+  }
+
+  if (view.phase === 'modifier' && view.modifier) {
+    const applies = modifierApplies(view.modifier.kind, view.players.length);
+    return (
+      <section className="ws-ticket grid gap-4 p-5 sm:p-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="ws-badge ws-badge-accent">Модификатор вместо вопроса</span>
+          {view.timer && (
+            <span className="ml-auto">
+              <LiveTimer timer={view.timer} paused={view.paused} />
+            </span>
+          )}
+        </div>
+        <div className="grid gap-1">
+          <h2 className="text-[1.5rem] leading-tight font-semibold">{MODIFIER_TITLES[view.modifier.kind]}</h2>
+          <p className="text-ws-soft">
+            {applies ? MODIFIER_HINTS[view.modifier.kind] : 'Не сработало — в комнате больше никого нет.'} ·{' '}
+            <span className="text-ws-fg font-medium">{nameOf(view, view.modifier.playerId)}</span>
+          </p>
+          {view.modifier.kind === 'swap' && view.modifier.targetPlayerId === null && applies && (
+            <p className="text-ws-soft text-sm">Ждём, пока игрок выберет соперника на телефоне.</p>
+          )}
+        </div>
+        <ActionRow>
+          <PrimaryNext label="Дальше" onClick={() => send('host:continue')} />
+        </ActionRow>
+      </section>
+    );
+  }
+
+  if (question) {
+    return (
+      <Ticket
+        header={
+          <>
+            <span className="text-[0.9375rem] font-semibold">{question.themeTitle}</span>
+            <span className="ws-badge ws-badge-accent num">{question.price}</span>
+            {question.type === 'cat' && <span className="ws-badge">кот в мешке</span>}
+            {question.type === 'auction' && <span className="ws-badge">аукцион</span>}
+            {view.timer && (
+              <span className="ml-auto">
+                <LiveTimer timer={view.timer} paused={view.paused} />
+              </span>
+            )}
+          </>
+        }
+        text={question.text}
+        media={question.media}
+        answer={question.answer}
+        altAnswers={question.altAnswers}
+        answerMedia={question.answerMedia}
+        hostComment={question.hostComment}
+        revealed={question.answerRevealed || view.phase === 'answer_reveal'}
+      >
+        <QuestionControls view={view} />
+      </Ticket>
+    );
+  }
+
+  if (view.phase === 'round_end') {
+    return (
+      <section className="ws-ticket grid gap-4 p-5 sm:p-6">
+        <div className="grid gap-1">
+          <h2 className="text-[1.5rem] leading-tight font-semibold">Раунд сыгран</h2>
+          <p className="text-ws-soft">
+            {view.roundIndex + 1 < view.roundsTotal
+              ? 'Объявите счёт и переходите к следующему раунду.'
+              : 'Объявите счёт — дальше финал.'}
+          </p>
+        </div>
+        <ActionRow>
+          <PrimaryNext
+            label={view.roundIndex + 1 < view.roundsTotal ? 'Следующий раунд' : 'К финалу'}
+            onClick={() => send('host:nextRound')}
+          />
+        </ActionRow>
+      </section>
+    );
+  }
+
+  if (view.phase === 'results') {
+    return (
+      <section className="ws-ticket grid gap-4 p-5 sm:p-6">
+        <div className="grid gap-1">
+          <h2 className="text-[1.5rem] leading-tight font-semibold">Игра окончена</h2>
+          <p className="text-ws-soft">Итог — на общем экране и справа. Спасибо за вечер!</p>
+        </div>
+        <ActionRow>
+          <button
+            type="button"
+            onClick={() => {
+              clearSession('host');
+              location.reload();
+            }}
+            className="ws-btn ws-btn-lg"
+          >
+            Закрыть комнату и собрать новую игру
+          </button>
+        </ActionRow>
+      </section>
+    );
+  }
+
+  // Выбор вопроса: заставка раунда или ожидание хода.
+  return (
+    <section className="ws-ticket grid gap-3 p-5 sm:p-6">
+      <h2 className="text-[1.5rem] leading-tight font-semibold">
+        {control ? (
+          <span className="flex items-center gap-3">
+            <PlayerAvatar view={view} player={control} size={40} />
+            {control.name} выбирает вопрос
+          </span>
+        ) : (
+          'Кто выбирает вопрос?'
+        )}
+      </h2>
+      <p className="text-ws-soft">
+        {control
+          ? 'Игрок называет тему и цену вслух — нажмите эту клетку на табло.'
+          : 'Право хода ещё ни у кого: нажмите «Дать ход» у игрока или просто откройте клетку на табло.'}
+      </p>
+      {view.phase === 'round_intro' && (
+        <p className="text-ws-faint text-sm">На общем экране сейчас заставка раунда — выбирать уже можно.</p>
+      )}
+    </section>
+  );
+}
+
+/** Подсказка фазы и кнопки под билетом. */
+function QuestionControls({ view }: { view: HostView }) {
+  const answering = view.players.find((player) => player.isAnswering) ?? null;
+  const phase = view.phase;
+  const judging = phase === 'answering' || phase === 'cat_answer' || phase === 'auction_answer';
+
+  let hint: ReactNode = null;
+  if (phase === 'announce') hint = 'На общем экране тема и цена. Вопрос откроется сам.';
+  if (phase === 'reading') {
+    hint = view.settings.autoOpenBuzzer
+      ? 'Читайте вопрос вслух — кнопка откроется сама.'
+      : 'Прочитайте вопрос вслух и откройте кнопку.';
+  }
+  if (phase === 'buzzer_open') hint = 'Кнопка открыта — ждём, кто нажмёт первым.';
+  if (phase === 'cat_transfer' && view.cat) {
+    hint = `Кот в мешке: ${nameOf(view, view.cat.fromPlayerId)} выбирает, кому отдать вопрос.`;
+  }
+  if (phase === 'auction_bidding') hint = 'Аукцион: игроки торгуются на телефонах.';
+  if (phase === 'answer_reveal') hint = 'Ответ на общем экране.';
+
+  return (
+    <>
+      {judging && answering ? (
+        <div className="flex items-center gap-3">
+          <PlayerAvatar view={view} player={answering} size={40} />
+          <div className="grid">
+            <span className="text-[1.125rem] font-semibold">Отвечает {answering.name}</span>
+            <span className="text-ws-soft flex items-center gap-1.5 text-sm">
+              <Clock size={14} aria-hidden />
+              времени столько, сколько нужно
+            </span>
+          </div>
+        </div>
+      ) : (
+        hint && <p className="text-[0.9375rem] font-medium">{hint}</p>
+      )}
+
+      {view.cat && <SpecialNote view={view} kind="cat" />}
+      {view.auction && <SpecialNote view={view} kind="auction" />}
+
+      <ActionRow>
+        {phase === 'announce' && (
+          <PrimaryNext label="Сразу к вопросу" onClick={() => send('host:continue')} />
+        )}
+        {phase === 'reading' && <PrimaryNext label="Открыть кнопку" onClick={() => send('host:openBuzzer')} />}
+        {judging && (
+          <>
+            <button
+              type="button"
+              onClick={() => send('host:judge', { verdict: 'correct' })}
+              className="ws-btn ws-btn-yes ws-btn-xl"
+            >
+              <Check aria-hidden />
+              Верно
+              <Kbd label="клавиша плюс">+</Kbd>
+            </button>
+            <button
+              type="button"
+              onClick={() => send('host:judge', { verdict: 'wrong' })}
+              className="ws-btn ws-btn-no ws-btn-xl"
+            >
+              <X aria-hidden />
+              Неверно
+              <Kbd label="клавиша минус">−</Kbd>
+            </button>
+          </>
+        )}
+        {phase === 'buzzer_open' && (
+          <button type="button" onClick={() => send('host:extendTime')} className="ws-btn ws-btn-lg">
+            <Clock aria-hidden />
+            Ещё время
+          </button>
+        )}
+        {phase === 'answer_reveal' && <PrimaryNext label="Дальше" onClick={() => send('host:continue')} />}
+
+        {phase !== 'answer_reveal' && (
+          <span className="flex flex-wrap gap-1 sm:ml-auto">
+            <button
+              type="button"
+              onClick={() => send('host:revealAnswer')}
+              className="ws-btn ws-btn-ghost"
+              title="Показать ответ на общем экране — вопрос закончится"
+            >
+              <Eye aria-hidden />
+              Показать ответ
+            </button>
+            <button
+              type="button"
+              onClick={() => send('host:skipQuestion')}
+              className="ws-btn ws-btn-ghost"
+              title="Убрать вопрос без ответа"
+            >
+              <SkipForward aria-hidden />
+              Снять вопрос
+            </button>
+          </span>
+        )}
+      </ActionRow>
+    </>
+  );
+}
+
+function ActionRow({ children }: { children: ReactNode }) {
+  return <div className="flex flex-wrap items-center gap-2">{children}</div>;
+}
+
+function PrimaryNext({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button type="button" onClick={onClick} className="ws-btn ws-btn-primary ws-btn-xl">
+      {label}
+      <ArrowRight aria-hidden />
+      <Kbd label="клавиша пробел">Пробел</Kbd>
+    </button>
+  );
+}
+
+function PlayerAvatar({ view, player, size }: { view: HostView; player: PlayerPublic; size: number }) {
+  const index = view.players.findIndex((candidate) => candidate.id === player.id);
+  return (
+    <Avatar
+      seed={player.name}
+      color={colorForIndex(index)}
+      size={size}
+      mood={player.isAnswering ? 'answering' : 'idle'}
+    />
+  );
+}
+
+function SpecialNote({ view, kind }: { view: HostView; kind: 'cat' | 'auction' }) {
   if (kind === 'cat' && view.cat) {
     return (
-      <p className="ink-border bg-p2 font-body rounded-2xl px-4 py-2 font-bold">
-        кот в мешке · тема «{view.cat.theme || 'не задана'}» за{' '}
-        <span className="tabular-nums">{view.cat.price}</span>
-        {view.cat.toPlayerId ? ` → отвечает ${nameOf(view.cat.toPlayerId)}` : ` · передаёт ${nameOf(view.cat.fromPlayerId)}`}
+      <p className="bg-ws-sunken rounded-lg px-3.5 py-2.5 text-sm">
+        <span className="font-semibold">Кот в мешке</span> · тема «{view.cat.theme || 'не задана'}» за{' '}
+        <span className="num font-semibold">{view.cat.price}</span>
+        {view.cat.toPlayerId
+          ? ` · отвечает ${nameOf(view, view.cat.toPlayerId)}`
+          : ` · передаёт ${nameOf(view, view.cat.fromPlayerId)}`}
       </p>
     );
   }
 
   if (kind === 'auction' && view.auction) {
     return (
-      <div className="ink-border bg-gold text-ink font-body rounded-2xl px-4 py-2 font-bold">
+      <div className="bg-ws-sunken grid gap-0.5 rounded-lg px-3.5 py-2.5 text-sm">
         <p>
-          аукцион · ставка <span className="font-pop tabular-nums">{view.auction.currentBid}</span>
-          {view.auction.leaderId && ` — ${nameOf(view.auction.leaderId)}`}
+          <span className="font-semibold">Аукцион</span> · ставка{' '}
+          <span className="num font-semibold">{view.auction.currentBid}</span>
+          {view.auction.leaderId && ` — ${nameOf(view, view.auction.leaderId)}`}
         </p>
-        <p className="text-sm opacity-75">
-          {view.auction.turnPlayerId ? `ходит ${nameOf(view.auction.turnPlayerId)}` : 'торги закончены'}
+        <p className="text-ws-soft">
+          {view.auction.turnPlayerId ? `ходит ${nameOf(view, view.auction.turnPlayerId)}` : 'торги закончены'}
           {view.auction.passedIds.length > 0 &&
-            ` · спасовали: ${view.auction.passedIds.map(nameOf).join(', ')}`}
+            ` · спасовали: ${view.auction.passedIds.map((id) => nameOf(view, id)).join(', ')}`}
         </p>
       </div>
     );

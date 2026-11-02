@@ -240,6 +240,10 @@ export interface QuestionViewCommon {
 
 /** То, что видит ведущий: с ответом и комментарием. */
 export interface HostQuestionView extends QuestionViewCommon {
+  /** Клетка, из которой открыт вопрос: ведущий видит её обведённой на табло. */
+  questionId: string;
+  /** Ответ уже на общем экране. */
+  answerRevealed: boolean;
   answer: string;
   altAnswers: string[];
   answerMedia?: Media;

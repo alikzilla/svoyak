@@ -1,338 +1,606 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import type { CreateRoomResult, GameRecipe, GameSummary, PackSummary, RoomSettings } from '@svoyak/shared';
+import { Check, ChevronRight, Copy, Library, Play, Undo2 } from 'lucide-react';
+import type {
+  CreateRoomResult,
+  GameRecipe,
+  GameSummary,
+  PackSummary,
+  RecipeResolution,
+  RoomSettings,
+} from '@svoyak/shared';
 import { DEFAULT_SETTINGS } from '@svoyak/shared';
 import { ask } from '../net/socket.js';
 import { fetchPacks } from '../net/gameApi.js';
-import { listGames } from '../games/api.js';
-import { GameSetup } from '../ui/host/GameSetup.js';
+import { fetchGameComposition, listGames } from '../games/api.js';
+import {
+  CompositionView,
+  PackChecklist,
+  SizeControls,
+  packsWord,
+  roundsWord,
+  themesWord,
+  useComposer,
+} from '../ui/host/GameSetup.js';
 import { SettingsPanel } from '../ui/host/SettingsPanel.js';
 import { clearSession, saveSession } from '../net/session.js';
 import { useHostRoom } from '../net/useRoom.js';
 import { QrCode } from '../ui/QrCode.js';
 import { PlayerLedger } from '../ui/PlayerLedger.js';
 import { HostGame } from '../ui/host/HostGame.js';
-import { SoundToggle } from '../ui/SoundToggle.js';
-import { DoodleButton } from '../design/DoodleButton.js';
-import { DoodleField } from '../design/Doodles.js';
-import { RoughFrame } from '../design/rough.js';
+import { PageHeader, Shell } from '../workspace/Shell.js';
+import {
+  ConfirmDelete,
+  ConnectionStatus,
+  EmptyState,
+  Notice,
+  Segmented,
+  SoundButton,
+} from '../workspace/ui.js';
 
 export default function Host() {
   const { view, connected, closed } = useHostRoom();
-  const [packs, setPacks] = useState<PackSummary[]>([]);
+
+  if (!view) return <SetupScreen connected={connected} closed={closed !== null} />;
+  if (view.phase !== 'lobby') return <HostGame view={view} connected={connected} />;
+  return <LobbyScreen view={view} connected={connected} />;
+}
+
+/* ── Новая игра ───────────────────────────────────────────────────────── */
+
+function SetupScreen({ connected, closed }: { connected: boolean; closed: boolean }) {
+  const [packs, setPacks] = useState<PackSummary[] | null>(null);
   const [games, setGames] = useState<GameSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [creating, setCreating] = useState(false);
-  const [recipe, setRecipe] = useState<GameRecipe | null>(null);
-  const [settings, setSettings] = useState<RoomSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => {
     void fetchPacks()
       .then(setPacks)
-      .catch(() => setError('Не удалось загрузить список паков'));
+      .catch(() => {
+        setPacks([]);
+        setError('Не удалось загрузить список паков. Проверьте, что сервер запущен, и обновите страницу.');
+      });
   }, []);
 
   useEffect(() => {
-    // Список сохранённых игр не критичен для мастера на ходу, поэтому при сбое
-    // падаем на пустой список — но хост должен видеть ошибку, а не тишину.
+    // Сохранённые игры не критичны: при сбое просто не показываем их,
+    // но говорим об этом, а не молчим.
     void listGames()
       .then(setGames)
       .catch(() => {
         setGames([]);
-        setError('Не удалось загрузить список сохранённых игр');
+        setError('Не удалось загрузить сохранённые игры — можно собрать игру из паков.');
       });
   }, []);
 
-  const createRoom = async (payload: { recipe: GameRecipe } | { gameId: string }): Promise<void> => {
-    setCreating(true);
-    setError(null);
-    const result = await ask<CreateRoomResult>('room:create', { ...payload, settings });
-    setCreating(false);
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-    saveSession({
-      role: 'host',
-      code: result.data.code,
-      token: result.data.hostToken,
-      playerId: null,
-    });
-  };
-
-  if (!view) {
-    return (
-      <div className="app-shell relative isolate mx-auto flex w-full max-w-5xl flex-col gap-6 p-6">
-        <DoodleField density="light" night />
-
-        <header className="relative">
-          <h1
-            className="font-pop text-5xl font-black"
-            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
-          >
-            Новая игра
-          </h1>
-          <p className="font-body mt-1 text-lg font-bold opacity-80">
-            Соберите состав из паков и настройте темп
-          </p>
-        </header>
-
-        {/* Прошлая комната закрылась — это не ошибка того, кто сейчас открыл
-            страницу, поэтому без красного: просто сообщаем и зовём дальше. */}
-        {closed && (
-          <p className="notice font-body relative font-bold">
-            Прошлая комната уже закрыта. Соберите новую игру ниже — код будет другой.
-          </p>
-        )}
-        {error && <Alert>{error}</Alert>}
-
-        {packs.length === 0 ? (
-          <p className="font-body relative font-bold opacity-80">
-            Паков пока нет. Соберите свой в{' '}
-            <Link to="/editor" className="text-p4 underline underline-offset-4">
-              редакторе
-            </Link>{' '}
-            или выполните <code>npm run build:packs</code>.
-          </p>
-        ) : (
-          <>
-            {games.length > 0 && (
-              <section className="ink-border bg-card text-ink relative grid gap-2 rounded-2xl p-4">
-                <span className="font-body text-sm font-bold">Сохранённые игры</span>
-                {games.map((game) => (
-                  <button
-                    key={game.id}
-                    type="button"
-                    disabled={!game.playable || creating || !connected}
-                    onClick={() => void createRoom({ gameId: game.id })}
-                    className="ink-border font-body flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm font-bold disabled:opacity-40"
-                  >
-                    <span>{game.title}</span>
-                    <span className="text-xs opacity-60">
-                      {game.playable
-                        ? `${game.roundsCount} раунда · ${game.themesCount} тем`
-                        : 'состав потерялся'}
-                    </span>
-                  </button>
-                ))}
-                <span className="font-body text-xs font-bold opacity-60">
-                  или соберите игру на ходу ниже
-                </span>
-              </section>
-            )}
-
-            <section className="relative">
-              <GameSetup packs={packs} onRecipeChange={setRecipe} />
-            </section>
-
-            <section className="relative grid gap-3">
-              <h3 className="font-pop text-lg font-black">Темп игры</h3>
-              <SettingsPanel
-                settings={settings}
-                onChange={(patch) => setSettings((current) => ({ ...current, ...patch }))}
-              />
-            </section>
-
-            {/* Главное действие экрана не прячем под два экрана настроек:
-                подвал прилипает к низу, пока до него не долистали. */}
-            <footer className="bg-scene sticky bottom-0 z-10 -mx-6 -mb-6 flex flex-wrap items-center gap-3 border-t-4 border-ink/40 px-6 py-4">
-              <DoodleButton
-                tone="p5"
-                size="lg"
-                idle={recipe !== null && connected}
-                disabled={creating || !connected || recipe === null}
-                onClick={() => {
-                  if (recipe) void createRoom({ recipe });
-                }}
-              >
-                {creating ? 'Создаём…' : 'Создать комнату'}
-              </DoodleButton>
-              <Link
-                to="/"
-                className="font-body text-sm font-bold underline underline-offset-4 opacity-70"
-              >
-                на главную
-              </Link>
-            </footer>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  if (view.phase !== 'lobby') {
-    return (
-      <div className="app-shell relative isolate overflow-y-auto">
-        <DoodleField density="light" night />
-        <HostGame view={view} />
-      </div>
-    );
-  }
-
-  const canStart = view.players.length > 0;
-
   return (
-    <div className="app-shell relative isolate mx-auto flex w-full max-w-5xl flex-col gap-5 overflow-y-auto p-6">
-      <DoodleField density="light" night />
-
-      <header className="relative flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-pop text-2xl font-black">{view.packTitle}</h1>
-        <div className="flex items-center gap-3">
-          <span className="font-body text-sm font-bold opacity-75">
-            {connected ? 'сервер на связи' : 'связь потеряна…'}
-          </span>
-          <SoundToggle />
-        </div>
-      </header>
-
-      <section className="relative grid gap-5 sm:grid-cols-[1fr_auto]">
-        <RoughFrame
-          fill="var(--color-card)"
-          seed={5}
-          contentClassName="text-ink grid content-center gap-2 px-6 py-6"
-        >
-          <p className="font-body text-sm font-bold opacity-70">код комнаты</p>
-          <p
-            className="font-pop text-[clamp(3.5rem,10vw,6rem)] leading-none font-black tabular-nums"
-            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: 'var(--color-p1)' }}
-          >
-            {view.code}
-          </p>
-          <p className="font-body text-xs font-bold break-all opacity-60">{view.joinUrl}</p>
-        </RoughFrame>
-
-        <motion.div
-          animate={{ rotate: [-2, 2, -2] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-          className="ink-border bg-card justify-self-center rounded-3xl p-3"
-          style={{ boxShadow: '6px 6px 0 #1a1a1a' }}
-        >
-          <QrCode value={view.joinUrl} size={190} />
-        </motion.div>
-      </section>
-
-      <section className="relative">
-        <div className="mb-2 flex items-baseline justify-between">
-          <h2 className="font-pop text-xl font-black">Кто в игре</h2>
-          <span className="font-pop text-lg font-black tabular-nums">{view.players.length}</span>
-        </div>
-        <PlayerLedger
-          players={view.players}
-          highlightId={view.controlPlayerId}
-          onScoreChange={(playerId, score) => void ask('host:adjustScore', { playerId, score })}
-          onKick={(playerId) => void ask('host:kick', { playerId })}
-          onSetControl={(playerId) => void ask('host:setControl', { playerId })}
-        />
-      </section>
-
-      <LobbyTuning
-        packs={packs}
-        settings={view.settings}
-        onApplyRecipe={(next) => void ask('host:setRecipe', { recipe: next })}
-        onSettings={(patch) => void ask('host:updateSettings', patch)}
+    <Shell aside={<ConnectionStatus connected={connected} />}>
+      <PageHeader
+        title="Новая игра"
+        description="Выберите, что играть, проверьте состав и создайте комнату. Гости войдут по QR-коду со своих телефонов."
       />
 
-      <footer className="relative flex flex-wrap items-center gap-3">
-        <DoodleButton
-          tone="p5"
-          size="lg"
-          idle={canStart}
-          disabled={!canStart}
-          onClick={() => void ask('host:startGame')}
+      <div className="mb-6 grid gap-3 empty:hidden">
+        {/* Прошлая комната закрылась — это не ошибка, поэтому без красного. */}
+        {closed && (
+          <Notice tone="info">Прошлая комната закрыта. Соберите новую игру — код будет другой.</Notice>
+        )}
+        {error && <Notice>{error}</Notice>}
+      </div>
+
+      {packs === null ? (
+        <SetupSkeleton />
+      ) : packs.length === 0 ? (
+        <EmptyState
+          icon={<Library aria-hidden />}
+          title="Паков пока нет"
+          action={
+            <Link to="/editor" className="ws-btn ws-btn-primary no-underline">
+              Открыть редактор паков
+            </Link>
+          }
         >
-          Начать игру
-        </DoodleButton>
-        <DoodleButton
-          tone="paper"
-          size="sm"
-          tilt={0.8}
-          disabled={!view.canUndo}
-          onClick={() => void ask('host:undo')}
-        >
-          Отменить
-        </DoodleButton>
-        <button
-          onClick={() => {
-            clearSession('host');
-            location.reload();
-          }}
-          className="font-body ml-auto text-sm font-bold underline underline-offset-4 opacity-70"
-        >
-          закрыть комнату
-        </button>
-      </footer>
+          Создайте пак в редакторе, импортируйте файл SIGame (.siq) или выполните{' '}
+          <code className="bg-ws-sunken rounded px-1 py-0.5 text-[0.8125rem]">npm run build:packs</code>.
+        </EmptyState>
+      ) : (
+        <SetupForm packs={packs} games={games} connected={connected} onError={setError} />
+      )}
+    </Shell>
+  );
+}
+
+function SetupSkeleton() {
+  return (
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]" aria-busy>
+      <div className="grid gap-6">
+        {[12, 7, 10].map((height, index) => (
+          <div key={index} className="ws-card animate-pulse" style={{ height: `${height}rem` }} />
+        ))}
+      </div>
+      <div className="ws-card h-80 animate-pulse" />
     </div>
   );
 }
 
-/** Состав и темп можно править, пока игроки сходятся: после старта поздно. */
-function LobbyTuning({
+type Source = 'packs' | 'saved';
+
+function SetupForm({
   packs,
-  settings,
-  onApplyRecipe,
-  onSettings,
+  games,
+  connected,
+  onError,
 }: {
   packs: PackSummary[];
-  settings: RoomSettings;
-  onApplyRecipe: (recipe: GameRecipe) => void;
-  onSettings: (patch: Partial<RoomSettings>) => void;
+  games: GameSummary[];
+  connected: boolean;
+  onError: (message: string | null) => void;
 }) {
-  const [open, setOpen] = useState<'none' | 'recipe' | 'settings'>('none');
-  const [draft, setDraft] = useState<GameRecipe | null>(null);
-  const handleRecipe = useCallback((next: GameRecipe | null) => setDraft(next), []);
+  const [source, setSource] = useState<Source>('packs');
+  const [recipe, setRecipe] = useState<GameRecipe | null>(null);
+  const [settings, setSettings] = useState<RoomSettings>(DEFAULT_SETTINGS);
+  const [gameId, setGameId] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const composer = useComposer(packs, setRecipe);
+
+  const playableGames = games.filter((game) => game.playable);
+  const selectedGame = games.find((game) => game.id === gameId) ?? null;
+
+  const createRoom = async (): Promise<void> => {
+    const payload =
+      source === 'saved'
+        ? selectedGame
+          ? { gameId: selectedGame.id }
+          : null
+        : recipe
+          ? { recipe }
+          : null;
+    if (!payload) return;
+    setCreating(true);
+    onError(null);
+    const result = await ask<CreateRoomResult>('room:create', { ...payload, settings });
+    setCreating(false);
+    if (!result.ok) {
+      onError(result.error);
+      return;
+    }
+    saveSession({ role: 'host', code: result.data.code, token: result.data.hostToken, playerId: null });
+  };
+
+  const blocker = !connected
+    ? 'Нет связи с сервером'
+    : source === 'saved'
+      ? selectedGame
+        ? null
+        : 'Выберите игру'
+      : composer.selected.length === 0
+        ? 'Выберите хотя бы один пак'
+        : composer.error
+          ? 'Состав не собрался'
+          : recipe === null
+            ? 'Собираем состав…'
+            : null;
+
+  const createButton = (
+    <button
+      type="button"
+      disabled={creating || blocker !== null}
+      onClick={() => void createRoom()}
+      className="ws-btn ws-btn-primary ws-btn-lg w-full"
+    >
+      {creating ? 'Создаём комнату…' : 'Создать комнату'}
+    </button>
+  );
 
   return (
-    <section className="relative grid gap-3">
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => setOpen(open === 'recipe' ? 'none' : 'recipe')}
-          className="ink-border bg-card text-ink font-pop rounded-2xl px-4 py-2 font-black"
-          style={{ boxShadow: '4px 4px 0 #1a1a1a' }}
-        >
-          Состав игры
-        </button>
-        <button
-          type="button"
-          onClick={() => setOpen(open === 'settings' ? 'none' : 'settings')}
-          className="ink-border bg-card text-ink font-pop rounded-2xl px-4 py-2 font-black"
-          style={{ boxShadow: '4px 4px 0 #1a1a1a' }}
-        >
-          Темп игры
-        </button>
+    <>
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid min-w-0 gap-6">
+          {games.length > 0 && (
+            <Segmented<Source>
+              label="Что играем"
+              value={source}
+              onChange={setSource}
+              options={[
+                { value: 'packs', label: 'Собрать из паков' },
+                {
+                  value: 'saved',
+                  label: (
+                    <>
+                      Сохранённая игра <span className="text-ws-faint num">{games.length}</span>
+                    </>
+                  ),
+                },
+              ]}
+            />
+          )}
+
+          {source === 'packs' ? (
+            <>
+              <section className="ws-card">
+                <header className="ws-card-head">
+                  <h2 className="ws-card-title">Паки</h2>
+                  <span className="text-ws-faint num ml-auto text-[0.8125rem]">
+                    выбрано {composer.selected.length} из {packs.length}
+                  </span>
+                </header>
+                <div className="px-3 py-2">
+                  <PackChecklist packs={packs} selected={composer.selected} onToggle={composer.togglePack} />
+                </div>
+              </section>
+
+              <section className="ws-card">
+                <header className="ws-card-head">
+                  <h2 className="ws-card-title">Размер игры</h2>
+                </header>
+                <div className="p-4 sm:p-5">
+                  <SizeControls
+                    rounds={composer.rounds}
+                    themesPerRound={composer.themesPerRound}
+                    finalThemes={composer.finalThemes}
+                    onRounds={composer.setRounds}
+                    onThemesPerRound={composer.setThemesPerRound}
+                    onFinalThemes={composer.setFinalThemes}
+                  />
+                </div>
+              </section>
+            </>
+          ) : (
+            <section className="ws-card">
+              <header className="ws-card-head">
+                <h2 className="ws-card-title">Сохранённые игры</h2>
+                <Link to="/games" className="text-ws-accent-ink ml-auto text-[0.8125rem] font-medium">
+                  Управлять играми
+                </Link>
+              </header>
+              <ul className="grid gap-0.5 px-3 py-2">
+                {games.map((game) => (
+                  <li key={game.id}>
+                    <label className="ws-option">
+                      <input
+                        type="radio"
+                        name="saved-game"
+                        className="ws-check"
+                        disabled={!game.playable}
+                        checked={gameId === game.id}
+                        onChange={() => setGameId(game.id)}
+                      />
+                      <span className="grid min-w-0 flex-1 gap-0.5">
+                        <span className={`text-[0.9375rem] font-medium ${game.playable ? '' : 'text-ws-faint'}`}>
+                          {game.title}
+                        </span>
+                        <span className="text-ws-faint num text-[0.8125rem]">
+                          {game.roundsCount} {roundsWord(game.roundsCount)} · {game.themesCount}{' '}
+                          {themesWord(game.themesCount)}
+                          {game.modifiersPerRound > 0 && ` · модификаторов на раунд: ${game.modifiersPerRound}`}
+                        </span>
+                      </span>
+                      {!game.playable && <span className="ws-badge ws-badge-warn">состав потерялся</span>}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+              {playableGames.length === 0 && (
+                <p className="text-ws-soft border-ws-line border-t px-5 py-3 text-sm">
+                  Ни одну игру сейчас не сыграть: темы пропали вместе с паками. Пересоберите их в
+                  разделе «Игры».
+                </p>
+              )}
+            </section>
+          )}
+
+          <section className="ws-card">
+            <header className="ws-card-head">
+              <h2 className="ws-card-title">Темп</h2>
+              <span className="text-ws-faint ml-auto text-[0.8125rem]">можно поменять в лобби</span>
+            </header>
+            <div className="p-4 sm:p-5">
+              <SettingsPanel
+                settings={settings}
+                onChange={(patch) => setSettings((current) => ({ ...current, ...patch }))}
+              />
+            </div>
+          </section>
+        </div>
+
+        <aside className="ws-card lg:sticky lg:top-20" aria-label="Состав игры">
+          <header className="ws-card-head">
+            <h2 className="ws-card-title">Состав</h2>
+            {source === 'packs' && composer.selected.length > 0 && (
+              <span className="text-ws-faint num ml-auto text-[0.8125rem]">
+                из {composer.selected.length} {packsWord(composer.selected.length)}
+              </span>
+            )}
+          </header>
+          <div className="max-h-[calc(100dvh-17rem)] overflow-y-auto p-4 sm:p-5">
+            {source === 'packs' ? (
+              composer.error ? (
+                <Notice>{composer.error}</Notice>
+              ) : composer.selected.length === 0 ? (
+                <p className="text-ws-soft text-sm">Отметьте паки слева — состав появится здесь.</p>
+              ) : composer.draft ? (
+                <CompositionView
+                  rounds={composer.draft.rounds}
+                  final={composer.draft.final}
+                  onReplace={composer.replaceTheme}
+                  canReplace={composer.draft.pool.length > 0}
+                  onReshuffle={composer.reshuffle}
+                  busy={composer.busy}
+                />
+              ) : (
+                <p className="text-ws-soft text-sm">Собираем состав…</p>
+              )
+            ) : selectedGame ? (
+              <SavedComposition gameId={selectedGame.id} />
+            ) : (
+              <p className="text-ws-soft text-sm">Выберите игру слева — её состав появится здесь.</p>
+            )}
+          </div>
+          <footer className="border-ws-line hidden gap-2 border-t p-4 lg:grid">
+            {createButton}
+            <p className="text-ws-faint text-center text-[0.8125rem]">
+              {blocker ?? 'Код и QR для гостей появятся на следующем шаге'}
+            </p>
+          </footer>
+        </aside>
       </div>
 
-      {open === 'recipe' && (
-        <div className="ink-border bg-scene/40 grid gap-3 rounded-3xl p-4">
-          <GameSetup packs={packs} onRecipeChange={handleRecipe} />
-          <DoodleButton
-            tone="p4"
-            size="sm"
-            disabled={draft === null}
-            onClick={() => {
-              if (draft) onApplyRecipe(draft);
-              setOpen('none');
-            }}
-          >
-            Применить состав
-          </DoodleButton>
-        </div>
-      )}
+      {/* На узком экране главное действие прилипает к низу. */}
+      <div className="bg-ws-surface/95 border-ws-line sticky bottom-0 z-20 -mx-4 mt-6 grid gap-1.5 border-t px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:hidden">
+        {createButton}
+        {blocker && <p className="text-ws-faint text-center text-[0.8125rem]">{blocker}</p>}
+      </div>
+    </>
+  );
+}
 
-      {open === 'settings' && (
-        <div className="ink-border bg-scene/40 rounded-3xl p-4">
-          <SettingsPanel settings={settings} onChange={onSettings} />
+function SavedComposition({ gameId }: { gameId: string }) {
+  const [resolution, setResolution] = useState<RecipeResolution | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    setResolution(null);
+    setError(null);
+    void fetchGameComposition(gameId)
+      .then((next) => {
+        if (alive) setResolution(next);
+      })
+      .catch((cause: unknown) => {
+        if (alive) setError(cause instanceof Error ? cause.message : 'Не удалось открыть состав');
+      });
+    return () => {
+      alive = false;
+    };
+  }, [gameId]);
+
+  if (error) return <Notice>{error}</Notice>;
+  if (!resolution) return <p className="text-ws-soft text-sm">Загружаем состав…</p>;
+  return <CompositionView rounds={resolution.rounds} final={resolution.final} />;
+}
+
+/* ── Лобби ────────────────────────────────────────────────────────────── */
+
+function LobbyScreen({
+  view,
+  connected,
+}: {
+  view: NonNullable<ReturnType<typeof useHostRoom>['view']>;
+  connected: boolean;
+}) {
+  const canStart = view.players.length > 0;
+
+  return (
+    <Shell
+      aside={
+        <>
+          <ConnectionStatus connected={connected} />
+          <SoundButton />
+        </>
+      }
+    >
+      <PageHeader
+        title={view.packTitle}
+        description="Комната открыта. Гости входят по QR-коду — когда все в списке, начинайте."
+        actions={
+          <>
+            {view.canUndo && (
+              <button type="button" onClick={() => void ask('host:undo')} className="ws-btn ws-btn-ghost">
+                <Undo2 aria-hidden />
+                Отменить
+              </button>
+            )}
+            <ConfirmDelete
+              size="md"
+              label="Закрыть комнату"
+              confirmLabel="Да, закрыть"
+              onConfirm={() => {
+                clearSession('host');
+                location.reload();
+              }}
+            />
+            <button
+              type="button"
+              disabled={!canStart}
+              title={canStart ? undefined : 'Нужен хотя бы один игрок'}
+              onClick={() => void ask('host:startGame')}
+              className="ws-btn ws-btn-primary ws-btn-lg"
+            >
+              <Play aria-hidden />
+              Начать игру
+            </button>
+          </>
+        }
+      />
+
+      <div className="grid items-start gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
+        <JoinCard code={view.code} joinUrl={view.joinUrl} />
+
+        <section className="ws-card">
+          <header className="ws-card-head">
+            <h2 className="ws-card-title">Игроки</h2>
+            <span className="text-ws-faint num text-[0.8125rem]">{view.players.length}</span>
+          </header>
+          <PlayerLedger
+            players={view.players}
+            highlightId={view.controlPlayerId}
+            onScoreChange={(playerId, score) => void ask('host:adjustScore', { playerId, score })}
+            onKick={(playerId) => void ask('host:kick', { playerId })}
+            onSetControl={(playerId) => void ask('host:setControl', { playerId })}
+          />
+        </section>
+      </div>
+
+      <div className="mt-6 grid gap-3">
+        <LobbyRecipe />
+        <details className="ws-card ws-disclosure">
+          <summary className="px-5 py-4">
+            <ChevronRight size={18} className="ws-chevron text-ws-faint" aria-hidden />
+            <span className="ws-card-title">Темп</span>
+            <span className="text-ws-faint ml-auto text-[0.8125rem]">меняется сразу</span>
+          </summary>
+          <div className="border-ws-line border-t p-4 sm:p-5">
+            <SettingsPanel settings={view.settings} onChange={(patch) => void ask('host:updateSettings', patch)} />
+          </div>
+        </details>
+      </div>
+    </Shell>
+  );
+}
+
+function JoinCard({ code, joinUrl }: { code: string; joinUrl: string }) {
+  const [copied, setCopied] = useState(false);
+  const urlField = useRef<HTMLInputElement>(null);
+
+  const copy = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(joinUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      // Буфер обмена недоступен (не https) — выделяем ссылку, чтобы скопировать руками.
+      urlField.current?.select();
+    }
+  };
+
+  return (
+    <section className="ws-card" aria-label="Вход для игроков">
+      <header className="ws-card-head">
+        <h2 className="ws-card-title">Вход для игроков</h2>
+      </header>
+      <div className="grid justify-items-center gap-4 p-5">
+        <div className="rounded-xl bg-white p-3 shadow-[0_0_0_1px_var(--ws-line)]">
+          <QrCode value={joinUrl} size={200} dark="#16141f" light="#ffffff" />
         </div>
-      )}
+        <div className="grid justify-items-center gap-0.5">
+          <span className="ws-label">Код комнаты</span>
+          <span className="num text-[2.5rem] leading-none font-semibold tracking-[0.12em]">{code}</span>
+        </div>
+        <div className="flex w-full items-center gap-1.5">
+          <input
+            ref={urlField}
+            readOnly
+            value={joinUrl}
+            aria-label="Ссылка для входа"
+            onFocus={(event) => event.currentTarget.select()}
+            className="ws-input text-ws-soft min-w-0 flex-1 text-[0.8125rem]"
+          />
+          <button
+            type="button"
+            onClick={() => void copy()}
+            className="ws-btn ws-btn-icon"
+            title="Скопировать ссылку"
+            aria-label="Скопировать ссылку"
+          >
+            {copied ? <Check aria-hidden className="text-ws-yes-ink" /> : <Copy aria-hidden />}
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
 
-function Alert({ children }: { children: React.ReactNode }) {
+/** Состав можно поменять, пока игроки сходятся: после старта поздно. */
+function LobbyRecipe() {
+  const [packs, setPacks] = useState<PackSummary[] | null>(null);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open || packs) return;
+    void fetchPacks()
+      .then(setPacks)
+      .catch(() => setPacks([]));
+  }, [open, packs]);
+
   return (
-    <p className="ink-border bg-no font-body relative rounded-2xl px-4 py-3 font-bold text-white">
-      {children}
-    </p>
+    <details
+      className="ws-card ws-disclosure"
+      open={open}
+      onToggle={(event) => setOpen(event.currentTarget.open)}
+    >
+      <summary className="px-5 py-4">
+        <ChevronRight size={18} className="ws-chevron text-ws-faint" aria-hidden />
+        <span className="ws-card-title">Изменить состав</span>
+        <span className="text-ws-faint ml-auto text-[0.8125rem]">до начала игры</span>
+      </summary>
+      <div className="border-ws-line border-t p-4 sm:p-5">
+        {packs === null ? (
+          <p className="text-ws-soft text-sm">Загружаем паки…</p>
+        ) : packs.length === 0 ? (
+          <p className="text-ws-soft text-sm">Паков не нашлось.</p>
+        ) : (
+          <LobbyComposer packs={packs} onApplied={() => setOpen(false)} />
+        )}
+      </div>
+    </details>
+  );
+}
+
+function LobbyComposer({ packs, onApplied }: { packs: PackSummary[]; onApplied: () => void }) {
+  const [draft, setDraft] = useState<GameRecipe | null>(null);
+  const handleRecipe = useCallback((next: GameRecipe | null) => setDraft(next), []);
+  const composer = useComposer(packs, handleRecipe);
+
+  return (
+    <div className="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="grid gap-5">
+        <PackChecklist packs={packs} selected={composer.selected} onToggle={composer.togglePack} />
+        <SizeControls
+          rounds={composer.rounds}
+          themesPerRound={composer.themesPerRound}
+          finalThemes={composer.finalThemes}
+          onRounds={composer.setRounds}
+          onThemesPerRound={composer.setThemesPerRound}
+          onFinalThemes={composer.setFinalThemes}
+        />
+      </div>
+      <div className="grid gap-4">
+        {composer.error ? (
+          <Notice>{composer.error}</Notice>
+        ) : composer.draft ? (
+          <CompositionView
+            rounds={composer.draft.rounds}
+            final={composer.draft.final}
+            onReplace={composer.replaceTheme}
+            canReplace={composer.draft.pool.length > 0}
+            onReshuffle={composer.reshuffle}
+            busy={composer.busy}
+          />
+        ) : (
+          <p className="text-ws-soft text-sm">Отметьте паки — состав появится здесь.</p>
+        )}
+        <button
+          type="button"
+          disabled={draft === null}
+          onClick={() => {
+            if (draft) void ask('host:setRecipe', { recipe: draft });
+            onApplied();
+          }}
+          className="ws-btn ws-btn-primary justify-self-start"
+        >
+          Применить состав
+        </button>
+      </div>
+    </div>
   );
 }

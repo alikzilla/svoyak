@@ -1,29 +1,30 @@
-import { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { DEFAULT_SETTINGS, type RoomSettings } from '@svoyak/shared';
+import { Segmented } from '../../workspace/ui.js';
 
 interface SettingsPanelProps {
   settings: RoomSettings;
   onChange: (patch: Partial<RoomSettings>) => void;
 }
 
-/** Готовые режимы: большинству хватает их, а числа прячем под «ещё настройки». */
+/** Готовые режимы: большинству хватает их, а числа прячем под «Тонкую настройку». */
 const PRESETS: Array<{ id: string; title: string; hint: string; patch: Partial<RoomSettings> }> = [
   {
     id: 'calm',
     title: 'Спокойно',
-    hint: 'долгая пауза на чтение, без штрафа за ошибку',
+    hint: 'Долгая пауза на чтение, без штрафа за ошибку.',
     patch: { readingMs: 8000, buzzOpenMs: 12000, penaltyOnWrong: false, falseStartLockMs: 1500 },
   },
   {
     id: 'standard',
     title: 'Стандарт',
-    hint: 'как в телевизоре',
+    hint: 'Как в телевизоре: ошибка стоит цены вопроса.',
     patch: { readingMs: 5000, buzzOpenMs: 8000, penaltyOnWrong: true, falseStartLockMs: 2500 },
   },
   {
     id: 'hard',
     title: 'Жёстко',
-    hint: 'мало времени, длинная блокировка за фальстарт',
+    hint: 'Мало времени на нажатие и долгая блокировка за фальстарт.',
     patch: { readingMs: 3000, buzzOpenMs: 5000, penaltyOnWrong: true, falseStartLockMs: 4000 },
   },
 ];
@@ -50,50 +51,61 @@ function NumberField({
 }) {
   const scale = ms ? 1000 : 1;
   return (
-    <label className="font-body grid gap-1 text-sm font-bold">
-      <span>{label}</span>
-      <input
-        type="number"
-        inputMode="decimal"
-        className="ink-border bg-card text-ink w-full rounded-xl px-3 py-2 tabular-nums"
-        value={value / scale}
-        step={step / scale}
-        min={min / scale}
-        onChange={(event) => {
-          const next = Number(event.target.value);
-          if (Number.isFinite(next)) onChange(Math.max(min, Math.round(next * scale)));
-        }}
-      />
-      {hint && <span className="text-xs font-bold opacity-60">{hint}</span>}
+    <label className="grid content-start gap-1.5">
+      <span className="ws-label">{label}</span>
+      <span className="relative">
+        <input
+          type="number"
+          inputMode="decimal"
+          className={`ws-input num ${ms ? 'pr-8' : ''}`}
+          value={value / scale}
+          step={step / scale}
+          min={min / scale}
+          onChange={(event) => {
+            const next = Number(event.target.value);
+            if (Number.isFinite(next)) onChange(Math.max(min, Math.round(next * scale)));
+          }}
+        />
+        {ms && (
+          <span className="text-ws-faint pointer-events-none absolute inset-y-0 right-3 grid place-items-center text-sm">
+            с
+          </span>
+        )}
+      </span>
+      {hint && <span className="ws-help">{hint}</span>}
     </label>
   );
 }
 
-function Check({
-  label,
+function SwitchRow({
+  title,
+  hint,
   checked,
   onChange,
 }: {
-  label: string;
+  title: string;
+  hint: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
 }) {
   return (
-    <label className="font-body flex items-center gap-2 text-sm font-bold">
+    <label className="ws-option -mx-3">
+      <span className="grid min-w-0 flex-1 gap-0.5">
+        <span className="text-[0.9375rem] font-medium">{title}</span>
+        <span className="text-ws-faint text-[0.8125rem]">{hint}</span>
+      </span>
       <input
         type="checkbox"
-        className="size-5"
+        role="switch"
+        className="ws-switch"
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
       />
-      {label}
     </label>
   );
 }
 
 export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
-  const [expanded, setExpanded] = useState(false);
-
   const activePreset = PRESETS.find((preset) =>
     Object.entries(preset.patch).every(
       ([key, value]) => settings[key as keyof RoomSettings] === value,
@@ -101,76 +113,54 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
   );
 
   return (
-    <div className="grid gap-3">
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-        {PRESETS.map((preset) => {
-          const active = activePreset?.id === preset.id;
-          return (
-            <button
-              key={preset.id}
-              type="button"
-              onClick={() => onChange(preset.patch)}
-              style={{ boxShadow: active ? '5px 5px 0 #1a1a1a' : '3px 3px 0 #1a1a1a' }}
-              className={`ink-border text-ink rounded-2xl px-4 py-3 text-left ${
-                active ? 'bg-p4' : 'bg-card'
-              }`}
-            >
-              <span className="font-pop block text-lg font-black">{preset.title}</span>
-              <span className="font-body block text-xs font-bold opacity-70">{preset.hint}</span>
-            </button>
-          );
-        })}
+    <div className="grid gap-4">
+      <div className="grid gap-2">
+        <Segmented
+          label="Темп игры"
+          value={activePreset?.id ?? null}
+          options={PRESETS.map((preset) => ({ value: preset.id, label: preset.title }))}
+          onChange={(id) => {
+            const preset = PRESETS.find((item) => item.id === id);
+            if (preset) onChange(preset.patch);
+          }}
+        />
+        <p className="text-ws-soft text-sm">
+          {activePreset ? activePreset.hint : 'Свои значения — см. тонкую настройку ниже.'}
+        </p>
       </div>
 
-      <label className="ink-border bg-card text-ink font-body flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold">
-        <input
-          type="checkbox"
-          className="size-5"
-          checked={settings.autoOpenBuzzer}
-          onChange={(event) => onChange({ autoOpenBuzzer: event.target.checked })}
-        />
-        <span>
-          Открывать кнопку самому через {seconds(settings.readingMs)} с
-          <span className="block text-xs font-bold opacity-60">
-            {settings.autoOpenBuzzer
-              ? 'пауза даётся, чтобы дочитать вопрос вслух'
-              : 'сейчас кнопку открывает ведущий вручную'}
-          </span>
-        </span>
-      </label>
-
-      <label className="ink-border bg-card text-ink font-body flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold">
-        <input
-          type="checkbox"
-          className="size-5"
-          checked={settings.answerRevealMs > 0}
-          onChange={(event) =>
-            onChange({ answerRevealMs: event.target.checked ? DEFAULT_SETTINGS.answerRevealMs : 0 })
+      <div className="grid">
+        <SwitchRow
+          title={`Открывать кнопку автоматически через ${seconds(settings.readingMs)} с`}
+          hint={
+            settings.autoOpenBuzzer
+              ? 'Пауза даётся, чтобы дочитать вопрос вслух.'
+              : 'Сейчас кнопку открываете вы — пробелом или кнопкой на экране.'
           }
+          checked={settings.autoOpenBuzzer}
+          onChange={(autoOpenBuzzer) => onChange({ autoOpenBuzzer })}
         />
-        <span>
-          Держать ответ на экране {seconds(settings.answerRevealMs || DEFAULT_SETTINGS.answerRevealMs)} с
-          <span className="block text-xs font-bold opacity-60">
-            {settings.answerRevealMs > 0
-              ? 'сцену можно закрыть раньше кнопкой «дальше»'
-              : 'сейчас сцену закрывает ведущий сам'}
-          </span>
-        </span>
-      </label>
+        <SwitchRow
+          title={`Держать ответ на экране ${seconds(settings.answerRevealMs || DEFAULT_SETTINGS.answerRevealMs)} с`}
+          hint={
+            settings.answerRevealMs > 0
+              ? 'Закрыть раньше можно кнопкой «Дальше».'
+              : 'Сейчас ответ убираете вы — кнопкой «Дальше».'
+          }
+          checked={settings.answerRevealMs > 0}
+          onChange={(on) => onChange({ answerRevealMs: on ? DEFAULT_SETTINGS.answerRevealMs : 0 })}
+        />
+      </div>
 
-      <button
-        type="button"
-        onClick={() => setExpanded(!expanded)}
-        className="font-body justify-self-start text-sm font-bold underline underline-offset-4 opacity-70"
-      >
-        {expanded ? 'свернуть настройки' : 'ещё настройки'}
-      </button>
-
-      {expanded && (
-        <div className="ink-border bg-card text-ink grid gap-4 rounded-2xl p-4">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <details className="ws-disclosure border-ws-line border-t pt-3">
+        <summary className="text-ws-soft hover:text-ws-fg w-fit text-sm font-medium">
+          <ChevronRight size={16} className="ws-chevron" aria-hidden />
+          Тонкая настройка
+        </summary>
+        <div className="mt-4 grid gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <NumberField
-              label="Показ темы и цены, с"
+              label="Показ темы и цены"
               ms
               hint="0 — вопрос открывается сразу"
               step={500}
@@ -178,7 +168,7 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
               onChange={(announceMs) => onChange({ announceMs })}
             />
             <NumberField
-              label="Пауза на чтение, с"
+              label="Пауза на чтение"
               ms
               hint="0 — кнопка открывается сразу"
               step={500}
@@ -186,37 +176,37 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
               onChange={(readingMs) => onChange({ readingMs })}
             />
             <NumberField
-              label="Окно на нажатие, с"
+              label="Окно на нажатие"
               ms
               step={500}
               value={settings.buzzOpenMs}
               onChange={(buzzOpenMs) => onChange({ buzzOpenMs })}
             />
             <NumberField
-              label="Показ ответа, с"
+              label="Показ ответа"
               ms
-              hint="0 — сцену закрывает ведущий"
+              hint="0 — убираете вы"
               step={1000}
               value={settings.answerRevealMs}
               onChange={(answerRevealMs) => onChange({ answerRevealMs })}
             />
             <NumberField
-              label="Сцена модификатора, с"
+              label="Сцена модификатора"
               ms
-              hint="0 — закрывает ведущий"
+              hint="0 — закрываете вы"
               step={1000}
               value={settings.modifierMs}
               onChange={(modifierMs) => onChange({ modifierMs })}
             />
             <NumberField
-              label="Блокировка за фальстарт, с"
+              label="Блокировка за фальстарт"
               ms
               step={500}
               value={settings.falseStartLockMs}
               onChange={(falseStartLockMs) => onChange({ falseStartLockMs })}
             />
             <NumberField
-              label="Добавка после чужой ошибки, с"
+              label="Добавка после чужой ошибки"
               ms
               step={500}
               value={settings.buzzReopenMinMs}
@@ -230,39 +220,42 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
               onChange={(auctionStep) => onChange({ auctionStep })}
             />
             <NumberField
-              label="Время на ставку в финале, с"
+              label="Ставка в финале"
               ms
               step={5000}
               value={settings.finalBetTimeMs}
               onChange={(finalBetTimeMs) => onChange({ finalBetTimeMs })}
             />
             <NumberField
-              label="Время на ответ в финале, с"
+              label="Ответ в финале"
               ms
               step={5000}
               value={settings.finalAnswerTimeMs}
               onChange={(finalAnswerTimeMs) => onChange({ finalAnswerTimeMs })}
             />
           </div>
-          <div className="grid gap-2">
-            <Check
-              label="Снимать стоимость за неверный ответ"
+          <div className="grid">
+            <SwitchRow
+              title="Снимать стоимость за неверный ответ"
+              hint="Иначе ошибка ничего не стоит."
               checked={settings.penaltyOnWrong}
               onChange={(penaltyOnWrong) => onChange({ penaltyOnWrong })}
             />
-            <Check
-              label="Разрешать уходить в минус"
+            <SwitchRow
+              title="Разрешать уходить в минус"
+              hint="Иначе счёт не опускается ниже нуля."
               checked={settings.allowNegative}
               onChange={(allowNegative) => onChange({ allowNegative })}
             />
-            <Check
-              label="В финал пускать только с положительным счётом"
+            <SwitchRow
+              title="В финал только с положительным счётом"
+              hint="Игроки с нулём и минусом смотрят финал со стороны."
               checked={settings.finalRequiresPositive}
               onChange={(finalRequiresPositive) => onChange({ finalRequiresPositive })}
             />
           </div>
         </div>
-      )}
+      </details>
     </div>
   );
 }

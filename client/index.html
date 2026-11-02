@@ -9,6 +9,18 @@
     <meta name="theme-color" content="#070713" />
     <meta name="mobile-web-app-capable" content="yes" />
     <title>Свояк</title>
+    <!-- Тема рабочих экранов (ведущий, паки, игры) — до первой отрисовки,
+         чтобы тёмная тема не мигала белым. Логика та же, что в workspace/theme.ts. -->
+    <script>
+      (function () {
+        var pref = 'system';
+        try {
+          pref = localStorage.getItem('svoyak:theme') || 'system';
+        } catch (e) {}
+        var dark = pref === 'dark' || (pref !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

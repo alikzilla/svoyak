@@ -1,57 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { RefreshCw, Shuffle } from 'lucide-react';
 import type { ComposeResponse, GameRecipe, PackSummary, ThemeOption } from '@svoyak/shared';
+import { GAME_LIMITS } from '@svoyak/shared';
 import { composeGame } from '../../net/gameApi.js';
+import { Stepper } from '../../workspace/ui.js';
+import { pluralWord } from '../../history/plural.js';
 
-interface GameSetupProps {
-  packs: PackSummary[];
-  /** Отдаёт наверх готовый состав: кнопка «создать» или «применить» живёт снаружи. */
-  onRecipeChange: (recipe: GameRecipe | null) => void;
-}
+export const themesWord = (count: number): string => pluralWord(count, ['тема', 'темы', 'тем']);
+export const questionsWord = (count: number): string =>
+  pluralWord(count, ['вопрос', 'вопроса', 'вопросов']);
+export const roundsWord = (count: number): string => pluralWord(count, ['раунд', 'раунда', 'раундов']);
+export const packsWord = (count: number): string => pluralWord(count, ['пак', 'пака', 'паков']);
 
-const LIMITS = { rounds: [1, 5], themesPerRound: [1, 8], finalThemes: [1, 8] } as const;
-
-const clamp = (value: number, [min, max]: readonly [number, number]): number =>
-  Math.min(max, Math.max(min, value));
-
-function Stepper({
-  label,
-  value,
-  bounds,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  bounds: readonly [number, number];
-  onChange: (value: number) => void;
-}) {
-  return (
-    <div className="ink-border bg-card text-ink flex items-center justify-between gap-3 rounded-2xl px-4 py-2">
-      <span className="font-body text-sm font-bold">{label}</span>
-      <span className="flex items-center gap-2">
-        <button
-          type="button"
-          aria-label={`${label}: меньше`}
-          onClick={() => onChange(clamp(value - 1, bounds))}
-          className="ink-border size-8 rounded-lg font-black"
-        >
-          −
-        </button>
-        <span className="font-pop w-6 text-center text-xl font-black tabular-nums">{value}</span>
-        <button
-          type="button"
-          aria-label={`${label}: больше`}
-          onClick={() => onChange(clamp(value + 1, bounds))}
-          className="ink-border size-8 rounded-lg font-black"
-        >
-          +
-        </button>
-      </span>
-    </div>
-  );
-}
-
-/** Мастер состава: какие паки берём, сколько раундов и тем, что в итоге вышло. */
-export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
+/**
+ * Черновик состава: какие паки берём, сколько раундов и тем, что в итоге
+ * выпало. Состав считает сервер — только он знает содержимое паков.
+ */
+export function useComposer(packs: PackSummary[], onRecipeChange: (recipe: GameRecipe | null) => void) {
   const [selected, setSelected] = useState<string[]>(() =>
     packs
       .filter((pack) => pack.playable)
@@ -69,7 +35,7 @@ export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
     (seed?: number) => {
       if (selected.length === 0) {
         setDraft(null);
-        setError('Выберите хотя бы один пак');
+        setError(null);
         onRecipeChange(null);
         return;
       }
@@ -132,144 +98,220 @@ export function GameSetup({ packs, onRecipeChange }: GameSetupProps) {
     onRecipeChange(next.recipe);
   };
 
-  const themesAvailable = packs
-    .filter((pack) => selected.includes(pack.id))
-    .reduce((sum, pack) => sum + pack.questionsCount / 5, 0);
+  return {
+    selected,
+    togglePack,
+    rounds,
+    setRounds,
+    themesPerRound,
+    setThemesPerRound,
+    finalThemes,
+    setFinalThemes,
+    draft,
+    error,
+    busy,
+    reshuffle: () => compose(Math.floor(Math.random() * 2 ** 31)),
+    replaceTheme,
+  };
+}
 
+/** Список паков с флажками. Недоделанный пак виден, но выбрать его нельзя. */
+export function PackChecklist({
+  packs,
+  selected,
+  onToggle,
+}: {
+  packs: PackSummary[];
+  selected: string[];
+  onToggle: (id: string) => void;
+}) {
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <section className="grid gap-2">
-        <h3 className="font-pop text-lg font-black">Паки</h3>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {packs.map((pack) => {
-            const active = selected.includes(pack.id);
-            return (
-              <button
-                key={pack.id}
-                type="button"
-                disabled={!pack.playable}
-                title={pack.playable ? pack.title : 'Пак не дозаполнен — допишите его в редакторе'}
-                onClick={() => togglePack(pack.id)}
-                style={{ boxShadow: active ? '5px 5px 0 #1a1a1a' : '3px 3px 0 #1a1a1a' }}
-                className={`ink-border text-ink rounded-2xl px-3 py-2 text-left ${
-                  active ? 'bg-p3' : 'bg-card'
-                } ${pack.playable ? '' : 'cursor-not-allowed opacity-40'}`}
-              >
-                <span className="font-pop block truncate text-base font-black">{pack.title}</span>
-                <span className="font-body block text-xs font-bold opacity-70">
-                  {pack.playable
-                    ? `${pack.questionsCount} вопросов · финал из ${pack.finalThemesCount}`
-                    : 'не дозаполнен'}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="font-body text-xs font-bold opacity-60">
-          Выбрано паков: {selected.length}, тем в них примерно {Math.round(themesAvailable)}
-        </p>
-      </section>
+    <ul className="-mx-1 grid gap-0.5">
+      {packs.map((pack) => (
+        <li key={pack.id}>
+          <label className="ws-option">
+            <input
+              type="checkbox"
+              className="ws-check"
+              disabled={!pack.playable}
+              checked={selected.includes(pack.id)}
+              onChange={() => onToggle(pack.id)}
+            />
+            <span className="grid min-w-0 flex-1 gap-0.5">
+              <span className={`text-[0.9375rem] font-medium ${pack.playable ? '' : 'text-ws-faint'}`}>
+                {pack.title}
+              </span>
+              <span className="text-ws-faint num text-[0.8125rem]">
+                {pack.questionsCount} {questionsWord(pack.questionsCount)} · финал из{' '}
+                {pack.finalThemesCount}
+              </span>
+            </span>
+            {!pack.playable && (
+              <span className="flex shrink-0 items-center gap-2">
+                <span className="ws-badge ws-badge-warn">не дозаполнен</span>
+                <Link to={`/editor/${pack.id}`} className="text-ws-accent-ink text-[0.8125rem] font-medium">
+                  Дописать
+                </Link>
+              </span>
+            )}
+          </label>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-      <section className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-        <Stepper label="Раундов" value={rounds} bounds={LIMITS.rounds} onChange={setRounds} />
-        <Stepper
-          label="Тем в раунде"
-          value={themesPerRound}
-          bounds={LIMITS.themesPerRound}
-          onChange={setThemesPerRound}
-        />
-        <Stepper
-          label="Тем в финале"
-          value={finalThemes}
-          bounds={LIMITS.finalThemes}
-          onChange={setFinalThemes}
-        />
-      </section>
+export function SizeControls({
+  rounds,
+  themesPerRound,
+  finalThemes,
+  onRounds,
+  onThemesPerRound,
+  onFinalThemes,
+}: {
+  rounds: number;
+  themesPerRound: number;
+  finalThemes: number;
+  onRounds: (value: number) => void;
+  onThemesPerRound: (value: number) => void;
+  onFinalThemes: (value: number) => void;
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <Stepper
+        label="Раундов"
+        value={rounds}
+        min={GAME_LIMITS.rounds[0]}
+        max={GAME_LIMITS.rounds[1]}
+        onChange={onRounds}
+      />
+      <Stepper
+        label="Тем в раунде"
+        value={themesPerRound}
+        min={GAME_LIMITS.themesPerRound[0]}
+        max={GAME_LIMITS.themesPerRound[1]}
+        onChange={onThemesPerRound}
+      />
+      <Stepper
+        label="Тем в финале"
+        value={finalThemes}
+        min={GAME_LIMITS.finalThemes[0]}
+        max={GAME_LIMITS.finalThemes[1]}
+        onChange={onFinalThemes}
+        hint="игроки уберут лишние"
+      />
+    </div>
+  );
+}
 
-      {error && (
-        <p className="ink-border bg-no font-body rounded-2xl px-4 py-3 font-bold text-white">
-          {error}
-        </p>
-      )}
-
-      {draft && (
-        <section className="grid gap-3">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h3 className="font-pop text-lg font-black">Что получилось</h3>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => compose(Math.floor(Math.random() * 2 ** 31))}
-              className="font-body text-sm font-bold underline underline-offset-4 opacity-70 disabled:opacity-40"
-            >
-              пересобрать всё
-            </button>
-          </div>
-
-          {draft.rounds.map((round, roundIndex) => (
-            <div key={roundIndex} className="grid gap-2">
-              <p className="font-body text-sm font-bold opacity-70">
-                Раунд {roundIndex + 1} · цены {100 * (roundIndex + 1)}–{500 * (roundIndex + 1)}
-              </p>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                {round.map((theme, themeIndex) => (
-                  <ThemeChip
-                    key={`${theme.packId}-${theme.themeId}`}
-                    theme={theme}
-                    canReplace={draft.pool.length > 0}
-                    onReplace={() => replaceTheme(roundIndex, themeIndex)}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-
-          <div className="grid gap-2">
-            <p className="font-body text-sm font-bold opacity-70">
-              Финал · игроки уберут лишние темы
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {draft.final.map((theme) => (
-                <span
-                  key={`${theme.packId}-${theme.themeId}`}
-                  className="ink-border bg-card text-ink font-body rounded-xl px-3 py-1.5 text-sm font-bold"
-                >
-                  {theme.title}
-                </span>
-              ))}
-            </div>
-          </div>
+/**
+ * Что получилось: раунды со своими темами и финал. Пустое место (тема
+ * потерялась вместе с паком) остаётся на виду, а не пропадает молча.
+ */
+export function CompositionView({
+  rounds,
+  final,
+  onReplace,
+  canReplace = false,
+  onReshuffle,
+  busy = false,
+}: {
+  rounds: Array<Array<ThemeOption | null>>;
+  final: Array<ThemeOption | null>;
+  onReplace?: (roundIndex: number, themeIndex: number) => void;
+  canReplace?: boolean;
+  onReshuffle?: () => void;
+  busy?: boolean;
+}) {
+  return (
+    <div className={`grid gap-5 transition-opacity ${busy ? 'opacity-60' : ''}`} aria-busy={busy}>
+      {rounds.map((round, roundIndex) => (
+        <section key={roundIndex} className="grid gap-1.5">
+          <header className="flex items-baseline justify-between gap-3">
+            <h3 className="text-[0.8125rem] font-semibold">Раунд {roundIndex + 1}</h3>
+            <span className="text-ws-faint num text-xs">
+              {100 * (roundIndex + 1)}–{500 * (roundIndex + 1)} · {round.length} {themesWord(round.length)}
+            </span>
+          </header>
+          <ul className="grid">
+            {round.map((theme, themeIndex) => (
+              <ThemeRow
+                key={theme ? `${theme.packId}-${theme.themeId}` : `missing-${themeIndex}`}
+                theme={theme}
+                {...(onReplace
+                  ? { onReplace: () => onReplace(roundIndex, themeIndex), canReplace }
+                  : {})}
+              />
+            ))}
+          </ul>
         </section>
+      ))}
+      <section className="grid gap-1.5">
+        <header className="flex items-baseline justify-between gap-3">
+          <h3 className="text-[0.8125rem] font-semibold">Финал</h3>
+          <span className="text-ws-faint num text-xs">
+            {final.length} {themesWord(final.length)}
+          </span>
+        </header>
+        <ul className="grid">
+          {final.map((theme, index) => (
+            <ThemeRow key={theme ? `${theme.packId}-${theme.themeId}` : `missing-${index}`} theme={theme} />
+          ))}
+        </ul>
+      </section>
+      {onReshuffle && (
+        <button
+          type="button"
+          onClick={onReshuffle}
+          disabled={busy}
+          className="ws-btn ws-btn-sm justify-self-start"
+        >
+          <Shuffle aria-hidden />
+          Перемешать темы
+        </button>
       )}
     </div>
   );
 }
 
-function ThemeChip({
+function ThemeRow({
   theme,
-  canReplace,
   onReplace,
+  canReplace = false,
 }: {
-  theme: ThemeOption;
-  canReplace: boolean;
-  onReplace: () => void;
+  theme: ThemeOption | null;
+  onReplace?: () => void;
+  canReplace?: boolean;
 }) {
+  if (!theme) {
+    return (
+      <li className="text-ws-no-ink border-ws-line border-b py-2 text-sm last:border-b-0">
+        тема недоступна — пак удалён или изменён
+      </li>
+    );
+  }
   return (
-    <div className="ink-border bg-card text-ink grid gap-1 rounded-2xl px-3 py-2">
-      <span className="font-pop truncate text-base font-black" title={theme.title}>
-        {theme.title}
+    <li className="group border-ws-line flex items-center gap-2 border-b py-1.5 last:border-b-0">
+      <span className="grid min-w-0 flex-1">
+        <span className="truncate text-sm font-medium" title={theme.title}>
+          {theme.title}
+        </span>
+        <span className="text-ws-faint truncate text-xs" title={theme.packTitle}>
+          {theme.packTitle}
+        </span>
       </span>
-      <span className="font-body truncate text-xs font-bold opacity-60" title={theme.packTitle}>
-        {theme.packTitle} · {theme.questionsCount} вопросов
-      </span>
-      <button
-        type="button"
-        disabled={!canReplace}
-        onClick={onReplace}
-        className="font-body justify-self-start text-xs font-bold underline underline-offset-4 opacity-70 disabled:opacity-30"
-      >
-        заменить
-      </button>
-    </div>
+      {onReplace && (
+        <button
+          type="button"
+          onClick={onReplace}
+          disabled={!canReplace}
+          title={canReplace ? 'Заменить на другую тему' : 'Запасных тем не осталось'}
+          aria-label={`Заменить тему «${theme.title}»`}
+          className="ws-btn ws-btn-ghost ws-btn-sm ws-btn-icon opacity-100 sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
+        >
+          <RefreshCw aria-hidden />
+        </button>
+      )}
+    </li>
   );
 }
