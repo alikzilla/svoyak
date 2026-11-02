@@ -53,6 +53,24 @@ const restored = rooms.restoreFromDisk();
 
 registerSocketHandlers(io, rooms);
 
+// Порт занят или недоступен — продолжать бессмысленно: выходим явно, иначе
+// последний рубеж ниже проглотил бы ошибку и сервер завис бы молча.
+httpServer.on('error', (error) => {
+  console.error(`Сервер не запустился на порту ${PORT}:`, error.message);
+  process.exit(1);
+});
+
+// Последний рубеж. Обработчики сокетов ловят свои ошибки сами, но таймеры
+// комнат и отложенная запись на диск живут вне их. Одна такая ошибка не должна
+// гасить сервер посреди вечера: редьюсер чистый, и состояние комнаты при
+// исключении остаётся прежним.
+process.on('uncaughtException', (error) => {
+  console.error('[server] необработанная ошибка:', error);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[server] необработанный отказ промиса:', reason);
+});
+
 httpServer.listen(PORT, '0.0.0.0', () => {
   printBanner(CLIENT_PORT, PORT, PUBLIC_URL === '' ? null : PUBLIC_URL);
   if (restored > 0) console.log(`  Восстановлено комнат после перезапуска: ${restored}\n`);
