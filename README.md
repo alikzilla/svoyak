@@ -332,8 +332,8 @@ ALLOWED_HOSTS=.example.com PUBLIC_URL=https://tunnel.example.com npm run dev
 node client/scripts/makeSounds.mjs   # пересобрать сэмплы в client/public/sounds
 ```
 
-Шрифты (Unbounded и Rubik) тоже подключены локально через npm, а не с
-Google Fonts — по той же причине.
+Шрифты (Unbounded, Nunito и Caveat) тоже подключены локально через npm, а
+не с Google Fonts — по той же причине.
 
 **Спокойный режим.** Игра уважает системную настройку «уменьшить
 движение», а на странице стиля есть переключатель, оставляющий только
