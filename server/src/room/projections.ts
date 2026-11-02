@@ -112,6 +112,8 @@ function projectHostQuestion(state: RoomState): HostQuestionView | null {
   if (!active || !question) return null;
 
   const view: HostQuestionView = {
+    questionId: active.questionId,
+    answerRevealed: active.answerRevealed,
     themeTitle: active.themeTitle,
     price: active.price,
     type: active.type,

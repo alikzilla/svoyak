@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { ImagePlus, Loader2, X } from 'lucide-react';
 import type { Media } from '@svoyak/shared';
 import { uploadMedia } from './api.js';
 
@@ -7,9 +8,11 @@ interface MediaFieldProps {
   packId: string;
   media: Media | undefined;
   onChange: (media: Media | undefined) => void;
+  /** Под линией отрыва подпись берёт цвет ключа. */
+  tone?: 'plain' | 'key';
 }
 
-export function MediaField({ label, packId, media, onChange }: MediaFieldProps) {
+export function MediaField({ label, packId, media, onChange, tone = 'plain' }: MediaFieldProps) {
   const input = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,19 +31,18 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
 
   return (
     <div className="grid gap-1.5">
-      <span className="text-soft font-body text-xs font-bold">{label}</span>
+      <span className={tone === 'key' ? 'ws-key-label' : 'ws-label'}>{label}</span>
       {media ? (
-        <div className="ink-border bg-paper flex items-center gap-3 rounded-xl p-2">
-          {media.kind === 'image' && (
-            <img src={media.src} alt="" className="max-h-24 rounded-lg" />
-          )}
-          {media.kind === 'audio' && <audio src={media.src} controls className="max-w-full" />}
-          {media.kind === 'video' && <video src={media.src} controls className="max-h-32 rounded-lg" />}
+        <div className="border-ws-line bg-ws-surface flex items-center gap-3 rounded-lg border p-2">
+          {media.kind === 'image' && <img src={media.src} alt="" className="max-h-24 rounded-md" />}
+          {media.kind === 'audio' && <audio src={media.src} controls className="h-9 max-w-full" />}
+          {media.kind === 'video' && <video src={media.src} controls className="max-h-32 rounded-md" />}
           <button
             type="button"
             onClick={() => onChange(undefined)}
-            className="btn ml-auto shrink-0 px-2 text-sm hover:border-no hover:text-no-ink"
+            className="ws-btn ws-btn-ghost ws-btn-sm ws-btn-quiet-danger ml-auto"
           >
+            <X aria-hidden />
             Убрать
           </button>
         </div>
@@ -50,9 +52,10 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
             type="button"
             disabled={busy}
             onClick={() => input.current?.click()}
-            className="btn btn-dashed justify-self-start text-sm"
+            className="border-ws-line-strong text-ws-soft hover:border-ws-accent hover:text-ws-accent-ink inline-flex h-9 w-fit items-center gap-2 rounded-lg border border-dashed px-3 text-sm font-medium transition-colors disabled:opacity-50"
           >
-            {busy ? 'Загружаем…' : 'Добавить файл'}
+            {busy ? <Loader2 size={16} className="animate-spin" aria-hidden /> : <ImagePlus size={16} aria-hidden />}
+            {busy ? 'Загружаем…' : 'Выбрать файл'}
           </button>
           <input
             ref={input}
@@ -68,7 +71,7 @@ export function MediaField({ label, packId, media, onChange }: MediaFieldProps) 
         </>
       )}
       {error && (
-        <p role="alert" className="text-no-ink text-xs font-bold">
+        <p role="alert" className="text-ws-no-ink text-[0.8125rem] font-medium">
           {error}
         </p>
       )}

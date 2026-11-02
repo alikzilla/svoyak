@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  GAME_LIMITS,
-  type Game,
-  type GameRecipe,
-  type PackSummary,
-  type RecipeResolution,
-} from '@svoyak/shared';
+import { Loader2, Shuffle } from 'lucide-react';
+import type { Game, GameRecipe, PackSummary, RecipeResolution } from '@svoyak/shared';
 import { composeGame } from '../net/gameApi.js';
+import { CompositionView, PackChecklist, SizeControls } from '../ui/host/GameSetup.js';
+import { Notice } from '../workspace/ui.js';
 import { fetchGameComposition, saveGame } from './api.js';
 import { ModifierPicker } from './ModifierPicker.js';
 
@@ -16,10 +13,6 @@ interface GameBuilderProps {
   onSaved: (game: Game) => void;
   onClose: () => void;
 }
-
-const [ROUNDS_MIN, ROUNDS_MAX] = GAME_LIMITS.rounds;
-const [THEMES_MIN, THEMES_MAX] = GAME_LIMITS.themesPerRound;
-const [FINAL_MIN, FINAL_MAX] = GAME_LIMITS.finalThemes;
 
 /** Конструктор одной игры: паки → состав → модификаторы → сохранить.
  *
@@ -33,27 +26,24 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
   const [title, setTitle] = useState(game.title);
   const [selected, setSelected] = useState<string[]>([]);
   const [rounds, setRounds] = useState(Math.max(1, game.recipe.rounds.length || 2));
-  const [themesPerRound, setThemesPerRound] = useState(
-    Math.max(1, game.recipe.rounds[0]?.length ?? 4),
-  );
+  const [themesPerRound, setThemesPerRound] = useState(Math.max(1, game.recipe.rounds[0]?.length ?? 4));
   const [finalThemes, setFinalThemes] = useState(Math.max(1, game.recipe.final.length || 3));
   const [modifiers, setModifiers] = useState(game.modifiers);
   const [recipe, setRecipe] = useState<GameRecipe>(game.recipe);
   const [preview, setPreview] = useState<RecipeResolution | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // Паки или размер поменялись после сборки: состав на экране уже не им соответствует.
+  const [stale, setStale] = useState(false);
 
-  // У новой игры (`+ собрать игру`) рецепт пуст — показывать нечего, и первый
+  // У новой игры (`Собрать игру`) рецепт пуст — показывать нечего, и первый
   // состав нужен сразу. У уже сохранённой — рецепт не пуст, и это ровно то,
   // что должно остаться на экране до явной пересборки.
   const hasSavedComposition = game.recipe.rounds.length > 0;
 
-  // `packs` приходит от родителя асинхронно: на момент первого рендера конструктора
-  // список может быть ещё пуст. У сохранённой игры уже есть состав — выбор паков
-  // выводим из него (иначе повторное открытие подменяет паки на "первые три" и
-  // «Пересобрать состав» соберёт не то). Пустой рецепт (только что созданная
-  // игра) — единственный случай, когда берём дефолт. Раз выставленный выбор не
-  // трогаем, даже когда `packs` потом обновится.
+  // `packs` приходит от родителя асинхронно. У сохранённой игры выбор паков
+  // выводим из её состава; пустой рецепт — единственный случай, когда берём
+  // первые три готовых пака. Раз выставленный выбор не трогаем.
   const defaulted = useRef(false);
   useEffect(() => {
     if (defaulted.current || packs.length === 0) return;
@@ -64,7 +54,10 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
     setSelected(
       fromRecipe.length > 0
         ? fromRecipe
-        : packs.filter((pack) => pack.playable).slice(0, 3).map((pack) => pack.id),
+        : packs
+            .filter((pack) => pack.playable)
+            .slice(0, 3)
+            .map((pack) => pack.id),
     );
   }, [packs, game]);
 
@@ -79,9 +72,7 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
         if (!cancelled) setPreview(resolution);
       })
       .catch((cause: unknown) => {
-        if (!cancelled) {
-          setError(cause instanceof Error ? cause.message : 'Не удалось открыть состав игры');
-        }
+        if (!cancelled) setError(cause instanceof Error ? cause.message : 'Не удалось открыть состав игры');
       })
       .finally(() => {
         if (!cancelled) setBusy(false);
@@ -102,16 +93,13 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
         setRecipe(response.recipe);
         setPreview({ rounds: response.rounds, final: response.final });
         setError(null);
+        setStale(false);
       })
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось собрать состав'),
-      )
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Не удалось собрать состав'))
       .finally(() => setBusy(false));
   }, [selected, rounds, themesPerRound, finalThemes]);
 
-  // Только для только что созданной игры: показать хоть какой-то состав сразу,
-  // не дожидаясь ручной «Пересобрать состав». Дальше — только по кнопке или
-  // изменению паков/чисел, которые «Пересобрать состав» использует при клике.
+  // Только для только что созданной игры: показать состав сразу.
   const autoComposed = useRef(false);
   useEffect(() => {
     if (hasSavedComposition || autoComposed.current || selected.length === 0) return;
@@ -119,158 +107,126 @@ export function GameBuilder({ game, packs, onSaved, onClose }: GameBuilderProps)
     compose();
   }, [hasSavedComposition, selected, compose]);
 
-  const togglePack = (id: string): void =>
-    setSelected((current) =>
-      current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
-    );
+  const touch =
+    <T,>(setter: (value: T) => void) =>
+    (value: T): void => {
+      setter(value);
+      setStale(true);
+    };
+
+  const togglePack = (id: string): void => {
+    setSelected((current) => (current.includes(id) ? current.filter((item) => item !== id) : [...current, id]));
+    setStale(true);
+  };
 
   const save = (): void => {
     if (recipe.rounds.length === 0) return;
     setBusy(true);
     void saveGame({ ...game, title: title.trim() || 'Новая игра', recipe, modifiers })
       .then(onSaved)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось сохранить игру'),
-      )
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Не удалось сохранить игру'))
       .finally(() => setBusy(false));
   };
 
   return (
-    <div className="grid gap-4">
-      <label className="on-paper grid gap-1">
+    <div className="grid gap-6">
+      <label>
         <span className="sr-only">Название игры</span>
         <input
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           placeholder="Название игры"
-          className="field font-pop rounded-2xl px-4 py-3 text-xl font-black"
+          className="ws-input-bare text-[1.625rem] leading-tight font-semibold tracking-tight"
         />
       </label>
 
-      <section className="on-paper ink-border bg-card text-ink relative grid gap-2 rounded-2xl p-4">
-        <span className="font-pop text-sm font-black">Из каких паков</span>
-        {packs.length === 0 ? (
-          <p className="text-soft font-body text-sm font-bold">
-            Паков пока нет — соберите первый в редакторе.
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
-            {packs.map((pack) => (
-              <label
-                key={pack.id}
-                className="check-row font-body items-center text-sm font-bold"
-                title={pack.playable ? undefined : 'Пак не дозаполнен — допишите его в редакторе'}
-              >
-                <input
-                  type="checkbox"
-                  disabled={!pack.playable}
-                  checked={selected.includes(pack.id)}
-                  onChange={() => togglePack(pack.id)}
-                />
-                <span className={pack.playable ? '' : 'text-soft line-through'}>{pack.title}</span>
-                {!pack.playable && (
-                  <span className="text-no-ink ml-auto shrink-0 text-xs">с ошибками</span>
-                )}
-              </label>
-            ))}
+      {error && <Notice>{error}</Notice>}
+
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid min-w-0 gap-6">
+          <section className="ws-card">
+            <header className="ws-card-head">
+              <h2 className="ws-card-title">Из каких паков</h2>
+              <span className="text-ws-faint num ml-auto text-[0.8125rem]">
+                выбрано {selected.length} из {packs.length}
+              </span>
+            </header>
+            <div className="px-3 py-2">
+              {packs.length === 0 ? (
+                <p className="text-ws-soft px-3 py-2 text-sm">Паков пока нет — соберите первый в редакторе.</p>
+              ) : (
+                <PackChecklist packs={packs} selected={selected} onToggle={togglePack} />
+              )}
+            </div>
+          </section>
+
+          <section className="ws-card">
+            <header className="ws-card-head">
+              <h2 className="ws-card-title">Размер игры</h2>
+            </header>
+            <div className="p-4 sm:p-5">
+              <SizeControls
+                rounds={rounds}
+                themesPerRound={themesPerRound}
+                finalThemes={finalThemes}
+                onRounds={touch(setRounds)}
+                onThemesPerRound={touch(setThemesPerRound)}
+                onFinalThemes={touch(setFinalThemes)}
+              />
+            </div>
+          </section>
+
+          <section className="ws-card">
+            <header className="ws-card-head">
+              <h2 className="ws-card-title">Модификаторы</h2>
+              <span className="text-ws-faint ml-auto text-[0.8125rem]">сюрпризы вместо вопросов</span>
+            </header>
+            <div className="p-4 sm:p-5">
+              <ModifierPicker plan={modifiers} onChange={setModifiers} />
+            </div>
+          </section>
+        </div>
+
+        <aside className="ws-card lg:sticky lg:top-20" aria-label="Состав игры">
+          <header className="ws-card-head">
+            <h2 className="ws-card-title">Состав</h2>
+            <button
+              type="button"
+              onClick={compose}
+              disabled={busy || selected.length === 0}
+              title={selected.length === 0 ? 'Сначала выберите хотя бы один пак' : 'Собрать темы заново'}
+              className="ws-btn ws-btn-sm ml-auto"
+            >
+              {busy ? <Loader2 className="animate-spin" aria-hidden /> : <Shuffle aria-hidden />}
+              Пересобрать
+            </button>
+          </header>
+          <div className="grid max-h-[calc(100dvh-17rem)] gap-4 overflow-y-auto p-4 sm:p-5">
+            {stale && preview && (
+              <Notice tone="info">Паки или размер изменились — нажмите «Пересобрать», чтобы обновить состав.</Notice>
+            )}
+            {preview ? (
+              <CompositionView rounds={preview.rounds} final={preview.final} busy={busy} />
+            ) : (
+              <p className="text-ws-soft text-sm">
+                {busy ? 'Собираем состав…' : 'Состав ещё не собран — нажмите «Пересобрать».'}
+              </p>
+            )}
           </div>
-        )}
-      </section>
-
-      <section className="on-paper ink-border bg-card text-ink relative grid gap-3 rounded-2xl p-4 sm:grid-cols-3">
-        <label className="font-body grid gap-1 text-sm font-bold">
-          <span>Раундов</span>
-          <input
-            type="number"
-            min={ROUNDS_MIN}
-            max={ROUNDS_MAX}
-            value={rounds}
-            onChange={(event) =>
-              setRounds(Math.min(ROUNDS_MAX, Math.max(ROUNDS_MIN, Number(event.target.value) || ROUNDS_MIN)))
-            }
-            className="field tabular-nums"
-          />
-        </label>
-        <label className="font-body grid gap-1 text-sm font-bold">
-          <span>Тем в раунде</span>
-          <input
-            type="number"
-            min={THEMES_MIN}
-            max={THEMES_MAX}
-            value={themesPerRound}
-            onChange={(event) =>
-              setThemesPerRound(
-                Math.min(THEMES_MAX, Math.max(THEMES_MIN, Number(event.target.value) || THEMES_MIN)),
-              )
-            }
-            className="field tabular-nums"
-          />
-        </label>
-        <label className="font-body grid gap-1 text-sm font-bold">
-          <span>Тем в финале</span>
-          <input
-            type="number"
-            min={FINAL_MIN}
-            max={FINAL_MAX}
-            value={finalThemes}
-            onChange={(event) =>
-              setFinalThemes(Math.min(FINAL_MAX, Math.max(FINAL_MIN, Number(event.target.value) || FINAL_MIN)))
-            }
-            className="field tabular-nums"
-          />
-        </label>
-      </section>
-
-      <ModifierPicker plan={modifiers} onChange={setModifiers} />
-
-      {preview && (
-        <section className="on-paper ink-border bg-card text-ink relative grid gap-2 rounded-2xl p-4">
-          <span className="font-pop text-sm font-black">Что выпало</span>
-          {preview.rounds.map((round, index) => (
-            <p key={index} className="font-body text-sm font-bold">
-              Раунд {index + 1}: {round.map((theme) => theme?.title ?? '— тема недоступна —').join(', ')}
-            </p>
-          ))}
-          <p className="text-soft font-body text-sm font-bold">
-            Финал: {preview.final.map((theme) => theme?.title ?? '— тема недоступна —').join(', ')}
-          </p>
-        </section>
-      )}
-
-      {error && (
-        <p role="alert" className="notice notice-error font-body text-sm">
-          {error}
-        </p>
-      )}
-
-      <div className="flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          onClick={compose}
-          disabled={busy || selected.length === 0}
-          title={selected.length === 0 ? 'Сначала выберите хотя бы один пак' : undefined}
-          className="btn bg-card font-body rounded-2xl text-sm"
-        >
-          {busy ? 'Собираем…' : 'Пересобрать состав'}
-        </button>
-        <button
-          type="button"
-          onClick={save}
-          disabled={busy || recipe.rounds.length === 0}
-          title={recipe.rounds.length === 0 ? 'Сначала соберите состав' : undefined}
-          className="btn bg-gold font-body rounded-2xl text-sm"
-        >
-          Сохранить игру
-        </button>
-        <button type="button" onClick={onClose} className="btn btn-quiet font-body text-sm">
-          Закрыть
-        </button>
-        {/* Кнопка выключена — экран объясняет почему, а не молчит. */}
-        {!busy && recipe.rounds.length === 0 && (
-          <span className="text-soft font-body text-sm font-bold">
-            Состав ещё не собран — нажмите «Пересобрать состав».
-          </span>
-        )}
+          <footer className="border-ws-line grid gap-2 border-t p-4">
+            <button
+              type="button"
+              onClick={save}
+              disabled={busy || recipe.rounds.length === 0}
+              className="ws-btn ws-btn-primary ws-btn-lg w-full"
+            >
+              Сохранить игру
+            </button>
+            <button type="button" onClick={onClose} className="ws-btn ws-btn-ghost w-full">
+              Закрыть без сохранения
+            </button>
+          </footer>
+        </aside>
       </div>
     </div>
   );

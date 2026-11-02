@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { AlertCircle, ArrowLeft, Check, Download, FileJson, Library, Loader2, PackageOpen, Plus, Trash2, X } from 'lucide-react';
 import type { Pack, PackSummary } from '@svoyak/shared';
 import {
   createPack,
@@ -12,233 +13,236 @@ import {
   type ImportEntry,
 } from '../editor/api.js';
 import { PackEditor } from '../editor/PackEditor.js';
-import { DoodleField } from '../design/Doodles.js';
-import { useAutosave } from '../editor/useAutosave.js';
-
-const SAVE_LABEL = {
-  idle: '',
-  saving: 'сохраняем…',
-  saved: 'сохранено',
-  error: 'не сохранилось',
-} as const;
+import { useAutosave, type SaveState } from '../editor/useAutosave.js';
+import { questionsWord, roundsWord, themesWord } from '../ui/host/GameSetup.js';
+import { PageHeader, Shell } from '../workspace/Shell.js';
+import { ConfirmDelete, EmptyState, Notice } from '../workspace/ui.js';
 
 export default function Editor() {
   const { packId } = useParams();
   return packId ? <PackScreen packId={packId} /> : <PackListScreen />;
 }
 
+const DATE = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'short' });
+
+/* ── Список паков ─────────────────────────────────────────────────────── */
+
 function PackListScreen() {
   const navigate = useNavigate();
   const [packs, setPacks] = useState<PackSummary[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [confirmId, setConfirmId] = useState<string | null>(null);
   const [report, setReport] = useState<ImportEntry[] | null>(null);
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<'create' | 'json' | 'siq' | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const siqInput = useRef<HTMLInputElement>(null);
 
   const reload = (): void => {
     void listPacks()
       .then(setPacks)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось загрузить паки'),
-      );
+      .catch((cause: unknown) => {
+        setPacks([]);
+        setError(cause instanceof Error ? cause.message : 'Не удалось загрузить паки');
+      });
   };
 
   useEffect(reload, []);
 
+  const create = (): void => {
+    setBusy('create');
+    void createPack('Новый пак')
+      .then((pack) => navigate(`/editor/${pack.id}`))
+      .catch((cause: unknown) => {
+        setBusy(null);
+        setError(cause instanceof Error ? cause.message : 'Не удалось создать пак');
+      });
+  };
+
+  const actions = (
+    <>
+      <button type="button" disabled={busy !== null} onClick={() => fileInput.current?.click()} className="ws-btn">
+        <FileJson aria-hidden />
+        Импорт JSON
+      </button>
+      <button type="button" disabled={busy !== null} onClick={() => siqInput.current?.click()} className="ws-btn">
+        {busy === 'siq' ? <Loader2 className="animate-spin" aria-hidden /> : <PackageOpen aria-hidden />}
+        {busy === 'siq' ? 'Разбираем архив…' : 'Импорт из SIGame'}
+      </button>
+      <button type="button" disabled={busy !== null} onClick={create} className="ws-btn ws-btn-primary">
+        <Plus aria-hidden />
+        Новый пак
+      </button>
+      <input
+        ref={siqInput}
+        type="file"
+        accept=".siq,application/zip"
+        hidden
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          event.target.value = '';
+          if (!file) return;
+          setBusy('siq');
+          setError(null);
+          setReport(null);
+          void importSiqFile(file)
+            .then((result) => {
+              setReport(result.report);
+              reload();
+            })
+            .catch((cause: unknown) =>
+              setError(cause instanceof Error ? cause.message : 'Не удалось импортировать'),
+            )
+            .finally(() => setBusy(null));
+        }}
+      />
+      <input
+        ref={fileInput}
+        type="file"
+        accept="application/json,.json"
+        hidden
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          event.target.value = '';
+          if (!file) return;
+          setBusy('json');
+          void importPackFile(file)
+            .then((pack) => navigate(`/editor/${pack.id}`))
+            .catch((cause: unknown) => {
+              setBusy(null);
+              setError(cause instanceof Error ? cause.message : 'Не удалось импортировать');
+            });
+        }}
+      />
+    </>
+  );
+
   return (
-    <div className="app-shell on-scene relative isolate mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
-      <DoodleField density="light" night />
-      <header className="relative flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1
-            className="font-pop text-4xl font-black"
-            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
-          >
-            Редактор паков
-          </h1>
-          <p className="font-body font-bold opacity-80">Свои вопросы — без запущенной игры</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() =>
-              void createPack('Новый пак')
-                .then((pack) => navigate(`/editor/${pack.id}`))
-                .catch((cause: unknown) =>
-                  setError(cause instanceof Error ? cause.message : 'Не удалось создать пак'),
-                )
+    <Shell>
+      <PageHeader
+        title="Паки"
+        description="Вопросы для игр: раунды с темами и финал. Правки сохраняются сами."
+        actions={actions}
+      />
+
+      <div className="mb-6 grid gap-3 empty:hidden">
+        {error && (
+          <Notice
+            action={
+              <button type="button" onClick={() => setError(null)} className="ws-btn ws-btn-ghost ws-btn-sm ws-btn-icon" aria-label="Скрыть">
+                <X aria-hidden />
+              </button>
             }
-            className="btn font-pop bg-p5 rounded-2xl px-4 py-2 font-black"
           >
-            Создать пак
-          </button>
-          <button
-            type="button"
-            onClick={() => fileInput.current?.click()}
-            className="btn font-pop bg-card rounded-2xl px-4 py-2 font-black"
-          >
-            Импорт JSON
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => siqInput.current?.click()}
-            className="btn font-pop bg-card rounded-2xl px-4 py-2 font-black"
-          >
-            {busy ? 'Разбираем архив…' : 'Импорт .siq'}
-          </button>
-          <input
-            ref={siqInput}
-            type="file"
-            accept=".siq,application/zip"
-            hidden
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              event.target.value = '';
-              if (!file) return;
-              setBusy(true);
-              setError(null);
-              setReport(null);
-              void importSiqFile(file)
-                .then((result) => {
-                  setReport(result.report);
-                  reload();
-                })
-                .catch((cause: unknown) =>
-                  setError(cause instanceof Error ? cause.message : 'Не удалось импортировать'),
-                )
-                .finally(() => setBusy(false));
-            }}
-          />
-          <input
-            ref={fileInput}
-            type="file"
-            accept="application/json,.json"
-            hidden
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              event.target.value = '';
-              if (!file) return;
-              void importPackFile(file)
-                .then((pack) => navigate(`/editor/${pack.id}`))
-                .catch((cause: unknown) =>
-                  setError(cause instanceof Error ? cause.message : 'Не удалось импортировать'),
-                );
-            }}
-          />
-        </div>
-      </header>
-
-      {error && (
-        <p role="alert" className="notice notice-error font-body">
-          {error}
-        </p>
-      )}
-
-      {report && (
-        <section className="on-paper ink-border bg-card text-ink grid gap-2 rounded-2xl p-4">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="font-body font-bold">Отчёт импорта</h2>
-            <button
-              type="button"
-              onClick={() => setReport(null)}
-              className="btn btn-dashed px-3 text-sm"
-            >
-              Скрыть
-            </button>
-          </div>
-          <ul className="grid max-h-56 gap-1 overflow-y-auto text-sm">
-            {report.map((entry, index) => (
-              <li
-                key={`${entry.message}-${index}`}
-                className={entry.level === 'warning' ? 'font-bold text-p1-ink' : 'text-soft'}
-              >
-                {entry.message}
-              </li>
-            ))}
-          </ul>
-          <p className="text-soft text-xs">
-            Всё, что не перенеслось, перечислено здесь — поправьте эти вопросы руками.
-          </p>
-        </section>
-      )}
+            {error}
+          </Notice>
+        )}
+        {report && <ImportReport report={report} onClose={() => setReport(null)} />}
+      </div>
 
       {packs === null ? (
-        <p className="text-soft font-body font-bold">Загружаем…</p>
+        <div className="ws-card divide-ws-line divide-y" aria-busy>
+          {[0, 1, 2].map((row) => (
+            <div key={row} className="grid gap-2 px-5 py-4">
+              <div className="bg-ws-sunken h-4 w-48 animate-pulse rounded" />
+              <div className="bg-ws-sunken h-3 w-72 animate-pulse rounded" />
+            </div>
+          ))}
+        </div>
       ) : packs.length === 0 ? (
-        <p className="text-soft font-body font-bold">
-          Паков пока нет. Создайте первый или импортируйте JSON.
-        </p>
+        <EmptyState
+          icon={<Library aria-hidden />}
+          title="Паков пока нет"
+          action={
+            <button type="button" onClick={create} className="ws-btn ws-btn-primary">
+              <Plus aria-hidden />
+              Создать первый пак
+            </button>
+          }
+        >
+          Создайте пак с нуля или импортируйте готовый: файл SIGame (.siq) или JSON, скачанный из
+          этого редактора.
+        </EmptyState>
       ) : (
-        <ul className="grid gap-3">
+        <ul className="ws-card divide-ws-line divide-y overflow-hidden">
           {packs.map((pack) => (
-            <li
-              key={pack.id}
-              className="on-paper ink-border bg-card text-ink relative flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
-              style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
-            >
-              <Link to={`/editor/${pack.id}`} className="min-w-48 flex-1">
-                <span className="font-pop block text-xl font-black break-words hyphens-auto">
+            <li key={pack.id} className="group hover:bg-ws-hover relative flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4 transition-colors">
+              <div className="grid min-w-0 flex-1 basis-64 gap-1">
+                <Link
+                  to={`/editor/${pack.id}`}
+                  className="truncate text-[1rem] font-semibold no-underline after:absolute after:inset-0 hover:underline"
+                >
                   {pack.title}
+                </Link>
+                <span className="text-ws-faint num text-[0.8125rem]">
+                  {pack.roundsCount} {roundsWord(pack.roundsCount)} · {pack.questionsCount}{' '}
+                  {questionsWord(pack.questionsCount)} · финал из {pack.finalThemesCount}{' '}
+                  {themesWord(pack.finalThemesCount)} · изменён {DATE.format(pack.updatedAt)}
                 </span>
-                <span className="text-soft block text-sm">
-                  {pack.roundsCount} раунда · {pack.questionsCount} вопросов · финал из{' '}
-                  {pack.finalThemesCount} тем
-                </span>
-              </Link>
-              {confirmId === pack.id ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      void removePack(pack.id).then(() => {
-                        setConfirmId(null);
-                        reload();
-                      })
-                    }
-                    className="btn btn-danger px-3 text-sm"
-                  >
-                    Удалить насовсем
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setConfirmId(null)}
-                    className="btn px-3 text-sm"
-                  >
-                    Отмена
-                  </button>
-                </>
-              ) : (
-                <>
-                  {/* Как в списке игр: явная кнопка, а не догадка, что название — ссылка. */}
-                  <Link to={`/editor/${pack.id}`} className="btn bg-p4 shrink-0 px-3 text-sm">
-                    Открыть
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => setConfirmId(pack.id)}
-                    className="btn shrink-0 px-3 text-sm hover:border-no hover:text-no-ink"
-                  >
-                    Удалить
-                  </button>
-                </>
-              )}
+              </div>
+              <span className="flex items-center gap-2">
+                {pack.source === 'siq' && <span className="ws-badge">из SIGame</span>}
+                {pack.playable ? (
+                  <span className="ws-badge ws-badge-yes">
+                    <Check aria-hidden />
+                    готов к игре
+                  </span>
+                ) : (
+                  <span className="ws-badge ws-badge-warn">
+                    <AlertCircle aria-hidden />
+                    есть ошибки
+                  </span>
+                )}
+              </span>
+              {/* Над ссылкой-подложкой, чтобы кнопка ловила клик сама. */}
+              <span className="relative z-10">
+                <ConfirmDelete
+                  icon={<Trash2 aria-hidden />}
+                  title={`Удалить пак «${pack.title}»`}
+                  onConfirm={() =>
+                    void removePack(pack.id)
+                      .then(reload)
+                      .catch((cause: unknown) =>
+                        setError(cause instanceof Error ? cause.message : 'Не удалось удалить пак'),
+                      )
+                  }
+                />
+              </span>
             </li>
           ))}
         </ul>
       )}
-
-      <Link
-        to="/"
-        className="text-soft font-body w-fit text-sm font-bold underline underline-offset-4"
-      >
-        на главную
-      </Link>
-    </div>
+    </Shell>
   );
 }
+
+function ImportReport({ report, onClose }: { report: ImportEntry[]; onClose: () => void }) {
+  const warnings = report.filter((entry) => entry.level === 'warning').length;
+  return (
+    <section className="ws-card">
+      <header className="ws-card-head">
+        <h2 className="ws-card-title">Отчёт импорта</h2>
+        {warnings > 0 && <span className="ws-badge ws-badge-warn num">предупреждений: {warnings}</span>}
+        <button type="button" onClick={onClose} className="ws-btn ws-btn-ghost ws-btn-sm ml-auto">
+          Скрыть
+        </button>
+      </header>
+      <ul className="grid max-h-56 gap-1 overflow-y-auto px-5 py-3 text-sm">
+        {report.map((entry, index) => (
+          <li
+            key={`${entry.message}-${index}`}
+            className={entry.level === 'warning' ? 'text-ws-warn-ink font-medium' : 'text-ws-soft'}
+          >
+            {entry.message}
+          </li>
+        ))}
+      </ul>
+      <p className="text-ws-faint border-ws-line border-t px-5 py-3 text-[0.8125rem]">
+        Всё, что не перенеслось, перечислено здесь — поправьте эти вопросы руками.
+      </p>
+    </section>
+  );
+}
+
+/* ── Один пак ─────────────────────────────────────────────────────────── */
 
 function PackScreen({ packId }: { packId: string }) {
   const [pack, setPack] = useState<Pack | null>(null);
@@ -248,71 +252,96 @@ function PackScreen({ packId }: { packId: string }) {
   useEffect(() => {
     void fetchPack(packId)
       .then(setPack)
-      .catch((cause: unknown) =>
-        setLoadError(cause instanceof Error ? cause.message : 'Пак не найден'),
-      );
+      .catch((cause: unknown) => setLoadError(cause instanceof Error ? cause.message : 'Пак не найден'));
   }, [packId]);
+
+  const back = (
+    <Link
+      to="/editor"
+      className="text-ws-soft hover:text-ws-fg inline-flex w-fit items-center gap-1.5 text-sm font-medium no-underline"
+    >
+      <ArrowLeft size={16} aria-hidden />
+      Все паки
+    </Link>
+  );
 
   if (loadError) {
     return (
-      <div className="app-shell on-scene flex flex-col items-center justify-center gap-4 p-6">
-        <p role="alert" className="notice notice-error font-body">
-          {loadError}
-        </p>
-        <Link to="/editor" className="btn font-body bg-card no-underline">
-          К списку паков
-        </Link>
-      </div>
+      <Shell>
+        <div className="grid gap-4">
+          {back}
+          <Notice>{loadError}</Notice>
+        </div>
+      </Shell>
     );
   }
 
   if (!pack) {
     return (
-      <div className="app-shell on-scene text-soft font-body flex items-center justify-center p-6 font-bold">
-        Загружаем…
-      </div>
+      <Shell>
+        <div className="grid gap-4" aria-busy>
+          {back}
+          <div className="bg-ws-sunken h-9 w-80 animate-pulse rounded-lg" />
+          <div className="ws-card h-64 animate-pulse" />
+        </div>
+      </Shell>
     );
   }
 
   return (
-    <div className="app-shell editor-shell on-scene relative isolate mx-auto flex w-full max-w-5xl flex-col gap-5 p-6">
-      <DoodleField density="light" night />
-      <header className="relative flex flex-wrap items-center gap-3">
-        <Link to="/editor" className="btn btn-quiet font-body px-3 text-sm no-underline">
-          ← Паки
-        </Link>
-        <input
-          className="field-bare font-pop min-w-48 flex-1 text-2xl font-black"
-          style={{ WebkitTextStroke: '3px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
-          value={pack.title}
-          placeholder="Название пака"
-          onChange={(event) => setPack({ ...pack, title: event.target.value })}
-        />
-        <span
-          role="status"
-          aria-live="polite"
-          className={`font-body text-sm font-bold tabular-nums ${
-            state === 'error' ? 'text-no-ink bg-card ink-border rounded-lg px-2 py-0.5' : 'text-soft'
-          }`}
-          title={error ?? undefined}
-        >
-          {SAVE_LABEL[state]}
-        </span>
-        {state === 'error' && (
-          <button type="button" onClick={saveNow} className="btn btn-danger px-3 text-sm">
-            Повторить
+    <Shell aside={<SaveStatus state={state} error={error} onRetry={saveNow} />}>
+      <div className="mb-6 grid gap-3">
+        {back}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <label className="min-w-56 flex-1">
+            <span className="sr-only">Название пака</span>
+            <input
+              className="ws-input-bare text-[1.625rem] leading-tight font-semibold tracking-tight"
+              value={pack.title}
+              placeholder="Название пака"
+              onChange={(event) => setPack({ ...pack, title: event.target.value })}
+            />
+          </label>
+          <button type="button" onClick={() => downloadPack(pack)} className="ws-btn">
+            <Download aria-hidden />
+            Скачать JSON
           </button>
-        )}
-        <button
-          type="button"
-          onClick={() => downloadPack(pack)}
-          className="btn btn-quiet font-body text-sm"
-        >
-          Скачать JSON
-        </button>
-      </header>
+        </div>
+      </div>
 
       <PackEditor pack={pack} issues={issues} onChange={setPack} />
-    </div>
+    </Shell>
+  );
+}
+
+function SaveStatus({ state, error, onRetry }: { state: SaveState; error: string | null; onRetry: () => void }) {
+  if (state === 'error') {
+    return (
+      <span className="flex items-center gap-2">
+        <span role="status" className="text-ws-no-ink text-[0.8125rem] font-medium" title={error ?? undefined}>
+          Не сохранилось
+        </span>
+        <button type="button" onClick={onRetry} className="ws-btn ws-btn-sm">
+          Повторить
+        </button>
+      </span>
+    );
+  }
+  return (
+    <span role="status" aria-live="polite" className="text-ws-faint flex items-center gap-1.5 text-[0.8125rem]">
+      {state === 'saving' && (
+        <>
+          <Loader2 size={14} className="animate-spin" aria-hidden />
+          Сохраняем…
+        </>
+      )}
+      {state === 'saved' && (
+        <>
+          <Check size={14} className="text-ws-yes-ink" aria-hidden />
+          Сохранено
+        </>
+      )}
+      {state === 'idle' && <span className="hidden sm:inline">Правки сохраняются сами</span>}
+    </span>
   );
 }

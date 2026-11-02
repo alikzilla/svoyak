@@ -16,20 +16,25 @@ export function QuickPaste({ onApply, onCancel }: QuickPasteProps) {
   const parsed = parseThemeText(text);
 
   return (
-    <div className="on-paper border-gold bg-card text-ink relative grid gap-3 rounded-2xl border-4 p-4">
-      <p className="text-soft font-body text-sm font-bold">
-        Одна строка — один вопрос: <code className="text-ink">цена | вопрос | ответ</code>, и
-        необязательная четвёртая колонка с другими принимаемыми ответами через точку с запятой.
-      </p>
+    <section className="ws-card grid gap-4 p-4 sm:p-5">
+      <div className="grid gap-1">
+        <h3 className="text-[0.9375rem] font-semibold">Вставить тему текстом</h3>
+        <p className="text-ws-soft text-sm">
+          Одна строка — один вопрос:{' '}
+          <code className="bg-ws-sunken text-ws-fg rounded px-1 py-0.5 text-[0.8125rem]">цена | вопрос | ответ</code>.
+          Четвёртая колонка необязательна — другие принимаемые ответы через точку с запятой. Первая
+          строка «Тема: …» задаёт название.
+        </p>
+      </div>
       <textarea
-        className="field min-h-40 resize-y font-mono text-sm"
+        className="ws-input min-h-40 font-mono text-[0.8125rem]"
         value={text}
         placeholder={EXAMPLE}
         onChange={(event) => setText(event.target.value)}
       />
 
       {parsed.errors.length > 0 && (
-        <ul role="alert" className="text-no-ink grid gap-1 text-sm font-bold">
+        <ul role="alert" className="text-ws-no-ink grid gap-1 text-sm">
           {parsed.errors.map((message) => (
             <li key={message}>{message}</li>
           ))}
@@ -37,16 +42,17 @@ export function QuickPaste({ onApply, onCancel }: QuickPasteProps) {
       )}
 
       {parsed.rows.length > 0 && (
-        <div className="ink-border bg-paper rounded-xl p-3">
-          <p className="text-soft mb-2 text-xs font-bold">
-            Разобрано вопросов: <span className="tabular-nums text-ink">{parsed.rows.length}</span>
+        <div className="bg-ws-sunken rounded-lg px-4 py-3">
+          <p className="text-ws-soft mb-2 text-[0.8125rem]">
+            Разобрано вопросов: <span className="num text-ws-fg font-semibold">{parsed.rows.length}</span>
             {parsed.title && <> · тема «{parsed.title}»</>}
           </p>
           <ul className="grid gap-1 text-sm">
             {parsed.rows.map((row) => (
-              <li key={`${row.price}-${row.text}`} className="truncate">
-                <span className="tabular-nums text-p1-ink">{row.price}</span> — {row.text} →{' '}
-                <span className="text-soft">{row.answer}</span>
+              <li key={`${row.price}-${row.text}`} className="flex min-w-0 gap-3">
+                <span className="num text-ws-accent-ink w-10 shrink-0 text-right font-semibold">{row.price}</span>
+                <span className="min-w-0 flex-1 truncate">{row.text}</span>
+                <span className="text-ws-key-ink w-1/3 shrink-0 truncate font-medium">{row.answer}</span>
               </li>
             ))}
           </ul>
@@ -58,18 +64,14 @@ export function QuickPaste({ onApply, onCancel }: QuickPasteProps) {
           type="button"
           disabled={parsed.rows.length === 0}
           onClick={() => onApply(parsed.title, parsed.rows)}
-          className="btn bg-p4 font-body"
+          className="ws-btn ws-btn-primary"
         >
           Добавить тему
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="btn font-body"
-        >
+        <button type="button" onClick={onCancel} className="ws-btn ws-btn-ghost">
           Отмена
         </button>
       </div>
-    </div>
+    </section>
   );
 }

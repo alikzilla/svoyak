@@ -25,6 +25,25 @@ colors:
   verdict-red-ink: "#d12626"
   stamp-red: "#c2493c"
   medal-gold: "#f2a93b"
+  ws-paper: "#f3f3f8"
+  ws-sheet: "#ffffff"
+  ws-sunken: "#ececf3"
+  ws-line: "#e2e1eb"
+  ws-line-strong: "#b9b6ca"
+  ws-ink: "#16141f"
+  ws-ink-soft: "#545168"
+  ws-ink-faint: "#6f6c84"
+  ws-accent-soft: "#ecebfa"
+  ws-accent-ink: "#3b2e95"
+  ws-key: "#fff4d3"
+  ws-key-line: "#ecd07c"
+  ws-key-ink: "#6f4b00"
+  ws-yes: "#1d7a42"
+  ws-yes-soft: "#e2f3e8"
+  ws-no: "#c42f2d"
+  ws-no-soft: "#fbe8e7"
+  ws-warn-soft: "#fdf0d9"
+  ws-warn-ink: "#855000"
 typography:
   display:
     fontFamily: "'Unbounded Variable', system-ui, sans-serif"
@@ -61,13 +80,63 @@ typography:
     fontSize: "1.875rem"
     fontWeight: 700
     lineHeight: 1.1
+  ws-title:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "1.625rem"
+    fontWeight: 600
+    lineHeight: 1.2
+  ws-ticket:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "1.5rem"
+    fontWeight: 500
+    lineHeight: 1.35
+  ws-section:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 600
+    lineHeight: 1.3
+  ws-body:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  ws-ui:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 500
+    lineHeight: 1.4
+  ws-small:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.45
+  ws-meta:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 400
+    lineHeight: 1.4
+  ws-label:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1.3
+  ws-kbd:
+    fontFamily: "'Onest Variable', system-ui, sans-serif"
+    fontSize: "0.6875rem"
+    fontWeight: 600
+    lineHeight: 1
 rounded:
+  ws-kbd: "0.3125rem"
+  ws-seg-item: "0.4375rem"
   sm: "0.5rem"
+  ws-seg: "0.625rem"
   field: "0.75rem"
   btn: "0.875rem"
   card: "1rem"
   panel: "1.5rem"
   pill: "9999px"
+  ws-card: "0.75rem"
+  ws-ticket: "0.875rem"
 spacing:
   xs: "0.5rem"
   sm: "0.75rem"
@@ -139,6 +208,8 @@ components:
 The volume follows the evening. Most of the time the interface is a calm stack of legible paper cards: the host managing the board, players waiting, the editor at work. The noise is saved for the peaks: the buzzer, the verdict stamp slapping onto the screen, the round intro, confetti at victory. Quiet screens earn the loud moments.
 
 Every control is a toy you can press. Buttons are chunky, outlined in ink, and sit on a hard shadow they physically sink into when pressed. One system covers three viewing distances: a phone held close and used in a hurry, a host laptop at arm's length, and a TV read from the sofa.
+
+**Two worlds.** Everything above describes the game: the TV board, the players' phones, the landing page, the hall of fame and the rules deck. The host's working screens (`/host` setup, lobby, live control and final; `/editor`; `/games`) are a separate, quiet world — "The host's desk", below. They are tools, not part of the show, and they never borrow the marker, the wobble or the ink shadows.
 
 **Key Characteristics:**
 - Deep indigo scene with faint speckle and drifting outline doodles; light paper cards on top.
@@ -294,11 +365,53 @@ While the buzzer is open, four bars frame the question card on the TV: one per s
 ### Rules Deck (signature)
 «Как играть», opened from the TV lobby. Eight slides authored on a fixed 1920×1080 stage that scales as a whole and letterboxes on any screen, so slide type is set in stage pixels (112px titles, 48px leads), deliberately outside the app's type ramp. It reuses the game's own pieces (Rough.js cards, avatars, doodles, verdict lettering). Content is visible from the first frame: motion only slides elements into place and never fades them in from nothing. Host controls (close, back, page count, next) sit outside the stage.
 
+## Workspace: the host's desk
+
+**North Star: "The host's ticket."** The host's side is a quiet desk of question tickets. Every question is a ticket: the public part on top, a dashed tear line with half-circle notches at both edges, and below it the answer key on an amber strip marked «видите только вы». The same ticket appears where a question is written (the pack editor) and where it is read aloud (the live screen), so the host recognises it instantly.
+
+Scope: `client/src/workspace/` (tokens in `workspace.css`, `Shell`, primitives in `ui.tsx`), `routes/Host.tsx`, `routes/Editor.tsx`, `routes/Games.tsx`, `ui/host/*`, `ui/PlayerLedger.tsx`, `ui/Standings.tsx`, `ui/Timer.tsx`, `editor/*`, `games/*`. Every rule lives under the `.ws` class, so nothing leaks into game screens.
+
+### Palette and theme
+- **Restrained.** Indigo-tinted paper ground (ws-paper), white sheets (ws-sheet) with 1px hairlines (ws-line), ink text (ws-ink, ws-ink-soft, ws-ink-faint — all ≥4.5:1 on white).
+- **One accent: Scene Indigo** (`#4a3aa8`, 8.6:1 on white) — the same indigo as the TV wall, the one thread between desk and game. It marks the primary action, the selection, the player with the move and the current cell.
+- **Amber is for secrets only** (ws-key, ws-key-ink): answers, the answer key strip, the cheat sheet. Never decoration.
+- **Green and red are verdicts only** (ws-yes, ws-no): the judge buttons, score deltas, «готов к игре» / errors.
+- **Theme: light, dark or «как в системе».** The sun/moon/monitor menu at the right of every workspace top bar (`workspace/ThemeMenu.tsx`) sets it; the choice lives in `localStorage` (`svoyak:theme`, absent = system). The resolved theme is `data-theme="light|dark"` on `<html>`, set by an inline script in `index.html` before first paint (no white flash) and kept in step with the OS by `workspace/theme.ts` while «как в системе» is on. One dark block, `:root[data-theme='dark']`, swaps every `--ws-*` token (dark paper `#111018`, lighter indigo `#6a5bdf` fill and `#b5abff` text, dark amber strip); components only ever use tokens. Game screens ignore the attribute.
+- Player colours and generated avatars still follow each player here (brand commitment); they are the only game element on the desk.
+
+### Typography
+One family: **Onest Variable**, installed locally (`@fontsource-variable/onest`, loaded only in workspace chunks). Fixed rem steps, no fluid sizes: page title 1.625rem/600, ticket question 1.5rem/500, round heading 1.25rem/600, body 1rem, UI 0.9375rem/500, small 0.875rem, meta 0.8125rem, label 0.75rem/600. Prices, scores, codes and counts use tabular figures (`.num`).
+
+### Shape and depth
+- Radii: kbd 0.3125rem, segment 0.4375rem, controls 0.5rem, segmented track 0.625rem, cards 0.75rem, tickets 0.875rem.
+- Soft, low shadows with blur (`--ws-shadow-1` for controls and cards, `--ws-shadow-2` for the ticket). **No hard offset shadows and no 4px outlines in the workspace.**
+- Tickets and theme cards use `overflow: clip`, never `hidden`: the tear notches stick out past the edge, and `hidden` let focus scroll the ticket sideways.
+
+### Components
+- **One container for every workspace page.** `Shell` has no width option: setup, lobby, live game, packs, pack editor and games all sit in the same `max-w-7xl` column (1.5rem gutter), and the top bar uses the same column, so switching tabs never moves an edge.
+- **Shell:** sticky top bar — «Свояк», tabs Ведущий / Паки / Игры, status on the right. During a game the tabs give way to the round, «раунд N из M» and the room code; pause, undo, sound and the shortcuts popover sit on the right.
+- **Buttons (`.ws-btn`):** secondary (white, hairline), `-primary` (indigo), `-yes` / `-no` (verdicts), `-ghost`, `-quiet-danger`; sizes `-sm`, default, `-lg`, `-xl` (the host's main moves, 3.25rem tall). Primary moves carry their key (`.ws-kbd`: Пробел, +, −), hidden below `lg` where there is no keyboard.
+- **Fields:** `.ws-input` (1px, indigo focus ring), `.ws-input-bare` for editable headings, `.ws-switch` for on/off settings, `.ws-check` + `.ws-option` rows for picking packs and games (selected rows tint accent-soft).
+- **Segmented control (`.ws-seg`):** pace presets, question type, game source.
+- **Ticket (`.ws-ticket` + `.ws-tear` + `.ws-key`):** see North Star. Live screen: theme · price badge · timer, the question, the key, then a one-line instruction for the current phase and the actions for it.
+- **Board (`ui/host/HostBoard.tsx`):** themes as rows, prices as buttons. Played cells are struck through once; the question in play is ringed in indigo.
+- **Players (`PlayerLedger`):** a list in a card; the verdict shows as a «+300» / «−300» delta and a brief green/red row tint (the stamp and confetti stay on the TV).
+- **Pack editor:** a sticky outline of rounds and themes on the left (red dot = unfilled questions); questions collapse to price · question · answer rows and open into the ticket in place.
+- **Destructive actions:** `ConfirmDelete` — a quiet button that turns into «Удалить насовсем» + «Отмена» in place. No modals.
+- **Empty states** explain what will appear and how (`EmptyState`); loading uses skeleton blocks, not spinners in content.
+
+### Named rules
+**The Desk-Is-Not-The-Show Rule.** No Rough.js, doodles, Caveat, Unbounded, hard shadows or confetti on workspace screens. Feedback is a state change in place.
+
+**The One-Next-Move Rule.** At every phase the live screen says in plain words what is happening and offers one primary action with its key; everything else is secondary or ghost.
+
+**The Min-Width Rule.** Workspace containers reset `min-inline-size` to 0 (in `workspace.css`). Without it a long question in a truncated row widens the page sideways.
+
 ## Do's and Don'ts
 
 ### Do:
 - **Do** wrap every screen in `.on-scene` and every card in `.on-paper`, and use `.text-soft` for secondary text.
-- **Do** give every important surface a 4px Marker Ink outline and a hard ink shadow from the Shadow Vocabulary.
+- **Do** give every important game surface a 4px Marker Ink outline and a hard ink shadow from the Shadow Vocabulary (workspace screens excepted — see "The host's desk").
 - **Do** use the `-ink` colour variants for coloured text on cream, and Marker Ink for labels on Verdict Green.
 - **Do** keep phones and the TV viewport-locked, and size TV text with `clamp(…, min(vw, dvh), …)`.
 - **Do** start mobile grids at `grid-cols-1` and give flexible titles a minimum width so buttons wrap below them.
@@ -311,10 +424,8 @@ While the buzzer is open, four bars frame the question card on the TV: one per s
 - **Don't** write unlayered global element rules (`button { … }`). They override every Tailwind utility. Global rules go in `@layer base` with `:where()`.
 - **Don't** animate text the host has to read aloud. A question must be fully visible the moment it opens.
 - **Don't** pull fonts, icons or sounds from a CDN. Everything ships locally.
-- **Don't** use a stock icon set. Icons and doodles are hand-drawn SVG paths in `design/Doodles.tsx`.
+- **Don't** use a stock icon set on game screens. Icons and doodles there are hand-drawn SVG paths in `design/Doodles.tsx`. The workspace uses `lucide-react` line icons at one stroke, bundled locally.
 - **Don't** set sentences in Unbounded or numbers in Nunito.
 
 ### Known drift (to fix)
-- `ui/host/FinalHost.tsx` (the host's final-round panel) is still built on the old dark tokens. Its ink text on `bg-surface` is unreadable and needs rebuilding as a cream `.on-paper` card.
-- `ui/Standings.tsx` (used by HostGame and Board) mixes `bg-surface`, `border-line` and `text-muted`.
 - `ui/Buzzer.tsx` and `ui/Screen.tsx` are no longer imported anywhere and can be deleted, along with the dark-theme block in `index.css` once nothing else depends on it.

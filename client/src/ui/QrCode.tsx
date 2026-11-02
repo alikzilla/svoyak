@@ -5,10 +5,13 @@ interface QrCodeProps {
   value: string;
   size?: number;
   className?: string;
+  /** Цвета модулей и фона: на телевизоре — игровые, у ведущего — чернила по белому. */
+  dark?: string;
+  light?: string;
 }
 
 /** QR рисуется на клиенте: код комнаты меняется, а интернета у гостей может не быть. */
-export function QrCode({ value, size = 220, className }: QrCodeProps) {
+export function QrCode({ value, size = 220, className, dark = '#070713', light = '#f3c74a' }: QrCodeProps) {
   const [dataUrl, setDataUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -16,14 +19,14 @@ export function QrCode({ value, size = 220, className }: QrCodeProps) {
     void QRCode.toDataURL(value, {
       width: size * 2,
       margin: 1,
-      color: { dark: '#070713', light: '#f3c74a' },
+      color: { dark, light },
     }).then((url) => {
       if (alive) setDataUrl(url);
     });
     return () => {
       alive = false;
     };
-  }, [value, size]);
+  }, [value, size, dark, light]);
 
   if (!dataUrl) return <div style={{ width: size, height: size }} className={className} />;
   return (

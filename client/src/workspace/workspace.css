@@ -1,0 +1,842 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Рабочее место: ведущий, редактор паков, сборка вечеров.
+
+   Это не игра, а стол ведущего: спокойная бумага, один шрифт, один акцентный
+   цвет. Игровой мир (индиго-сцена, маркер, жёсткие тени) остаётся на
+   телевизоре и телефонах. Всё здесь живёт под классом `.ws`, поэтому на
+   игровые экраны ни одно правило не протекает.
+
+   Подпись мира — «билет»: у каждого вопроса открытая часть сверху и ответ
+   под линией отрыва, на янтарной полосе «видите только вы».
+   ───────────────────────────────────────────────────────────────────────── */
+
+@theme inline {
+  --color-ws-bg: var(--ws-bg);
+  --color-ws-surface: var(--ws-surface);
+  --color-ws-sunken: var(--ws-sunken);
+  --color-ws-line: var(--ws-line);
+  --color-ws-line-strong: var(--ws-line-strong);
+  --color-ws-fg: var(--ws-fg);
+  --color-ws-soft: var(--ws-fg-soft);
+  --color-ws-faint: var(--ws-fg-faint);
+  --color-ws-accent: var(--ws-accent);
+  --color-ws-accent-soft: var(--ws-accent-soft);
+  --color-ws-accent-ink: var(--ws-accent-ink);
+  --color-ws-key: var(--ws-key-bg);
+  --color-ws-key-ink: var(--ws-key-ink);
+  --color-ws-yes: var(--ws-yes);
+  --color-ws-yes-soft: var(--ws-yes-soft);
+  --color-ws-yes-ink: var(--ws-yes-ink);
+  --color-ws-no: var(--ws-no);
+  --color-ws-no-soft: var(--ws-no-soft);
+  --color-ws-no-ink: var(--ws-no-ink);
+  --color-ws-warn-soft: var(--ws-warn-soft);
+  --color-ws-warn-ink: var(--ws-warn-ink);
+  --font-ws: 'Onest Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Светлая тема по умолчанию: ноутбук на коленях в освещённой комнате и
+   редактор за столом днём. Тёмная — когда ноутбук сам в тёмном режиме: в
+   притушенной комнате с включённым телевизором белый экран слепит и
+   светится на весь диван. */
+:root {
+  --ws-bg: #f3f3f8;
+  --ws-surface: #ffffff;
+  --ws-sunken: #ececf3;
+  --ws-hover: #f5f5fa;
+  --ws-line: #e2e1eb;
+  --ws-line-strong: #b9b6ca;
+  --ws-fg: #16141f;
+  --ws-fg-soft: #545168;
+  --ws-fg-faint: #6f6c84;
+
+  /* Акцент — тот же индиго, что у сцены на телевизоре: одна нитка между
+     столом ведущего и игрой. На белом 8.6:1. */
+  --ws-accent: #4a3aa8;
+  --ws-accent-hover: #3e3092;
+  --ws-accent-press: #34287d;
+  --ws-accent-soft: #ecebfa;
+  --ws-accent-ink: #3b2e95;
+  --ws-on-accent: #ffffff;
+
+  /* Янтарная полоса — только для секретов ведущего: ответы, шпаргалка. */
+  --ws-key-bg: #fff4d3;
+  --ws-key-line: #ecd07c;
+  --ws-key-ink: #6f4b00;
+
+  --ws-yes: #1d7a42;
+  --ws-yes-hover: #176737;
+  --ws-yes-soft: #e2f3e8;
+  --ws-yes-ink: #17663a;
+  --ws-no: #c42f2d;
+  --ws-no-hover: #a92624;
+  --ws-no-soft: #fbe8e7;
+  --ws-no-ink: #a42523;
+  --ws-warn-soft: #fdf0d9;
+  --ws-warn-ink: #855000;
+
+  --ws-shadow-1: 0 1px 2px rgb(22 20 31 / 6%), 0 1px 1px rgb(22 20 31 / 3%);
+  --ws-shadow-2: 0 12px 32px -12px rgb(22 20 31 / 18%), 0 2px 6px rgb(22 20 31 / 6%);
+  --ws-ring: 0 0 0 3px color-mix(in srgb, var(--ws-accent) 22%, transparent);
+}
+
+/* Тёмная тема. Какая тема сейчас — решает атрибут data-theme на <html>:
+   его ставит скрипт в index.html до первой отрисовки (без белой вспышки)
+   и переключатель темы в верхней полосе. «Как в системе» превращается в
+   light или dark по prefers-color-scheme и следит за его сменой. Набор
+   тёмных цветов поэтому один, а не копия под media-запросом. */
+:root[data-theme='dark'] {
+  --ws-bg: #111018;
+  --ws-surface: #1a1922;
+  --ws-sunken: #23222d;
+  --ws-hover: #211f2a;
+  --ws-line: #2d2b3a;
+  --ws-line-strong: #4a4760;
+  --ws-fg: #ecebf4;
+  --ws-fg-soft: #b0adc4;
+  --ws-fg-faint: #8f8ca6;
+
+  --ws-accent: #6a5bdf;
+  --ws-accent-hover: #7869e8;
+  --ws-accent-press: #5c4ecb;
+  --ws-accent-soft: #29264a;
+  --ws-accent-ink: #b5abff;
+  --ws-on-accent: #ffffff;
+
+  --ws-key-bg: #2c250f;
+  --ws-key-line: #6a5417;
+  --ws-key-ink: #f0cf73;
+
+  --ws-yes: #1d7a42;
+  --ws-yes-hover: #22894b;
+  --ws-yes-soft: #17301f;
+  --ws-yes-ink: #7fdba3;
+  --ws-no: #c42f2d;
+  --ws-no-hover: #d63a37;
+  --ws-no-soft: #3a1b1b;
+  --ws-no-ink: #ff9893;
+  --ws-warn-soft: #33270f;
+  --ws-warn-ink: #f2c46b;
+
+  --ws-shadow-1: 0 1px 2px rgb(0 0 0 / 40%);
+  --ws-shadow-2: 0 16px 40px -12px rgb(0 0 0 / 60%), 0 2px 6px rgb(0 0 0 / 30%);
+}
+
+/* Фон страницы под рабочим местом: иначе на телефоне в вырезах и при
+   оттягивании просвечивала бы индиго-сцена. */
+body:has(.ws) {
+  background-color: var(--ws-bg);
+}
+
+/* Полосы прокрутки страницы и системные контролы — в тон выбранной теме.
+   На игровых экранах схема остаётся тёмной (index.css). */
+:root:has(.ws) {
+  color-scheme: light;
+}
+
+:root[data-theme='dark']:has(.ws) {
+  color-scheme: dark;
+}
+
+@layer base {
+  .ws {
+    accent-color: var(--ws-accent);
+    min-block-size: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    background-color: var(--ws-bg);
+    color: var(--ws-fg);
+    font-family: var(--font-ws);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-feature-settings: 'cv01', 'ss01';
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ws ::selection {
+    background-color: color-mix(in srgb, var(--ws-accent) 24%, transparent);
+    color: inherit;
+  }
+
+  .ws :focus-visible {
+    outline: 2px solid var(--ws-accent);
+    outline-offset: 2px;
+  }
+
+  .ws a {
+    text-underline-offset: 0.2em;
+  }
+
+  .ws :where(h1, h2, h3) {
+    text-wrap: balance;
+  }
+
+  /* Потомки сеток и флексов по умолчанию не ужимаются уже своего
+     содержимого (min-width: auto), и строка с длинным вопросом под
+     многоточием распирала страницу вбок — на телефоне и на ноутбуке.
+     Обнуляем минимальную ширину контейнерам: они держат ширину колонки,
+     а длинный текст ужимается многоточием или переносится. */
+  .ws :where(div, section, article, aside, header, footer, nav, main, ul, ol, li, label, details, form, fieldset) {
+    min-inline-size: 0;
+  }
+
+  /* Числа в столбцах — цены, счёт, количество — стоят ровно. */
+  .ws .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Тонкая полоса прокрутки в тон бумаге. */
+  .ws * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ws-line-strong) transparent;
+  }
+}
+
+@layer components {
+  /* ── Кнопки ────────────────────────────────────────────────────────── */
+  .ws-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-block-size: 2.25rem;
+    padding-inline: 0.875rem;
+    border: 1px solid var(--ws-line-strong);
+    border-radius: 0.5rem;
+    background-color: var(--ws-surface);
+    color: var(--ws-fg);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: var(--ws-shadow-1);
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease,
+      transform 100ms ease;
+  }
+
+  .ws-btn:hover:not(:disabled) {
+    background-color: var(--ws-hover);
+    border-color: var(--ws-fg-faint);
+  }
+
+  .ws-btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .ws-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+  }
+
+  .ws-btn svg {
+    flex-shrink: 0;
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+
+  .ws-btn-primary {
+    border-color: transparent;
+    background-color: var(--ws-accent);
+    color: var(--ws-on-accent);
+  }
+
+  .ws-btn-primary:hover:not(:disabled) {
+    border-color: transparent;
+    background-color: var(--ws-accent-hover);
+  }
+
+  .ws-btn-primary:active:not(:disabled) {
+    background-color: var(--ws-accent-press);
+  }
+
+  .ws-btn-yes {
+    border-color: transparent;
+    background-color: var(--ws-yes);
+    color: #ffffff;
+  }
+
+  .ws-btn-yes:hover:not(:disabled) {
+    border-color: transparent;
+    background-color: var(--ws-yes-hover);
+  }
+
+  .ws-btn-no,
+  .ws-btn-danger {
+    border-color: transparent;
+    background-color: var(--ws-no);
+    color: #ffffff;
+  }
+
+  .ws-btn-no:hover:not(:disabled),
+  .ws-btn-danger:hover:not(:disabled) {
+    border-color: transparent;
+    background-color: var(--ws-no-hover);
+  }
+
+  .ws-btn-ghost {
+    border-color: transparent;
+    background-color: transparent;
+    color: var(--ws-fg-soft);
+    box-shadow: none;
+  }
+
+  .ws-btn-ghost:hover:not(:disabled) {
+    border-color: transparent;
+    background-color: var(--ws-sunken);
+    color: var(--ws-fg);
+  }
+
+  .ws-btn-ghost[aria-pressed='true'],
+  .ws-btn-ghost[aria-expanded='true'] {
+    background-color: var(--ws-sunken);
+    color: var(--ws-fg);
+  }
+
+  /* Опасное действие до подтверждения: тихое, краснеет при наведении. */
+  .ws-btn-quiet-danger:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--ws-no) 45%, transparent);
+    background-color: var(--ws-no-soft);
+    color: var(--ws-no-ink);
+  }
+
+  .ws-btn-sm {
+    min-block-size: 2rem;
+    padding-inline: 0.625rem;
+    font-size: 0.8125rem;
+    border-radius: 0.4375rem;
+  }
+
+  .ws-btn-lg {
+    min-block-size: 2.75rem;
+    padding-inline: 1.125rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 0.625rem;
+  }
+
+  /* Главные ходы ведущего: попасть с первого раза, не глядя. */
+  .ws-btn-xl {
+    min-block-size: 3.25rem;
+    padding-inline: 1.375rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+  }
+
+  .ws-btn-xl svg {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  .ws-btn-icon {
+    padding-inline: 0;
+    inline-size: 2.25rem;
+  }
+
+  .ws-btn-sm.ws-btn-icon {
+    inline-size: 2rem;
+  }
+
+  /* ── Подсказка клавиши ──────────────────────────────────────────────── */
+  .ws-kbd {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 1.375rem;
+    block-size: 1.375rem;
+    padding-inline: 0.3125rem;
+    border: 1px solid var(--ws-line-strong);
+    border-block-end-width: 2px;
+    border-radius: 0.3125rem;
+    background-color: var(--ws-surface);
+    color: var(--ws-fg-soft);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
+    font-family: var(--font-ws);
+  }
+
+  :where(.ws-btn-primary, .ws-btn-yes, .ws-btn-no) .ws-kbd {
+    border-color: rgb(255 255 255 / 35%);
+    background-color: rgb(255 255 255 / 14%);
+    color: #ffffff;
+  }
+
+  /* ── Поля ───────────────────────────────────────────────────────────── */
+  .ws-input {
+    inline-size: 100%;
+    min-block-size: 2.25rem;
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border: 1px solid var(--ws-line-strong);
+    border-radius: 0.5rem;
+    background-color: var(--ws-surface);
+    color: var(--ws-fg);
+    font: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .ws-input::placeholder {
+    color: var(--ws-fg-faint);
+    opacity: 1;
+  }
+
+  .ws-input:hover:not(:disabled, :focus) {
+    border-color: var(--ws-fg-faint);
+  }
+
+  .ws-input:focus,
+  .ws-input:focus-visible {
+    outline: none;
+    border-color: var(--ws-accent);
+    box-shadow: var(--ws-ring);
+  }
+
+  textarea.ws-input {
+    resize: vertical;
+    padding-block: 0.5rem;
+  }
+
+  select.ws-input {
+    padding-inline-end: 2rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236f6c84' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.625rem center;
+    cursor: pointer;
+  }
+
+  /* Заголовок, который можно править: выглядит текстом, пока его не трогают. */
+  .ws-input-bare {
+    inline-size: 100%;
+    min-block-size: 2.25rem;
+    padding-inline: 0.5rem;
+    margin-inline-start: -0.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .ws-input-bare:hover:not(:focus) {
+    border-color: var(--ws-line);
+    background-color: var(--ws-surface);
+  }
+
+  .ws-input-bare:focus,
+  .ws-input-bare:focus-visible {
+    outline: none;
+    border-color: var(--ws-accent);
+    background-color: var(--ws-surface);
+    box-shadow: var(--ws-ring);
+  }
+
+  .ws-label {
+    display: block;
+    color: var(--ws-fg-soft);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .ws-help {
+    color: var(--ws-fg-faint);
+    font-size: 0.8125rem;
+  }
+
+  /* Переключатель: для настроек «включено/выключено» привычнее флажка. */
+  .ws-switch {
+    position: relative;
+    flex-shrink: 0;
+    inline-size: 2.25rem;
+    block-size: 1.25rem;
+    margin: 0;
+    border-radius: 9999px;
+    background-color: var(--ws-line-strong);
+    appearance: none;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+
+  .ws-switch::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0.125rem;
+    inset-inline-start: 0.125rem;
+    inline-size: 1rem;
+    block-size: 1rem;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+    transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .ws-switch:checked {
+    background-color: var(--ws-accent);
+  }
+
+  .ws-switch:checked::after {
+    transform: translateX(1rem);
+  }
+
+  .ws-check {
+    flex-shrink: 0;
+    inline-size: 1rem;
+    block-size: 1rem;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  /* Строка выбора целиком кликабельна. */
+  .ws-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+
+  .ws-option:hover {
+    background-color: var(--ws-hover);
+  }
+
+  /* Выбранный пак или игра подсвечены; переключатели настроек — нет:
+     там состояние и так видно по самому переключателю. */
+  .ws-option:has(.ws-check:checked) {
+    background-color: var(--ws-accent-soft);
+  }
+
+  .ws-option:has(input:disabled) {
+    cursor: not-allowed;
+  }
+
+  .ws-option:has(input:disabled):hover {
+    background-color: transparent;
+  }
+
+  .ws-option :where(.ws-check, .ws-switch, input[type='radio']) {
+    margin-block-start: 0.1875rem;
+  }
+
+  /* ── Сегменты ───────────────────────────────────────────────────────── */
+  .ws-seg {
+    display: inline-flex;
+    flex-wrap: wrap;
+    /* По ширине вариантов, а не карточки: внутри сетки элемент иначе
+       растягивается на всю колонку, и пустая дорожка тянулась до края. */
+    justify-self: start;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    gap: 0.125rem;
+    padding: 0.1875rem;
+    border-radius: 0.625rem;
+    background-color: var(--ws-sunken);
+  }
+
+  .ws-seg > button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-block-size: 2rem;
+    padding-inline: 0.875rem;
+    border-radius: 0.4375rem;
+    color: var(--ws-fg-soft);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .ws-seg > button:hover:not([aria-pressed='true']) {
+    color: var(--ws-fg);
+  }
+
+  .ws-seg > button[aria-pressed='true'] {
+    background-color: var(--ws-surface);
+    color: var(--ws-fg);
+    box-shadow: var(--ws-shadow-1);
+  }
+
+  /* ── Листы ──────────────────────────────────────────────────────────── */
+  .ws-card {
+    border: 1px solid var(--ws-line);
+    border-radius: 0.75rem;
+    background-color: var(--ws-surface);
+    box-shadow: var(--ws-shadow-1);
+  }
+
+  .ws-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    padding: 0.875rem 1.125rem;
+    border-block-end: 1px solid var(--ws-line);
+  }
+
+  .ws-card-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  /* ── Метки ──────────────────────────────────────────────────────────── */
+  .ws-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    block-size: 1.375rem;
+    padding-inline: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--ws-sunken);
+    color: var(--ws-fg-soft);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .ws-badge svg {
+    inline-size: 0.8125rem;
+    block-size: 0.8125rem;
+  }
+
+  .ws-badge-accent {
+    background-color: var(--ws-accent-soft);
+    color: var(--ws-accent-ink);
+  }
+
+  .ws-badge-yes {
+    background-color: var(--ws-yes-soft);
+    color: var(--ws-yes-ink);
+  }
+
+  .ws-badge-no {
+    background-color: var(--ws-no-soft);
+    color: var(--ws-no-ink);
+  }
+
+  .ws-badge-warn {
+    background-color: var(--ws-warn-soft);
+    color: var(--ws-warn-ink);
+  }
+
+  .ws-badge-key {
+    background-color: var(--ws-key-bg);
+    color: var(--ws-key-ink);
+  }
+
+  /* ── Сообщения ──────────────────────────────────────────────────────── */
+  .ws-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--ws-line);
+    border-radius: 0.625rem;
+    background-color: var(--ws-surface);
+    font-size: 0.875rem;
+  }
+
+  .ws-notice svg {
+    flex-shrink: 0;
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    margin-block-start: 0.0625rem;
+  }
+
+  .ws-notice-error {
+    border-color: color-mix(in srgb, var(--ws-no) 35%, transparent);
+    background-color: var(--ws-no-soft);
+    color: var(--ws-no-ink);
+  }
+
+  .ws-notice-warn {
+    border-color: color-mix(in srgb, var(--ws-warn-ink) 30%, transparent);
+    background-color: var(--ws-warn-soft);
+    color: var(--ws-warn-ink);
+  }
+
+  .ws-notice-info {
+    border-color: color-mix(in srgb, var(--ws-accent) 25%, transparent);
+    background-color: var(--ws-accent-soft);
+    color: var(--ws-accent-ink);
+  }
+
+  /* ── Билет ──────────────────────────────────────────────────────────────
+     Открытая часть вопроса сверху, линия отрыва с вырезами по краям, ниже
+     ключ — ответ на янтарной полосе. Вырезы — круги цвета фона страницы,
+     наполовину спрятанные за краем листа (overflow: hidden). */
+  .ws-ticket {
+    position: relative;
+    /* clip, а не hidden: вырезы линии отрыва выступают за край, и hidden
+       позволял фокусу прокрутить билет вбок — содержимое уезжало. */
+    overflow: hidden;
+    overflow: clip;
+    border: 1px solid var(--ws-line);
+    border-radius: 0.875rem;
+    background-color: var(--ws-surface);
+    box-shadow: var(--ws-shadow-2);
+  }
+
+  .ws-tear {
+    position: relative;
+    block-size: 0;
+    border-block-start: 2px dashed var(--ws-line-strong);
+  }
+
+  .ws-tear::before,
+  .ws-tear::after {
+    content: '';
+    position: absolute;
+    inset-block-start: -0.6875rem;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    border: 1px solid var(--ws-line);
+    border-radius: 9999px;
+    background-color: var(--ws-bg);
+  }
+
+  .ws-tear::before {
+    inset-inline-start: -0.6875rem;
+  }
+
+  .ws-tear::after {
+    inset-inline-end: -0.6875rem;
+  }
+
+  .ws-key {
+    background-color: var(--ws-key-bg);
+  }
+
+  .ws-key-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--ws-key-ink);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .ws-key-label svg {
+    inline-size: 0.875rem;
+    block-size: 0.875rem;
+  }
+
+  /* ── Раскрывашка ────────────────────────────────────────────────────── */
+  .ws-disclosure > summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .ws-disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ws-disclosure > summary .ws-chevron {
+    transition: transform 180ms ease;
+  }
+
+  .ws-disclosure[open] > summary .ws-chevron {
+    transform: rotate(90deg);
+  }
+
+  /* ── Выпадающее меню ─────────────────────────────────────────────────── */
+  .ws-menu {
+    position: absolute;
+    inset-block-start: calc(100% + 0.5rem);
+    inset-inline-end: 0;
+    z-index: 40;
+    display: grid;
+    gap: 0.125rem;
+    min-inline-size: 12.5rem;
+    padding: 0.25rem;
+    border: 1px solid var(--ws-line);
+    border-radius: 0.625rem;
+    background-color: var(--ws-surface);
+    box-shadow: var(--ws-shadow-2);
+  }
+
+  .ws-menu-label {
+    padding: 0.375rem 0.625rem 0.25rem;
+    color: var(--ws-fg-faint);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .ws-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    inline-size: 100%;
+    min-block-size: 2.25rem;
+    padding-inline: 0.625rem;
+    border-radius: 0.4375rem;
+    color: var(--ws-fg);
+    font-size: 0.875rem;
+    text-align: start;
+    transition: background-color 120ms ease;
+  }
+
+  .ws-menu-item svg {
+    flex-shrink: 0;
+    inline-size: 1rem;
+    block-size: 1rem;
+    color: var(--ws-fg-soft);
+  }
+
+  .ws-menu-item:hover,
+  .ws-menu-item:focus-visible {
+    outline: none;
+    background-color: var(--ws-sunken);
+  }
+
+  .ws-menu-item[aria-checked='true'] {
+    font-weight: 600;
+  }
+
+  .ws-menu-item[aria-checked='true'] svg {
+    color: var(--ws-accent-ink);
+  }
+
+  /* ── Всплывающее окно (Popover API) ─────────────────────────────────── */
+  .ws-popover {
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--ws-line);
+    border-radius: 0.875rem;
+    background-color: var(--ws-surface);
+    color: var(--ws-fg);
+    font-family: var(--font-ws);
+    box-shadow: var(--ws-shadow-2);
+  }
+
+  .ws-popover::backdrop {
+    background-color: rgb(17 16 24 / 28%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-switch::after,
+  .ws-disclosure > summary .ws-chevron {
+    transition: none;
+  }
+}

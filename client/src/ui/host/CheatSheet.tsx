@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import type { CheatSheetTheme } from '@svoyak/shared';
 
 const OPEN_KEY = 'svoyak:cheatSheetOpen';
@@ -36,52 +37,47 @@ export function CheatSheet({ themes }: { themes: CheatSheetTheme[] }) {
   };
 
   return (
-    <section className="ink-border bg-card text-ink mt-4 rounded-2xl" style={{ boxShadow: '4px 4px 0 #1a1a1a' }}>
+    <section className="ws-card overflow-hidden">
       <button
         type="button"
         onClick={toggle}
         aria-expanded={open}
-        className="font-pop flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-lg font-black"
+        className="hover:bg-ws-hover flex w-full items-center gap-3 px-5 py-3.5 text-left transition-colors"
       >
-        <span>
-          Шпаргалка{' '}
-          <span className="font-body text-sm font-bold opacity-60">
-            · осталось вопросов: <span className="tabular-nums">{total}</span>
-          </span>
-        </span>
-        <span className="font-body text-sm font-bold opacity-70">{open ? 'скрыть' : 'показать'}</span>
+        {open ? <EyeOff size={18} className="text-ws-key-ink" aria-hidden /> : <Eye size={18} className="text-ws-faint" aria-hidden />}
+        <span className="ws-card-title">Шпаргалка</span>
+        <span className="text-ws-faint num text-[0.8125rem]">осталось вопросов: {total}</span>
+        <span className="ws-badge ws-badge-key ml-auto">{open ? 'скрыть ответы' : 'только для вас'}</span>
       </button>
 
       {open && (
-        <div className="grid max-h-[60dvh] gap-4 overflow-y-auto border-t-2 border-[#1a1a1a] px-4 py-3">
+        <div className="border-ws-line grid max-h-[60dvh] gap-5 overflow-y-auto border-t px-5 py-4">
           {themes.map((theme) => (
             <article key={theme.id} className="grid gap-2">
               <header>
-                <h3 className="font-pop text-base font-black">{theme.title}</h3>
-                {theme.comment && (
-                  <p className="font-body text-sm font-bold opacity-70 text-pretty">{theme.comment}</p>
-                )}
+                <h3 className="text-sm font-semibold">{theme.title}</h3>
+                {theme.comment && <p className="text-ws-soft text-sm text-pretty">{theme.comment}</p>}
               </header>
-              <ul className="grid gap-2">
+              <ul className="divide-ws-line grid divide-y">
                 {theme.questions.map((question) => (
-                  <li key={question.questionId} className="grid grid-cols-[3.5rem_1fr] gap-3">
-                    <span className="font-pop text-p1 text-lg font-black tabular-nums">{question.price}</span>
-                    <div className="font-body min-w-0 text-sm">
+                  <li key={question.questionId} className="grid grid-cols-[3.25rem_minmax(0,1fr)] gap-3 py-2">
+                    <span className="num text-ws-accent-ink text-sm font-semibold">{question.price}</span>
+                    <div className="grid gap-0.5 text-sm">
                       {question.type !== 'normal' && (
-                        <p className="text-xs font-black uppercase opacity-60">
+                        <span className="text-ws-faint text-xs font-medium">
                           {TYPE_LABEL[question.type]}
                           {question.catTheme && ` · тема «${question.catTheme}»`}
-                        </p>
+                        </span>
                       )}
-                      <p className="font-bold text-pretty opacity-80">{question.text || '— без текста —'}</p>
-                      <p className="font-black">
-                        → {question.answer}
+                      <p className="text-ws-soft text-pretty">{question.text || 'без текста'}</p>
+                      <p className="text-ws-key-ink font-semibold">
+                        {question.answer}
                         {question.altAnswers.length > 0 && (
-                          <span className="font-bold opacity-60"> ({question.altAnswers.join(', ')})</span>
+                          <span className="font-normal opacity-80"> · {question.altAnswers.join(', ')}</span>
                         )}
                       </p>
                       {question.hostComment && (
-                        <p className="font-bold opacity-60 text-pretty">{question.hostComment}</p>
+                        <p className="text-ws-faint text-pretty">{question.hostComment}</p>
                       )}
                     </div>
                   </li>

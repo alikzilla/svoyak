@@ -1,105 +1,65 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowLeft, Check, Layers, Plus, Trash2, AlertCircle } from 'lucide-react';
 import type { Game, GameSummary, PackSummary } from '@svoyak/shared';
-import { DoodleField } from '../design/Doodles.js';
 import { listPacks } from '../editor/api.js';
 import { createGame, fetchGame, listGames, removeGame } from '../games/api.js';
 import { GameBuilder } from '../games/GameBuilder.js';
+import { roundsWord, themesWord } from '../ui/host/GameSetup.js';
+import { PageHeader, Shell } from '../workspace/Shell.js';
+import { ConfirmDelete, EmptyState, Notice } from '../workspace/ui.js';
 
 /** Игры: пак — это содержимое, игра — состав вечера, собранный из паков. */
 export default function Games() {
   const [games, setGames] = useState<GameSummary[] | null>(null);
   const [packs, setPacks] = useState<PackSummary[]>([]);
   const [editing, setEditing] = useState<Game | null>(null);
-  const [confirmId, setConfirmId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const reload = (): void => {
     void listGames()
       .then(setGames)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось загрузить игры'),
-      );
+      .catch((cause: unknown) => {
+        setGames([]);
+        setError(cause instanceof Error ? cause.message : 'Не удалось загрузить игры');
+      });
   };
 
   useEffect(() => {
     reload();
     void listPacks()
       .then(setPacks)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось загрузить паки'),
-      );
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Не удалось загрузить паки'));
   }, []);
 
   const add = (): void => {
     void createGame('Новая игра')
       .then(setEditing)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось создать игру'),
-      );
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Не удалось создать игру'));
   };
 
   const open = (id: string): void => {
     void fetchGame(id)
       .then(setEditing)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось открыть игру'),
-      );
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Не удалось открыть игру'));
   };
 
   const destroy = (id: string): void => {
     void removeGame(id)
-      .then(() => {
-        setConfirmId(null);
-        reload();
-      })
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : 'Не удалось удалить игру'),
-      );
+      .then(reload)
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Не удалось удалить игру'));
   };
 
-  return (
-    <div className="app-shell on-scene relative isolate mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
-      <DoodleField density="light" night />
-      <header className="relative flex flex-wrap items-center justify-between gap-3">
-        <div>
-          {editing && (
-            <button
-              type="button"
-              onClick={() => setEditing(null)}
-              className="btn btn-quiet font-body mb-2 text-sm"
-            >
-              ← Игры
-            </button>
-          )}
-          <h1
-            className="font-pop text-4xl font-black"
-            style={{ WebkitTextStroke: '4px #1a1a1a', paintOrder: 'stroke fill', color: '#fff6e9' }}
-          >
-            Игры
-          </h1>
-          <p className="font-body font-bold opacity-80">
-            Пак — это вопросы, игра — состав вечера, собранный из паков
-          </p>
-        </div>
-        {!editing && (
-          <button
-            type="button"
-            onClick={add}
-            className="btn font-pop bg-p5 rounded-2xl px-4 py-2 font-black"
-          >
-            + собрать игру
-          </button>
-        )}
-      </header>
-
-      {error && (
-        <p role="alert" className="notice notice-error font-body">
-          {error}
-        </p>
-      )}
-
-      {editing ? (
+  if (editing) {
+    return (
+      <Shell>
+        <button
+          type="button"
+          onClick={() => setEditing(null)}
+          className="text-ws-soft hover:text-ws-fg mb-3 inline-flex w-fit items-center gap-1.5 text-sm font-medium"
+        >
+          <ArrowLeft size={16} aria-hidden />
+          Все игры
+        </button>
         <GameBuilder
           game={editing}
           packs={packs}
@@ -109,84 +69,96 @@ export default function Games() {
           }}
           onClose={() => setEditing(null)}
         />
-      ) : games === null ? (
-        <p className="text-soft font-body font-bold">Загружаем…</p>
+      </Shell>
+    );
+  }
+
+  return (
+    <Shell>
+      <PageHeader
+        title="Игры"
+        description="Игра — это состав вечера: темы из нескольких паков, финал и модификаторы. Сохранённую игру можно выбрать, когда создаёте комнату."
+        actions={
+          <button type="button" onClick={add} className="ws-btn ws-btn-primary">
+            <Plus aria-hidden />
+            Собрать игру
+          </button>
+        }
+      />
+
+      {error && (
+        <div className="mb-6">
+          <Notice>{error}</Notice>
+        </div>
+      )}
+
+      {games === null ? (
+        <div className="ws-card divide-ws-line divide-y" aria-busy>
+          {[0, 1].map((row) => (
+            <div key={row} className="grid gap-2 px-5 py-4">
+              <div className="bg-ws-sunken h-4 w-48 animate-pulse rounded" />
+              <div className="bg-ws-sunken h-3 w-64 animate-pulse rounded" />
+            </div>
+          ))}
+        </div>
       ) : games.length === 0 ? (
-        <p className="text-soft font-body font-bold">
-          Игр пока нет. Соберите первую из своих паков.
-        </p>
+        <EmptyState
+          icon={<Layers aria-hidden />}
+          title="Игр пока нет"
+          action={
+            <button type="button" onClick={add} className="ws-btn ws-btn-primary">
+              <Plus aria-hidden />
+              Собрать первую игру
+            </button>
+          }
+        >
+          Отметьте паки, задайте число раундов и тем — состав соберётся сам. Сохранённую игру не
+          придётся собирать заново перед каждым вечером.
+        </EmptyState>
       ) : (
-        <ul className="grid gap-3">
+        <ul className="ws-card divide-ws-line divide-y overflow-hidden">
           {games.map((game) => (
             <li
               key={game.id}
-              className="on-paper ink-border bg-card text-ink relative flex flex-wrap items-center gap-3 rounded-3xl px-5 py-4"
-              style={{ boxShadow: '5px 5px 0 #1a1a1a' }}
+              className="hover:bg-ws-hover relative flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4 transition-colors"
             >
-              <div className="min-w-48 flex-1">
-                <span className="font-pop block text-xl font-black break-words hyphens-auto">
+              <div className="grid min-w-0 flex-1 basis-64 gap-1">
+                <button
+                  type="button"
+                  onClick={() => open(game.id)}
+                  className="truncate text-left text-[1rem] font-semibold after:absolute after:inset-0 hover:underline"
+                >
                   {game.title}
-                </span>
-                <span className="text-soft block text-sm">
-                  {game.roundsCount} раунда · {game.themesCount} тем ·{' '}
+                </button>
+                <span className="text-ws-faint num text-[0.8125rem]">
+                  {game.roundsCount} {roundsWord(game.roundsCount)} · {game.themesCount} {themesWord(game.themesCount)} ·{' '}
                   {game.modifiersPerRound > 0
                     ? `модификаторов на раунд: ${game.modifiersPerRound}`
                     : 'без модификаторов'}
                 </span>
-                {!game.playable && (
-                  <span className="text-no-ink block text-sm font-bold">
-                    Потерялось тем: {game.missingRefs} — откройте и пересоберите состав
-                  </span>
-                )}
               </div>
-              {confirmId === game.id ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => destroy(game.id)}
-                    className="btn btn-danger shrink-0 px-3 text-sm"
-                  >
-                    Удалить насовсем
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setConfirmId(null)}
-                    className="btn shrink-0 px-3 text-sm"
-                  >
-                    Отмена
-                  </button>
-                </>
+              {game.playable ? (
+                <span className="ws-badge ws-badge-yes">
+                  <Check aria-hidden />
+                  готова
+                </span>
               ) : (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => open(game.id)}
-                    className="btn bg-p4 shrink-0 px-3 text-sm"
-                  >
-                    Открыть
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setConfirmId(game.id)}
-                    className="btn shrink-0 px-3 text-sm hover:border-no hover:text-no-ink"
-                  >
-                    Удалить
-                  </button>
-                </>
+                <span className="ws-badge ws-badge-warn" title="Откройте игру и пересоберите состав">
+                  <AlertCircle aria-hidden />
+                  потерялось тем: {game.missingRefs}
+                </span>
               )}
+              <span className="relative z-10">
+                <ConfirmDelete
+                  icon={<Trash2 aria-hidden />}
+                  title={`Удалить игру «${game.title}»`}
+                  onConfirm={() => destroy(game.id)}
+                />
+              </span>
             </li>
           ))}
         </ul>
       )}
-
-      {!editing && (
-        <Link
-          to="/"
-          className="text-soft font-body w-fit text-sm font-bold underline underline-offset-4"
-        >
-          на главную
-        </Link>
-      )}
-    </div>
+    </Shell>
   );
 }
