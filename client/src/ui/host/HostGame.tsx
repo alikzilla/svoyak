@@ -16,6 +16,7 @@ import { RoughFrame } from '../../design/rough.js';
 import { Stamp } from '../../design/Stamp.js';
 import { Standings } from '../Standings.js';
 import { QuestionMedia } from '../QuestionMedia.js';
+import { useHostHotkeys } from './hotkeys.js';
 
 interface HostGameProps {
   view: HostView;
@@ -41,6 +42,7 @@ export function HostGame({ view }: HostGameProps) {
   const question = view.question;
   const canPick = view.phase === 'picking' || view.phase === 'round_intro';
   const inFinal = view.final !== null && view.phase !== 'results';
+  useHostHotkeys(view, send);
 
   const [verdict, setVerdict] = useState<'yes' | 'no' | null>(null);
   const scores = useRef<Record<string, number>>({});
@@ -99,6 +101,11 @@ export function HostGame({ view }: HostGameProps) {
           </DoodleButton>
         </div>
       </header>
+      {/* На планшете клавиатуры нет — подсказка только там, где она пригодится. */}
+      <p className="font-body -mt-2 hidden text-xs font-bold opacity-60 lg:block">
+        клавиши: пробел — дальше · <span className="font-pop">+</span> верно ·{' '}
+        <span className="font-pop">−</span> неверно · P — пауза · ⌘Z — отменить
+      </p>
 
       {/* Слева управление, справа табло: ведущий всегда видит поле целиком. */}
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(24rem,5fr)_minmax(0,6fr)]">
