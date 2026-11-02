@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
+import { skipIntro } from './testing.js';
 
 const T0 = 100_000;
 const firstTheme = demoClassicPack.rounds[0]?.themes[0];
@@ -33,7 +34,7 @@ const openedSwap = (): RoomState => {
       at: 2000 + index,
     }).state;
   }
-  state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
   state = reduce(state, { type: 'SET_SCORE', playerId: 'p1', score: 300 }).state;
   state = reduce(state, { type: 'SET_SCORE', playerId: 'p2', score: 1000 }).state;
   return reduce(state, {
@@ -61,7 +62,7 @@ const openedSoloSwap = (): RoomState => {
     sessionToken: 't1',
     at: 2000,
   }).state;
-  state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
   state = reduce(state, { type: 'SET_SCORE', playerId: 'p1', score: 300 }).state;
   return reduce(state, {
     type: 'PICK_QUESTION',
@@ -97,7 +98,7 @@ describe('обмен счётом в комнате на одного', () => {
       }),
       { type: 'PLAYER_JOIN', playerId: 'p1', name: 'Вася', sessionToken: 't1', at: 2000 },
     );
-    let state = reduce(result.state, { type: 'START_GAME', at: 3000 }).state;
+    let state = skipIntro(reduce(result.state, { type: 'START_GAME', at: 3000 }).state);
     const opened = reduce(state, {
       type: 'PICK_QUESTION',
       themeId: firstTheme.id,

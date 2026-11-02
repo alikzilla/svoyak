@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
+import { DEFAULT_SETTINGS, gameThemeTitles, type RoomState } from '@svoyak/shared';
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from '../engine/createRoom.js';
 import { reduce } from '../engine/reducer.js';
 import { projectForBoard, projectForHost, projectForPlayer } from './projections.js';
+import { skipIntro } from '../engine/testing.js';
 
 const JOIN_URL = 'http://192.168.1.2:5173/join?code=1234';
 
@@ -229,7 +230,7 @@ describe('запрос на обмен счётом в проекции игро
       sessionToken: 'secret-token-1',
       at: 2000,
     }).state;
-    state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+    state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
     state = reduce(state, {
       type: 'PICK_QUESTION',
       themeId: firstTheme.id,
@@ -245,5 +246,16 @@ describe('запрос на обмен счётом в проекции игро
     const prompt = projectForPlayer(state, 'p1').prompt;
     expect(prompt.kind).not.toBe('modifier_swap');
     expect(prompt.kind).toBe('wait');
+  });
+});
+
+describe('общий экран: заставка «Темы игры»', () => {
+  it('во время заставки получает все темы пака', () => {
+    const view = projectForBoard({ ...stateWithQuestion(), phase: 'game_intro', active: null }, JOIN_URL);
+    expect(view.gameThemes).toEqual(gameThemeTitles(demoClassicPack));
+  });
+
+  it('вне заставки списка тем не получает', () => {
+    expect(projectForBoard(stateWithQuestion(), JOIN_URL).gameThemes).toEqual([]);
   });
 });

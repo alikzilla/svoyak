@@ -16,7 +16,7 @@ import { ModifierScene } from '../ui/scenes/ModifierScene.js';
 import { AuctionScene } from '../ui/scenes/AuctionScene.js';
 import { AnnounceScene } from '../ui/scenes/AnnounceScene.js';
 import { VictoryScene } from '../ui/scenes/VictoryScene.js';
-import { RoundIntro } from '../ui/scenes/RoundIntro.js';
+import { GameThemesScene, RoundThemesScene } from '../ui/scenes/IntroScenes.js';
 import { DoodleButton } from '../design/DoodleButton.js';
 import { DoodleField } from '../design/Doodles.js';
 import { RoughFrame } from '../design/rough.js';
@@ -107,7 +107,6 @@ export default function Board() {
       transition={{ duration: 0.8 }}
     >
       <DoodleField density="light" night />
-      {view.phase !== 'lobby' && <RoundIntro title={view.roundTitle} roundKey={view.roundIndex} />}
 
       {view.phase === 'lobby' ? (
         <Lobby view={view} />
@@ -120,7 +119,32 @@ export default function Board() {
       ) : (
         <section className="relative flex min-h-0 flex-1 flex-col justify-center gap-6">
           <AnimatePresence mode="wait">
-            {view.modifier && view.phase === 'modifier' ? (
+            {view.phase === 'game_intro' ? (
+              <motion.div
+                key="game-intro"
+                className="flex min-h-0 flex-1 flex-col"
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.3 }}
+              >
+                <GameThemesScene themes={view.gameThemes} timer={view.timer} readClock={clock.read} />
+              </motion.div>
+            ) : view.phase === 'round_intro' ? (
+              <motion.div
+                key={`round-intro:${view.roundIndex}`}
+                className="flex min-h-0 flex-1 flex-col"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
+              >
+                <RoundThemesScene
+                  title={view.roundTitle}
+                  themes={view.board.map((theme) => theme.title)}
+                  timer={view.timer}
+                  readClock={clock.read}
+                />
+              </motion.div>
+            ) : view.modifier && view.phase === 'modifier' ? (
               <motion.div key="modifier" initial={{ scale: 0.92 }} animate={{ scale: 1 }}>
                 <ModifierScene modifier={view.modifier} players={view.players} />
               </motion.div>

@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
+import { skipIntro } from './testing.js';
 
 function lobbyWithPlayers(): RoomState {
   let state = createRoomState({
@@ -24,7 +25,7 @@ function lobbyWithPlayers(): RoomState {
   return state;
 }
 
-const started = (): RoomState => reduce(lobbyWithPlayers(), { type: 'START_GAME', at: 3000 }).state;
+const started = (): RoomState => skipIntro(reduce(lobbyWithPlayers(), { type: 'START_GAME', at: 3000 }).state);
 
 /** Открыть клетку «Кино за 300» от имени игрока с правом хода. */
 function withOpenQuestion(state: RoomState = started()): RoomState {
@@ -37,9 +38,8 @@ function withOpenQuestion(state: RoomState = started()): RoomState {
 }
 
 describe('старт игры', () => {
-  it('переводит в выбор вопроса и отдаёт право хода первому игроку', () => {
+  it('отдаёт право хода первому вошедшему игроку', () => {
     const state = started();
-    expect(state.phase).toBe('picking');
     expect(state.controlPlayerId).toBe('p1');
   });
 
@@ -83,7 +83,7 @@ describe('выбор вопроса', () => {
       sessionToken: 't1',
       at: 2000,
     }).state;
-    const inGame = reduce(withPlayer, { type: 'START_GAME', at: 3000 }).state;
+    const inGame = skipIntro(reduce(withPlayer, { type: 'START_GAME', at: 3000 }).state);
 
     const result = reduce(inGame, {
       type: 'PICK_QUESTION',
@@ -170,7 +170,7 @@ describe('конец раунда', () => {
       sessionToken: 't1',
       at: 2000,
     }).state;
-    state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+    state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
     state = { ...state, roundIndex: 0, phase: 'round_end' };
 
     state = reduce(state, { type: 'NEXT_ROUND', at: 9000 }).state;

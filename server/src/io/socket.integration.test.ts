@@ -316,6 +316,7 @@ describe('сокет-слой', () => {
     if (!joined.ok) throw new Error('игрок не вошёл');
 
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q1' });
     await emit(host, 'host:openBuzzer');
 
@@ -355,6 +356,7 @@ describe('сокет-слой', () => {
     if (!joined.ok) throw new Error('игрок не вошёл');
 
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q3' });
     await emit(host, 'host:openBuzzer');
     await emit(player, 'player:buzz', { clientTime: Date.now(), clockOffset: 0, minRtt: 10 });
@@ -387,6 +389,7 @@ describe('сокет-слой', () => {
     await emit(player, 'room:join', { code: created.data.code, name: 'Слушатель' });
 
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q3' });
     await new Promise((resolve) => setTimeout(resolve, 200));
 
@@ -707,6 +710,7 @@ describe('пауза на чтение', () => {
     const player = await connect();
     await emit(player, 'room:join', { code: created.data.code, name: 'Алма' });
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     return { host, player };
   }
 
@@ -763,6 +767,7 @@ describe('фальстарт глазами игрока', () => {
     const player = await connect();
     await emit(player, 'room:join', { code: created.data.code, name: 'Алма' });
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
 
     // Собираем всё, что видит экран игрока за время вопроса.
     const locks: Array<number | null> = [];

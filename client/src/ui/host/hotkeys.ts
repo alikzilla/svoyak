@@ -20,6 +20,8 @@ type HostState = Pick<HostView, 'phase' | 'paused' | 'canUndo'>;
 
 /** Пробел и Enter — «дальше»: следующий шаг, который не решает ничью судьбу. */
 const FORWARD: Partial<Record<Phase, HostCommand>> = {
+  game_intro: { event: 'host:continue' },
+  round_intro: { event: 'host:continue' },
   reading: { event: 'host:openBuzzer' },
   announce: { event: 'host:continue' },
   modifier: { event: 'host:continue' },

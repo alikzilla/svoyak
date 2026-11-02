@@ -2,7 +2,7 @@
 import { MODIFIER_TITLES } from '@svoyak/shared';
 import type { AuctionState, RoomState, TimerKind } from '@svoyak/shared';
 import { applyDelta, findPlayer, updatePlayer } from './players.js';
-import { closeQuestion, hasOpenQuestion, resetBuzz } from './flow.js';
+import { closeQuestion, hasOpenQuestion, isIntro, resetBuzz, roundIntroTimer } from './flow.js';
 import { applyModifier } from './modifiers.js';
 import { findQuestion, findTheme } from './questions.js';
 import { canBuzz, pickWinner } from './buzz.js';
@@ -232,8 +232,8 @@ export function revealAnswer(state: RoomState, at: number, reason: string): Room
 }
 
 export function onPickQuestion(state: RoomState, action: ActionOf<'PICK_QUESTION'>): ReduceResult {
-  if (state.phase !== 'picking' && state.phase !== 'round_intro') {
-    return reject(state, 'Сейчас не время выбирать вопрос');
+  if (state.phase !== 'picking') {
+    return reject(state, isIntro(state.phase) ? 'Дождитесь конца заставки' : 'Сейчас не время выбирать вопрос');
   }
   const theme = findTheme(state.pack, state.roundIndex, action.themeId);
   const question = findQuestion(
@@ -382,6 +382,8 @@ export function onPickQuestion(state: RoomState, action: ActionOf<'PICK_QUESTION
 }
 
 export function onContinue(state: RoomState, action: ActionOf<'CONTINUE'>): ReduceResult {
+  // Ведущий пропускает заставку — сразу к табло.
+  if (isIntro(state.phase)) return openBoard(state);
   // Ведущий не ждёт конца объявления и сразу открывает вопрос.
   if (state.phase === 'announce') {
     return startReading({ ...state, phase: 'reading' }, action.at);
@@ -560,7 +562,31 @@ export function onExtendTime(state: RoomState, action: ActionOf<'EXTEND_TIME'>):
   };
 }
 
+/** Конец заставки: дальше выбирают вопрос. */
+function openBoard(state: RoomState): ReduceResult {
+  return {
+    state: { ...state, phase: 'picking' },
+    effects: [{ type: 'clearTimer' }, { type: 'persist' }],
+  };
+}
+
 export function onTimerExpired(state: RoomState, action: ActionOf<'TIMER_EXPIRED'>): ReduceResult {
+  if (action.kind === 'intro') {
+    if (state.phase === 'game_intro') {
+      // После «Тем игры» начинается первый раунд — с его собственной заставки.
+      return {
+        state: { ...state, phase: 'round_intro' },
+        effects: [
+          { type: 'sound', sound: 'round_start' },
+          roundIntroTimer(state, action.at),
+          { type: 'persist' },
+        ],
+      };
+    }
+    if (state.phase === 'round_intro') return openBoard(state);
+    return { state, effects: [] };
+  }
+
   if (action.kind === 'buzz') {
     if (state.phase !== 'buzzer_open') return { state, effects: [] };
     const expired = enterReveal(state, action.at, 'Время вышло, никто не ответил');

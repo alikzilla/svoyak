@@ -46,7 +46,8 @@ const nameOf = (view: HostView, id: string | null): string =>
 export function HostGame({ view, connected }: HostGameProps) {
   useHostHotkeys(view, send);
 
-  const canPick = view.phase === 'picking' || view.phase === 'round_intro';
+  const canPick = view.phase === 'picking';
+  const intro = view.phase === 'game_intro' || view.phase === 'round_intro';
   const inFinal = view.final !== null && view.phase !== 'results';
 
   return (
@@ -159,7 +160,11 @@ export function HostGame({ view, connected }: HostGameProps) {
                 <header className="ws-card-head">
                   <h2 className="ws-card-title">Табло</h2>
                   <span className="text-ws-faint ml-auto text-[0.8125rem]">
-                    {canPick ? 'нажмите цену, которую назвал игрок' : 'идёт вопрос — закончите его'}
+                    {canPick
+                      ? 'нажмите цену, которую назвал игрок'
+                      : intro
+                        ? 'откроется после заставки'
+                        : 'идёт вопрос — закончите его'}
                   </span>
                 </header>
                 <div className="overflow-x-auto p-4 sm:p-5">
@@ -321,6 +326,30 @@ function Stage({ view }: { view: HostView }) {
     );
   }
 
+  if (view.phase === 'game_intro' || view.phase === 'round_intro') {
+    return (
+      <section className="ws-ticket grid gap-4 p-5 sm:p-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="ws-badge ws-badge-accent">Заставка</span>
+          {view.timer && (
+            <span className="ml-auto">
+              <LiveTimer timer={view.timer} paused={view.paused} />
+            </span>
+          )}
+        </div>
+        <div className="grid gap-1">
+          <h2 className="text-[1.5rem] leading-tight font-semibold">
+            {view.phase === 'game_intro' ? 'На общем экране — темы игры' : `${view.roundTitle}: темы раунда`}
+          </h2>
+          <p className="text-ws-soft">Табло откроется само, когда заставка закончится.</p>
+        </div>
+        <ActionRow>
+          <PrimaryNext label="Пропустить" onClick={() => send('host:continue')} />
+        </ActionRow>
+      </section>
+    );
+  }
+
   if (view.phase === 'round_end') {
     return (
       <section className="ws-ticket grid gap-4 p-5 sm:p-6">
@@ -383,9 +412,6 @@ function Stage({ view }: { view: HostView }) {
           ? 'Игрок называет тему и цену вслух — нажмите эту клетку на табло.'
           : 'Право хода ещё ни у кого: нажмите «Дать ход» у игрока или просто откройте клетку на табло.'}
       </p>
-      {view.phase === 'round_intro' && (
-        <p className="text-ws-faint text-sm">На общем экране сейчас заставка раунда — выбирать уже можно.</p>
-      )}
     </section>
   );
 }

@@ -4,6 +4,7 @@ import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
 import { adjustBuzzTime } from './buzz.js';
+import { skipIntro } from './testing.js';
 
 const T0 = 100_000;
 
@@ -24,7 +25,7 @@ function readingState(): RoomState {
       at: 2000 + index,
     }).state;
   }
-  state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
   return reduce(state, {
     type: 'PICK_QUESTION',
     themeId: 'r1-kino',

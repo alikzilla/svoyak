@@ -10,3 +10,4 @@ export * from './game.js';
 export * from './answerMatch.js';
 export * from './timer.js';
 export * from './history.js';
+export * from './intro.js';

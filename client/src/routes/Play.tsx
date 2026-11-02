@@ -27,7 +27,8 @@ import { ActivationGate } from '../ui/ActivationGate.js';
 /** Подписи ожидания: пустой экран не должен быть немым. */
 const WAIT_HINT: Partial<Record<string, string>> = {
   lobby: 'Ждём остальных',
-  round_intro: 'Сейчас объявят темы',
+  game_intro: 'Смотрите на экран',
+  round_intro: 'Смотрите на экран',
   picking: 'Выбирают вопрос',
   announce: 'Приготовьтесь — сейчас вопрос',
   reading: 'Слушайте вопрос',

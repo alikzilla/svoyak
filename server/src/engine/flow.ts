@@ -1,4 +1,6 @@
+import { gameIntroMs, gameThemeTitles, roundIntroMs } from '@svoyak/shared';
 import type { FinalState, RoomState } from '@svoyak/shared';
+import type { Effect } from './actions.js';
 import { buildBoard, hasUnplayedCells } from './board.js';
 import { EMPTY_BUZZ } from './createRoom.js';
 import { byScoreAscending, finalParticipants } from './final.js';
@@ -84,4 +86,29 @@ const QUESTION_PHASES = new Set<RoomState['phase']>([
 
 export function hasOpenQuestion(state: RoomState): boolean {
   return QUESTION_PHASES.has(state.phase);
+}
+
+/** Заставки начала игры и раунда: на табло пока ничего не открыть. */
+export function isIntro(phase: RoomState['phase']): boolean {
+  return phase === 'game_intro' || phase === 'round_intro';
+}
+
+/** Таймер заставки: когда он истечёт, движок сам пойдёт дальше. */
+function introTimer(durationMs: number, at: number): Effect {
+  return {
+    type: 'setTimer',
+    kind: 'intro',
+    durationMs,
+    onExpire: { type: 'TIMER_EXPIRED', kind: 'intro', at: at + durationMs },
+  };
+}
+
+/** «Темы игры» плывут столько, сколько тем во всём паке. */
+export function gameIntroTimer(state: RoomState, at: number): Effect {
+  return introTimer(gameIntroMs(gameThemeTitles(state.pack).length), at);
+}
+
+/** Темы раунда выскакивают по одной — длительность по числу тем на доске. */
+export function roundIntroTimer(state: RoomState, at: number): Effect {
+  return introTimer(roundIntroMs(state.board.length), at);
 }

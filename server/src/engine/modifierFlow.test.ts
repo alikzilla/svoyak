@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, type RoomSettings, type RoomState } from '@svoyak/sha
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
+import { skipIntro } from './testing.js';
 
 const T0 = 100_000;
 
@@ -35,7 +36,7 @@ const room = (kind: 'jackpot' | 'nothing' | 'flip', settings: Partial<RoomSettin
       at: 2000 + index,
     }).state;
   }
-  return reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  return skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
 };
 
 const pick =(state: RoomState, at = T0): ReturnType<typeof reduce> =>
