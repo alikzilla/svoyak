@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import tailwind from '@tailwindcss/vite';
 import path from 'node:path';
 
+/** Сервер игры; порт тот же, что читает сам сервер. */
+const SERVER_URL = `http://localhost:${process.env['PORT'] ?? 3001}`;
+
 export default defineConfig({
   plugins: [react(), tailwind()],
   resolve: {
@@ -22,10 +25,13 @@ export default defineConfig({
       '.loca.lt',
       ...(process.env['ALLOWED_HOSTS'] ?? '').split(',').filter((host) => host !== ''),
     ],
+    // Host не подменяем (changeOrigin: false): по нему сервер отличает
+    // домашнюю сеть от туннеля и не пускает чужих в редактор. Строковая
+    // запись прокси в Vite подменяла бы его на localhost.
     proxy: {
-      '/api': 'http://localhost:3001',
-      '/uploads': 'http://localhost:3001',
-      '/socket.io': { target: 'http://localhost:3001', ws: true },
+      '/api': { target: SERVER_URL, changeOrigin: false },
+      '/uploads': { target: SERVER_URL, changeOrigin: false },
+      '/socket.io': { target: SERVER_URL, ws: true, changeOrigin: false },
     },
   },
 });

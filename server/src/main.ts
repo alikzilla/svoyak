@@ -22,6 +22,7 @@ import { packsRouter } from './http/packsApi.js';
 import { gamesRouter } from './http/gamesApi.js';
 import { mediaRouter } from './http/mediaApi.js';
 import { serveClient } from './http/clientStatic.js';
+import { tunnelGuard } from './http/tunnelGuard.js';
 import { RoomManager } from './room/RoomManager.js';
 import { registerSocketHandlers } from './io/registerSocketHandlers.js';
 import type { AppServer } from './io/types.js';
@@ -34,6 +35,8 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use('/uploads', express.static(UPLOADS_DIR));
+// Через туннель — только игра: редактор и паки остаются домашней сети.
+app.use('/api', tunnelGuard());
 app.use('/api', packsRouter());
 app.use('/api', gamesRouter());
 app.use('/api', mediaRouter());
