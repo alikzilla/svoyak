@@ -1,9 +1,11 @@
 import { createServer } from 'node:http';
 import fs from 'node:fs';
+import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import {
+  CLIENT_DIST,
   CLIENT_PORT,
   GAMES_DIR,
   HISTORY_DIR,
@@ -11,6 +13,7 @@ import {
   PORT,
   PUBLIC_URL,
   ROOMS_DIR,
+  SERVE_CLIENT,
   UPLOADS_DIR,
 } from './config.js';
 import { printBanner } from './net/banner.js';
@@ -18,6 +21,7 @@ import { getLanAddress } from './net/lan.js';
 import { packsRouter } from './http/packsApi.js';
 import { gamesRouter } from './http/gamesApi.js';
 import { mediaRouter } from './http/mediaApi.js';
+import { serveClient } from './http/clientStatic.js';
 import { RoomManager } from './room/RoomManager.js';
 import { registerSocketHandlers } from './io/registerSocketHandlers.js';
 import type { AppServer } from './io/types.js';
@@ -36,6 +40,14 @@ app.use('/api', mediaRouter());
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
 });
+
+if (SERVE_CLIENT) {
+  if (!fs.existsSync(path.join(CLIENT_DIST, 'index.html'))) {
+    console.error('Клиент не собран: запустите `npm start` из корня проекта — он соберёт его сам.');
+    process.exit(1);
+  }
+  serveClient(app, CLIENT_DIST);
+}
 
 const httpServer = createServer(app);
 const io: AppServer = new Server(httpServer, { cors: { origin: true } });
