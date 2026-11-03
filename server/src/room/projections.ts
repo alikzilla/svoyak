@@ -15,6 +15,7 @@ import type {
   RoomState,
   TimerView,
 } from '@svoyak/shared';
+import { gameThemeTitles } from '@svoyak/shared';
 import { activeQuestion, findTheme } from '../engine/questions.js';
 
 function projectPlayers(state: RoomState, now: number): PlayerPublic[] {
@@ -383,5 +384,6 @@ export function projectForBoard(state: RoomState, joinUrl: string, now = Date.no
     modifier: projectModifier(state),
     final: projectFinalPublic(state),
     joinUrl,
+    gameThemes: state.phase === 'game_intro' ? gameThemeTitles(state.pack) : [],
   };
 }

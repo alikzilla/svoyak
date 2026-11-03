@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, type RoomState } from '@svoyak/shared';
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
+import { skipIntro } from './testing.js';
 
 const T0 = 100_000;
 const score = (state: RoomState, playerId: string): number =>
@@ -30,12 +31,12 @@ function roomBeforeAuction(scores: [number, number, number] = [2000, 1500, 400])
       at: 2000 + index,
     }).state;
   }
-  state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
   for (const [index, value] of scores.entries()) {
     state = reduce(state, { type: 'SET_SCORE', playerId: `p${index + 1}`, score: value }).state;
   }
   state = { ...state, phase: 'round_end' };
-  return reduce(state, { type: 'NEXT_ROUND', at: 3500 }).state;
+  return skipIntro(reduce(state, { type: 'NEXT_ROUND', at: 3500 }).state);
 }
 
 const openAuction = (state = roomBeforeAuction()): RoomState =>

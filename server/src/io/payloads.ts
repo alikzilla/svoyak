@@ -86,6 +86,7 @@ const PAYLOADS: Record<keyof ClientToServerEvents, Check | null> = {
   'host:pause': shape({ paused: bool }),
   'host:undo': null,
   'host:nextRound': null,
+  'host:closeRoom': null,
   'host:finalJudge': shape({ correct: bool }),
 
   'player:buzz': shape({ clientTime: finite, clockOffset: finite, minRtt: finite }),

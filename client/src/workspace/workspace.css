@@ -832,6 +832,30 @@ body:has(.ws) {
   .ws-popover::backdrop {
     background-color: rgb(17 16 24 / 28%);
   }
+
+  /* ── Модальное окно (<dialog> через showModal) ──────────────────────── */
+  .ws-dialog {
+    inline-size: min(30rem, calc(100vw - 2rem));
+    margin: auto;
+    padding: 1.5rem;
+    border: 1px solid var(--ws-line);
+    border-radius: 0.875rem;
+    background-color: var(--ws-surface);
+    color: var(--ws-fg);
+    font-family: var(--font-ws);
+    box-shadow: var(--ws-shadow-2);
+  }
+
+  /* Прокрутка внутри окна и над затемнением не должна листать страницу под ним. */
+  .ws-dialog:modal {
+    overscroll-behavior: contain;
+  }
+
+  .ws-dialog::backdrop {
+    overflow: hidden;
+    overscroll-behavior: contain;
+    background-color: rgb(17 16 24 / 28%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

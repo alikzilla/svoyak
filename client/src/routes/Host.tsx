@@ -23,11 +23,12 @@ import {
   useComposer,
 } from '../ui/host/GameSetup.js';
 import { SettingsPanel } from '../ui/host/SettingsPanel.js';
-import { clearSession, saveSession } from '../net/session.js';
+import { saveSession } from '../net/session.js';
 import { useHostRoom } from '../net/useRoom.js';
 import { QrCode } from '../ui/QrCode.js';
 import { PlayerLedger } from '../ui/PlayerLedger.js';
 import { HostGame } from '../ui/host/HostGame.js';
+import { closeRoom } from '../ui/host/closeRoom.js';
 import { PageHeader, Shell } from '../workspace/Shell.js';
 import {
   ConfirmDelete,
@@ -414,10 +415,7 @@ function LobbyScreen({
               size="md"
               label="Закрыть комнату"
               confirmLabel="Да, закрыть"
-              onConfirm={() => {
-                clearSession('host');
-                location.reload();
-              }}
+              onConfirm={() => void closeRoom()}
             />
             <button
               type="button"

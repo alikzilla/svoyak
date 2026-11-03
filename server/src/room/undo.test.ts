@@ -141,6 +141,7 @@ describe('отмена не трогает состав комнаты', () => {
     const room = new RoomRuntime(state, { persist: () => {}, joinUrlFor: () => 'url' });
     room.dispatch({ type: 'PLAYER_JOIN', playerId: 'p1', name: 'Вася', sessionToken: 't1', at: 2000 });
     room.dispatch({ type: 'START_GAME', at: 3000 });
+    room.dispatch({ type: 'CONTINUE', at: 3100 });
     room.dispatch({
       type: 'PICK_QUESTION',
       themeId: firstTheme.id,

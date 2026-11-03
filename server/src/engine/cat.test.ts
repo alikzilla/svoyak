@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, type Pack, type RoomState } from '@svoyak/shared';
 import { demoClassicPack } from '../packs/demo/classic.js';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
+import { skipIntro } from './testing.js';
 
 const T0 = 100_000;
 const score = (state: RoomState, playerId: string): number =>
@@ -29,10 +30,10 @@ function roomAtCatRound(pack: Pack = demoClassicPack): RoomState {
       at: 2000 + index,
     }).state;
   }
-  state = reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  state = skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
   // Переходим во второй раунд, где лежит кот.
   state = { ...state, phase: 'round_end' };
-  return reduce(state, { type: 'NEXT_ROUND', at: 3500 }).state;
+  return skipIntro(reduce(state, { type: 'NEXT_ROUND', at: 3500 }).state);
 }
 
 const openCat = (state = roomAtCatRound()): RoomState =>

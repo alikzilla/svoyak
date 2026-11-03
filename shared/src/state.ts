@@ -6,6 +6,9 @@ import type { RoomSettings } from './settings.js';
 /** Фазы игры. Пауза — отдельный флаг поверх фазы, а не фаза. */
 export type Phase =
   | 'lobby'
+  /** Заставка «Темы игры»: все темы пака плывут по общему экрану. */
+  | 'game_intro'
+  /** Заставка раунда: название, затем темы раунда по одной. */
   | 'round_intro'
   | 'picking'
   | 'announce'
@@ -27,7 +30,7 @@ export type Phase =
 
 /** Таймеры ограничивают только игроков. Темп игры задаёт ведущий:
  *  он открывает вопрос, открывает кнопку и решает, когда ответа достаточно. */
-export type TimerKind = 'announce' | 'reading' | 'buzz' | 'reveal' | 'modifier' | 'final_bet' | 'final_answer';
+export type TimerKind = 'intro' | 'announce' | 'reading' | 'buzz' | 'reveal' | 'modifier' | 'final_bet' | 'final_answer';
 
 export interface TimerState {
   kind: TimerKind;
@@ -405,6 +408,8 @@ export interface BoardView extends BaseView {
   modifier: ModifierView | null;
   final: FinalPublicView | null;
   joinUrl: string;
+  /** Все темы пака для заставки «Темы игры»; вне её — пусто. */
+  gameThemes: string[];
 }
 
 export type AnyView = HostView | PlayerView | BoardView;

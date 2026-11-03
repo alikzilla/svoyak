@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { timerLeft, type TimerKind, type TimerView } from '@svoyak/shared';
 
 const LABEL: Record<TimerKind, string> = {
+  intro: 'заставка',
   announce: 'тема на экране',
   reading: 'до открытия кнопки',
   buzz: 'кнопка открыта',

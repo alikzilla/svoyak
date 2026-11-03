@@ -30,6 +30,11 @@ describe('горячие клавиши ведущего', () => {
     expect(hostCommandFor(press('Space'), at('round_end'))).toEqual({ event: 'host:nextRound' });
   });
 
+  it('пробел пропускает заставку — сразу к табло', () => {
+    expect(hostCommandFor(press('Space'), at('game_intro'))).toEqual({ event: 'host:continue' });
+    expect(hostCommandFor(press('Enter'), at('round_intro'))).toEqual({ event: 'host:continue' });
+  });
+
   it('пробел не судит: вердикт — только отдельной клавишей', () => {
     expect(hostCommandFor(press('Space'), at('answering'))).toBeNull();
     expect(hostCommandFor(press('Space'), at('final_reveal'))).toBeNull();

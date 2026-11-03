@@ -7,6 +7,7 @@ import {
   Keyboard,
   Pause,
   Play,
+  RotateCcw,
   SkipForward,
   Undo2,
   X,
@@ -14,13 +15,13 @@ import {
 import type { HostView, PlayerPublic } from '@svoyak/shared';
 import { MODIFIER_HINTS, MODIFIER_TITLES, modifierApplies } from '@svoyak/shared';
 import { ask } from '../../net/socket.js';
-import { clearSession } from '../../net/session.js';
+import { closeRoom } from './closeRoom.js';
 import { PlayerLedger } from '../PlayerLedger.js';
 import { Standings } from '../Standings.js';
 import { LiveTimer } from '../Timer.js';
 import { Avatar, colorForIndex } from '../../design/Avatar.js';
 import { Shell } from '../../workspace/Shell.js';
-import { ConnectionStatus, Kbd, Notice, SoundButton } from '../../workspace/ui.js';
+import { ConfirmDialog, ConnectionStatus, Kbd, Notice, SoundButton } from '../../workspace/ui.js';
 import { CheatSheet } from './CheatSheet.js';
 import { FinalHost } from './FinalHost.js';
 import { HostBoard } from './HostBoard.js';
@@ -46,7 +47,8 @@ const nameOf = (view: HostView, id: string | null): string =>
 export function HostGame({ view, connected }: HostGameProps) {
   useHostHotkeys(view, send);
 
-  const canPick = view.phase === 'picking' || view.phase === 'round_intro';
+  const canPick = view.phase === 'picking';
+  const intro = view.phase === 'game_intro' || view.phase === 'round_intro';
   const inFinal = view.final !== null && view.phase !== 'results';
 
   return (
@@ -75,6 +77,25 @@ export function HostGame({ view, connected }: HostGameProps) {
             {view.paused ? <Play aria-hidden /> : <Pause aria-hidden />}
             <span className="hidden md:inline">{view.paused ? 'Продолжить' : 'Пауза'}</span>
           </button>
+          <ConfirmDialog
+            icon={<RotateCcw aria-hidden />}
+            label={<span className="hidden md:inline">Новая игра</span>}
+            buttonClassName="ws-btn ws-btn-ghost ws-btn-sm"
+            buttonTitle="Закончить эту игру и собрать новую"
+            title="Закончить игру и начать новую?"
+            confirmLabel="Закончить игру"
+            onConfirm={() => void closeRoom()}
+          >
+            <p>
+              Комната {view.code} закроется: у игроков и на общем экране игра пропадёт, вернуть её
+              будет нельзя.
+            </p>
+            <p>
+              {view.phase === 'results'
+                ? 'Итоги этой игры уже записаны в зал славы.'
+                : 'Счёт этой игры не сохранится.'}
+            </p>
+          </ConfirmDialog>
           <SoundButton />
           <KeysHelp />
         </>
@@ -159,7 +180,11 @@ export function HostGame({ view, connected }: HostGameProps) {
                 <header className="ws-card-head">
                   <h2 className="ws-card-title">Табло</h2>
                   <span className="text-ws-faint ml-auto text-[0.8125rem]">
-                    {canPick ? 'нажмите цену, которую назвал игрок' : 'идёт вопрос — закончите его'}
+                    {canPick
+                      ? 'нажмите цену, которую назвал игрок'
+                      : intro
+                        ? 'откроется после заставки'
+                        : 'идёт вопрос — закончите его'}
                   </span>
                 </header>
                 <div className="overflow-x-auto p-4 sm:p-5">
@@ -321,6 +346,30 @@ function Stage({ view }: { view: HostView }) {
     );
   }
 
+  if (view.phase === 'game_intro' || view.phase === 'round_intro') {
+    return (
+      <section className="ws-ticket grid gap-4 p-5 sm:p-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="ws-badge ws-badge-accent">Заставка</span>
+          {view.timer && (
+            <span className="ml-auto">
+              <LiveTimer timer={view.timer} paused={view.paused} />
+            </span>
+          )}
+        </div>
+        <div className="grid gap-1">
+          <h2 className="text-[1.5rem] leading-tight font-semibold">
+            {view.phase === 'game_intro' ? 'На общем экране — темы игры' : `${view.roundTitle}: темы раунда`}
+          </h2>
+          <p className="text-ws-soft">Табло откроется само, когда заставка закончится.</p>
+        </div>
+        <ActionRow>
+          <PrimaryNext label="Пропустить" onClick={() => send('host:continue')} />
+        </ActionRow>
+      </section>
+    );
+  }
+
   if (view.phase === 'round_end') {
     return (
       <section className="ws-ticket grid gap-4 p-5 sm:p-6">
@@ -350,14 +399,7 @@ function Stage({ view }: { view: HostView }) {
           <p className="text-ws-soft">Итог — на общем экране и справа. Спасибо за вечер!</p>
         </div>
         <ActionRow>
-          <button
-            type="button"
-            onClick={() => {
-              clearSession('host');
-              location.reload();
-            }}
-            className="ws-btn ws-btn-lg"
-          >
+          <button type="button" onClick={() => void closeRoom()} className="ws-btn ws-btn-lg">
             Закрыть комнату и собрать новую игру
           </button>
         </ActionRow>
@@ -383,9 +425,6 @@ function Stage({ view }: { view: HostView }) {
           ? 'Игрок называет тему и цену вслух — нажмите эту клетку на табло.'
           : 'Право хода ещё ни у кого: нажмите «Дать ход» у игрока или просто откройте клетку на табло.'}
       </p>
-      {view.phase === 'round_intro' && (
-        <p className="text-ws-faint text-sm">На общем экране сейчас заставка раунда — выбирать уже можно.</p>
-      )}
     </section>
   );
 }

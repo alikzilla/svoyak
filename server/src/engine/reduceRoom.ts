@@ -1,7 +1,7 @@
 /** Комната и её участники: вход, выход, счёт, настройки, право хода, пауза, раунды. */
 import type { RoomState } from '@svoyak/shared';
 import { findByName, findByToken, findPlayer, updatePlayer } from './players.js';
-import { advanceRound } from './flow.js';
+import { advanceRound, gameIntroTimer, roundIntroTimer } from './flow.js';
 import { buildBoard } from './board.js';
 import type { ReduceResult, ActionOf } from './reduceCommon.js';
 import { reject, log } from './reduceCommon.js';
@@ -150,11 +150,15 @@ export function onStartGame(state: RoomState, action: ActionOf<'START_GAME'>): R
   return {
     state: {
       ...state,
-      phase: 'picking',
+      phase: 'game_intro',
       controlPlayerId: first.id,
       log: log(state, action.at, `Игра началась. Первым выбирает ${first.name}`),
     },
-    effects: [{ type: 'sound', sound: 'round_start' }, { type: 'persist' }],
+    effects: [
+      { type: 'sound', sound: 'round_start' },
+      gameIntroTimer(state, action.at),
+      { type: 'persist' },
+    ],
   };
 }
 
@@ -172,7 +176,12 @@ export function onNextRound(state: RoomState, action: ActionOf<'NEXT_ROUND'>): R
         next.phase === 'results' ? 'Раунды закончились' : `Раунд ${next.roundIndex + 1}`,
       ),
     },
-    effects: [{ type: 'clearTimer' }, { type: 'sound', sound: 'round_start' }, { type: 'persist' }],
+    effects: [
+      { type: 'clearTimer' },
+      { type: 'sound', sound: 'round_start' },
+      ...(next.phase === 'round_intro' ? [roundIntroTimer(next, action.at)] : []),
+      { type: 'persist' },
+    ],
   };
 }
 

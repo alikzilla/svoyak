@@ -316,6 +316,7 @@ describe('сокет-слой', () => {
     if (!joined.ok) throw new Error('игрок не вошёл');
 
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q1' });
     await emit(host, 'host:openBuzzer');
 
@@ -355,6 +356,7 @@ describe('сокет-слой', () => {
     if (!joined.ok) throw new Error('игрок не вошёл');
 
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q3' });
     await emit(host, 'host:openBuzzer');
     await emit(player, 'player:buzz', { clientTime: Date.now(), clockOffset: 0, minRtt: 10 });
@@ -387,6 +389,7 @@ describe('сокет-слой', () => {
     await emit(player, 'room:join', { code: created.data.code, name: 'Слушатель' });
 
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     await emit(host, 'host:pickQuestion', { themeId: 'r1-kino', questionId: 'r1-kino-q3' });
     await new Promise((resolve) => setTimeout(resolve, 200));
 
@@ -428,6 +431,73 @@ describe('сокет-слой', () => {
     expect(restoredRoom?.state.players[0]).toMatchObject({ name: 'Гриша', score: 800 });
     host.disconnect();
     player.disconnect();
+  });
+});
+
+describe('закрытие комнаты', () => {
+  async function roomInGame() {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    const { code } = created.data;
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code, name: 'Зоя' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+    const board = await connect();
+    await emit(board, 'room:watch', { code });
+    await emit(host, 'host:startGame');
+    return { host, player, board, code };
+  }
+
+  const closedReason = (socket: Client): Promise<string> =>
+    new Promise((resolve) => socket.once('room:closed', ({ reason }) => resolve(reason)));
+
+  it('ведущий закрывает комнату посреди игры — все узнают, что она закрыта', async () => {
+    const { host, player, board, code } = await roomInGame();
+    const toHost = closedReason(host);
+    const toPlayer = closedReason(player);
+    const toBoard = closedReason(board);
+
+    const result = await emit(host, 'host:closeRoom');
+
+    expect(result).toEqual({ ok: true, data: null });
+    expect(await toHost).toBe('Ведущий закрыл комнату');
+    expect(await toPlayer).toBe('Ведущий закрыл комнату');
+    expect(await toBoard).toBe('Ведущий закрыл комнату');
+    expect(rooms.get(code)).toBeUndefined();
+    host.disconnect();
+    player.disconnect();
+    board.disconnect();
+  });
+
+  it('закрытая комната не возвращается после перезапуска сервера', async () => {
+    const { host, player, board, code } = await roomInGame();
+    await emit(host, 'host:closeRoom');
+
+    const restarted = new RoomManager({ clientBaseUrl: () => 'http://test:5173' });
+    restarted.restoreFromDisk();
+    expect(restarted.get(code)).toBeUndefined();
+    host.disconnect();
+    player.disconnect();
+    board.disconnect();
+  });
+
+  it('игрок закрыть комнату не может', async () => {
+    const { host, player, board, code } = await roomInGame();
+    const result = await emit(player, 'host:closeRoom');
+    expect(result).toEqual({ ok: false, error: 'Это действие доступно только ведущему' });
+    expect(rooms.get(code)).toBeDefined();
+    host.disconnect();
+    player.disconnect();
+    board.disconnect();
   });
 });
 
@@ -707,6 +777,7 @@ describe('пауза на чтение', () => {
     const player = await connect();
     await emit(player, 'room:join', { code: created.data.code, name: 'Алма' });
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
     return { host, player };
   }
 
@@ -763,6 +834,7 @@ describe('фальстарт глазами игрока', () => {
     const player = await connect();
     await emit(player, 'room:join', { code: created.data.code, name: 'Алма' });
     await emit(host, 'host:startGame');
+    await emit(host, 'host:continue'); // мимо заставки — сразу к табло
 
     // Собираем всё, что видит экран игрока за время вопроса.
     const locks: Array<number | null> = [];

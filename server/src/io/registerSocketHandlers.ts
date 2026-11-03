@@ -324,6 +324,24 @@ export function registerSocketHandlers(io: AppServer, rooms: RoomManager): void 
     hostAction('host:continue', () => ({ type: 'CONTINUE', at: Date.now() }));
     hostAction('host:nextRound', () => ({ type: 'NEXT_ROUND', at: Date.now() }));
 
+    on('host:closeRoom', (ack) => {
+      const room = requireHost(socket, ack);
+      if (!room) return;
+      const code = room.state.code;
+      // Узнают все, включая самого ведущего: его вкладка по этому событию
+      // уходит к сборке новой игры, а вторая вкладка ведущего — тоже.
+      for (const other of io.sockets.sockets.values()) {
+        if (other.data.code !== code) continue;
+        other.emit('room:closed', { reason: 'Ведущий закрыл комнату' });
+        void other.leave(`room:${code}`);
+        other.data = { role: null, code: null, playerId: null };
+      }
+      rooms.close(code);
+      // Код может достаться новой комнате — подписка на изменения ей нужна своя.
+      subscribed.delete(code);
+      ack({ ok: true, data: null });
+    });
+
     on('host:pickQuestion', ({ themeId, questionId }, ack) => {
       const room = requireHost(socket, ack);
       if (!room) return;

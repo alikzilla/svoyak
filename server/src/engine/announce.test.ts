@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, type RoomSettings, type RoomState } from '@svoyak/sha
 import type { Pack } from '@svoyak/shared';
 import { createRoomState } from './createRoom.js';
 import { reduce } from './reducer.js';
+import { skipIntro } from './testing.js';
 
 const T0 = 100_000;
 
@@ -64,7 +65,7 @@ function started(settings: Partial<RoomSettings> = {}): RoomState {
       at: 2000 + index,
     }).state;
   }
-  return reduce(state, { type: 'START_GAME', at: 3000 }).state;
+  return skipIntro(reduce(state, { type: 'START_GAME', at: 3000 }).state);
 }
 
 const pick = (state: RoomState, questionId = 'kino-q1') =>
