@@ -180,6 +180,8 @@ export interface ClientToServerEvents {
   'host:pause': (payload: { paused: boolean }, ack: Ack<null>) => void;
   'host:undo': (ack: Ack<null>) => void;
   'host:nextRound': (ack: Ack<null>) => void;
+  /** Закрыть комнату насовсем: всем уходит `room:closed`, с диска она удаляется. */
+  'host:closeRoom': (ack: Ack<null>) => void;
   'host:finalJudge': (payload: FinalJudgePayload, ack: Ack<null>) => void;
 
   'player:buzz': (payload: BuzzPayload, ack: Ack<null>) => void;

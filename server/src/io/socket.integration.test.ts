@@ -434,6 +434,73 @@ describe('сокет-слой', () => {
   });
 });
 
+describe('закрытие комнаты', () => {
+  async function roomInGame() {
+    const host = await connect();
+    const created = await emit<'room:create', { code: string; hostToken: string }>(
+      host,
+      'room:create',
+      { packId: 'demo-classic' },
+    );
+    if (!created.ok) throw new Error('комната не создана');
+    const { code } = created.data;
+    const player = await connect();
+    const joined = await emit<'room:join', { playerId: string; sessionToken: string }>(
+      player,
+      'room:join',
+      { code, name: 'Зоя' },
+    );
+    if (!joined.ok) throw new Error('игрок не вошёл');
+    const board = await connect();
+    await emit(board, 'room:watch', { code });
+    await emit(host, 'host:startGame');
+    return { host, player, board, code };
+  }
+
+  const closedReason = (socket: Client): Promise<string> =>
+    new Promise((resolve) => socket.once('room:closed', ({ reason }) => resolve(reason)));
+
+  it('ведущий закрывает комнату посреди игры — все узнают, что она закрыта', async () => {
+    const { host, player, board, code } = await roomInGame();
+    const toHost = closedReason(host);
+    const toPlayer = closedReason(player);
+    const toBoard = closedReason(board);
+
+    const result = await emit(host, 'host:closeRoom');
+
+    expect(result).toEqual({ ok: true, data: null });
+    expect(await toHost).toBe('Ведущий закрыл комнату');
+    expect(await toPlayer).toBe('Ведущий закрыл комнату');
+    expect(await toBoard).toBe('Ведущий закрыл комнату');
+    expect(rooms.get(code)).toBeUndefined();
+    host.disconnect();
+    player.disconnect();
+    board.disconnect();
+  });
+
+  it('закрытая комната не возвращается после перезапуска сервера', async () => {
+    const { host, player, board, code } = await roomInGame();
+    await emit(host, 'host:closeRoom');
+
+    const restarted = new RoomManager({ clientBaseUrl: () => 'http://test:5173' });
+    restarted.restoreFromDisk();
+    expect(restarted.get(code)).toBeUndefined();
+    host.disconnect();
+    player.disconnect();
+    board.disconnect();
+  });
+
+  it('игрок закрыть комнату не может', async () => {
+    const { host, player, board, code } = await roomInGame();
+    const result = await emit(player, 'host:closeRoom');
+    expect(result).toEqual({ ok: false, error: 'Это действие доступно только ведущему' });
+    expect(rooms.get(code)).toBeDefined();
+    host.disconnect();
+    player.disconnect();
+    board.disconnect();
+  });
+});
+
 describe('состав игры', () => {
   const recipeOf = (themeIds: string[][], finalIds: string[]) => ({
     rounds: themeIds.map((round) => round.map((themeId) => ({ packId: 'demo-classic', themeId }))),

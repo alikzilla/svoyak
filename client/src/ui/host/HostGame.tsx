@@ -7,6 +7,7 @@ import {
   Keyboard,
   Pause,
   Play,
+  RotateCcw,
   SkipForward,
   Undo2,
   X,
@@ -14,13 +15,13 @@ import {
 import type { HostView, PlayerPublic } from '@svoyak/shared';
 import { MODIFIER_HINTS, MODIFIER_TITLES, modifierApplies } from '@svoyak/shared';
 import { ask } from '../../net/socket.js';
-import { clearSession } from '../../net/session.js';
+import { closeRoom } from './closeRoom.js';
 import { PlayerLedger } from '../PlayerLedger.js';
 import { Standings } from '../Standings.js';
 import { LiveTimer } from '../Timer.js';
 import { Avatar, colorForIndex } from '../../design/Avatar.js';
 import { Shell } from '../../workspace/Shell.js';
-import { ConnectionStatus, Kbd, Notice, SoundButton } from '../../workspace/ui.js';
+import { ConfirmDialog, ConnectionStatus, Kbd, Notice, SoundButton } from '../../workspace/ui.js';
 import { CheatSheet } from './CheatSheet.js';
 import { FinalHost } from './FinalHost.js';
 import { HostBoard } from './HostBoard.js';
@@ -76,6 +77,25 @@ export function HostGame({ view, connected }: HostGameProps) {
             {view.paused ? <Play aria-hidden /> : <Pause aria-hidden />}
             <span className="hidden md:inline">{view.paused ? 'Продолжить' : 'Пауза'}</span>
           </button>
+          <ConfirmDialog
+            icon={<RotateCcw aria-hidden />}
+            label={<span className="hidden md:inline">Новая игра</span>}
+            buttonClassName="ws-btn ws-btn-ghost ws-btn-sm"
+            buttonTitle="Закончить эту игру и собрать новую"
+            title="Закончить игру и начать новую?"
+            confirmLabel="Закончить игру"
+            onConfirm={() => void closeRoom()}
+          >
+            <p>
+              Комната {view.code} закроется: у игроков и на общем экране игра пропадёт, вернуть её
+              будет нельзя.
+            </p>
+            <p>
+              {view.phase === 'results'
+                ? 'Итоги этой игры уже записаны в зал славы.'
+                : 'Счёт этой игры не сохранится.'}
+            </p>
+          </ConfirmDialog>
           <SoundButton />
           <KeysHelp />
         </>
@@ -379,14 +399,7 @@ function Stage({ view }: { view: HostView }) {
           <p className="text-ws-soft">Итог — на общем экране и справа. Спасибо за вечер!</p>
         </div>
         <ActionRow>
-          <button
-            type="button"
-            onClick={() => {
-              clearSession('host');
-              location.reload();
-            }}
-            className="ws-btn ws-btn-lg"
-          >
+          <button type="button" onClick={() => void closeRoom()} className="ws-btn ws-btn-lg">
             Закрыть комнату и собрать новую игру
           </button>
         </ActionRow>

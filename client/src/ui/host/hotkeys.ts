@@ -83,6 +83,8 @@ export function useHostHotkeys(
   useEffect(() => {
     const onKey = (event: KeyboardEvent): void => {
       if (isTyping(event.target)) return;
+      // В окне подтверждения пробел и Enter нажимают его кнопки, а не ход игры.
+      if (event.target instanceof Element && event.target.closest('dialog')) return;
       const command = hostCommandFor(event, state.current);
       if (!command) return;
       event.preventDefault();

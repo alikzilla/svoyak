@@ -27,7 +27,7 @@ import { BuzzCountdown } from '../ui/BuzzCountdown.js';
 export default function Board() {
   const [params, setParams] = useSearchParams();
   const code = params.get('code') ?? '';
-  const { view, connected } = useBoardRoom();
+  const { view, connected, closed } = useBoardRoom();
   // Телевизор или ноутбук с табло не должен уходить в сон посреди вечера.
   useWakeLock();
   // Конец таймера кнопки приходит в серверном времени, а часы телевизора могут врать.
@@ -42,7 +42,10 @@ export default function Board() {
     });
   }, [code, connected]);
 
-  if (!code || (error && !view)) {
+  // Комнату закрыли — экран возвращается к вводу кода и говорит почему.
+  const problem = error ?? closed;
+
+  if (!code || (problem && !view)) {
     return (
       <div className="app-shell relative isolate grid place-items-center gap-5 p-8">
         <DoodleField density="light" night />
@@ -73,7 +76,7 @@ export default function Board() {
             Показать
           </DoodleButton>
         </form>
-        {error && <p className="ink-border bg-no relative rounded-2xl px-4 py-2 font-bold">{error}</p>}
+        {problem && <p className="ink-border bg-no relative rounded-2xl px-4 py-2 font-bold">{problem}</p>}
       </div>
     );
   }

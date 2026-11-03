@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
 import { AlertCircle, Info, Minus, Plus, Volume2, VolumeX } from 'lucide-react';
 import { isMuted, setMuted, unlockAudio } from '../net/sounds.js';
 
@@ -181,6 +181,74 @@ export function ConfirmDelete({
     >
       {icon ?? label}
     </button>
+  );
+}
+
+/**
+ * Кнопка, которая сначала спрашивает в модальном окне, — для шагов, которые
+ * не отменить. Окно нативное (`<dialog>` и `showModal`): затемнение, Esc,
+ * фокус внутри и возврат фокуса на кнопку даёт браузер. «Отмена» стоит
+ * первой и получает фокус: случайный Enter или пробел ничего не ломает.
+ */
+export function ConfirmDialog({
+  label,
+  icon,
+  buttonClassName = 'ws-btn ws-btn-sm',
+  buttonTitle,
+  title,
+  children,
+  confirmLabel,
+  onConfirm,
+}: {
+  label: ReactNode;
+  icon?: ReactNode;
+  buttonClassName?: string;
+  buttonTitle?: string;
+  title: string;
+  children: ReactNode;
+  confirmLabel: string;
+  onConfirm: () => void;
+}) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const cancel = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => {
+          dialog.current?.showModal();
+          cancel.current?.focus();
+        }}
+        className={buttonClassName}
+        title={buttonTitle}
+      >
+        {icon}
+        {label}
+      </button>
+      <dialog ref={dialog} aria-labelledby={titleId} className="ws-dialog">
+        <h2 id={titleId} className="text-[1.25rem] leading-tight font-semibold">
+          {title}
+        </h2>
+        <div className="text-ws-soft mt-2 grid gap-2">{children}</div>
+        <form method="dialog" className="mt-6 flex flex-wrap justify-end gap-2">
+          <button ref={cancel} className="ws-btn">
+            Отмена
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              dialog.current?.close();
+              onConfirm();
+            }}
+            className="ws-btn ws-btn-danger"
+          >
+            {confirmLabel}
+          </button>
+        </form>
+      </dialog>
+    </>
   );
 }
 
